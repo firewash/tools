@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies":{
-    "phantomjs":"1.9.8",
+   /* "phantomjs":"1.9.8",*/
     "phantom":"",
     "node-resemble-js":"",
     "mongodb":"",
