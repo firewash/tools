@@ -14,6 +14,7 @@ var comparer = require("./lib/comparer");
 var capturer = require("./lib/capturer");
 var dboperator = require("./lib/dboperator");
 dboperator.config = Global_CONFIG;
+var webserver = require("./lib/webserver");
 
 function main() {
     var taskList = [
@@ -86,5 +87,9 @@ function main() {
             }, opt.interval);
         }
     });
+
+    www.start();
 };
-main();
+
+//main();
+webserver.start();
