@@ -9,6 +9,11 @@ var phantom = require('phantom');
 var fs = require("fs");
 var resemble = require('node-resemble-js');
 
+var Global_CONFIG = {
+    capture_image_save_folder: "data/result/",
+    capture_image_qulity: 60
+}
+
 function Comparer() {
     resemble.outputSettings({
         errorColor: {
@@ -28,15 +33,21 @@ Comparer.prototype = {
         console.log("Inner diff function. opt is:",opt);
         var target = opt.target, other = opt.other, resultfile = opt.resultfile, ratio = opt.ratio || 0.01;
 
-        var _diff = resemble(target).compareTo(other).ignoreColors().ignoreAntialiasing().onComplete(function (data) {
-            if (+data.misMatchPercentage <= ratio) {
-                callback({msg: "misMatchPercentage is too low,donnot save compare result~"}, null);
-            } else {
-                console.log("Save diff image to ",resultfile);
-                data.getDiffImage().pack().pipe(fs.createWriteStream(resultfile));
-                callback(null, opt);
-            }
-        });
+        var _diff = null;
+        try{
+            resemble(target).compareTo(other).ignoreColors().ignoreAntialiasing().onComplete(function (data) {
+                if (+data.misMatchPercentage <= ratio) {
+                    callback({msg: "misMatchPercentage is too low,donnot save compare result~"}, null);
+                } else {
+                    console.log("Save diff image to ",resultfile);
+                    data.getDiffImage().pack().pipe(fs.createWriteStream(resultfile));
+                    callback(null, opt);
+                }
+            });
+        }catch (e){//TODO: 文件比如other在磁盘上不存在时的异常，try目前捕获不到。奇怪
+            callback({msg: e.msg}, null);
+        }
+        return _diff;
     }
 };
 
@@ -47,14 +58,13 @@ Capturer.prototype = {
      *
      * */
     capture: function (option, callback) {
-        console.log("Capture callback : ", typeof callback)
+        console.log("in capture fn   ");
         var url = option.url, interval = option.interval || 1000, name_prefix = option.name_prefix || "tool_site_capture_unknow_site";
 
         var now = new Date();
         var time = now.getTime();
-        var folder = "result/", filename = name_prefix + "_" + time, format = option.format || 'png';
+        var folder = Global_CONFIG.capture_image_save_folder, filename = name_prefix + "_" + time, format = option.format || 'png';
 
-        option.folder = folder;
         option.filename = filename;
         option.format = format;
         option.description = now.toString();
@@ -74,7 +84,7 @@ Capturer.prototype = {
             if (status === "success") {
                 var prop = {
                     format: format,
-                    quality: option.quality || '60'
+                    quality: option.quality || Global_CONFIG.capture_image_qulity
                 };
                 return _page.render(folder + filename + "." + format, prop);
             }
@@ -84,7 +94,7 @@ Capturer.prototype = {
             console.log("Page render and save, result: ", result);
             _page.close();
             _ph.exit();
-            console.log("Capture callback type is ", typeof callback);
+            //console.log("Capture callback type is ", typeof callback);
             callback && callback(err, option);
         });
     }
@@ -160,8 +170,8 @@ DBOperator.prototype = {
             console.log("Query end.");
             if(cursor.hasNext())item = cursor.next();
             if (item) {
-                console.log("Find one item:",item);
                 item.then(function(data){
+                    console.log("Find one item:",data);
                     callback(null, data);
                 })
                 return;
@@ -173,11 +183,11 @@ DBOperator.prototype = {
     }
 };
 
-function start() {
+function main() {
     var taskList = [
         {
             url: "http://www.uc123.com",
-            //interval : "1000", //毫秒
+            interval : "100000", //毫秒
             name_prefix: "uc123_home"
         }
     ];
@@ -218,10 +228,11 @@ function start() {
 
                 console.log("Has a pre capture, now diff with it.");
                 var opt = {
-                    target: target_data.folder + target_data.filename + "." + target_data.format,
-                    other: last_data.folder + last_data.filename + "." + last_data.format,
-                    resultfile: target_data.folder + target_data.filename + "_diff" + "." + target_data.format
-                }
+                    target: Global_CONFIG.capture_image_save_folder + target_data.filename + "." + target_data.format,
+                    other: Global_CONFIG.capture_image_save_folder + last_data.filename + "." + last_data.format,
+                    resultfile: Global_CONFIG.capture_image_save_folder + target_data.filename + "_diff" + "." + target_data.format
+                };
+                console.log("before diff, opt is: ", opt);
                 comparer.diff(opt, function (err, data) {
                     if (err) {
                         console.log("Diff failed. As,", err.msg);
@@ -237,15 +248,12 @@ function start() {
             });
         }
 
-        if (opt.interval) {
+        capturer.capture(opt, afterCapture);//立即执行一次任务
+        if (opt.interval) {//如果配置了任务，则定时执行
             setInterval(function () {
                 capturer.capture(opt, afterCapture);
             }, opt.interval);
-        } else {
-            //afterCapture(null,opt)
-            // return;
-            capturer.capture(opt, afterCapture);
         }
     });
 };
-start();
+main();
