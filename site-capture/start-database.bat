@@ -1,1 +1,2 @@
-"D:\Program Files\MongoDB\Server\3.2\bin\mongod.exe" --dbpath="F:\github\tools\site-capture\db"
+REM do not forget to add MongoDB to path
+mongod.exe --dbpath="db"
