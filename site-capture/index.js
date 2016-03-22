@@ -19,9 +19,13 @@ var webserver = require("./www/webserver");//可以单独剥离成独立的项�
 function main() {
     var taskList = [
         {
-            url: "http://cn.bing.com/search?q=",//"http://www.uc123.com",
-            interval : "100000", //毫秒
+            url: "http://www.uc123.com",
+            interval : "100000",
             name_prefix: "uc123_home"
+        },
+        {
+            url: "http://cn.bing.com/search?q=",
+            name_prefix: "bing_test"
         }
     ];
 
@@ -56,10 +60,11 @@ function main() {
                 }
 
                 console.log("Has a pre capture, now diff with it.");
+                var resultFileName = target_data.filename + "_diff";
                 var opt = {
                     target: Global_CONFIG.capture_image_save_folder + target_data.filename + "." + target_data.format,
                     other: Global_CONFIG.capture_image_save_folder + last_data.filename + "." + last_data.format,
-                    resultfile: Global_CONFIG.capture_image_save_folder + target_data.filename + "_diff" + "." + target_data.format
+                    resultfile: Global_CONFIG.capture_image_save_folder + resultFileName + "." + target_data.format
                 };
                 console.log("Before diff, opt is: ", opt);
                 comparer.diff(opt, function (err, data) {
@@ -67,7 +72,7 @@ function main() {
                         console.log("Diff failed. As,", err.msg);
                     }else{
                         console.log("Diff success. add diff info  to target data");
-                        target_data.diffimg = opt.resultfile;
+                        target_data.diffimg = resultFileName;
                         target_data.diffwith = last_data._id;
                     }
                     console.log("Will save target data.")
@@ -78,7 +83,7 @@ function main() {
         }
 
         //test
-        opt.url+=Math.random();
+        if(opt.url.indexOf("bing.com")>-1)opt.url+=Math.random();//Node下竟然没有includes这个方法
         //end test
         capturer.capture(opt, afterCapture);//立即执行一次任务
         if (opt.interval) {//如果配置了任务，则定时执行
@@ -87,9 +92,7 @@ function main() {
             }, opt.interval);
         }
     });
-
-    www.start();
 };
 
-//main();
-webserver.start();
+main();
+

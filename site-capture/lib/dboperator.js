@@ -56,8 +56,7 @@ DBOperator.prototype = {
     getLastestCapture: function (opt, callback) {
         console.log("Get lastest capture in DB:", opt.url);
         var queryCondition = {
-            //url: opt.url,
-            //interval:100000
+            //url: opt.url
         };
 
         this.connect(function (err, result) {
