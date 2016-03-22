@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>截图监控</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style>
+        img{
+            border:2px solid red;
+        }
+    </style>
+</head>
+<body>
+<h1><%= title %></h1>
+变化前：
+<img src="<%= diffwith_img %>"/>
+变化后：
+<img src="<%= origin_img %>"/>
+变化对比：
+<img src="<%= diff_img %>"/>
+
+</body>
+</html>
