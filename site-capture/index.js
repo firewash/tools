@@ -14,7 +14,7 @@ var comparer = require("./lib/comparer");
 var capturer = require("./lib/capturer");
 var dboperator = require("./lib/dboperator");
 dboperator.config = Global_CONFIG;
-var webserver = require("./lib/webserver");
+var webserver = require("./www/webserver");//可以单独剥离成独立的项目
 
 function main() {
     var taskList = [
