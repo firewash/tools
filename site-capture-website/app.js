@@ -4,9 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var routes = require('./routes/index');
 var users = require('./routes/users');
+
+var CONFIG = {
+    image_path:"F:\\github\\tools\\site-capture\\data\\result" //必须用双反斜杠,否则找不到位置
+};
 
 var app = express();
 
@@ -20,8 +23,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+//设置静态资源目录
+app.use("/public",express.static(path.join(__dirname, 'public')));
+app.use("/capture", express.static(CONFIG.image_path));
 
+//设置路由
 app.use('/', routes);
 app.use('/users', users);
 

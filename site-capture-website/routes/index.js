@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 var dbreader = require("../lib/dbreader");
 
-var CONFIG = {
-    image_path:"../../site-capture/data"
-};
+function realPath(filename,format){
+    return "/capture/" + filename +"."+ format;
+}
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -24,27 +24,29 @@ router.get('/track', function(req, res, next) {
             origin_info:{ //当前图片，其中包括可标记差异的图片
                 _id:"_id...",
                 url:"www.uc123.com",
-                filename:"uc123_home_1458639315680",
+                filename:"uc123_home_1458569349304",
                 format:"png",
-                diffimg:"uc123_home_1458639315680_diff",
-                diffwith:"_id..."
+                diffimg:"uc123_home_1458569349304_diff",
+                diffwith:"_id...",
+                diffratio:"30%"//差异率
             },
             diffwith_info:{ //和谁比的，通常是上一个时间图片
                 _id:"_id...",
                 url:"www.uc123.com",
-                filename:"uc123_home_1458639315680",
-                format:"png",
+                filename:"uc123_home_1458569338843",
+                format:"png"
             }
         };
         res.render('track', {
-            title:"对比",
-            diffwith_img: CONFIG.image_path + data.diffwith_info.filename + data.diffwith_info.format,
-            origin_img: CONFIG.image_path + data.origin_info.filename + data.origin_info.format,
-            diff_img: CONFIG.image_path + data.origin_info.diffimg + data.origin_info.format,
+            title:data.title,
+            time:data.time,
+            diffratio:data.origin_info.diffratio,
+            diffwith_img: realPath(data.diffwith_info.filename, data.diffwith_info.format),
+            origin_img: realPath(data.origin_info.filename, data.origin_info.format),
+            diff_img: realPath(data.origin_info.diffimg, data.origin_info.format)
         });
         return;
     });
-
 });
 
 function getListFromDB(condition, callback){
