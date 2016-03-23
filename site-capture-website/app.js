@@ -4,12 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var routes = require('./routes/index');
-var users = require('./routes/users');
 
 var CONFIG = {
     image_path:"F:\\github\\tools\\site-capture\\data\\result" //必须用双反斜杠,否则找不到位置
 };
+
+
 
 var app = express();
 
@@ -27,8 +27,13 @@ app.use(cookieParser());
 app.use("/public",express.static(path.join(__dirname, 'public')));
 app.use("/capture", express.static(CONFIG.image_path));
 
-//设置路由
-app.use('/', routes);
+//路由信息
+var rootRoutes = require('./routes/index'); //首页
+var diffRoutes = require('./routes/diff'); //对比相关
+var users = require('./routes/users');  //用户管理
+
+app.use('/', rootRoutes);
+app.use('/diff', diffRoutes);
 app.use('/users', users);
 
 // catch 404 and forward to error handler

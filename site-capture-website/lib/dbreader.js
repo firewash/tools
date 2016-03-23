@@ -24,22 +24,10 @@ DBReader.prototype = {
     close: function () {
         this.db && this.db.close();
     },
-    saveCaptureData: function (data, callback) {
-        var self = this;
-        this.connect(function (err,result) {
-            if(err){
-                callback && callback(err);
-                return;
-            }
-            console.log("Will save capture data:", data);
-            this.db.collection('origin_captures').insertOne(data, function (err, result) {
-                console.log("Insert success , in fn saveCaptureData.");
-                callback && callback(err, result);
-                self.close();
-            });
-        });
-    },
-    getCaptureData: function (callback) {
+
+
+    //todo 获取所有数据
+    getAllCaptureData: function (callback) {
         this.connect(function () {
             var cursor = this.db.collection("origin_captures").find();
 
@@ -53,6 +41,21 @@ DBReader.prototype = {
         });
 
     },
+
+    /**
+     * 获取一组对比数据
+     *
+     * opt = {
+     *    id:
+     * }
+     *
+     *
+     * */
+    getCaptureData:function(opt, callback){
+
+    },
+
+    //获取最新的一组 数据
     getLastestCapture: function (opt, callback) {
         console.log("Get lastest capture in DB:", opt.url);
         var queryCondition = {
@@ -68,6 +71,28 @@ DBReader.prototype = {
             var cursor = this.db.collection("origin_captures").find(queryCondition).sort({key: -1}).limit(1).toArray().then(function(arr){
                 console.log("--",arr);
                 var data = arr && arr[0]?arr[0]:null;
+
+                console.log("Mock query data")
+                var data = {
+                    title:"监控结果 "+opt.url,
+                    time:"2016年3月1日13:00",
+                    origin_info:{ //当前图片，其中包括可标记差异的图片
+                        _id:"_id...",
+                        url:"www.uc123.com",
+                        filename:"uc123_home_1458569349304",
+                        format:"png",
+                        diffimg:"uc123_home_1458569349304_diff",
+                        diffwith:"_id...",
+                        diffratio:"30%"//差异率
+                    },
+                    diffwith_info:{ //和谁比的，通常是上一个时间图片
+                        _id:"_id...",
+                        url:"www.uc123.com",
+                        filename:"uc123_home_1458569338843",
+                        format:"png"
+                    }
+                };
+
                 callback(null, data);
             });
         });
