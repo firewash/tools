@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>截图监控</title>
+    <link rel='stylesheet' href='/public/stylesheets/style.css' />
+    <style>
+        img{
+            border:2px solid red;
+            width:100%;
+            display:block;
+        }
+        .wraper{
+            display:block ;
+            white-space: nowrap;
+            position: relative;
+        }
+        .old-capture{
+            position:absolute;
+            left:0;
+            top:0;
+            width:50%;
+            vertical-align: top;
+        }
+        .new-capture{
+
+        }
+        .not-marked{
+            position:absolute;
+            left:50%;
+            top:0;
+            width:50%;
+            display:block;
+        }
+        .not-marked h2{
+            opacity:1;
+            transition:opacity 0.5s;
+        }
+        .marked{
+            position:absolute;
+            left:50%;
+            top:0;
+            width:50%;
+            opacity:0;
+            transition:opacity 0.5s;
+        }
+
+        .new-capture.showmark .marked{
+            opacity:1;
+        }
+        .new-capture.showmark .not-marked h2{
+            opacity:0;
+        }
+
+        #config{
+            position: fixed;
+            right:10px;
+            top:10px;
+            z-index: 2;;
+        }
+        #config button{
+            width:100px;
+            height:100px;
+            cursor:pointer;;
+        }
+    </style>
+    <script src="/public/js/jquery.js"></script>
+</head>
+<body>
+<h1><%= title %></h1>
+<div>
+    采样时间: <%= time %>;  差异率:<%=  diffratio %>
+</div>
+
+<div id="config">
+    <button id="showmark_btn" value="false" title="可以显示或隐藏当前截图上的差异标记">点击显示标记</button>
+</div>
+<div class="wraper">
+    <div class="old-capture">
+        <h2>本次采样之前的截图：</h2>
+        <img src="<%= diffwith_img %>"/>
+    </div>
+    <div class="new-capture ">
+        <div class="not-marked">
+            <h2>本次采样(无标记)：</h2>
+            <img src="<%= origin_img %>"/>
+        </div>
+        <div class="marked">
+            <h2>本次采样(有标记)：</h2>
+            <img src="<%= diff_img %>"/>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var showMarkNow = false;
+
+    function showMark(willShow){
+        if(willShow){
+            $(".new-capture").addClass("showmark");
+            $("#showmark_btn").html("不显示标记");
+        }else{
+            $(".new-capture").removeClass("showmark");
+            $("#showmark_btn").html("显示标记");
+        }
+        showMarkNow = willShow;
+    }
+
+    $(function(){
+        showMark(showMarkNow);
+        $("#showmark_btn").click(function(e){
+            showMark(!showMarkNow);
+        });
+    });
+
+</script>
+</html>
