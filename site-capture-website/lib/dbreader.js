@@ -27,7 +27,7 @@ DBReader.prototype = {
 
 
     //todo 获取所有数据
-    getAllCaptureData: function (callback) {
+    getAllCaptureEntries: function (callback) {
         this.connect(function () {
             var cursor = this.db.collection("origin_captures").find();
 
@@ -42,8 +42,39 @@ DBReader.prototype = {
 
     },
 
+    //获取一个数据集合
+    getCaptureEntries: function (opt, callback) {
+        //todo 根据opt获取
+        this.connect(function () {
+            var cursor = this.db.collection("origin_captures").find().toArray().then(function(arr){
+                //todo Mock
+                /*
+                arr= [{ //当前图片，其中包括可标记差异的图片
+                    _id:"_id...",
+                        url:"www.uc123.com",
+                        filename:"uc123_home_1458569349304",
+                        format:"png",
+                        diffimg:"uc123_home_1458569349304_diff",
+                        diffwith:"_id...",
+                        diffratio:"30%"//差异率
+                },{ //当前图片，其中包括可标记差异的图片
+                    _id:"_id...",
+                        url:"www.uc123.com",
+                        filename:"uc123_home_1458569349304",
+                        format:"png",
+                        diffimg:"uc123_home_1458569349304_diff",
+                        diffwith:"_id...",
+                        diffratio:"30%"//差异率
+                }];
+                 */
+                callback(null, arr);
+            });
+        });
+
+    },
+
     /**
-     * 获取一组对比数据
+     * 获取对比数据
      *
      * opt = {
      *    id:
@@ -51,12 +82,12 @@ DBReader.prototype = {
      *
      *
      * */
-    getCaptureData:function(opt, callback){
+    getCaptureEntry:function(opt, callback){
 
     },
 
     //获取最新的一组 数据
-    getLastestCapture: function (opt, callback) {
+    getLastestCaptureEntry: function (opt, callback) {
         console.log("Get lastest capture in DB:", opt.url);
         var queryCondition = {
             //url: opt.url

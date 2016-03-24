@@ -28,9 +28,10 @@ app.use("/public",express.static(path.join(__dirname, 'public')));
 app.use("/capture", express.static(CONFIG.image_path));
 
 //路由信息
-var rootRoutes = require('./routes/index'); //首页
-var diffRoutes = require('./routes/diff'); //对比相关
-var users = require('./routes/users');  //用户管理
+var rootRoutes = require('./routes/index-router'); //首页
+var diffRoutes = require('./routes/diff-router'); //对比相关
+var diffRoutes = require('./routes/diff-router'); //对比相关
+var users = require('./routes/users-router');  //用户管理
 
 app.use('/', rootRoutes);
 app.use('/diff', diffRoutes);

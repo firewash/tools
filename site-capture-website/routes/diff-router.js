@@ -8,7 +8,21 @@ function realPath(filename,format){
 
 /* GET list page. */
 router.get('/list', function(req, res, next) {
-    res.render('diff/list', { title: '列表' });
+    var query = req.query;
+
+    var opt = {};
+    if(query.url)opt.url=query.url;
+    if(query.from)opt.from=query.from;
+    if(query.end)opt.from=query.end;
+
+    dbreader.getCaptureEntries(opt,function(err, arr){
+        console.log("getCaptureEntries",arr);
+        res.render('diff/list', {
+            title: '列表' ,
+            data: arr
+        });
+    })
+
 });
 /* GET detail page.
 *  /detail?id=***** 只根据id查询.想查询更多,请使用list的api
@@ -18,9 +32,9 @@ router.get('/detail', function(req, res, next) {
 
     //需要安全的处理一下传入的参数,不要直接传递
     var opt = {};
-    if(query._id)opt=query._id;
+    if(query._id)opt.id=query._id;
 
-    dbreader.getLastestCapture(opt, function(err, data){
+    dbreader.getLastestCaptureEntry(opt, function(err, data){
         if(err){
             console.log(err);
             return;
@@ -39,9 +53,5 @@ router.get('/detail', function(req, res, next) {
         return;
     });
 });
-
-function getListFromDB(condition, callback){
-    dbreader.getLastestCapture()
-}
 
 module.exports = router;

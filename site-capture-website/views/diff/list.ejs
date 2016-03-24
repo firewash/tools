@@ -1,11 +1,71 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>列表页面</p>
-  </body>
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+
+    <style></style>
+    <script src="/public/js/jquery.js"></script>
+
+</head>
+<body>
+<h1><%= title %></h1>
+
+<div>
+    condition:
+
+    网站:
+    <select>
+        <option value="1">
+            www.uc123.com
+        </option>
+    </select>
+
+    时间范围:
+    <select>
+        <option value="1">
+            今天
+        </option>
+        <option value="1">
+            前两天
+        </option>
+        <option value="1">
+            前一周
+        </option>
+        <option value="1">
+            自定义
+        </option>
+    </select>
+</div>
+
+
+<p>列表页面</p>
+<ul id="capture_list" class="normal-list">
+
+</ul>
+
+</body>
+
+<script>
+    var detail_url = "/diff/detail";
+    function renderList(arr) {
+        var ul = $("#capture_list");
+        arr.forEach(function (item) {
+            ul.append(`<li><a href="${detail_url}?id=${item._id}" >${item.url}</a></li>`);
+        })
+    }
+
+    $(function () {
+        var data = <%- JSON.stringify(data) %>;
+        renderList(data);
+
+    })
+
+</script>
+
 </html>
