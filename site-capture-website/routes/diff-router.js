@@ -32,9 +32,9 @@ router.get('/detail', function(req, res, next) {
 
     //需要安全的处理一下传入的参数,不要直接传递
     var opt = {};
-    if(query._id)opt.id=query._id;
+    if(query._id)opt._id=query._id;
 
-    dbreader.getLastestCaptureEntry(opt, function(err, data){
+    dbreader.getCaptureEntry(opt, function(err, data){
         if(err){
             console.log(err);
             return;

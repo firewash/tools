@@ -39,15 +39,18 @@ DBReader.prototype = {
                 }
             });
         });
-
     },
 
     //获取一个数据集合
     getCaptureEntries: function (opt, callback) {
-        //todo 根据opt获取
+        //todo 根据opt获取选择性处理
+        var queryCondition = {
+            //url: opt.url
+        };
+        queryCondition = opt;
+
         this.connect(function () {
-            var cursor = this.db.collection("origin_captures").find().toArray().then(function(arr){
-                //todo Mock
+            var cursor = this.db.collection("origin_captures").find(queryCondition).toArray().then(function(arr){
                 /*
                 arr= [{ //当前图片，其中包括可标记差异的图片
                     _id:"_id...",
@@ -74,7 +77,7 @@ DBReader.prototype = {
     },
 
     /**
-     * 获取对比数据
+     * 获取一个对比数据
      *
      * opt = {
      *    id:
@@ -83,7 +86,23 @@ DBReader.prototype = {
      *
      * */
     getCaptureEntry:function(opt, callback){
-
+        console.log("getCaptureEntry:", opt);
+        var queryCondition = {
+           _id: `ObjectId("${opt._id}")`//TODO 这个查询有问题,就搞这个~~~~~~~~~~!!!!!
+        };
+        console.log("queryCondition:", queryCondition);
+        this.connect(function (err, result) {
+            if(err){
+                callback(err);
+                return;
+            }
+            console.log("queryCondition",queryCondition)
+            var cursor = this.db.collection("origin_captures").find(queryCondition).limit(1).toArray().then(function(arr){
+                console.log("--",arr);
+                var data = arr && arr[0]?arr[0]:null;
+                callback(null, data);
+            });
+        });
     },
 
     //获取最新的一组 数据
@@ -103,6 +122,7 @@ DBReader.prototype = {
                 console.log("--",arr);
                 var data = arr && arr[0]?arr[0]:null;
 
+                /*  */
                 console.log("Mock query data")
                 var data = {
                     title:"监控结果 "+opt.url,
