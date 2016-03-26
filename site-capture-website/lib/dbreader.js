@@ -1,3 +1,4 @@
+var ObjectID = require("mongodb").ObjectID;
 
 function DBReader() {
     var mongodb = require("mongodb");
@@ -15,11 +16,13 @@ function DBReader() {
 
 DBReader.prototype = {
     connect: function (callback) {
+        var promise = new Promise();
         this.MongoClient.connect(this.url, function (err, db) {
             console.log(err ? "MongoDB connnect error!" : "MongoDB connnect success~.");
             this.db = db;
             callback && callback(err, db);
         });
+        return promise;
     },
     close: function () {
         this.db && this.db.close();
@@ -83,14 +86,39 @@ DBReader.prototype = {
      *    id:
      * }
      *
-     *
+     * result data:
+     * var data = {
+                    title:"监控结果 "+opt.url,
+                    time:"2016年3月1日13:00",
+                    query_condition:queryCondition,
+                    origin_info:{ //当前图片，其中包括可标记差异的图片
+                        _id:"_id...",
+                        url:"www.uc123.com",
+                        filename:"uc123_home_1458569349304",
+                        format:"png",
+                        diffimg:"uc123_home_1458569349304_diff",
+                        diffwith:"_id...",
+                        diffratio:"30%"//差异率
+                    },
+                    diffwith_info:{ //和谁比的，通常是上一个时间图片
+                        _id:"_id...",
+                        url:"www.uc123.com",
+                        filename:"uc123_home_1458569338843",
+                        format:"png"
+                    }
+                };
      * */
     getCaptureEntry:function(opt, callback){
         console.log("getCaptureEntry:", opt);
         var queryCondition = {
-           _id: `ObjectId("${opt._id}")`//TODO 这个查询有问题,就搞这个~~~~~~~~~~!!!!!
+           _id: ObjectID(opt._id)
         };
         console.log("queryCondition:", queryCondition);
+        var data = {
+            query_condition:queryCondition,
+            origin_info:null,
+            diffwith_info:null
+        }
         this.connect(function (err, result) {
             if(err){
                 callback(err);
@@ -99,8 +127,20 @@ DBReader.prototype = {
             console.log("queryCondition",queryCondition)
             var cursor = this.db.collection("origin_captures").find(queryCondition).limit(1).toArray().then(function(arr){
                 console.log("--",arr);
-                var data = arr && arr[0]?arr[0]:null;
-                callback(null, data);
+                var origin = data.origin_info = arr && arr[0]?arr[0]:null;
+
+                if(origin && origin.diffwith){
+                    console.log("Find diff info.");
+                    this.db.collection("origin_captures").find({}).limit(1).toArray().then(function(arr) {
+                        data.diffwith_info = arr && arr[0]?arr[0]:null;
+                        callback(null, data);
+                    });
+                }else{
+                    callback(null, data);
+                }
+
+
+
             });
         });
     },
@@ -121,29 +161,6 @@ DBReader.prototype = {
             var cursor = this.db.collection("origin_captures").find(queryCondition).sort({key: -1}).limit(1).toArray().then(function(arr){
                 console.log("--",arr);
                 var data = arr && arr[0]?arr[0]:null;
-
-                /*  */
-                console.log("Mock query data")
-                var data = {
-                    title:"监控结果 "+opt.url,
-                    time:"2016年3月1日13:00",
-                    origin_info:{ //当前图片，其中包括可标记差异的图片
-                        _id:"_id...",
-                        url:"www.uc123.com",
-                        filename:"uc123_home_1458569349304",
-                        format:"png",
-                        diffimg:"uc123_home_1458569349304_diff",
-                        diffwith:"_id...",
-                        diffratio:"30%"//差异率
-                    },
-                    diffwith_info:{ //和谁比的，通常是上一个时间图片
-                        _id:"_id...",
-                        url:"www.uc123.com",
-                        filename:"uc123_home_1458569338843",
-                        format:"png"
-                    }
-                };
-
                 callback(null, data);
             });
         });

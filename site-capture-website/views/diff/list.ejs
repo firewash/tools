@@ -9,8 +9,23 @@
 
     <link rel='stylesheet' href='/stylesheets/style.css'/>
 
-    <style></style>
+    <style>
+        .normal-list{
+            border:1px solid #949494;
+            list-style: none;
+            margin:0;
+            padding:0;
+        }
+        .normal-list li{
+            margin: 5px;;
+        }
+        .normal-list li:nth-child(odd){
+            background:#ffffcc;
+
+        }
+    </style>
     <script src="/public/js/jquery.js"></script>
+
 
 </head>
 <body>
@@ -49,7 +64,7 @@
 
 <p>列表页面</p>
 
-<ul id="capture_header" class="normal-list">
+<ul id="capture_header" >
     <li>
         <label>网站</label>
         <label>捕获时间</label>

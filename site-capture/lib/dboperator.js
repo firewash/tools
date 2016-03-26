@@ -24,6 +24,15 @@ DBOperator.prototype = {
     close: function () {
         this.db && this.db.close();
     },
+
+    //转换一些不合法数据为合法
+    dataTransform:function(data){
+         if(data.interval){
+             data.interval = +data.interval;
+         }
+        return data;
+    },
+
     saveCaptureData: function (data, callback) {
         var self = this;
         this.connect(function (err,result) {
@@ -32,7 +41,7 @@ DBOperator.prototype = {
                 return;
             }
             console.log("Will save capture data:", data);
-            this.db.collection('origin_captures').insertOne(data, function (err, result) {
+            this.db.collection('origin_captures').insertOne(this.dataTransform(data), function (err, result) {
                 console.log("Insert success , in fn saveCaptureData.");
                 callback && callback(err, result);
                 self.close();

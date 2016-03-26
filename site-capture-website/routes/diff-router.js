@@ -40,6 +40,7 @@ router.get('/detail', function(req, res, next) {
             return;
         }
         console.log("get data callback", data);
+        data.diffwith_info = data.diffwith_info||{};
 
         res.render('diff/detail', {
             id:data.origin_info._id,

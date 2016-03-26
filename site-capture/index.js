@@ -19,11 +19,13 @@ var webserver = require("./www/webserver");//可以单独剥离成独立的项�
 function main() {
     var taskList = [
         {
+            taskid:"",
             url: "http://www.uc123.com",
-            interval : "100000",
+            interval : 100000,
             name_prefix: "uc123_home"
         },
         {
+            taskid:"",
             url: "http://cn.bing.com/search?q=",
             name_prefix: "bing_test"
         }
