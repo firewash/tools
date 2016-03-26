@@ -11,9 +11,10 @@ router.get('/list', function(req, res, next) {
     var query = req.query;
 
     var opt = {};
-    if(query.url)opt.url=query.url;
-    if(query.from)opt.from=query.from;
-    if(query.end)opt.from=query.end;
+    query.domain && (opt.domain=query.domain);
+    query.url && (opt.url=query.url);
+    query.from && (opt.from=query.from);
+    query.end && (opt.from=query.end);
 
     var p = dbreader.getCaptureEntries(opt);
     p.then(function(arr){

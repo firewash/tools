@@ -20,12 +20,14 @@ function main() {
     var taskList = [
         {
             taskid:"",
+            domain:"www.uc123.com",
             url: "http://www.uc123.com",
             interval : 100000,
             name_prefix: "uc123_home"
         },
         {
             taskid:"",
+            domain:"cn.bing.com",
             url: "http://cn.bing.com/search?q=",
             name_prefix: "bing_test"
         }

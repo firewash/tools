@@ -27,6 +27,9 @@ class DBReader {
         });
     }
 
+    /**
+     * 关闭数据库
+     * */
     close() {
         this.db && this.db.close();
     }

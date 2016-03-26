@@ -7,7 +7,7 @@
     <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel='stylesheet' href='/public/stylesheets/style.css'/>
 
     <style>
         .normal-list{
@@ -31,34 +31,43 @@
 <body>
 <h1><%= title %></h1>
 <div>
-    筛选条件:
+    <form id="list_query" action="#" method="get">
+        <label>筛选条件:</label>
 
-    <div>
-        网站:
-        <select>
-            <option value="1">
-                www.uc123.com
-            </option>
-        </select>
-        <input placeholder="模糊网址" />
-    </div>
-    <div>
-        时间范围:
-        <select>
-            <option value="1">
-                今天
-            </option>
-            <option value="1">
-                前两天
-            </option>
-            <option value="1">
-                前一周
-            </option>
-            <option value="1">
-                自定义
-            </option>
-        </select>
-    </div>
+        <div>
+            网站:
+            <select id="domain" name="domain">
+                <option value="-1">
+                    全部
+                </option>
+                <option value="cn.bing.com">
+                    cn.bing.com
+                </option>
+                <option value="www.uc123.com">
+                    www.uc123.com
+                </option>
+            </select>
+            <input placeholder="模糊网址" />
+        </div>
+        <div>
+            时间范围:
+            <select>
+                <option value="1">
+                    今天
+                </option>
+                <option value="1">
+                    前两天
+                </option>
+                <option value="1">
+                    前一周
+                </option>
+                <option value="1">
+                    自定义
+                </option>
+            </select>
+        </div>
+    </form>
+
 
 </div>
 
@@ -92,9 +101,18 @@
         })
     }
 
+    function pageInit(){
+        $("#domain").change(function(){
+            $("#list_query").submit();
+        })
+
+    }
+
     $(function () {
         var data = <%- JSON.stringify(data) %>;
         renderList(data);
+
+        pageInit();
 
     })
 
