@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <link rel='stylesheet' href='/public/stylesheets/style.css'/>
+
+    <style>
+        .normal-list{
+            border:1px solid #949494;
+            list-style: none;
+            margin:0;
+            padding:0;
+        }
+        .normal-list li{
+            margin: 5px;;
+        }
+        .normal-list li:nth-child(odd){
+            background:#ffffcc;
+
+        }
+    </style>
+    <script src="/public/js/jquery.js"></script>
+
+
+</head>
+<body>
+任务列表
+<h1><%= title %></h1>
+<div>
+    添加一个新任务:
+    <form id="task_add_form" action="#" method="get">
+        <label>domain<input name="domain" /></label>
+        <label>url<input name="url" /></label>
+        <label>interval<input name="100000" /></label>
+        <label>name_prefix<input name="name_prefix" /></label>
+        <button>
+            添加
+        </button>
+    </form>
+
+
+</div>
+
+<p>列表页面</p>
+
+<ul id="list_header" >
+    <li>
+        <label>1</label>
+        <label>2</label>
+        <label>3</label>
+        <label>4</label>
+        <label>5</label>
+    </li>
+</ul>
+<ul id="list" class="normal-list">
+
+</ul>
+
+</body>
+
+<script>
+
+    function renderList(arr) {
+        var ul = $("#list");
+        arr.forEach(function (item) {
+            var html = `<li>
+                            <label>${item.url}</label>
+                        <a href="${detail_url}?_id=${item._id}" target="_blank">查看详情</a>
+                        </li>`
+            ul.append(html);
+        })
+    }
+
+    function pageInit(){
+        $("#domain").change(function(){
+            $("#list_query").submit();
+        })
+
+    }
+
+    $(function () {
+        var data = <%- JSON.stringify(data) %>;
+        renderList(data);
+
+        pageInit();
+
+    })
+
+</script>
+
+</html>

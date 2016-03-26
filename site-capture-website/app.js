@@ -30,11 +30,12 @@ app.use("/capture", express.static(CONFIG.image_path));
 //路由信息
 var rootRoutes = require('./routes/index-router'); //首页
 var diffRoutes = require('./routes/diff-router'); //对比相关
-var diffRoutes = require('./routes/diff-router'); //对比相关
+var mgrRoutes = require('./routes/mgr-router'); //对比相关
 var users = require('./routes/users-router');  //用户管理
 
 app.use('/', rootRoutes);
 app.use('/diff', diffRoutes);
+app.use('/manager', mgrRoutes);
 app.use('/users', users);
 
 // catch 404 and forward to error handler

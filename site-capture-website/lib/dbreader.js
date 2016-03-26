@@ -1,5 +1,6 @@
 "use strict";
 var ObjectID = require("mongodb").ObjectID;
+var test = require("../../site-capture/lib/dboperator");
 
 class DBReader {
     constructor() {
@@ -176,6 +177,27 @@ class DBReader {
                 var data = arr && arr[0] ? arr[0] : null;
                 callback(null, data);
             });
+        });
+    }
+
+    //获取所有的采集任务
+    getAllTasks(){
+        var queryCondition={};
+        return new Promise((resolve, reject)=> {
+            var p = this.connect();
+            p.then(db => {
+                console.log("then connnect");
+                console.log("queryCondition", queryCondition);
+                var cursor = db.collection("tasks").find(queryCondition).limit(1).toArray().then(function (arr) {
+                    console.log("Find tasks:", arr);
+                    resolve({
+                        query_condition:queryCondition,
+                        data:arr
+                    });
+
+                });
+            });
+            Promise.resolve(p);
         });
     }
 }
