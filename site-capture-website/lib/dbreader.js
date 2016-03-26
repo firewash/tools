@@ -1,6 +1,6 @@
 "use strict";
 var ObjectID = require("mongodb").ObjectID;
-var test = require("../../site-capture/lib/dboperator");
+var dboperator = require("../../site-capture/lib/dboperator");
 
 class DBReader {
     constructor() {
@@ -202,5 +202,6 @@ class DBReader {
     }
 }
 
-
-module.exports = new DBReader();
+var dbreader = new DBReader();
+//module.exports = dbreader; //DBReader已经废弃掉了
+module.exports = dboperator;

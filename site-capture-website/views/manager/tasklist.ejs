@@ -69,8 +69,10 @@
         var ul = $("#list");
         arr.forEach(function (item) {
             var html = `<li>
+                            <label>${item.domain}</label>
                             <label>${item.url}</label>
-                        <a href="${detail_url}?_id=${item._id}" target="_blank">查看详情</a>
+                            <button>任务设置</button>
+                            <button>查看监控结果</button>
                         </li>`
             ul.append(html);
         })
