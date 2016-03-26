@@ -11,13 +11,12 @@ function DBReader() {
     this.db = null;
     this.MongoClient = MongoClient;
     this.url = url;
-    //this.connect();
 }
 
 DBReader.prototype = {
     connect: function () {
         return new Promise((resolve, reject)=> {
-            console.log("try db connect");
+            console.log("Try db connect");
 
             this.MongoClient.connect(this.url, function (err, db) {
                 console.log(err ? "MongoDB connnect error!" : "MongoDB connnect success~.");
@@ -36,7 +35,6 @@ DBReader.prototype = {
         console.log("in getAllCaptureEntries");
         this.connect(function () {
             var cursor = this.db.collection("origin_captures").find();
-
             cursor.each(function (err, item) {
                 if (item) {
                     console.log(item);
@@ -153,11 +151,16 @@ DBReader.prototype = {
 
     },
 
-    //获取最新的一组 数据
+    /**
+     * 获取最新的截图数据
+     * opt={
+     *      url:string
+     * }
+     * */
     getLastestCaptureEntry: function (opt, callback) {
         console.log("Get lastest capture in DB:", opt.url);
         var queryCondition = {
-            //url: opt.url
+            url: opt.url
         };
 
         this.connect(function (err, result) {

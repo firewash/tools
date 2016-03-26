@@ -16,19 +16,23 @@
         }
         .old-capture{
             position:absolute;
-            left:0;
+            left:50%;
             top:0;
             width:50%;
             vertical-align: top;
         }
         .new-capture{
-
+            position:absolute;
+            left:0;
+            top:0;
+            width:50%;
+            vertical-align: top;
         }
         .not-marked{
             position:absolute;
-            left:50%;
+            left:0;
             top:0;
-            width:50%;
+            width:100%;
             display:block;
         }
         .not-marked h2{
@@ -37,9 +41,10 @@
         }
         .marked{
             position:absolute;
-            left:50%;
+            left:0;
             top:0;
-            width:50%;
+            width:100%;
+            display:block;
             opacity:0;
             transition:opacity 0.5s;
         }
@@ -75,20 +80,21 @@
     <button id="showmark_btn" value="false" title="可以显示或隐藏当前截图上的差异标记">点击显示标记</button>
 </div>
 <div class="wraper">
-    <div class="old-capture ">
-        <h2>本次采样之前的截图：</h2>
-        <img src="<%= diffwith_img %>"/>
-    </div>
     <div class="new-capture ">
         <div class="not-marked">
-            <h2>本次采样(无标记)：</h2>
+            <h2>本次采样：</h2>
             <img src="<%= origin_img %>"/>
         </div>
         <div class="marked">
-            <h2>本次采样(有标记)：</h2>
+            <h2>本次采样 - 显示差异：</h2>
             <img src="<%= diff_img %>"/>
         </div>
     </div>
+    <div class="old-capture ">
+        <h2>上次采样：</h2>
+        <img src="<%= diffwith_img %>"/>
+    </div>
+
 </div>
 </body>
 <script>
