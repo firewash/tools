@@ -41,7 +41,8 @@ DBOperator.prototype = {
                 return;
             }
             console.log("Will save capture data:", data);
-            this.db.collection('origin_captures').insertOne(this.dataTransform(data), function (err, result) {
+            console.log(self.dataTransform)
+            this.db.collection('origin_captures').insertOne(self.dataTransform(data), function (err, result) {
                 console.log("Insert success , in fn saveCaptureData.");
                 callback && callback(err, result);
                 self.close();
