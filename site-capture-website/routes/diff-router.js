@@ -15,13 +15,15 @@ router.get('/list', function(req, res, next) {
     if(query.from)opt.from=query.from;
     if(query.end)opt.from=query.end;
 
-    dbreader.getCaptureEntries(opt,function(err, arr){
-        console.log("getCaptureEntries",arr);
+    var p = dbreader.getCaptureEntries(opt);
+    p.then(function(arr){
+        console.log("then getCaptureEntries",arr);
         res.render('diff/list', {
             title: '列表' ,
             data: arr
         });
-    })
+    });
+    Promise.resolve(p);
 
 });
 /* GET detail page.
@@ -34,11 +36,8 @@ router.get('/detail', function(req, res, next) {
     var opt = {};
     if(query._id)opt._id=query._id;
 
-    dbreader.getCaptureEntry(opt, function(err, data){
-        if(err){
-            console.log(err);
-            return;
-        }
+    var p = dbreader.getCaptureEntry(opt);
+    p.then(function(data){
         console.log("get data callback", data);
         data.diffwith_info = data.diffwith_info||{};
 
@@ -51,8 +50,8 @@ router.get('/detail', function(req, res, next) {
             origin_img: realPath(data.origin_info.filename, data.origin_info.format),
             diff_img: realPath(data.origin_info.diffimg, data.origin_info.format)
         });
-        return;
     });
+    Promise.resolve(p);
 });
 
 module.exports = router;
