@@ -1,37 +1,37 @@
+"use strict";
 var ObjectID = require("mongodb").ObjectID;
 
-function DBReader() {
-    var mongodb = require("mongodb");
-    var MongoClient = mongodb.MongoClient;
-    //var assert = require('assert');
-    var databaseUrl = "admin:admin@localhost:27017/tools_site_capture";
-    var collections = ["origin_captures", "diff_captures", "tasks"];
-    var url = 'mongodb://localhost:27017/tools_site_capture';
+class DBReader {
+    constructor() {
+        let mongodb = require("mongodb");
+        let MongoClient = mongodb.MongoClient;
+        //var assert = require('assert');
+        let databaseUrl = "admin:admin@localhost:27017/tools_site_capture";
+        let collections = ["origin_captures", "diff_captures", "tasks"];
+        let url = 'mongodb://localhost:27017/tools_site_capture';
 
-    this.db = null;
-    this.MongoClient = MongoClient;
-    this.url = url;
-}
+        this.db = null;
+        this.MongoClient = MongoClient;
+        this.url = url;
+    }
 
-DBReader.prototype = {
-    connect: function () {
+    connect() {
         return new Promise((resolve, reject)=> {
             console.log("Try db connect");
 
-            this.MongoClient.connect(this.url, function (err, db) {
+            this.MongoClient.connect(this.url, (err, db) => {
                 console.log(err ? "MongoDB connnect error!" : "MongoDB connnect success~.");
                 this.db = db;
                 err ? reject(err) : resolve(db);
             });
         });
-    },
-    close: function () {
+    }
+
+    close() {
         this.db && this.db.close();
-    },
-
-
+    }
     //todo 获取所有数据
-    getAllCaptureEntries: function (callback) {
+    getAllCaptureEntries(callback) {
         console.log("in getAllCaptureEntries");
         this.connect(function () {
             var cursor = this.db.collection("origin_captures").find();
@@ -43,8 +43,7 @@ DBReader.prototype = {
                 }
             });
         });
-    },
-
+    }
     /**
      *   获取一个数据集合.
      arr= [{ //当前图片，其中包括可标记差异的图片
@@ -66,7 +65,7 @@ DBReader.prototype = {
                  }];
 
      * */
-    getCaptureEntries: function (opt) {
+    getCaptureEntries (opt) {
         return new Promise((resolve, reject)=> {
             console.log("in db.getCaptureEntries");
             var queryCondition = {
@@ -83,7 +82,7 @@ DBReader.prototype = {
                 resolve(arr);
             });
         });
-    },
+    }
 
     /**
      * 获取一个对比数据
@@ -114,7 +113,7 @@ DBReader.prototype = {
                     }
                 };
      * */
-    getCaptureEntry: function (opt, callback) {
+    getCaptureEntry (opt, callback) {
         console.log("getCaptureEntry:", opt);
         var queryCondition = {
             _id: ObjectID(opt._id)
@@ -125,31 +124,31 @@ DBReader.prototype = {
             origin_info: null,
             diffwith_info: null
         };
-        return new Promise((resolve, reject)=>{
+        return new Promise((resolve, reject)=> {
             var p = this.connect();
-            p.then( db => {
-                    console.log("then connnect");
-                    console.log("queryCondition", queryCondition);
-                    var cursor = db.collection("origin_captures").find(queryCondition).limit(1).toArray().then(function (arr) {
-                        console.log("Find origin info:", arr);
-                        var origin = data.origin_info = arr && arr[0] ? arr[0] : null;
+            p.then(db => {
+                console.log("then connnect");
+                console.log("queryCondition", queryCondition);
+                var cursor = db.collection("origin_captures").find(queryCondition).limit(1).toArray().then(function (arr) {
+                    console.log("Find origin info:", arr);
+                    var origin = data.origin_info = arr && arr[0] ? arr[0] : null;
 
-                        if (origin && origin.diffwith) {
-                            console.log("Find diff info ...");
-                            db.collection("origin_captures").find({}).limit(1).toArray().then(function (arr) {
-                                console.log("Found diff info ",arr);
-                                data.diffwith_info = arr && arr[0] ? arr[0] : null;
-                                resolve( data);
-                            });
-                        } else {
-                            resolve( data);
-                        }
-                    });
+                    if (origin && origin.diffwith) {
+                        console.log("Find diff info ...");
+                        db.collection("origin_captures").find({}).limit(1).toArray().then(function (arr) {
+                            console.log("Found diff info ", arr);
+                            data.diffwith_info = arr && arr[0] ? arr[0] : null;
+                            resolve(data);
+                        });
+                    } else {
+                        resolve(data);
+                    }
                 });
+            });
             Promise.resolve(p);
         });
 
-    },
+    }
 
     /**
      * 获取最新的截图数据
@@ -157,7 +156,7 @@ DBReader.prototype = {
      *      url:string
      * }
      * */
-    getLastestCaptureEntry: function (opt, callback) {
+    getLastestCaptureEntry (opt, callback) {
         console.log("Get lastest capture in DB:", opt.url);
         var queryCondition = {
             url: opt.url
@@ -176,6 +175,7 @@ DBReader.prototype = {
             });
         });
     }
-};
+}
+
 
 module.exports = new DBReader();

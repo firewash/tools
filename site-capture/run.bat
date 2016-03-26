@@ -1,5 +1,6 @@
-rem start
+::Ë«»÷Æô¶¯ÈÎÎñ
+::start
+cd /d %~dp0
 node index.js
 
-rem pause
 pause
