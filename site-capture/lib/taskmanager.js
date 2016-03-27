@@ -91,7 +91,9 @@ class TaskManager{
         if (opt.interval) {
             console.log("配置了任务，则定时执行");
             setInterval(function () {
-                capturer.capture(opt, afterCapture);
+                capturer.capture(opt).then(function(data){
+                    afterCapture(data);
+                });
             }, opt.interval);
         }
     }

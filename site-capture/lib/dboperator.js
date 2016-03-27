@@ -88,10 +88,10 @@ class DBOperator {
 
             var p = this.connect();
             p.then(db => {
-                console.log("connect then");
+                console.log("Connect then");
                 return db.collection("origin_captures").find(queryCondition).toArray();
             }).then(arr => {
-                console.log("find then,", arr);
+                console.log("Find then,", arr);
                 resolve(arr);
             });
         });

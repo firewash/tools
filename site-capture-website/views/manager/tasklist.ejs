@@ -8,88 +8,125 @@
     <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <link rel='stylesheet' href='/public/stylesheets/style.css'/>
-
-    <style>
-        .normal-list{
-            border:1px solid #949494;
-            list-style: none;
-            margin:0;
-            padding:0;
-        }
-        .normal-list li{
-            margin: 5px;;
-        }
-        .normal-list li:nth-child(odd){
-            background:#ffffcc;
-
-        }
-    </style>
-    <script src="/public/js/jquery.js"></script>
-
-
 </head>
 <body>
-任务列表
-<h1><%= title %></h1>
-<div>
-    添加一个新任务:
-    <form id="task_add_form" action="#" method="get">
-        <label>domain<input name="domain" /></label>
-        <label>url<input name="url" /></label>
-        <label>interval<input name="100000" /></label>
-        <label>name_prefix<input name="name_prefix" /></label>
-        <button>
-            添加
-        </button>
-    </form>
+<div class="page-header">
+    <h1><%= title %>
+        <small>任务管理</small>
+    </h1>
+</div>
 
+<div class="page-wraper" style="margin: 10px">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            添加一个新任务
+        </div>
+        <div class="panel-body">
+            <form id="task_add_form" class="form-inline" action="#" method="get" role="form">
+                <div class="form-group">
+                    <label for="name">Domain</label>
+                    <input type="text" class="form-control" id="domain" placeholder="请输入域名">
+                    <label for="name">URL</label>
+                    <input type="text" class="form-control" id="url" placeholder="请输入网址">
+                    <label for="name">定时执行</label>
+                    <input type="text" class="form-control" id="interval" placeholder="毫秒">
+                    <label for="name">文件前缀</label>
+                    <input type="text" class="form-control" id="url" placeholder="存储在磁盘上的图片前缀">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"> 添加后是否立即激活
+                        </label>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn btn-default">提交</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            已添加任务
+        </div>
+        <table id="list" class="table">
+            <thead>
+            <tr>
+                <th>所属域名</th>
+                <th>URL</th>
+                <th>定时执行(ms)</th>
+                <th>是否激活</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
 
 </div>
 
-<p>列表页面</p>
-
-<ul id="list_header" >
-    <li>
-        <label>1</label>
-        <label>2</label>
-        <label>3</label>
-        <label>4</label>
-        <label>5</label>
-    </li>
-</ul>
-<ul id="list" class="normal-list">
-
-</ul>
+<!-- modal dialog for add. -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    模态框（Modal）标题
+                </h4>
+            </div>
+            <div class="modal-body">
+                在这里添加一些文本
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary">
+                    提交更改
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div>
+</div>
 
 </body>
 
 <script>
-
     function renderList(arr) {
-        var ul = $("#list");
+        var list = $("#list");
         arr.forEach(function (item) {
-            var html = `<li>
-                            <label>${item.domain}</label>
-                            <label>${item.url}</label>
-                            <button>任务设置</button>
-                            <button>查看监控结果</button>
-                        </li>`
-            ul.append(html);
+            var html = `<tr>
+                            <td>${item.domain}</td>
+                            <td>${item.url}</td>
+                            <td>${item.interval}</td>
+                            <td>${item.enabled}</td>
+                            <td>
+                                <button class="task_setting"  value="${item.id}">任务设置</button>
+                                <button class="view_capture_list" value="${item.id}">查看监控结果</button>
+                             </td>
+                        </tr>`
+            list.append(html);
         })
-    }
-
-    function pageInit(){
-        $("#domain").change(function(){
-            $("#list_query").submit();
-        })
-
     }
 
     $(function () {
         var data = <%- JSON.stringify(data) %>;
         renderList(data);
 
-        pageInit();
+        $("#list .task_setting").click(function(e){
+            $("#myModal").modal();
+            alert("task_setting");
+        });
+        $("#list .view_capture_list").click(function(e){
+            alert("view_capture_list");
+        });
 
     })
 
