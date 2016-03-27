@@ -228,10 +228,15 @@ class DBOperator {
         return new Promise((resolve,reject) => {
             var p = this.connect();
             p.then( result => {
-
                 this.db.collection('origin_captures').insertOne(this.dataTransform(data),  (err, result) => {
-                    console.log("Insert success , in fn saveCaptureData.");
-                    resolve(result);
+                    if(err){
+                        console.log("insert data error",err);
+                        reject(err);
+                    }else{
+                        console.log("Insert success , in fn saveCaptureData.",result);
+                        resolve(result);
+                    }
+
                     this.close();
                 });
             });
