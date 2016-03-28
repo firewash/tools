@@ -52,8 +52,7 @@ var afterCapture = function (err, target_data) {
                 target_data.diffwith = last_data._id;
             }
             console.log("Will save target data.")
-            dboperator.saveCaptureData(target_data, function () {
-            });
+            dboperator.saveCaptureData(target_data, function () {});
         })
     });
 };

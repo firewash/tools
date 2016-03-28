@@ -6,98 +6,93 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
     <link rel='stylesheet' href='/public/stylesheets/style.css'/>
-
-    <style>
-        .normal-list{
-            border:1px solid #949494;
-            list-style: none;
-            margin:0;
-            padding:0;
-        }
-        .normal-list li{
-            margin: 5px;;
-        }
-        .normal-list li:nth-child(odd){
-            background:#ffffcc;
-
-        }
-    </style>
-    <script src="/public/js/jquery.js"></script>
-
-
 </head>
 <body>
-<h1><%= title %></h1>
-<div>
-    <form id="list_query" action="#" method="get">
-        <label>筛选条件:</label>
-
-        <div>
-            网站:
-            <select id="domain" name="domain">
-                <option value="-1">
-                    全部
-                </option>
-                <option value="cn.bing.com">
-                    cn.bing.com
-                </option>
-                <option value="www.uc123.com">
-                    www.uc123.com
-                </option>
-            </select>
-            <input placeholder="模糊网址" />
+<div class="page-header">
+    <h1><%= title %></h1>
+</div>
+<div class="page-wraper">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            筛选条件
         </div>
-        <div>
-            时间范围:
-            <select>
-                <option value="1">
-                    今天
-                </option>
-                <option value="1">
-                    前两天
-                </option>
-                <option value="1">
-                    前一周
-                </option>
-                <option value="1">
-                    自定义
-                </option>
-            </select>
-        </div>
-    </form>
 
+        <form id="list_query" class="form-inline" action="#" method="get">
+            <div class="form-group">
+                <label for="name">Domain</label>
+                <select id="domain" name="domain" class="form-control">
+                    <option value="-1">
+                        全部
+                    </option>
+                    <option value="cn.bing.com">
+                        cn.bing.com
+                    </option>
+                    <option value="www.uc123.com">
+                        www.uc123.com
+                    </option>
+                </select>
+                <input placeholder="模糊网址"  />
+
+                <label for="name"  class="form-control">时间范围</label>
+                <select class="form-control">
+                    <option value="1">
+                        今天
+                    </option>
+                    <option value="1">
+                        前两天
+                    </option>
+                    <option value="1">
+                        前一周
+                    </option>
+                    <option value="1">
+                        自定义
+                    </option>
+                </select>
+            </div>
+        </form>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            列表页面
+        </div>
+
+        <table id="capture_list" class="table">
+            <thead>
+            <tr>
+                <th>URL</th>
+                <th>捕获时间</th>
+                <th>所属任务</th>
+                <th>所属人</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
 
 </div>
 
-<p>列表页面</p>
 
-<ul id="capture_header" >
-    <li>
-        <label>网站</label>
-        <label>捕获时间</label>
-        <label>操作</label>
-        <label>所属任务</label>
-        <label>所属人</label>
-    </li>
-</ul>
-<ul id="capture_list" class="normal-list">
-
-</ul>
 
 </body>
 
 <script>
     var detail_url = "/diff/detail";
     function renderList(arr) {
-        var ul = $("#capture_list");
+        var list = $("#capture_list");
         arr.forEach(function (item) {
-            let html = `<li>
-                            <label>${item.url}</label>
-                        <a href="${detail_url}?_id=${item._id}" target="_blank">查看详情</a>
-                        </li>`
-            ul.append(html);
+            let html = `<tr>
+                            <td>${item.url}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><a href="${detail_url}?_id=${item._id}" target="_blank">查看详情</a></td>
+                        </tr>`
+            list.append(html);
         })
     }
 
