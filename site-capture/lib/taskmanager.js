@@ -67,34 +67,44 @@ class TaskManager{
         p.then( result => {
             var taskList = result.data;
             taskList.forEach( opt => {
-                this.excute(opt);
+                if(!opt.enabled){
+                    this.excute(opt);
+                }
             });
         });
         Promise.resolve(p);
     }
 
-    //执行一个任务
-    excute(opt){
-        console.log("执行一个任务:",opt);
-        if(!opt.enabled)return;
+    //执行一个任务(忽略任务中的enabled标志)
+    excuteTask(taskinfo){
+        console.log("执行一个任务:",taskinfo);
+        if(!taskinfo)return;
         //测试代码,可以去掉
-        if(opt.url.indexOf("bing.com")>-1)opt.url+=Math.random();//Node下竟然没有includes这个方法
+        if(taskinfo.url.indexOf("bing.com")>-1)taskinfo.url+=Math.random();//Node下竟然没有includes这个方法
         //预处理一下数据
-        opt.taskid=opt._id;
-        delete opt._id;
+        taskinfo.taskid=taskinfo._id;
+        delete taskinfo._id;
         console.log("立即执行");
-        capturer.capture(opt).then(function(data){
+        capturer.capture(taskinfo).then(function(data){
             console.log("then capture");
             afterCapture(null,data);
         });
-        if (opt.interval) {
+        if (taskinfo.interval) {
             console.log("配置了任务，则定时执行");
             setInterval(function () {
-                capturer.capture(opt).then(function(data){
+                capturer.capture(taskinfo).then(function(data){
                     afterCapture(data);
                 });
-            }, opt.interval);
+            }, taskinfo.interval);
         }
+    }
+
+    excuteTaskById(taskId){
+        console.log("excuteTaskById");
+        dboperator.getTasks({_id:taskId}).then(arr => {
+            this.excuteTask(arr[0])
+        });
+
     }
 }
 

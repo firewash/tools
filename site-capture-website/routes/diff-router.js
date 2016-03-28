@@ -41,7 +41,7 @@ var RouterSets={
 
             res.render('diff/detail', {
                 id:data.origin_info._id,
-                title:data.title,
+                title:"采集详情 - "+data.title,
                 time:data.time,
                 diffratio:data.origin_info.diffratio,
                 diffwith_img: realPath(data.diffwith_info.filename, data.diffwith_info.format),

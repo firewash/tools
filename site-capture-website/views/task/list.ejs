@@ -108,8 +108,9 @@
                             <td>${item.interval}</td>
                             <td>${item.enabled}</td>
                             <td>
-                                <button class="task_setting"  value="${item.id}">任务设置</button>
-                                <button class="view_capture_list" value="${item.id}">查看监控结果</button>
+                                <button class="task_setting"  value="${item._id}">任务设置</button>
+                                <button class="view_capture_list" value="${item._id}">查看监控结果</button>
+                                <button class="run_task" value="${item._id}">执行任务</button>
                              </td>
                         </tr>`
             list.append(html);
@@ -126,6 +127,13 @@
         });
         $("#list .view_capture_list").click(function(e){
             alert("view_capture_list");
+        });
+
+        $("#list .run_task").click(function(e){
+            var api = "/api/task/"+ e.target.value +"/run";
+            $.post(api,{},function(json){
+               alert("返回:"+json) ;
+            });
         });
 
     })

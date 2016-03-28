@@ -126,7 +126,7 @@ class DBOperator {
                     }
                 };
      * */
-      getCaptureEntry(opt, callback) {
+      getCaptureEntry(opt) {
         console.log("getCaptureEntry:", opt);
         var queryCondition = {
             _id: ObjectID(opt._id)
@@ -189,39 +189,6 @@ class DBOperator {
 
     }
 
-    /**
-     * 获取所有的采集任务
-     * arr = [
-         {
-             taskid:"",
-             domain:"www.uc123.com",
-             url: "http://www.uc123.com",
-             interval : 100000,
-             name_prefix: "uc123_home",
-             enabled:false
-         },...
-         ];
-     */
-    getTasks(opt) {
-        var queryCondition = {};//todo opt 填入
-        return new Promise((resolve, reject)=> {
-            var p = this.connect();
-            p.then(db => {
-                console.log("then connect");
-                console.log("queryCondition", queryCondition);
-                var cursor = db.collection("tasks").find(queryCondition).toArray().then(function (arr) {
-                    console.log("Find tasks:", arr);
-                    resolve({
-                        query_condition: queryCondition,
-                        data: arr
-                    });
-
-                });
-            });
-            Promise.resolve(p);
-        });
-    }
-
     //保存一个截图数据
     saveCaptureData(data) {
         console.log("Will save capture data:", data);
@@ -257,6 +224,45 @@ class DBOperator {
         });
 
     }
+
+
+    /**
+     * 获取所有的采集任务
+     * arr = [
+     {
+         taskid:"",
+         domain:"www.uc123.com",
+         url: "http://www.uc123.com",
+         interval : 100000,
+         name_prefix: "uc123_home",
+         enabled:false
+     },...
+     ];
+     */
+    getTasks(opt) {
+        console.log("getTasks:",opt);
+        var queryCondition = {},opt=opt||{};
+        //topt安全填入
+        opt._id && (queryCondition._id = ObjectID(opt._id));
+
+        return new Promise((resolve, reject)=> {
+            var p = this.connect();
+            p.then(db => {
+                console.log("then connect");
+                console.log("queryCondition", queryCondition);
+                var cursor = db.collection("tasks").find(queryCondition).toArray().then(function (arr) {
+                    console.log("Find tasks:", arr);
+                    resolve({
+                        query_condition: queryCondition,
+                        data: arr
+                    });
+
+                });
+            });
+            Promise.resolve(p);
+        });
+    }
+
 }
 
 module.exports = new DBOperator();
