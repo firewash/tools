@@ -77,7 +77,7 @@ class TaskManager{
 
     //执行一个任务(忽略任务中的enabled标志)
     excuteTask(taskinfo){
-        console.log("执行一个任务:",taskinfo);
+        console.log("Run a task:",taskinfo);
         if(!taskinfo)return;
         //测试代码,可以去掉
         if(taskinfo.url.indexOf("bing.com")>-1)taskinfo.url+=Math.random();//Node下竟然没有includes这个方法
@@ -101,8 +101,8 @@ class TaskManager{
 
     excuteTaskById(taskId){
         console.log("excuteTaskById");
-        dboperator.getTasks({_id:taskId}).then(arr => {
-            this.excuteTask(arr[0])
+        dboperator.getTasks({_id:taskId}).then(result => {
+            this.excuteTask(result.data[0])
         });
 
     }

@@ -25,13 +25,14 @@ class Capturer {
         console.log("in capture fn   ");
         var url = option.url, interval = option.interval || 1000, name_prefix = option.name_prefix || "tool_site_capture_unknow_site";
 
-        var now = new Date();
-        var time = now.getTime();
+        var date = new Date(); //IOS时间
+        var time = date.getTime();
         var folder = this._CONFIG.capture_image_save_folder, filename = name_prefix + "_" + time, format = option.format || 'png';
 
+        option.timestamp = date;
         option.filename = filename;
         option.format = format;
-        option.description = now.toString();
+        option.description = date.toString();
 
         return new Promise((resolve,reject) => {
             var err = null, returnData = {},_ph = null, _page = null;
