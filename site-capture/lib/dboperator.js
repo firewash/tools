@@ -20,7 +20,7 @@ class DBOperator {
             console.log("Try db connect");
 
             this.MongoClient.connect(this.url, (err, db) => {
-                console.log(err ? "MongoDB connnect error!" : "MongoDB connnect success~.");
+                console.log(err ? ("MongoDB connnect error!",err) : "MongoDB connnect success~.");
                 this.db = db;
                 err ? reject(err) : resolve(db);
             });
@@ -179,7 +179,7 @@ class DBOperator {
         return new Promise((resolve, reject)=>{
             var p = this.connect();
             p.then( result => {
-                var cursor = this.db.collection("origin_captures").find(queryCondition).sort({key: -1}).limit(1).toArray().then(function (arr) {
+                var cursor = this.db.collection("origin_captures").find(queryCondition).sort({timestamp: -1}).limit(1).toArray().then(function (arr) {
                     console.log("Result: ", arr);
                     var data = arr && arr[0] ? arr[0] : null;
                     resolve(data);
@@ -230,17 +230,16 @@ class DBOperator {
      * 获取所有的采集任务
      * arr = [
      {
-         taskid:"",
          domain:"www.uc123.com",
          url: "http://www.uc123.com",
          interval : 100000,
          name_prefix: "uc123_home",
-         enabled:false
+         enabled:true
      },...
      ];
      */
     getTasks(opt) {
-        console.log("getTasks:",opt);
+        console.log("getTasks, opt is:",opt);
         var queryCondition = {},opt=opt||{};
         //topt安全填入
         opt._id && (queryCondition._id = ObjectID(opt._id));
@@ -258,6 +257,8 @@ class DBOperator {
                     });
 
                 });
+            },err=>{
+                reject(err);
             });
             Promise.resolve(p);
         });

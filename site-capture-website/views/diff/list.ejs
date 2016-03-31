@@ -2,6 +2,7 @@
 <html>
 <head>
     <title><%= title %></title>
+    <meta charset="utf-8"/>
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
@@ -32,9 +33,9 @@
                         www.uc123.com
                     </option>
                 </select>
-                <input placeholder="模糊网址"  />
+                <input placeholder="模糊网址"   class="form-control"/>
 
-                <label for="name"  class="form-control">时间范围</label>
+                <label for="name" >时间范围</label>
                 <select class="form-control">
                     <option value="1">
                         今天
@@ -76,8 +77,6 @@
 
 </div>
 
-
-
 </body>
 
 <script>
@@ -85,14 +84,17 @@
     function renderList(arr) {
         var list = $("#capture_list");
         arr.forEach(function (item) {
+            //todo 没有搞定
+            var date = item.timestamp?(new Date(item.timestamp)).toLocaleString():"";
+            //date = item.timestamp?new Date(item.timestamp).toLocalString():"" ;
             let html = `<tr>
                             <td>${item.url}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>${date}</td>
+                            <td>${item.taskid}</td>
+                            <td>null</td>
                             <td><a href="${detail_url}?_id=${item._id}" target="_blank">查看详情</a></td>
                         </tr>`
-            list.append(html);
+            list.append(html)
         })
     }
 

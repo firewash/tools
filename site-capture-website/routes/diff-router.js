@@ -37,29 +37,33 @@ var RouterSets={
         var p = dbreader.getCaptureEntry(opt);
         p.then(function(data){
             console.log("get data callback", data);
-            data.diffwith_info = data.diffwith_info||{};
-
+            var diffwith_info = data.diffwith_info||{},
+                origin_info = data.origin_info;
+            console.log("origin_info is", origin_info);
             res.render('diff/detail', {
-                id:data.origin_info._id,
-                title:"采集详情 - "+data.title,
-                time:data.time,
-                diffratio:data.origin_info.diffratio,
-                diffwith_img: realPath(data.diffwith_info.filename, data.diffwith_info.format),
-                origin_img: realPath(data.origin_info.filename, data.origin_info.format),
-                diff_img: realPath(data.origin_info.diffimg, data.origin_info.format)
+                id:origin_info._id,
+                title:"采集详情 - "+origin_info.url,
+                time: (new Date(origin_info.timestamp)).toLocaleDateString(),
+                diffratio:origin_info.diffinfo?origin_info.diffinfo.misMatchPercentage:"",
+                diffwith_img: realPath(diffwith_info.filename, diffwith_info.format),
+                origin_img: realPath(origin_info.filename, origin_info.format),
+                diff_img: realPath(origin_info.diffimg, origin_info.format)
             });
         });
         Promise.resolve(p);
     }
-
 }
 
-
-/* GET list page. */
+/**
+ * GET list page.
+ * /list
+ *
+ * GET detail page.
+ *  /detail?id=***** 只根据id查询.想查询更多,请使用list的api
+ *
+ * */
+router.get('', RouterSets["/list"]);
 router.get('/list', RouterSets["/list"]);
-/* GET detail page.
-*  /detail?id=***** 只根据id查询.想查询更多,请使用list的api
-* */
 router.get('/detail',RouterSets['/detail'] );
 
 module.exports = router;

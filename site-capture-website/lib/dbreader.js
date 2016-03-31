@@ -1,7 +1,7 @@
 "use strict";
 var ObjectID = require("mongodb").ObjectID;
 var dboperator = require("../../site-capture/lib/dboperator");
-
+/*
 class DBReader {
     constructor() {
         let mongodb = require("mongodb");
@@ -30,7 +30,7 @@ class DBReader {
 
     /**
      * 关闭数据库
-     * */
+     * * /
     close() {
         this.db && this.db.close();
     }
@@ -68,7 +68,7 @@ class DBReader {
                  diffratio:"30%"//差异率
                  }];
 
-     * */
+     * * /
     getCaptureEntries (opt) {
         return new Promise((resolve, reject)=> {
             console.log("in db.getCaptureEntries");
@@ -116,7 +116,7 @@ class DBReader {
                         format:"png"
                     }
                 };
-     * */
+     * * /
     getCaptureEntry (opt, callback) {
         console.log("getCaptureEntry:", opt);
         var queryCondition = {
@@ -154,12 +154,12 @@ class DBReader {
 
     }
 
-    /**
-     * 获取最新的截图数据
+    /**获取最新的截图数据
+     *
      * opt={
      *      url:string
      * }
-     * */
+     * * /
     getLastestCaptureEntry (opt, callback) {
         console.log("Get lastest capture in DB:", opt.url);
         var queryCondition = {
@@ -202,6 +202,6 @@ class DBReader {
     }
 }
 
-var dbreader = new DBReader();
+var dbreader = new DBReader();*/
 //module.exports = dbreader; //DBReader已经废弃掉了
 module.exports = dboperator;

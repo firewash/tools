@@ -22,12 +22,16 @@ class Capturer {
      *
      * */
     capture (option) {
-        console.log("in capture fn   ");
-        var url = option.url, interval = option.interval || 1000, name_prefix = option.name_prefix || "tool_site_capture_unknow_site";
+        console.log("Fn: capture ");
+        var url = option.url,
+            interval = option.interval || 1000,
+            name_prefix = option.name_prefix || "tool_site_capture_unknow_site";
 
         var date = new Date(); //IOS时间
         var time = date.getTime();
-        var folder = this._CONFIG.capture_image_save_folder, filename = name_prefix + "_" + time, format = option.format || 'png';
+        var folder = this._CONFIG.capture_image_save_folder,
+            filename = name_prefix + "_" + time,
+            format = option.format || 'png';
 
         option.timestamp = date;
         option.filename = filename;

@@ -46,10 +46,13 @@ var afterCapture = function (err, target_data) {
         comparer.diff(opt, function (err, data) {
             if (err) {
                 console.log("Diff failed. As,", err.msg);
+                target_data.diffinfo = err;
             }else{
                 console.log("Diff success. add diff info  to target data");
                 target_data.diffimg = resultFileName;
                 target_data.diffwith = last_data._id;
+                target_data.diffinfo = data;
+                console.log(data)
             }
             console.log("Will save target data.")
             dboperator.saveCaptureData(target_data, function () {});
@@ -68,9 +71,11 @@ class TaskManager{
             var taskList = result.data;
             taskList.forEach( opt => {
                 if(!opt.enabled){
-                    this.excute(opt);
+                    this.excuteTask(opt);
                 }
             });
+        },(err)=>{
+            console("Err:", err);
         });
         Promise.resolve(p);
     }

@@ -1,6 +1,24 @@
 var resemble = require('node-resemble-js');
 var fs = require("fs");
 
+/**
+ *  把resemble比较的结果数据,转换成系统通用的,万一以后换掉了resemble
+ *
+ *   { isSameDimensions: false,
+     dimensionDifference: { width: -15, height: -856 },
+     misMatchPercentage: '10.49',
+     analysisTime: 983 } }
+ *
+ *  不过目前,先让Key相同就是了.
+ * */
+function dataTransfer_resemble2system(from, to){
+    to.isSameDimensions = from.isSameDimensions;
+    to.dimensionDifference = from.dimensionDifference;
+    to.misMatchPercentage = from.misMatchPercentage;
+    to.analysisTime = from.analysisTime;
+}
+
+
 function Comparer() {
     resemble.outputSettings({
         errorColor: {
@@ -22,13 +40,15 @@ Comparer.prototype = {
 
         var _diff = null;
         try{
-            _diff = resemble(target).compareTo(other).ignoreColors().ignoreAntialiasing().onComplete(function (data) {
+            _diff = resemble(target).compareTo(other).ignoreColors().ignoreAntialiasing().onComplete(function (_data) {
+                var data = dataTransfer_resemble2system(_data);
+                opt.diffinfo = data;
                 if (+data.misMatchPercentage <= ratio) {
                     callback({msg: "misMatchPercentage is too low,donnot save compare result~"}, null);
                 } else {
                     console.log("Save diff image to ",resultfile);
                     data.getDiffImage().pack().pipe(fs.createWriteStream(resultfile));
-                    callback(null, opt);
+                    callback(null, data);
                 }
             });
         }catch (e){//TODO: 文件比如other在磁盘上不存在时的异常，try目前捕获不到。奇怪
