@@ -8,7 +8,8 @@ router.get('/list', (req, res, next)=>{
         console.log("then getAllTasks",result);
         var items = result.data;
         res.render('task/list', {
-            title: '列表' ,
+            title: '任务管理列表' ,
+            subtitle:"抓屏任务",
             data: items
         });
     },err=>{

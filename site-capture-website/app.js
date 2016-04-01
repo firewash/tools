@@ -4,12 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+console.log(__dirname)
 
-var CONFIG = {
-    image_path:"F:\\github\\tools\\site-capture\\data\\result" //必须用双反斜杠,否则找不到位置
-};
-
-
+var GLOBAL_CONFIG = require("./config.js");
 
 var app = express();
 
@@ -25,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 //设置静态资源目录
 app.use("/public",express.static(path.join(__dirname, 'public')));
-app.use("/capture", express.static(CONFIG.image_path));
+app.use("/capture",express.static(GLOBAL_CONFIG.capture_image_save_folder));
 
 //路由信息
 var rootRoutes = require('./routes/index-router'); //首页

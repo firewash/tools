@@ -1,10 +1,11 @@
 "use strict";
 var phantom = require('phantom');
+var Global_CONFIG = require("../config.js");
 
 class Capturer {
     constructor(){
         this._CONFIG = {
-            capture_image_save_folder:"data/result/",
+            capture_image_save_folder: Global_CONFIG.capture_image_save_folder,
             capture_image_qulity:60
         };
     }
@@ -22,7 +23,7 @@ class Capturer {
      *
      * */
     capture (option) {
-        console.log("Fn: capture ");
+        console.log("In capture fn, option: ",option );
         var url = option.url,
             interval = option.interval || 1000,
             name_prefix = option.name_prefix || "tool_site_capture_unknow_site";
@@ -42,10 +43,13 @@ class Capturer {
             var err = null, returnData = {},_ph = null, _page = null;
             var p = phantom.create();
             p.then( ph => {
+                console.log(" phantom.create then")
                 _ph = ph;
                 return _ph.createPage();
             }).then( page =>  {
+                console.log(" createPage then, page default setting is :",page.settings)
                 _page = page;
+                _page.settings.userAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36";
                 return page.open(url)
             }).then( status => {
                 console.log("Page open status: " + status);
@@ -54,7 +58,9 @@ class Capturer {
                         format: format,
                         quality: option.quality || this._CONFIG.capture_image_qulity
                     };
-                    var promise = _page.render(folder + filename + "." + format, prop);
+                    var filepath = folder + filename + "." + format;
+                    console.log("Will render page to:",filepath);
+                    var promise = _page.render(filepath, prop);
                     return promise;
                 }
             }).then( result => {

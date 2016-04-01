@@ -1,10 +1,6 @@
-"use strict";
+"use strict";;
 
-var Global_CONFIG = {
-    capture_image_save_folder: "data/result/",
-    capture_image_qulity: 60
-}
-
+var Global_CONFIG = require("../config.js");
 var comparer = require("./comparer");
 var capturer = require("./capturer");
 var dboperator = require("./dboperator");
@@ -49,9 +45,11 @@ var afterCapture = function (err, target_data) {
                 target_data.diffinfo = err;
             }else{
                 console.log("Diff success. add diff info  to target data");
-                target_data.diffimg = resultFileName;
                 target_data.diffwith = last_data._id;
                 target_data.diffinfo = data;
+                if(data.similar){
+                    target_data.diffimg = resultFileName;
+                }
                 console.log(data)
             }
             console.log("Will save target data.")
@@ -70,7 +68,8 @@ class TaskManager{
         p.then( result => {
             var taskList = result.data;
             taskList.forEach( opt => {
-                if(!opt.enabled){
+                console.log("Enable:",opt.enabled);
+                if(opt.enabled){
                     this.excuteTask(opt);
                 }
             });
@@ -85,17 +84,25 @@ class TaskManager{
         console.log("Run a task:",taskinfo);
         if(!taskinfo)return;
         //测试代码,可以去掉
-        if(taskinfo.url.indexOf("bing.com")>-1)taskinfo.url+=Math.random();//Node下竟然没有includes这个方法
+        if(taskinfo.url.indexOf("sogou.com")>-1)taskinfo.url+=Math.random();//Node下竟然没有includes这个方法
         //预处理一下数据
-        taskinfo.taskid=taskinfo._id;
+
+
+        var opt = {};
+        for(var i in taskinfo){
+            opt[i]=taskinfo[i];
+        }
         delete taskinfo._id;
-        console.log("立即执行");
-        capturer.capture(taskinfo).then(function(data){
+
+        console.log("立即执行这个截图任务");
+        var p = capturer.capture(taskinfo).then(data=>{
             console.log("then capture");
             afterCapture(null,data);
         });
-        if (taskinfo.interval) {
-            console.log("配置了任务，则定时执行");
+        Promise.resolve(p);
+        console.log("判断是否配置了定时任务");
+        if ((typeof taskinfo.interval != "undefined") &&　taskinfo.interval>0) {
+            console.log("是.");
             setInterval(function () {
                 capturer.capture(taskinfo).then(function(data){
                     afterCapture(data);

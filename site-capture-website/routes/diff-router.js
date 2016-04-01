@@ -35,20 +35,23 @@ var RouterSets={
         if(query._id)opt._id=query._id;
 
         var p = dbreader.getCaptureEntry(opt);
-        p.then(function(data){
+        p.then(data => {
             console.log("get data callback", data);
             var diffwith_info = data.diffwith_info||{},
-                origin_info = data.origin_info;
-            console.log("origin_info is", origin_info);
-            res.render('diff/detail', {
+                origin_info = data.origin_info||{},
+                diffinfo = origin_info.diffinfo||{};
+
+            var renderData = {
                 id:origin_info._id,
                 title:"采集详情 - "+origin_info.url,
-                time: (new Date(origin_info.timestamp)).toLocaleDateString(),
-                diffratio:origin_info.diffinfo?origin_info.diffinfo.misMatchPercentage:"",
+                time: (new Date(origin_info.timestamp)).toLocaleString(),
+                diffratio:diffinfo?diffinfo.misMatchPercentage:"",
                 diffwith_img: realPath(diffwith_info.filename, diffwith_info.format),
                 origin_img: realPath(origin_info.filename, origin_info.format),
-                diff_img: realPath(origin_info.diffimg, origin_info.format)
-            });
+                diff_img: diffinfo.diffimg?realPath(diffinfo.diffimg, origin_info.format):""
+            };
+            console.log("Detail page will render:",renderData)
+            res.render('diff/detail', renderData);
         });
         Promise.resolve(p);
     }

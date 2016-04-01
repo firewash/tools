@@ -26,25 +26,25 @@
             vertical-align: top;
         }
         .new-capture{
-            position:absolute;
+            ~~~~position:absolute;
             left:0;
             top:0;
             width:50%;
             vertical-align: top;
         }
-        .not-marked{
-            position:absolute;
+        .current-capture{
+           ~~~~position:absolute;
             left:0;
             top:0;
             width:100%;
             display:block;
         }
-        .not-marked h2{
+        .current-capture h2{
             opacity:1;
             transition:opacity 0.5s;
         }
         .marked{
-            position:absolute;
+            ~~~~position:absolute;
             left:0;
             top:0;
             width:100%;
@@ -56,7 +56,7 @@
         .new-capture.showmark .marked{
             opacity:1;
         }
-        .new-capture.showmark .not-marked h2{
+        .new-capture.showmark .current-capture h2{
             opacity:0;
         }
 
@@ -96,7 +96,7 @@
 </div>
 <div class="wraper">
     <div class="new-capture ">
-        <div class="not-marked">
+        <div class="current-capture">
             <h2>本次采样</h2>
             <img src="<%= origin_img %>"/>
         </div>

@@ -148,7 +148,7 @@ class DBOperator {
 
                     if (origin && origin.diffwith) {
                         console.log("Find diff info ...");
-                        db.collection("origin_captures").find({}).limit(1).toArray().then(function (arr) {
+                        db.collection("origin_captures").find({_id:ObjectID(origin.diffwith)}).limit(1).toArray().then(function (arr) {
                             console.log("Found diff info ", arr);
                             data.diffwith_info = arr && arr[0] ? arr[0] : null;
                             resolve(data);
@@ -157,6 +157,7 @@ class DBOperator {
                         resolve(data);
                     }
                 });
+                return cursor;
             });
             Promise.resolve(p);
         });
@@ -178,12 +179,14 @@ class DBOperator {
         console.log("queryCondition", queryCondition);
         return new Promise((resolve, reject)=>{
             var p = this.connect();
-            p.then( result => {
-                var cursor = this.db.collection("origin_captures").find(queryCondition).sort({timestamp: -1}).limit(1).toArray().then(function (arr) {
+            p.then( db => {
+                db.collection("origin_captures").find(queryCondition).sort({timestamp: -1}).limit(1).toArray().then(function (arr) {
                     console.log("Result: ", arr);
                     var data = arr && arr[0] ? arr[0] : null;
                     resolve(data);
                 });
+            },err=>{
+                reject(err);
             });
         });
 

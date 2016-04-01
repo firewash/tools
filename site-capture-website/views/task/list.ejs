@@ -4,7 +4,7 @@
     <title><%= title %></title>
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/public/js/jquery.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <link rel='stylesheet' href='/public/stylesheets/style.css'/>
@@ -12,7 +12,7 @@
 <body>
 <div class="page-header">
     <h1><%= title %>
-        <small>任务管理</small>
+        <small><%= subtitle %></small>
     </h1>
 </div>
 
@@ -132,7 +132,7 @@
         $("#list .run_task").click(function(e){
             var api = "/api/task/"+ e.target.value +"/run";
             $.post(api,{},function(json){
-               alert("返回:"+json) ;
+               alert("Post请求返回了:"+JSON.stringify(json)) ;
             });
         });
 
