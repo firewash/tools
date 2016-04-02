@@ -1,6 +1,7 @@
 "use strict";
 var phantom = require('phantom');
 var Global_CONFIG = require("../config.js");
+var phantom_instance = null;
 
 class Capturer {
     constructor(){
@@ -39,19 +40,33 @@ class Capturer {
         option.description = date.toString();
 
         return new Promise((resolve,reject) => {
-            var err = null, returnData = {},_ph = null, _page = null;
-            var p = phantom.create();
+            var err = null, returnData = {},  _page = null;
+            var p = null;
+            if(phantom_instance){
+                p = new Promise((resolve)=>{
+                    resolve(phantom_instance);
+                });
+            }else{
+                p = phantom.create();
+                //一天关闭一次
+                setTimeout(function(){
+                    var _ph = phantom_instance;
+                    phantom_instance = null;
+                    _ph.exit();
+                },24*60*60*1000);
+            } 
+
             p.then( ph => {
-                console.log(" phantom.create then")
-                _ph = ph;
-                return _ph.createPage();
+                console.log("Success: phantom.create,",url)
+                phantom_instance = ph;
+                return ph.createPage();
             }).then( page =>  {
-                console.log("createPage then, page default setting is :",page.settings)
+                console.log("SucessL createPage, page default setting is :",url)
                 _page = page;
-                //_page.settings.userAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36";
+                //_page.settings.userAgent += " SiteCapture/1.0"; 这句话会导致程序出错中断执行
                 return page.open(url)
             }).then( status => {
-                console.log("Page open status: " + status);
+                console.log("Page open status: " + status,url);
                 if (status === "success") {
                     var prop = {
                         format: format,
@@ -65,7 +80,7 @@ class Capturer {
             }).then( result => {
                 console.log("Page render and save, result: ", result);
                 _page.close();
-                _ph.exit();
+                option.timestamp_capture_complete = new Date();
                 //console.log("Capture callback type is ", typeof callback);
                 result?resolve(option):reject({msg:"page render error"});
             });

@@ -266,6 +266,25 @@ class DBOperator {
             Promise.resolve(p);
         });
     }
+    //更新一个任务数据. 差量更新机制.
+    updateTask(opt,updateinfo){
+        console.log("updateTask, opt is:",opt);
+        var queryCondition = {},opt=opt||{};
+        opt._id && (queryCondition._id = ObjectID(opt._id));
+        return new Promise((resolve, reject)=> {
+            var p = this.connect();
+            p.then(db => {
+                console.log("then connect,queryCondition",queryCondition);
+                db.collection("tasks").updateOne(queryCondition,{$set:updateinfo}).then(function (result) {
+                    console.log("Update sucess:", result);
+                    resolve(result);
+                });
+            },err=>{
+                reject(err);
+            });
+            Promise.resolve(p);
+        });
+    }
 
 }
 

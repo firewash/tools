@@ -78,7 +78,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                    模态框（Modal）标题
+                    任务设置
                 </h4>
             </div>
             <div class="modal-body">
@@ -111,6 +111,7 @@
                                 <button class="task_setting"  value="${item._id}">任务设置</button>
                                 <button class="view_capture_list" value="${item._id}">查看监控结果</button>
                                 <button class="run_task" value="${item._id}">立即执行一次</button>
+                                <button class="swtich_enable" value="${item._id}" data-enabled=${item.enabled}>切换激活状态</button>
                              </td>
                         </tr>`
             list.append(html);
@@ -122,8 +123,10 @@
         renderList(data);
 
         $("#list .task_setting").click(function(e){
+
+
+
             $("#myModal").modal();
-            alert("task_setting");
         });
         $("#list .view_capture_list").click(function(e){
             alert("view_capture_list");
@@ -135,7 +138,14 @@
                alert("Post请求返回了:"+JSON.stringify(json)) ;
             });
         });
-
+        $("#list .swtich_enable").click(function(e){
+            var api = "/api/task/"+ e.target.value +"/update";
+            var enabled = e.target.dataset["enabled"];
+            enabled = enabled=="true"||enabled=="true";
+            $.post(api,{enabled: !enabled},function(json){
+                alert("Post请求返回了:"+JSON.stringify(json)) ;
+            });
+        });
     })
 
 </script>
