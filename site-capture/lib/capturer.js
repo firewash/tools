@@ -25,7 +25,6 @@ class Capturer {
     capture (option) {
         console.log("In capture fn, option: ",option );
         var url = option.url,
-            interval = option.interval || 1000,
             name_prefix = option.name_prefix || "tool_site_capture_unknow_site";
 
         var date = new Date(); //IOS时间
@@ -47,9 +46,9 @@ class Capturer {
                 _ph = ph;
                 return _ph.createPage();
             }).then( page =>  {
-                console.log(" createPage then, page default setting is :",page.settings)
+                console.log("createPage then, page default setting is :",page.settings)
                 _page = page;
-                _page.settings.userAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36";
+                //_page.settings.userAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36";
                 return page.open(url)
             }).then( status => {
                 console.log("Page open status: " + status);
