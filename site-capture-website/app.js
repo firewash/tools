@@ -4,9 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-console.log(__dirname)
-
 var GLOBAL_CONFIG = require("./config.js");
+
+console.log("工程目录: ",__dirname);
 
 var app = express();
 

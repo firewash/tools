@@ -2,6 +2,7 @@
 var phantom = require('phantom');
 var Global_CONFIG = require("../config.js");
 var phantom_instance = null;
+var path = require("path");
 
 class Capturer {
     constructor(){
@@ -54,16 +55,17 @@ class Capturer {
                     phantom_instance = null;
                     _ph.exit();
                 },24*60*60*1000);
-            } 
+            }
 
             p.then( ph => {
                 console.log("Success: phantom.create,",url)
                 phantom_instance = ph;
                 return ph.createPage();
             }).then( page =>  {
-                console.log("SucessL createPage, page default setting is :",url)
+                console.log("Success: createPage, page default setting is :",url)
                 _page = page;
-                //_page.settings.userAgent += " SiteCapture/1.0"; 这句话会导致程序出错中断执行
+                page.setting('Cache-Control', "max-age=0");//清除缓存(防止多次抓取没有用)
+                page.setting('userAgent', Global_CONFIG.userAgent||"Chrome/49");// 这句话会导致程序出错中断执行
                 return page.open(url)
             }).then( status => {
                 console.log("Page open status: " + status,url);
@@ -72,12 +74,13 @@ class Capturer {
                         format: format,
                         quality: option.quality || this._CONFIG.capture_image_qulity
                     };
-                    var filepath = folder + filename + "." + format;
+                    var filepath = path.join(folder,filename + "." + format);
                     console.log("Will render page to:",filepath);
                     var promise = _page.render(filepath, prop);
                     return promise;
                 }
             }).then( result => {
+                //?? 页面304缓存时render都会失败
                 console.log("Page render and save, result: ", result);
                 _page.close();
                 option.timestamp_capture_complete = new Date();

@@ -45,7 +45,7 @@ var RouterSets={
                 id:origin_info._id,
                 title:"采集详情 - "+origin_info.url,
                 time: (new Date(origin_info.timestamp)).toLocaleString(),
-                diffratio:diffinfo?diffinfo.misMatchPercentage:"",
+                diffratio:diffinfo.hasOwnProperty("misMatchPercentage")?diffinfo.misMatchPercentage:"",
                 diffwith_img: realPath(diffwith_info.filename, diffwith_info.format),
                 origin_img: realPath(origin_info.filename, origin_info.format),
                 diff_img: diffinfo.diffimg?realPath(diffinfo.diffimg, origin_info.format):""

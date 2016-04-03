@@ -15,7 +15,7 @@ router.get('/task/run', function(req, res, next) {
 router.post('/task/:id/run', function(req, res, next) {
     var id = req.params.id;
     console.log("/task/:id/run", id);
-    taskmanager.excuteTaskById(id);
+    taskmanager.executeTaskById(id);
     var data = {
         msg:id+"任务发送启动指令.后台进行中"
     };
@@ -41,6 +41,30 @@ router.post('/task/:id/update', function(req, res, next) {
             msg:taskid+" 任务更新指令失败.Err:" +err
         });
     });
+
+});
+
+router.post('/capture/list', function(req, res, next) {
+    console.log("/capture/list", req.params, req.body);
+    let opt = req.body;
+    var result = {
+        condition:opt,
+        err:null,
+        data:null
+    }
+
+    var p = dbreader.getCaptureEntries(opt);
+    p.then(function(arr){
+        console.log("then getCaptureEntries, lenth: ",arr.length);
+        result.data = arr;
+        res.send(result);
+    },err=>{
+        result.err = {
+            msg:taskid+" 任务更新指令失败.Err:" +err
+        };
+        res.send(result);
+    });
+    Promise.resolve(p);
 
 });
 

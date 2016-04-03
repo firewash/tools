@@ -34,12 +34,22 @@ class DBOperator {
         this.db && this.db.close();
     }
 
-    //转换一些不合法数据为合法
-    dataTransform(data) {
-        if (data.interval) {
-            data.interval = +data.interval;
+    //把数据库origin_captures的文档一些不合法数据为合法
+    dataTransform(doc) {
+        if (doc.interval) {
+            doc.interval = +doc.interval;
         }
-        return data;
+        return doc;
+    }
+    //把搜索条件中的不合法数据转换为合法
+    queryConditionTranform(condition){
+        //处理模糊搜索的字段. 作为URL的模糊字段
+        if(condition.hasOwnProperty("hazy")){
+            var value = condition.hazy.trim();
+            if(value!="")condition.url = new RegExp(value,"i");
+            delete condition.hazy;
+        }
+        return condition;
     }
 
     //todo 获取所有数据
@@ -80,18 +90,15 @@ class DBOperator {
      * */
      getCaptureEntries(opt) {
         return new Promise((resolve, reject)=> {
-            console.log("in db.getCaptureEntries");
-            var queryCondition = {
-                //url: opt.url
-            };
-            queryCondition = opt;//todo 根据opt获取选择性处理
 
+            var queryCondition = this.queryConditionTranform(opt);
+            console.log("In db.getCaptureEntries, queryCondition:",queryCondition);
             var p = this.connect();
             p.then(db => {
                 console.log("Connect then");
                 return db.collection("origin_captures").find(queryCondition).toArray();
             }).then(arr => {
-                console.log("Find then,", arr);
+                console.log("Find then,length: ", arr.length);
                 resolve(arr);
             });
         });
@@ -146,9 +153,10 @@ class DBOperator {
                     console.log("Find origin info:", arr);
                     var origin = data.origin_info = arr && arr[0] ? arr[0] : null;
 
-                    if (origin && origin.diffwith) {
+                    if (origin && origin.diffinfo && origin.diffinfo.diffwith) {
                         console.log("Find diff info ...");
-                        db.collection("origin_captures").find({_id:ObjectID(origin.diffwith)}).limit(1).toArray().then(function (arr) {
+                        var diffwith = origin.diffinfo.diffwith;
+                        db.collection("origin_captures").find({_id:ObjectID(diffwith)}).limit(1).toArray().then(function (arr) {
                             console.log("Found diff info ", arr);
                             data.diffwith_info = arr && arr[0] ? arr[0] : null;
                             resolve(data);
@@ -203,7 +211,7 @@ class DBOperator {
                         console.log("insert data error",err);
                         reject(err);
                     }else{
-                        console.log("Insert success , in fn saveCaptureData.",result);
+                        console.log("Insert success , in fn saveCaptureData.");
                         resolve(result);
                     }
 
@@ -213,21 +221,6 @@ class DBOperator {
             Promise.resolve(p);
         });
     }
-
-    getCaptureData(callback) {
-        this.connect(function () {
-            var cursor = this.db.collection("origin_captures").find();
-            cursor.each(function (err, item) {
-                if (item) {
-                    console.log(item);
-                } else {
-                    console.log("over");
-                }
-            });
-        });
-
-    }
-
 
     /**
      * 获取所有的采集任务
@@ -267,7 +260,7 @@ class DBOperator {
         });
     }
     //更新一个任务数据. 差量更新机制.
-    updateTask(opt,updateinfo){
+    updateTask (opt,updateinfo){
         console.log("updateTask, opt is:",opt);
         var queryCondition = {},opt=opt||{};
         opt._id && (queryCondition._id = ObjectID(opt._id));

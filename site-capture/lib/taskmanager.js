@@ -42,14 +42,14 @@ var afterCapture = function (err, target_data) {
         comparer.diff(opt, function (err, data) {
             if (err) {
                 console.log("Diff failed. As,", err.msg);
-                target_data.diffinfo = err;
+                target_data.differror = err;
             }else{
                 console.log("Diff success. add diff info  to target data");
-                target_data.diffwith = last_data._id;
-                target_data.diffinfo = data;
-                if(data.similar){
-                    target_data.diffimg = resultFileName;
+                data.diffwith = last_data._id;
+                if(!data.similar){
+                    data.diffimg = resultFileName;
                 }
+                target_data.diffinfo = data;
                 console.log(data)
             }
             console.log("Will save target data.")
@@ -62,7 +62,7 @@ class TaskManager{
     constructor(){}
 
     //去除所有任务并执行
-    excuteAllTasks(){
+    launchAllTasks(){
         console.log("获取并执行所有任务");
         var p = dboperator.getTasks();
         p.then( result => {
@@ -70,7 +70,7 @@ class TaskManager{
             taskList.forEach( opt => {
                 console.log("Enable:",opt.enabled);
                 if(opt.enabled){
-                    this.excuteTask(opt);
+                    this.launchTask(opt);
                 }
             });
         },(err)=>{
@@ -79,14 +79,13 @@ class TaskManager{
         Promise.resolve(p);
     }
 
-    //执行一个任务(忽略任务中的enabled标志)
-    excuteTask(taskinfo){
+    //执行一个任务,执行一次(忽略任务中的enabled标志)
+    executeTask(taskinfo){
         console.log("Run a task:",taskinfo);
         if(!taskinfo)return;
         //测试代码,可以去掉
         if(taskinfo.url.indexOf("sogou.com")>-1)taskinfo.url+=Math.random();//Node下竟然没有includes这个方法
         //预处理一下数据
-
 
         var opt = {};
         for(var i in taskinfo){
@@ -98,23 +97,29 @@ class TaskManager{
         var p = capturer.capture(taskinfo).then(data=>{
             console.log("then capture");
             afterCapture(null,data);
+        },err=>{
+            console.log("Error executeTask, msg:",err);
         });
         Promise.resolve(p);
+
+    }
+
+    //启动一个任务(任务会根据自己的配置定时启动)
+    launchTask(taskInfo){
+        this.executeTask(taskinfo);
         console.log("判断是否配置了定时任务");
         if ((typeof taskinfo.interval != "undefined") &&　taskinfo.interval>0) {
             console.log("是.");
-            setInterval(function () {
-                capturer.capture(taskinfo).then(function(data){
-                    afterCapture(data);
-                });
+            setInterval( () => {
+                this.executeTask(taskinfo);
             }, taskinfo.interval);
         }
     }
 
-    excuteTaskById(taskId){
-        console.log("excuteTaskById");
+    executeTaskById(taskId){
+        console.log("executeTaskById");
         dboperator.getTasks({_id:taskId}).then(result => {
-            this.excuteTask(result.data[0])
+            this.executeTask(result.data[0])
         });
 
     }

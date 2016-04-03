@@ -10,7 +10,7 @@ var taskmgr = require("../lib/taskmanager");
 
 //主函数
 (function main() {
-    taskmgr.excuteAllTasks();
+    taskmgr.launchAllTasks();
 })();
 
 

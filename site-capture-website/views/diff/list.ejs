@@ -21,19 +21,8 @@
 
         <form id="list_query" class="form-inline" action="#" method="get">
             <div class="form-group">
-                <label for="name">Domain</label>
-                <select id="domain" name="domain" class="form-control">
-                    <option value="-1">
-                        全部
-                    </option>
-                    <option value="cn.bing.com">
-                        cn.bing.com
-                    </option>
-                    <option value="www.uc123.com">
-                        www.uc123.com
-                    </option>
-                </select>
-                <input placeholder="模糊网址"   class="form-control"/>
+                <label for="name">URL模糊搜索</label>
+                <input placeholder="模糊网址"   class="form-control" name="hazyurl" id="hazyurl"/>
 
                 <label for="name" >时间范围</label>
                 <select class="form-control">
@@ -83,10 +72,9 @@
     var detail_url = "/diff/detail";
     function renderList(arr) {
         var list = $("#capture_list");
+        list.html("");
         arr.forEach(function (item) {
-            //todo 没有搞定
             var date = item.timestamp?(new Date(item.timestamp)).toLocaleString():"";
-            //date = item.timestamp?new Date(item.timestamp).toLocalString():"" ;
             let html = `<tr>
                             <td>${item.url}</td>
                             <td>${date}</td>
@@ -99,8 +87,19 @@
     }
 
     function pageInit(){
-        $("#domain").change(function(){
-            $("#list_query").submit();
+        //查询
+
+        $("#hazyurl").keyup(function(e){
+            $.post("/api/capture/list",{
+                hazy: $("#hazyurl").val()
+            },function(result){
+                console.log(result);
+                if(result.err){
+                    alert("something error. look console.");
+                }else{
+                    renderList(result.data);
+                }
+            });
         })
 
     }
