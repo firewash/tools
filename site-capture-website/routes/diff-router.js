@@ -24,6 +24,8 @@ var RouterSets={
                 title: '采集列表' ,
                 data: arr
             });
+        }).catch(function(e){
+            console.log(e);
         });
         Promise.resolve(p);
     },
@@ -52,6 +54,8 @@ var RouterSets={
             };
             console.log("Detail page will render:",renderData)
             res.render('diff/detail', renderData);
+        }).catch(function(e){
+            console.log(e);
         });
         Promise.resolve(p);
     }

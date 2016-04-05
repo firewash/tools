@@ -5,6 +5,7 @@
  *
  */
 
+"use strict";
 var webserver = require("../www/webserver");//可以单独剥离成独立的项目
 var taskmgr = require("../lib/taskmanager");
 
