@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var dbreader = require("../lib/dbreader");
+var dbreader = require("../lib/dbreader");;
 
 router.get('/list', (req, res, next)=>{
-   var p = dbreader.getTasks();
-    p.then(result=>{
+    Promise.resolve().then(function(){
+        return dbreader.getTasks();
+    }).then(result=>{
         console.log("then getAllTasks",result);
         var items = result.data;
         res.render('task/list', {
@@ -18,7 +19,6 @@ router.get('/list', (req, res, next)=>{
             data:{}
         });
     });
-    Promise.resolve(p);
 });
 
 module.exports = router;

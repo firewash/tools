@@ -15,7 +15,7 @@ userAgent += ' SiteCapture/1.0';
 var GLOBAL_CONFIG = {
     project_path:project_path,          //当前项目文件夹,虽然__dirname也好用,但是自己封装更放心
     capture_image_save_folder: capture_image_save_folder,//屏幕截图放置的磁盘位置
-    capture_image_qulity: 60,           //屏幕截图的质量
+    capture_image_qulity: 90,           //屏幕截图的质量
     image_compare_ratio_baseline:0.01,  //图像相似度的最低阈值
     userAgent:userAgent,                //捕获网站时phantom发出的UA
 }

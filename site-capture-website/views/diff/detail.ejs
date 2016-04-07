@@ -9,7 +9,7 @@
     <link rel='stylesheet' href='/public/stylesheets/style.css' />
     <style>
         img{
-            border:2px solid red;
+            ~~border:2px solid red;
             width:100%;
             display:block;
         }
@@ -26,14 +26,14 @@
             vertical-align: top;
         }
         .new-capture{
-            ~~~~position:absolute;
+            position:absolute;
             left:0;
             top:0;
             width:50%;
             vertical-align: top;
         }
         .current-capture{
-           ~~~~position:absolute;
+           position:absolute;
             left:0;
             top:0;
             width:100%;
@@ -44,7 +44,7 @@
             transition:opacity 0.5s;
         }
         .marked{
-            ~~~~position:absolute;
+            position:absolute;
             left:0;
             top:0;
             width:100%;
@@ -72,7 +72,6 @@
             cursor:pointer;;
         }
     </style>
-
 </head>
 <body>
 <div class="page-header">
@@ -90,38 +89,41 @@
     </div>
 </div>
 
-
 <div id="config">
-    <button id="showmark_btn" value="false" title="可以显示或隐藏当前截图上的差异标记">点击显示标记</button>
+    <button id="showmark_btn" title="可以显示或隐藏当前截图上的差异标记" accesskey="s">
+        <p>显示或隐藏</p>
+        <p>(Alt+ X)</p>
+    </button>
 </div>
 <div class="wraper">
     <div class="new-capture ">
         <div class="current-capture">
             <h2>本次采样</h2>
-            <img src="<%= origin_img %>"/>
+            <img src="<%= origin_img %>" class="img-thumbnail"/>
         </div>
         <div class="marked">
             <h2>本次采样 - 显示差异</h2>
-            <img src="<%= diff_img %>"/>
+            <img src="<%= diff_img %>" class="img-thumbnail"/>
         </div>
     </div>
     <div class="old-capture ">
         <h2>上次采样：</h2>
-        <img src="<%= diffwith_img %>"/>
+        <img src="<%= diffwith_img %>" class="img-thumbnail"/>
     </div>
 
 </div>
 </body>
 <script>
     var showMarkNow = false;
+    var accesskey_msg="<p>( Alt + X )</p>";
 
     function showMark(willShow){
         if(willShow){
             $(".new-capture").addClass("showmark");
-            $("#showmark_btn").html("不显示标记");
+            $("#showmark_btn").html("点击隐藏差异"+accesskey_msg);
         }else{
             $(".new-capture").removeClass("showmark");
-            $("#showmark_btn").html("显示标记");
+            $("#showmark_btn").html("<p>点击显示差异</p>"+accesskey_msg);
         }
         showMarkNow = willShow;
     }
