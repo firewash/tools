@@ -12,6 +12,15 @@ router.get('/task/run', function(req, res, next) {
     res.send(data);
 });
 
+router.post('/task/add',  function(req, res, next) {
+    var data = req.body;
+    console.log("post request:",data)
+    dbreader.addtask(data).then(result=>{
+        res.send(result);
+    });
+});
+
+
 router.post('/task/:id/run', function(req, res, next) {
     var id = req.params.id;
     console.log("/task/:id/run", id);

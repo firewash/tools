@@ -22,16 +22,16 @@
             添加一个新任务
         </div>
         <div class="panel-body">
-            <form id="task_add_form" class="form-inline" action="#" method="get" role="form">
+            <form id="task_add_form" class="form-inline" action="/api/task/add" method="post" role="form">
                 <div class="form-group">
                     <label for="name">Domain</label>
-                    <input type="text" class="form-control" id="domain" placeholder="请输入域名">
+                    <input type="text" class="form-control" id="domain" name="domain" placeholder="请输入域名">
                     <label for="name">URL</label>
-                    <input type="url" class="form-control" id="url" placeholder="请输入网址">
+                    <input type="url" class="form-control" id="url" name="url" placeholder="请输入网址">
                     <label for="name">定时执行</label>
-                    <input type="number" class="form-control" id="interval" placeholder="毫秒">
+                    <input type="number" class="form-control" id="interval" name="interval" placeholder="毫秒">
                     <label for="name">文件前缀</label>
-                    <input type="text" class="form-control" id="url" placeholder="存储在磁盘上的图片前缀">
+                    <input type="text" class="form-control" id="image_prefix"  name="image_prefix" placeholder="存储在磁盘上的图片前缀">
                     <div class="checkbox">
                         <label>
                             <input type="checkbox"> 添加后是否立即激活
@@ -39,7 +39,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-default">提交</button>
+                <button type="submit" id="new_task" class="btn btn-default">提交</button>
             </form>
         </div>
     </div>
@@ -127,6 +127,15 @@
         $("#list .view_capture_list").click(function(e){
             alert("view_capture_list");
         });
+
+        $("#new_task").click(function(e){
+            var api = "/api/task/add";
+            $.post(api,$("#task_add_form").serialize(),function(e){
+                alert(e);
+            });
+            e.preventDefault();
+            return false;
+        })
 
         $("#list .run_task").click(function(e){
             var api = "/api/task/"+ e.target.value +"/run";

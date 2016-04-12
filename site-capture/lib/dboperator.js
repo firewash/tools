@@ -240,25 +240,44 @@ class DBOperator {
         //topt安全填入
         opt._id && (queryCondition._id = ObjectID(opt._id));
 
-        return new Promise((resolve, reject)=> {
-            var p = this.connect();
-            p.then(db => {
-                console.log("then connect");
-                console.log("queryCondition", queryCondition);
-                var cursor = db.collection("tasks").find(queryCondition).toArray().then(function (arr) {
-                    console.log("Find tasks:", arr);
-                    resolve({
-                        query_condition: queryCondition,
-                        data: arr
-                    });
-
-                });
-            },err=>{
-                reject(err);
-            });
-            Promise.resolve(p);
-        });
+        return Promise.resolve().then(()=>{
+            return this.connect();
+        }).then(db => {
+            console.log("then connect");
+            console.log("queryCondition", queryCondition);
+            return db.collection("tasks").find(queryCondition).toArray();
+        }).then((arr)=>{
+            return {
+                query_condition: queryCondition,
+                data: arr
+            };
+        });;
     }
+
+    //添加一个新任务
+    addtask(data){
+        console.log("add task fn.");
+        var _data = {
+            domain:data.domain,
+            url: data.url,
+            interval : data.interval,
+            name_prefix: data.name_prefix,
+            enabled: data.enabled,
+        };
+
+        return Promise.resolve().then(()=>{
+            console.log("will connect.");
+            return this.connect();
+        }).then(db => {
+            console.log("Insert data", _data);
+            return db.collection("tasks").insertOne(_data);
+        }).then(function (result){
+            console.log("Result:",result);
+            return arr;
+        });
+
+    }
+
     //更新一个任务数据. 差量更新机制.
     updateTask (opt,updateinfo){
         console.log("updateTask, opt is:",opt);
