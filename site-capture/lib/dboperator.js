@@ -30,7 +30,7 @@ class DBOperator {
     /**
      * 关闭数据库
      * */
-        close() {
+    close() {
         this.db && this.db.close();
     }
 
@@ -90,7 +90,6 @@ class DBOperator {
      * */
      getCaptureEntries(opt) {
         return new Promise((resolve, reject)=> {
-
             var queryCondition = this.queryConditionTranform(opt);
             console.log("In db.getCaptureEntries, queryCondition:",queryCondition);
             var p = this.connect();
@@ -260,9 +259,9 @@ class DBOperator {
         var _data = {
             domain:data.domain,
             url: data.url,
-            interval : data.interval,
+            interval : parseInt(data.interval),
             name_prefix: data.name_prefix,
-            enabled: data.enabled,
+            enabled: !!data.enabled,
         };
 
         return Promise.resolve().then(()=>{

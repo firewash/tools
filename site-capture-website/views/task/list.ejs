@@ -34,7 +34,7 @@
                     <input type="text" class="form-control" id="image_prefix"  name="image_prefix" placeholder="存储在磁盘上的图片前缀">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox"> 添加后是否立即激活
+                            <input type="checkbox" name="enabled"> 添加后是否立即激活
                         </label>
                     </div>
                 </div>
@@ -81,7 +81,26 @@
                 </h4>
             </div>
             <div class="modal-body">
-                在这里添加一些文本
+                <form id="task_update_form" class="form" action="/api/task/update" method="post" role="form">
+                    <div class="form-group">
+                        <input type="hidden" id="_id" name="_id" value=""/>
+                        <label for="name">Domain</label>
+                        <input type="text" class="form-control" id="domain" name="domain" placeholder="请输入域名">
+                        <label for="name">URL</label>
+                        <input type="url" class="form-control" id="url" name="url" placeholder="请输入网址">
+                        <label for="name">定时执行</label>
+                        <input type="number" class="form-control" id="interval" name="interval" placeholder="毫秒">
+                        <label for="name">文件前缀</label>
+                        <input type="text" class="form-control" id="image_prefix"  name="image_prefix" placeholder="存储在磁盘上的图片前缀">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="enabled"> 添加后是否立即激活
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="new_task" class="btn btn-default">提交</button>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default"
@@ -101,7 +120,8 @@
     function renderList(arr) {
         var list = $("#list");
         arr.forEach(function (item) {
-            var html = `<tr>
+            var line = $("<tr>");
+            var html = `
                             <td>${item.domain}</td>
                             <td>${item.url}</td>
                             <td>${item.interval}</td>
@@ -112,8 +132,10 @@
                                 <button class="run_task" value="${item._id}">立即执行一次</button>
                                 <button class="swtich_enable" value="${item._id}" data-enabled=${item.enabled}>切换激活状态</button>
                              </td>
-                        </tr>`
-            list.append(html);
+                       `;
+            line.html(html);
+            line.data = item;
+            list.append(line);
         })
     }
 
@@ -122,6 +144,13 @@
         renderList(data);
 
         $("#list .task_setting").click(function(e){
+            $("#task_update_form")[0].reset();
+            var data = $(e.target).closest("tr").data;
+            if(!data){
+                alert("No data got");
+                return;
+            }
+
             $("#myModal").modal();
         });
         $("#list .view_capture_list").click(function(e){
@@ -131,7 +160,12 @@
         $("#new_task").click(function(e){
             var api = "/api/task/add";
             $.post(api,$("#task_add_form").serialize(),function(e){
-                alert(e);
+                if(e&& e.ok){
+                    alert("添加成功,"+ JSON.stringify(e));
+                    window.location.reload();
+                } else{
+                    alert("添加失败,"+ JSON.stringify(e));
+                }
             });
             e.preventDefault();
             return false;

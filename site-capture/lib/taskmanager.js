@@ -105,7 +105,7 @@ class TaskManager{
     }
 
     //启动一个任务(任务会根据自己的配置定时启动)
-    launchTask(taskInfo){
+    launchTask(taskinfo){
         this.executeTask(taskinfo);
         console.log("判断是否配置了定时任务");
         if ((typeof taskinfo.interval != "undefined") &&　taskinfo.interval>0) {
