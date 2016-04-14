@@ -17,17 +17,19 @@ var RouterSets={
         query.from && (opt.from=query.from);
         query.end && (opt.from=query.end);
 
-        var p = dbreader.getCaptureEntries(opt);
-        p.then(function(arr){
-            console.log("then getCaptureEntries",arr);
-            res.render('diff/list', {
-                title: '采集列表' ,
-                data: arr
+        dbreader.getCaptureEntries(opt)
+            .then( arr => {
+                console.log("then getCaptureEntries",arr);
+                res.render('diff/list', {
+                    title: '采集列表' ,
+                    data: arr
+                });
+            }).catch( e => {
+                console.log("Error in list router: ",e);
+                res.render('diff/list', {
+                    title: e.message
+                });
             });
-        }).catch(function(e){
-            console.log(e);
-        });
-        Promise.resolve(p);
     },
     '/detail': function(req, res, next) {
         var query = req.query;

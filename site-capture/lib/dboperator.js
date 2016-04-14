@@ -1,13 +1,15 @@
 "use strict";
 
 var ObjectID = require("mongodb").ObjectID;
+var TABLES = {
+   "capture" : "origin_captures",
+    "task":"tasks"
+};
 
 class DBOperator {
     constructor() {
         var mongodb = require("mongodb");
         var MongoClient = mongodb.MongoClient;
-        var databaseUrl = "admin:admin@localhost:27017/tools_site_capture";
-        var collections = ["origin_captures", "diff_captures", "tasks"];
         var url = 'mongodb://localhost:27017/tools_site_capture';
 
         this.db = null;
@@ -15,7 +17,7 @@ class DBOperator {
         this.url = url;
     }
 
-    connect(callback) {
+    connect() {
         return new Promise((resolve, reject)=> {
             console.log("Try db connect");
 
@@ -56,7 +58,7 @@ class DBOperator {
     getAllCaptureEntries(callback) {
         console.log("in getAllCaptureEntries");
         this.connect(function () {
-            var cursor = this.db.collection("origin_captures").find();
+            var cursor = this.db.collection(TABLES.capture).find();
             cursor.each(function (err, item) {
                 if (item) {
                     console.log(item);
@@ -89,18 +91,18 @@ class DBOperator {
 
      * */
      getCaptureEntries(opt) {
-        return new Promise((resolve, reject)=> {
-            var queryCondition = this.queryConditionTranform(opt);
-            console.log("In db.getCaptureEntries, queryCondition:",queryCondition);
-            var p = this.connect();
-            p.then(db => {
-                console.log("Connect then");
-                return db.collection("origin_captures").find(queryCondition).toArray();
-            }).then(arr => {
-                console.log("Find then,length: ", arr.length);
-                resolve(arr);
-            });
+        var queryCondition = this.queryConditionTranform(opt);
+
+        return Promise.resolve().then(()=>{
+            return this.connect();
+        }).then(db => {
+            console.log("Connect then");
+            return db.collection(TABLES.capture).find(queryCondition).toArray();
+        }).then(arr => {
+            console.log("Find then,length: ", arr.length);
+            return arr;
         });
+
     }
 
     /**
@@ -148,14 +150,14 @@ class DBOperator {
             p.then(db => {
                 console.log("then connnect");
                 console.log("queryCondition", queryCondition);
-                var cursor = db.collection("origin_captures").find(queryCondition).limit(1).toArray().then(function (arr) {
+                var cursor = db.collection(TABLES.capture).find(queryCondition).limit(1).toArray().then( arr => {
                     console.log("Find origin info:", arr);
                     var origin = data.origin_info = arr && arr[0] ? arr[0] : null;
 
                     if (origin && origin.diffinfo && origin.diffinfo.diffwith) {
                         console.log("Find diff info ...");
                         var diffwith = origin.diffinfo.diffwith;
-                        db.collection("origin_captures").find({_id:ObjectID(diffwith)}).limit(1).toArray().then(function (arr) {
+                        db.collection(TABLES.capture).find({_id:ObjectID(diffwith)}).limit(1).toArray().then( arr => {
                             console.log("Found diff info ", arr);
                             data.diffwith_info = arr && arr[0] ? arr[0] : null;
                             resolve(data);
@@ -187,7 +189,7 @@ class DBOperator {
         return new Promise((resolve, reject)=>{
             var p = this.connect();
             p.then( db => {
-                db.collection("origin_captures").find(queryCondition).sort({timestamp: -1}).limit(1).toArray().then(function (arr) {
+                db.collection(TABLES.capture).find(queryCondition).sort({timestamp: -1}).limit(1).toArray().then( arr => {
                     console.log("Result: ", arr);
                     var data = arr && arr[0] ? arr[0] : null;
                     resolve(data);
@@ -270,11 +272,10 @@ class DBOperator {
         }).then(db => {
             console.log("Insert data", _data);
             return db.collection("tasks").insertOne(_data);
-        }).then(function (result){
+        }).then(result=>{
             console.log("Result:",result);
             return arr;
         });
-
     }
 
     //更新一个任务数据. 差量更新机制.
@@ -286,7 +287,7 @@ class DBOperator {
             var p = this.connect();
             p.then(db => {
                 console.log("then connect,queryCondition",queryCondition);
-                db.collection("tasks").updateOne(queryCondition,{$set:updateinfo}).then(function (result) {
+                db.collection("tasks").updateOne(queryCondition,{$set:updateinfo}).then( result => {
                     console.log("Update sucess:", result);
                     resolve(result);
                 });
@@ -295,6 +296,12 @@ class DBOperator {
             });
             Promise.resolve(p);
         });
+    }
+
+    deleteTask(opt){
+        return Promise.resolve().then(()=>{
+            return {message:"成功"}
+        })
     }
 
 }

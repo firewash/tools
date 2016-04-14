@@ -22,15 +22,6 @@ router.post('/task/add',  function(req, res, next) {
 });
 
 
-router.post('/task/:id/run', function(req, res, next) {
-    var id = req.params.id;
-    console.log("/task/:id/run", id);
-    taskmanager.executeTaskById(id);
-    var data = {
-        msg:id+"任务发送启动指令.后台进行中"
-    };
-    res.send(data);
-});
 router.post('/task/:id/update', function(req, res, next) {
     console.log("/task/:id/undate", req.params, req.body);
     let taskid = req.params.id,
@@ -52,6 +43,32 @@ router.post('/task/:id/update', function(req, res, next) {
         });
     });
 
+});
+
+router.delete('/task/:id', function(req, res, next) {
+    var id = req.params.id;
+    console.log("/task/:id/delete", id);
+
+    dbreader.deleteTask({_id:id}).then( result=>{
+            var data = {
+                message: id+"删除成功"
+            };
+            res.send(data);
+        }, err=>{
+            res.send(err);
+        })
+
+
+});
+
+router.post('/task/:id/run', function(req, res, next) {
+    var id = req.params.id;
+    console.log("/task/:id/run", id);
+    taskmanager.executeTaskById(id);
+    var data = {
+        msg:id+"任务发送启动指令.后台进行中"
+    };
+    res.send(data);
 });
 
 router.post('/capture/list', function(req, res, next) {
