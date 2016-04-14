@@ -16,6 +16,7 @@ router.post('/task/add',  function(req, res, next) {
     var data = req.body;
     console.log("post request:",data)
     dbreader.addtask(data).then(result=>{
+        console.log("Then addtask . ");
         res.send(result);
     });
 });

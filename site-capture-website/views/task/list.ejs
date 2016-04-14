@@ -4,10 +4,10 @@
     <title><%= title %></title>
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-    <script src="/public/js/jquery.js"></script>
-    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
     <link rel='stylesheet' href='/public/stylesheets/style.css'/>
+    <script src="/public/js/jquery.js"></script>
+    <script src="/public/js/vue.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="page-header" onclick="window.location.reload()">
@@ -24,14 +24,14 @@
         <div class="panel-body">
             <form id="task_add_form" class="form-inline" action="/api/task/add" method="post" role="form">
                 <div class="form-group">
-                    <label for="name">Domain</label>
-                    <input type="text" class="form-control" id="domain" name="domain" placeholder="请输入域名">
                     <label for="name">URL</label>
-                    <input type="url" class="form-control" id="url" name="url" placeholder="请输入网址">
+                    <input type="url" class="form-control" id="url" name="url" placeholder="请输入网址(http[s]://...)" v-model="url" style="width:500px;">
+                    <label for="name">Domain</label>
+                    <input type="text" class="form-control" id="domain" name="domain" placeholder="请输入域名" v-model="domain">
                     <label for="name">定时执行</label>
                     <input type="number" class="form-control" id="interval" name="interval" placeholder="毫秒">
                     <label for="name">文件前缀</label>
-                    <input type="text" class="form-control" id="image_prefix"  name="image_prefix" placeholder="存储在磁盘上的图片前缀">
+                    <input type="text" class="form-control" id="name_prefix"  name="name_prefix" placeholder="存储在磁盘上的图片前缀"  v-model="name_prefix">
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" name="enabled"> 添加后是否立即激活
@@ -82,24 +82,22 @@
             </div>
             <div class="modal-body">
                 <form id="task_update_form" class="form" action="/api/task/update" method="post" role="form">
-                    <div class="form-group">
-                        <input type="hidden" id="_id" name="_id" value=""/>
-                        <label for="name">Domain</label>
-                        <input type="text" class="form-control" id="domain" name="domain" placeholder="请输入域名">
+                    <div class="form-group ">
+                        <input type="hidden" id="_id" name="_id" v-model="_id"/>
                         <label for="name">URL</label>
-                        <input type="url" class="form-control" id="url" name="url" placeholder="请输入网址">
+                        <input type="url" class="form-control" id="url" name="url" placeholder="请输入网址(http[s]://...)" v-model="url">
+                        <label for="name">Domain</label>
+                        <input type="text" class="form-control" id="domain" name="domain" placeholder="请输入域名"  v-model="domain">
                         <label for="name">定时执行</label>
-                        <input type="number" class="form-control" id="interval" name="interval" placeholder="毫秒">
+                        <input type="number" class="form-control" id="interval" name="interval" placeholder="毫秒" v-model="interval">
                         <label for="name">文件前缀</label>
-                        <input type="text" class="form-control" id="image_prefix"  name="image_prefix" placeholder="存储在磁盘上的图片前缀">
+                        <input type="text" class="form-control" id="name_prefix"  name="name_prefix" placeholder="存储在磁盘上的图片前缀" v-model="name_prefix">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="enabled"> 添加后是否立即激活
+                                <input type="checkbox" name="enabled" checked="false" v-model="enabled"> 添加后是否立即激活
                             </label>
                         </div>
                     </div>
-
-                    <button type="submit" id="new_task" class="btn btn-default">提交</button>
                 </form>
             </div>
             <div class="modal-footer">
@@ -134,21 +132,65 @@
                              </td>
                        `;
             line.html(html);
-            line.data = item;
+            line.data("origindata", item);
             list.append(line);
         })
     }
+    //表单数据绑定
+    !function (){
+        new Vue({
+            el: '#task_add_form',
+            data: {
+                url:"",
+                interval:0,
+                name_prefix:"",
+                enabled:true
+            },
+            computed:{
+                domain:function(){
+                    var host = "";
+                    try{
+                        host = new URL(this.url).host;
+                    }catch(e){
+                        //throw(e);
+                    }
+                    return host;
+                },
+                name_prefix:function(){
+                    var str = "";
+                    try{
+                        str = new URL(this.url).host;
+                    }catch(e){
+                        //throw(e);
+                    }
+                    return str;
+                }
+            }
+        });
 
+        var myModel = window.task_update_form_model = {
+            domain:"",
+            url:"",
+            interval:0,
+            name_prefix:"",
+            enabled:true
+        };
+
+        new Vue({
+            el: '#task_update_form',
+            data: myModel
+        });
+    }();
+    //开始
     $(function () {
         var data = <%- JSON.stringify(data) %>;
         renderList(data);
 
         $("#list .task_setting").click(function(e){
             $("#task_update_form")[0].reset();
-            var data = $(e.target).closest("tr").data;
-            if(!data){
-                alert("No data got");
-                return;
+            var data = $(e.target).closest("tr").data("origindata");
+            for(var i in data){
+                task_update_form_model[i] = data[i];
             }
 
             $("#myModal").modal();
