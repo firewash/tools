@@ -17,7 +17,7 @@ router.post('/task/add',  function(req, res, next) {
     console.log("post request:",data)
     dbreader.addTask(data).then(result=>{
         console.log("Then addtask . ");
-        res.send(result);
+        res.status("201").send(result);
     }).catch(function(err){
         console.log("Error,",err);
         res.send(err);
@@ -52,13 +52,12 @@ router.delete('/task/:id', function(req, res, next) {
     console.log("request /task/:id/delete", id);
 
     dbreader.deleteTask({_id:id}).then( result=>{
-            var data = {
+            console.log("Delete success ",result);
+            res.send({
                 message: id+"删除成功"
-            };
-            console.log("in succ")
-            res.send(data);
+            });
         }, err=>{
-            console.log("in err")
+            console.log("Delete errlr,",err);
             res.send(err);
         });
 });
