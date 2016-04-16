@@ -47,14 +47,16 @@ router.post('/task/:id/update', function(req, res, next) {
 
 router.delete('/task/:id', function(req, res, next) {
     var id = req.params.id;
-    console.log("/task/:id/delete", id);
+    console.log("request /task/:id/delete", id);
 
     dbreader.deleteTask({_id:id}).then( result=>{
             var data = {
                 message: id+"删除成功"
             };
+            console.log("in succ")
             res.send(data);
         }, err=>{
+            console.log("in err")
             res.send(err);
         })
 

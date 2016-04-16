@@ -204,23 +204,22 @@ class DBOperator {
     //保存一个截图数据
     saveCaptureData(data) {
         console.log("Will save capture data:", data);
-        return new Promise((resolve,reject) => {
-            var p = this.connect();
-            p.then( result => {
-                this.db.collection('origin_captures').insertOne(this.dataTransform(data),  (err, result) => {
-                    if(err){
-                        console.log("insert data error",err);
-                        reject(err);
-                    }else{
-                        console.log("Insert success , in fn saveCaptureData.");
-                        resolve(result);
-                    }
+        return Promise.resolve().then(()=>{
+            return this.connect();
+        }).then(db=>{
+            db.collection(TABLES.capture).insertOne(this.dataTransform(data),  (err, result) => {
+                if(err){
+                    console.log("insert data error",err);
+                    reject(err);
+                }else{
+                    console.log("Insert success , in fn saveCaptureData.");
+                    resolve(result);
+                }
 
-                    this.close();
-                });
+                this.close();
             });
-            Promise.resolve(p);
-        });
+        })
+
     }
 
     /**
@@ -246,7 +245,7 @@ class DBOperator {
         }).then(db => {
             console.log("then connect");
             console.log("queryCondition", queryCondition);
-            return db.collection("tasks").find(queryCondition).toArray();
+            return db.collection(TABLES.task).find(queryCondition).toArray();
         }).then((arr)=>{
             return {
                 query_condition: queryCondition,
@@ -271,7 +270,7 @@ class DBOperator {
             return this.connect();
         }).then(db => {
             console.log("Insert data", _data);
-            return db.collection("tasks").insertOne(_data);
+            return db.collection(TABLES.task).insertOne(_data);
         }).then(result=>{
             console.log("Result:",result);
             return arr;
@@ -287,7 +286,7 @@ class DBOperator {
             var p = this.connect();
             p.then(db => {
                 console.log("then connect,queryCondition",queryCondition);
-                db.collection("tasks").updateOne(queryCondition,{$set:updateinfo}).then( result => {
+                db.collection(TABLES.task).updateOne(queryCondition,{$set:updateinfo}).then( result => {
                     console.log("Update sucess:", result);
                     resolve(result);
                 });
@@ -299,9 +298,18 @@ class DBOperator {
     }
 
     deleteTask(opt){
+        var _id = opt._id;
+        console.log("dboperator deleteTask, _id:",_id)
         return Promise.resolve().then(()=>{
-            return {message:"成功"}
-        })
+            return this.connect();
+        }).then(db=>{
+            return new Promise((resolve,reject)=>{
+                console.log("db.deleteOne, _id:",_id)
+                db.collection(TABLES.task).deleteOne({_id:ObjectID(_id)},function(err,results){
+                    err?reject(err):resolve(results);
+                });
+            });
+        });
     }
 
 }
