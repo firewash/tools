@@ -3,10 +3,10 @@
 <head>
     <title><%= title %></title>
     <meta charset="utf-8"/>
-    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/public/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/bootstrap/bootstrap-theme.min.css">
     <script src="/public/js/jquery.js"></script>
-    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="/public/bootstrap/bootstrap.min.js"></script>
     <link rel='stylesheet' href='/public/stylesheets/style.css'/>
 </head>
 <body>
@@ -22,7 +22,7 @@
         <form id="list_query" class="form-inline" action="#" method="get">
             <div class="form-group">
                 <label for="name">URL模糊搜索</label>
-                <input placeholder="模糊网址"   class="form-control" name="hazyurl" id="hazyurl"/>
+                <input placeholder="模糊网址"   class="form-control" name="hazyurl" id="hazyurl" value=""/>
 
                 <!--<label for="name" >时间范围</label>-->
                 <!--<select class="form-control">-->
@@ -69,7 +69,9 @@
 </body>
 
 <script>
-    var detail_url = "/diff/detail";
+    var detail_url = "/diff/detail",
+        capture_list_url = "/api/capture/list";
+
     function renderList(arr) {
         var list = $("#capture_list");
         list.html("");
@@ -86,30 +88,42 @@
         })
     }
 
-    function pageInit(){
-        //查询
+    function loadCaptureListData(condition){
+        $.post(capture_list_url,condition,function(result){
+            console.log(result);
+            if(result.err){
+                alert("something error. look console.");
+            }else{
+                renderList(result.data);
+            }
+        });
+    }
 
+    function bindEvent(){
+        //查询 hazyurl
         $("#hazyurl").keyup(function(e){
-            $.post("/api/capture/list",{
+            loadCaptureListData({
                 hazy: $("#hazyurl").val()
-            },function(result){
-                console.log(result);
-                if(result.err){
-                    alert("something error. look console.");
-                }else{
-                    renderList(result.data);
-                }
             });
         })
+    }
 
+    function dataInit(){
+        var hash = document.location.hash;
+        var condition = {};
+        if(hash){
+            var arr = hash.substr(1).split("&");
+            arr.forEach(function(item){
+                var t = item.split("=");
+                if(t.length==2)condition[t[0]]=t[1];
+            })
+        }
+        loadCaptureListData(condition);
     }
 
     $(function () {
-        var data = <%- JSON.stringify(data) %>;
-        renderList(data);
-
-        pageInit();
-
+        dataInit();
+        bindEvent();
     })
 
 </script>

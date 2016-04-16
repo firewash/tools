@@ -1,8 +1,8 @@
 "use strict";
 var phantom = require('phantom');
 var Global_CONFIG = require("../config.js");
-var phantom_instance = null;
 var path = require("path");
+var phantom_instance = null;
 
 class Capturer {
     constructor(){

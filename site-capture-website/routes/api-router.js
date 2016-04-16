@@ -15,15 +15,18 @@ router.get('/task/run', function(req, res, next) {
 router.post('/task/add',  function(req, res, next) {
     var data = req.body;
     console.log("post request:",data)
-    dbreader.addtask(data).then(result=>{
+    dbreader.addTask(data).then(result=>{
         console.log("Then addtask . ");
         res.send(result);
+    }).catch(function(err){
+        console.log("Error,",err);
+        res.send(err);
     });
 });
 
 
-router.post('/task/:id/update', function(req, res, next) {
-    console.log("/task/:id/undate", req.params, req.body);
+router.put('/task/:id', function(req, res, next) {
+    console.log("/task/:id put update request.req.param: ", req.params, "and req.body: " ,req.body);
     let taskid = req.params.id,
         updateinfo = req.body;
 
@@ -34,15 +37,14 @@ router.post('/task/:id/update', function(req, res, next) {
     console.log(taskid,updateinfo);
     dbreader.updateTask({_id:taskid},updateinfo).then(result=>{
         var data = {
-            msg:taskid+" 任务更新指令完成.Result:" + result
+            msg:taskid+" 任务更新完成.Result:" + result
         };
         res.send(data);
     },err=>{
         res.send({
-            msg:taskid+" 任务更新指令失败.Err:" +err
+            msg:taskid+" 任务更新失败.Error:" +err
         });
     });
-
 });
 
 router.delete('/task/:id', function(req, res, next) {
@@ -58,9 +60,7 @@ router.delete('/task/:id', function(req, res, next) {
         }, err=>{
             console.log("in err")
             res.send(err);
-        })
-
-
+        });
 });
 
 router.post('/task/:id/run', function(req, res, next) {

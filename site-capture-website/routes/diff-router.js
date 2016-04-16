@@ -9,31 +9,13 @@ function realPath(filename,format){
 //路由集合
 var RouterSets={
     '/list': function(req, res, next) {
-        var query = req.query;
-
-        var opt = {};
-        query.domain && (opt.domain=query.domain);
-        query.url && (opt.url=query.url);
-        query.from && (opt.from=query.from);
-        query.end && (opt.from=query.end);
-
-        dbreader.getCaptureEntries(opt)
-            .then( arr => {
-                console.log("then getCaptureEntries",arr);
-                res.render('diff/list', {
-                    title: '采集列表' ,
-                    data: arr
-                });
-            }).catch( e => {
-                console.log("Error in list router: ",e);
-                res.render('diff/list', {
-                    title: e.message
-                });
-            });
+        //todo 要是能原生支持分析hash就好了,可以回填hazy
+        res.render('diff/list', {
+            title: '采集列表',
+        });
     },
     '/detail': function(req, res, next) {
         var query = req.query;
-
         //需要安全的处理一下传入的参数,不要直接传递
         var opt = {};
         if(query._id)opt._id=query._id;
@@ -61,7 +43,7 @@ var RouterSets={
         });
         Promise.resolve(p);
     }
-}
+};
 
 /**
  * GET list page.

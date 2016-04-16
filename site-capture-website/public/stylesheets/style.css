@@ -11,6 +11,11 @@ a {
 .hidden{
     display: none;
 }
+
+.v-space{
+    margin:10px 0;
+}
+
 .normal-list{
 
 }

@@ -5,6 +5,49 @@ var TABLES = {
    "capture" : "origin_captures",
     "task":"tasks"
 };
+var Transformer={
+    //把搜索条件中的不合法数据转换为合法
+    queryConditionOfCapture(condition){
+        var _ = {};
+        //处理模糊搜索的字段. 作为URL的模糊字段
+        if(condition.hasOwnProperty("hazy")){
+            var value = condition.hazy.trim();
+            if(value!="")condition.url = new RegExp(value,"i");
+            delete condition.hazy;
+        }
+        //处理模糊搜索的字段. 作为URL的模糊字段
+        if(condition.hasOwnProperty("taskid")){
+            var value = condition.taskid;
+            if(typeof value == "string"){
+                condition.taskid = ObjectID(value);
+            }
+        }
+        return condition;
+    },
+
+    //把数据库origin_captures的文档一些不合法数据为合法
+    captureDoc(doc) {
+        if (doc.interval) {
+            doc.interval = +doc.interval;
+        }
+        return doc;
+    },
+
+    //任务处理
+    taskDoc:function(data){
+        return {
+            domain:data.domain,
+            url: /^https?:/i.test(data.url)?data.url:"http://"+data.url,
+            interval : parseInt(data.interval),
+            name_prefix: data.name_prefix,
+            enabled: !!data.enabled,
+            createtime:new Date()
+        };
+    }
+
+}
+
+
 
 class DBOperator {
     constructor() {
@@ -20,12 +63,16 @@ class DBOperator {
     connect() {
         return new Promise((resolve, reject)=> {
             console.log("Try db connect");
+            if(this.db){
+                resolve(this.db);
+            }else{
+                this.MongoClient.connect(this.url, (err, db) => {
+                    console.log(err ? ("MongoDB connnect error!",err) : "MongoDB connnect success~.");
+                    this.db = db;
+                    err ? reject(err) : resolve(db);
+                });
+            }
 
-            this.MongoClient.connect(this.url, (err, db) => {
-                console.log(err ? ("MongoDB connnect error!",err) : "MongoDB connnect success~.");
-                this.db = db;
-                err ? reject(err) : resolve(db);
-            });
         });
     }
 
@@ -33,25 +80,10 @@ class DBOperator {
      * 关闭数据库
      * */
     close() {
-        this.db && this.db.close();
-    }
-
-    //把数据库origin_captures的文档一些不合法数据为合法
-    dataTransform(doc) {
-        if (doc.interval) {
-            doc.interval = +doc.interval;
+        if(this.db ){
+            this.db.close();
+            this.db = null;
         }
-        return doc;
-    }
-    //把搜索条件中的不合法数据转换为合法
-    queryConditionTranform(condition){
-        //处理模糊搜索的字段. 作为URL的模糊字段
-        if(condition.hasOwnProperty("hazy")){
-            var value = condition.hazy.trim();
-            if(value!="")condition.url = new RegExp(value,"i");
-            delete condition.hazy;
-        }
-        return condition;
     }
 
     //todo 获取所有数据
@@ -91,12 +123,12 @@ class DBOperator {
 
      * */
      getCaptureEntries(opt) {
-        var queryCondition = this.queryConditionTranform(opt);
+        var queryCondition = Transformer.queryConditionOfCapture(opt);
 
         return Promise.resolve().then(()=>{
             return this.connect();
         }).then(db => {
-            console.log("Connect then");
+            console.log("Connect then,",queryCondition);
             return db.collection(TABLES.capture).find(queryCondition).toArray();
         }).then(arr => {
             console.log("Find then,length: ", arr.length);
@@ -207,19 +239,13 @@ class DBOperator {
         return Promise.resolve().then(()=>{
             return this.connect();
         }).then(db=>{
-            db.collection(TABLES.capture).insertOne(this.dataTransform(data),  (err, result) => {
-                if(err){
-                    console.log("insert data error",err);
-                    reject(err);
-                }else{
-                    console.log("Insert success , in fn saveCaptureData.");
-                    resolve(result);
-                }
-
-                this.close();
-            });
-        })
-
+            console.log("Will insert.")
+            return db.collection(TABLES.capture).insertOne(Transformer.captureDoc(data));
+        }).then(result=>{
+            console.log("SaveCaptureData sucess:",result);
+            this.close();
+            return result
+        });
     }
 
     /**
@@ -243,10 +269,10 @@ class DBOperator {
         return Promise.resolve().then(()=>{
             return this.connect();
         }).then(db => {
-            console.log("then connect");
-            console.log("queryCondition", queryCondition);
+            console.log("then connect, queryCondition", queryCondition);
             return db.collection(TABLES.task).find(queryCondition).toArray();
-        }).then((arr)=>{
+        }).then(arr=>{
+            console.log("will return:")
             return {
                 query_condition: queryCondition,
                 data: arr
@@ -255,15 +281,9 @@ class DBOperator {
     }
 
     //添加一个新任务
-    addtask(data){
+    addTask(data){
         console.log("add task fn.");
-        var _data = {
-            domain:data.domain,
-            url: data.url,
-            interval : parseInt(data.interval),
-            name_prefix: data.name_prefix,
-            enabled: !!data.enabled,
-        };
+        var _data = Transformer.taskDoc(data);
 
         return Promise.resolve().then(()=>{
             console.log("will connect.");
@@ -273,27 +293,28 @@ class DBOperator {
             return db.collection(TABLES.task).insertOne(_data);
         }).then(result=>{
             console.log("Result:",result);
-            return arr;
+            return result;
         });
     }
 
     //更新一个任务数据. 差量更新机制.
     updateTask (opt,updateinfo){
-        console.log("updateTask, opt is:",opt);
+        console.log("updateTask, opt is:", opt);
+        //处理查询条件
         var queryCondition = {},opt=opt||{};
         opt._id && (queryCondition._id = ObjectID(opt._id));
-        return new Promise((resolve, reject)=> {
-            var p = this.connect();
-            p.then(db => {
-                console.log("then connect,queryCondition",queryCondition);
-                db.collection(TABLES.task).updateOne(queryCondition,{$set:updateinfo}).then( result => {
-                    console.log("Update sucess:", result);
-                    resolve(result);
-                });
-            },err=>{
-                reject(err);
-            });
-            Promise.resolve(p);
+        //处理update info
+        updateinfo._id　&&　(delete updateinfo._id);
+        updateinfo.updatetime = new Date();
+
+        return Promise.resolve().then(()=>{
+            return this.connect();
+        }).then(db => {
+            console.log("then connect,queryCondition:",queryCondition,"updateinfo: ",updateinfo);
+            return db.collection(TABLES.task).updateOne(queryCondition,{$set:updateinfo});
+        }).then(result=>{
+            console.log("Update sucess:", result);
+            return result;
         });
     }
 
@@ -311,7 +332,6 @@ class DBOperator {
             });
         });
     }
-
 }
 
 module.exports = new DBOperator();
