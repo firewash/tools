@@ -83,18 +83,17 @@ class TaskManager{
     executeTask(taskinfo){
         console.log("Run a task:",taskinfo);
         if(!taskinfo)return;
-        //测试代码,可以去掉
+        //todo 测试代码,可以去掉
         if(taskinfo.url.indexOf("sogou.com")>-1)taskinfo.url+=Math.random();//todo Node下竟然没有includes这个方法
 
         //预处理一下数据
-        var opt = {};
-        for(var i in taskinfo){
-            opt[i]=taskinfo[i];
-        }
-        opt.taskid = opt._id;
-        opt.taskinfo = taskinfo;
-        delete opt._id;
+        var opt = {
+            url:taskinfo.url,
+            taskid:taskinfo._id,
+            taskinfo:taskinfo,
+            name_prefix:taskinfo.name_prefix,
 
+        };
 
         console.log("立即执行这个截图任务");
         var p = capturer.capture(opt).then(data=>{
