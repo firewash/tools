@@ -8,7 +8,6 @@ var TABLES = {
 var Transformer={
     //把搜索条件中的不合法数据转换为合法
     queryConditionOfCapture(condition){
-        var _ = {};
         //处理模糊搜索的字段. 作为URL的模糊字段
         if(condition.hasOwnProperty("hazy")){
             var value = condition.hazy.trim();
@@ -44,10 +43,7 @@ var Transformer={
             createtime:new Date()
         };
     }
-
-}
-
-
+};
 
 class DBOperator {
     constructor() {
@@ -72,7 +68,6 @@ class DBOperator {
                     err ? reject(err) : resolve(db);
                 });
             }
-
         });
     }
 
@@ -134,7 +129,6 @@ class DBOperator {
             console.log("Find then,length: ", arr.length);
             return arr;
         });
-
     }
 
     /**
@@ -230,7 +224,6 @@ class DBOperator {
                 reject(err);
             });
         });
-
     }
 
     //保存一个截图数据
@@ -239,7 +232,7 @@ class DBOperator {
         return Promise.resolve().then(()=>{
             return this.connect();
         }).then(db=>{
-            console.log("Will insert.")
+            console.log("Will insert.");
             return db.collection(TABLES.capture).insertOne(Transformer.captureDoc(data));
         }).then(result=>{
             console.log("SaveCaptureData sucess:",result);
@@ -261,9 +254,9 @@ class DBOperator {
      ];
      */
     getTasks(opt) {
-        console.log("getTasks, opt is:",opt);
+        console.log("getTasks, opt is:", opt);
         var queryCondition = {},opt=opt||{};
-        //topt安全填入
+        //安全填入
         opt._id && (queryCondition._id = ObjectID(opt._id));
 
         return Promise.resolve().then(()=>{
@@ -313,7 +306,7 @@ class DBOperator {
             console.log("then connect,queryCondition:",queryCondition,"updateinfo: ",updateinfo);
             return db.collection(TABLES.task).updateOne(queryCondition,{$set:updateinfo});
         }).then(result=>{
-            console.log("Update sucess:", result);
+            console.log("Update success:", result);
             return result;
         });
     }
