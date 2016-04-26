@@ -37,17 +37,19 @@ class TaskManager{
         //预处理一下数据
         var opt = {
             url:taskinfo.url,
-            taskid:taskinfo._id,
-            taskinfo:taskinfo,
             name_prefix:taskinfo.name_prefix
 
         };
-        var target_data=null;
+        var target_data={
+            taskid:taskinfo._id,
+            taskinfo:taskinfo,
+        };
 
         console.log("立即执行这个截图任务");
         capturer.capture(opt).then(data=>{
             console.log("Thenable capturer.capture");
-            target_data = data;
+            Object.assign(target_data, data);
+
             //开始图像对比
             console.log("In afterCpture,target is:", data);
             return dboperator.getLastestCaptureEntry({url: data.url});
@@ -79,7 +81,6 @@ class TaskManager{
             dboperator.saveCaptureData(target_data);
         }).catch(err=>{
             console.log("Error capturer.capture:",err);
-            target_data = target_data||opt;
             target_data.error = err;
             dboperator.saveCaptureData(target_data);
         });

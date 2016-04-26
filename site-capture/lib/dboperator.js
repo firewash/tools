@@ -174,8 +174,7 @@ class DBOperator {
         return new Promise((resolve, reject)=> {
             var p = this.connect();
             p.then(db => {
-                console.log("then connnect");
-                console.log("queryCondition", queryCondition);
+                console.log("then connnect. queryCondition", queryCondition);
                 var cursor = db.collection(TABLES.capture).find(queryCondition).limit(1).toArray().then( arr => {
                     console.log("Find origin info:", arr);
                     var origin = data.origin_info = arr && arr[0] ? arr[0] : null;
@@ -235,7 +234,7 @@ class DBOperator {
             console.log("Will insert.");
             return db.collection(TABLES.capture).insertOne(Transformer.captureDoc(data));
         }).then(result=>{
-            console.log("SaveCaptureData sucess:",result);
+            console.log("SaveCaptureData sucess, result.insertedId: ",result.insertedId);
             this.close();
             return result
         });
@@ -279,7 +278,7 @@ class DBOperator {
         var _data = Transformer.taskDoc(data);
 
         return Promise.resolve().then(()=>{
-            console.log("will connect.");
+            console.log("Will connect.");
             return this.connect();
         }).then(db => {
             console.log("Insert data", _data);
@@ -292,7 +291,7 @@ class DBOperator {
 
     //更新一个任务数据. 差量更新机制.
     updateTask (opt,updateinfo){
-        console.log("updateTask, opt is:", opt);
+        console.log("UpdateTask, opt is:", opt);
         //处理查询条件
         var queryCondition = {},opt=opt||{};
         opt._id && (queryCondition._id = ObjectID(opt._id));
@@ -319,7 +318,7 @@ class DBOperator {
         }).then(db=>{
             return new Promise((resolve,reject)=>{
                 console.log("db.deleteOne, _id:",_id)
-                db.collection(TABLES.task).deleteOne({_id:ObjectID(_id)},function(err,results){
+                db.collection(TABLES.task).deleteOne({_id:ObjectID(_id)}, (err,results) => {
                     err?reject(err):resolve(results);
                 });
             });

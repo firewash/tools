@@ -81,7 +81,7 @@
 <div class="page-wraper">
     <div class="panel panel-default">
         <div class="panel-heading">
-            摘要
+            摘要<%= has_diffwith_img%>
         </div>
         <div>
             采样时间: <%= time %>;  差异率:<%=  diffratio %>
@@ -106,11 +106,13 @@
             <img src="<%= diff_img %>" class="img-thumbnail"/>
         </div>
     </div>
+
+    <% if(has_diffwith_img) {%>
     <div class="old-capture ">
         <h2>上次采样：</h2>
         <img src="<%= diffwith_img %>" class="img-thumbnail"/>
     </div>
-
+    <% }%>
 </div>
 </body>
 <script>
