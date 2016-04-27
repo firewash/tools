@@ -12,3 +12,7 @@
 1. npm install
 2. 直接执行文件`run.bat`,或 `node bin/www`
 
+
+1. npm install
+2. 直接执行文件`run.bat`,或 `node index.js`
+

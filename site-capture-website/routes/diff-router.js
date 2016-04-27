@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var dbreader = require("../lib/dbreader");
+var dbreader = require("../lib/dboperator");
 
 function realPath(filename,format){
     return "/capture/" + filename +"."+ format;
@@ -33,9 +33,10 @@ var RouterSets={
                 time: (new Date(origin_info.timestamp)).toLocaleString(),
                 diffratio:diffinfo.hasOwnProperty("misMatchPercentage")?diffinfo.misMatchPercentage:"",
                 has_diffwith_img: diffwith_info.filename?true:false,
-                diffwith_img: realPath(diffwith_info.filename, diffwith_info.format),
+                is_similar: diffinfo.similar,
                 origin_img: realPath(origin_info.filename, origin_info.format),
-                diff_img: diffinfo.diffimg?realPath(diffinfo.diffimg, origin_info.format):""
+                diffwith_img: diffinfo.similar?"":realPath(diffwith_info.filename, diffwith_info.format),
+                diff_img: diffinfo.similar?"":diffinfo.diffimg?realPath(diffinfo.diffimg, origin_info.format):""
             };
             console.log("Detail page will render:",renderData)
             res.render('diff/detail', renderData);

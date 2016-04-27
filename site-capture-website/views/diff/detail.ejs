@@ -2,15 +2,14 @@
 <html>
 <head>
     <title>截图监控</title>
-    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/public/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/bootstrap/bootstrap-theme.min.css">
+    <script src="/public/js/jquery.js"></script>
+    <script src="/public/bootstrap/bootstrap.min.js"></script>
     <link rel='stylesheet' href='/public/stylesheets/style.css' />
     <style>
         img{
-            ~~border:2px solid red;
-            width:100%;
+            margin:5px;
             display:block;
         }
         .wraper{
@@ -81,10 +80,12 @@
 <div class="page-wraper">
     <div class="panel panel-default">
         <div class="panel-heading">
-            摘要<%= has_diffwith_img%>
+            摘要
         </div>
         <div>
-            采样时间: <%= time %>;  差异率:<%=  diffratio %>
+            采样时间: <%= time %>;<br>
+            差异率:<%=  diffratio %><br>
+            
         </div>
     </div>
 </div>
@@ -107,12 +108,12 @@
         </div>
     </div>
 
-    <% if(has_diffwith_img) {%>
+    <% if(has_diffwith_img && !is_similar){ %>
     <div class="old-capture ">
         <h2>上次采样：</h2>
         <img src="<%= diffwith_img %>" class="img-thumbnail"/>
     </div>
-    <% }%>
+    <%}%>
 </div>
 </body>
 <script>

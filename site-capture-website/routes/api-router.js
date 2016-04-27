@@ -2,8 +2,8 @@
 
 var express = require('express');
 var router = express.Router();
-var dbreader = require("../lib/dbreader");
-var taskmanager = require("../../site-capture/lib/taskmanager");
+var dbreader = require("../lib/dboperator");
+var taskmanager = require("../lib/taskmanager");
 
 
 /* 任务相关的API */

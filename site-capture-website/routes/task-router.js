@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var dbreader = require("../lib/dbreader");;
+var dbreader = require("../lib/dboperator");
 
 router.get('/list', (req, res, next)=>{
     Promise.resolve().then(function(){
