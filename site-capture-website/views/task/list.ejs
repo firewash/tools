@@ -73,7 +73,7 @@
                         <input type="text" class="form-control" id="update_name_prefix"  name="name_prefix" placeholder="存储在磁盘上的图片前缀" v-model="name_prefix">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" id="update_enabled" name="enabled" checked="false" v-model="enabled"> 任务是否激活(未激活的任务不会在后台执行)
+                                <input type="checkbox" id="update_enabled" name="enabled" checked="false" v-model="enabled" value="true"> 任务是否激活(未激活的任务不会在后台执行)
                             </label>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                         <input type="text" class="form-control" id="name_prefix"  name="name_prefix" placeholder="存储在磁盘上的图片前缀"  v-model="name_prefix">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="enabled"> 任务是否激活(未激活的任务不会在后台执行)
+                                <input type="checkbox" name="enabled" value="true"> 任务是否激活(未激活的任务不会在后台执行)
                             </label>
                         </div>
                     </div>

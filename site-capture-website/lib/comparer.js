@@ -2,6 +2,16 @@ var resemble = require('node-resemble-js');
 var fs = require("fs");
 var RATIO_BASELINE_DEFAULT = require("../config.js").image_compare_ratio_baseline; //图像对比差异率最低值基线
 
+resemble.outputSettings({
+    errorColor: {
+        red: 255,
+        green: 0,
+        blue: 255
+    },
+    errorType: 'movement',
+    transparency: 0.8
+});
+
 /**
  *  把resemble比较的结果数据,转换成系统通用的,万一以后换掉了resemble
  *
@@ -22,15 +32,7 @@ function dataTransfer_resemble2system(from){
 }
 
 function Comparer() {
-    resemble.outputSettings({
-        errorColor: {
-            red: 255,
-            green: 0,
-            blue: 255
-        },
-        errorType: 'movement',
-        transparency: 0.3
-    });
+
 }
 
 Comparer.prototype = {
@@ -68,8 +70,6 @@ Comparer.prototype = {
                 reject({msg: e.msg}, null);
             }
         });
-
-
     }
 };
 

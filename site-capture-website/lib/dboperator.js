@@ -171,31 +171,32 @@ class DBOperator {
             origin_info: null,
             diffwith_info: null
         };
-        return new Promise((resolve, reject)=> {
-            var p = this.connect();
-            p.then(db => {
-                console.log("then connnect. queryCondition", queryCondition);
-                var cursor = db.collection(TABLES.capture).find(queryCondition).limit(1).toArray().then( arr => {
-                    console.log("Find origin info:", arr);
-                    var origin = data.origin_info = arr && arr[0] ? arr[0] : null;
+        var db = null;
 
-                    if (origin && origin.diffinfo && origin.diffinfo.diffwith) {
-                        console.log("Find diff info ...");
-                        var diffwith = origin.diffinfo.diffwith;
-                        db.collection(TABLES.capture).find({_id:ObjectID(diffwith)}).limit(1).toArray().then( arr => {
-                            console.log("Found diff info ", arr);
-                            data.diffwith_info = arr && arr[0] ? arr[0] : null;
-                            resolve(data);
-                        });
-                    } else {
+        return Promise.resolve().then(()=>{
+            return this.connect();
+        }).then( _db=>{
+            db=_db;
+            console.log("then connnect. queryCondition", queryCondition);
+            return db.collection(TABLES.capture).find(queryCondition).limit(1).toArray();
+        }).then( arr=>{
+            console.log("Find origin info:", arr);
+            var origin = data.origin_info = arr && arr[0] ? arr[0] : null;
+
+            return new Promise(resolve=>{
+                if (origin && origin.diffwith) {
+                    console.log("Find diff info ...");
+                    var diffwith_id = origin.diffwith;
+                    db.collection(TABLES.capture).find({_id:ObjectID(diffwith_id)}).limit(1).toArray().then( arr => {
+                        console.log("Found diff info ", arr);
+                        data.diffwith_info = arr && arr[0] ? arr[0] : null;
                         resolve(data);
-                    }
-                });
-                return cursor;
+                    });
+                } else {
+                    resolve(data);
+                }
             });
-            Promise.resolve(p);
         });
-
     }
 
     /**
