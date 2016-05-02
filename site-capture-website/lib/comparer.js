@@ -45,12 +45,12 @@ Comparer.prototype = {
             resultfile = opt.resultfile,
             ratio_baseline = opt.ratio || RATIO_BASELINE_DEFAULT;
 
-        return new Promise(function(resolve, reject){
+        return new Promise((resolve, reject)=>{
             try{
                 var file_data_target = fs.readFileSync(target);
                 var file_data_other = fs.readFileSync(other);
 
-                resemble(file_data_target).compareTo(file_data_other).ignoreColors().ignoreAntialiasing().onComplete(function (_data) {
+                resemble(file_data_target).compareTo(file_data_other).ignoreNothing().onComplete( _data => {
                     var data = dataTransfer_resemble2system(_data);
                     console.log("Resemble diff complete", data);
                     opt.diffinfo = data;

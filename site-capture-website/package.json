@@ -18,11 +18,12 @@
     "mongodb": "",
     "jquery": "",
     "bootstrap": "",
-    "phantom":"~2.0.10",
-    "node-resemble-js":"~0.0.5",
-    "assert":"~1.3.0"
+    "phantom": "~2.0.10",
+    "node-resemble-js": "~0.0.5",
+    "assert": "~1.3.0"
   },
   "devDependencies": {
-    "bootstrap": "^3.3.6"
+    "bootstrap": "^3.3.6",
+    "resemblejs": "^2.2.0"
   }
 }
