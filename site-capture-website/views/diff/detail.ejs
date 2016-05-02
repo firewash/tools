@@ -80,12 +80,14 @@
 <div class="page-wraper">
     <div class="panel panel-default">
         <div class="panel-heading">
-            摘要
+            页面变化信息摘要
         </div>
         <div>
-            采样时间: <%= time %>;<br>
-            差异率:<%=  diffratio %><br>
-            
+            <label>采样时间:</label> <%= time %>;<br>
+            <label>是否相似:</label> <%=  diffinfo.similar?"是":"否"  %> <label>差异率:</label> <%=  diffratio %><br>
+            <label>页面宽高是否发生变化: </label> <%=  diffinfo.isSameDimensions?"是":"否"  %><br>
+            <label>所属任务:</label>  <%=  taskinfo._id  %><br>
+
         </div>
     </div>
 </div>

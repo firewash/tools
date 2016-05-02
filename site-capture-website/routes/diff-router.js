@@ -36,7 +36,9 @@ var RouterSets={
                 is_similar: diffinfo.similar,
                 origin_img: realPath(origin_info.filename, origin_info.format),
                 diffwith_img: diffinfo.similar?"":realPath(diffwith_info.filename, diffwith_info.format),
-                diff_img: diffinfo.similar?"":diffinfo.diffimg?realPath(diffinfo.diffimg, origin_info.format):""
+                diff_img: diffinfo.similar?"":diffinfo.diffimg?realPath(diffinfo.diffimg, origin_info.format):"",
+                diffinfo:diffinfo,
+                taskinfo:origin_info.taskinfo
             };
             console.log("Detail page will render:",renderData)
             res.render('diff/detail', renderData);
