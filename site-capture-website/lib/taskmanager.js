@@ -35,10 +35,14 @@ class TaskManager{
         if(taskinfo.url.indexOf("sogou.com")>-1)taskinfo.url+=Math.random();//todo Node下竟然没有includes这个方法
 
         //预处理一下数据
+
+        var name_prefix = taskinfo.name_prefix || _CONFIG.name_prefix,
+            date = new Date(), //IOS时间
+            time = date.getTime();
         var opt = {
             url:taskinfo.url,
-            name_prefix:taskinfo.name_prefix
-
+            name_prefix: name_prefix,
+            filename : name_prefix + "_" + time,
         };
         var target_data={
             taskid:taskinfo._id,

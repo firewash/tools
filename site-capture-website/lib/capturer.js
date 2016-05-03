@@ -20,20 +20,18 @@ class Capturer {
      * */
     capture (opt) {
         console.log("In capture fn, option: ",opt );
-        var date = new Date(), //IOS时间
-            time = date.getTime(),
-            folder = _CONFIG.capture_image_save_folder,
-            name_prefix = opt.name_prefix || _CONFIG.name_prefix,
+        var  folder = _CONFIG.capture_image_save_folder,
             _page = null,_ph = null;
 
+        var date = new Date(); //IOS时间
         var option = {
             url: opt.url,
             quality: opt.quality || _CONFIG.capture_image_qulity,
+            filename : opt.filename,
             format: opt.format || _CONFIG.format,
-            timestamp : date,
-            filename : name_prefix + "_" + time,
-            description : date.toString(),
+            timestamp_start_capture : date,
             timestamp_capture_complete :  null,
+            description : date.toString(),
         };
 
         return Promise.resolve().then(()=>{
