@@ -37,7 +37,9 @@ var Transformer={
         return {
             domain:data.domain,
             url: /^https?:/i.test(data.url)?data.url:"http://"+data.url,
-            interval : +data.interval || 0,
+            startdate:data.startdate,
+            starttime:data.starttime,
+            scheduled : data.scheduled || "onetime",
             name_prefix: data.name_prefix,
             enabled: !!data.enabled,
             createtime:new Date()

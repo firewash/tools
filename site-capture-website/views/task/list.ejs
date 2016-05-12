@@ -116,13 +116,31 @@
                     <div class="form-group ">
                         <label for="name">Domain</label>
                         <input type="text" class="form-control" id="domain" name="domain" placeholder="请输入域名" v-model="domain">
-                        <label for="name">定时执行</label>
-                        <input type="number" class="form-control" id="interval" name="interval" placeholder="毫秒(0或者为空表示不定期执行)">
+                        <!--<label for="name">定时执行</label>-->
+                        <!--<input type="number" class="form-control" id="interval" name="interval" placeholder="毫秒(0或者为空表示不定期执行)">-->
                         <label for="name">文件前缀</label>
                         <input type="text" class="form-control" id="name_prefix"  name="name_prefix" placeholder="存储在磁盘上的图片前缀"  v-model="name_prefix">
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" name="enabled" value="true"> 任务是否激活(未激活的任务不会在后台执行)
+                            </label>
+                        </div>
+                        <label for="name">开始时间</label>
+                        <div>
+                            <input type="date" class="form-control" id="startdate" name="startdate" placeholder="开始日期">
+                            <input type="time" class="form-control" id="starttime" name="starttime" placeholder="开始时间">
+                        </div>
+
+                        <label >定时执行</label>
+                        <div>
+                            <label class="checkbox-inline">
+                                <input type="radio"  id="scheduled" name="scheduled" placeholder="一次性" value="onetime" checked>一次性
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="radio" id="scheduled" name="scheduled" placeholder="每小时" value="perhour">每小时
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="radio" id="scheduled" name="scheduled" placeholder="每天" value="perday">每天
                             </label>
                         </div>
                     </div>
