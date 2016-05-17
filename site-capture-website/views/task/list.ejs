@@ -260,6 +260,13 @@
             });
         });
 
+
+        $("#newTaskModel").on("shown.bs.modal",function(e){
+            var d = new Date();
+            document.getElementById("startdate").valueAsDate=d;
+            document.getElementById("starttime").defaultValue= d.toString().match(/\d\d:\d\d/);
+        });
+
        $("#btn_add_new_task").click(function(e){
            $("#newTaskModel").modal();
        });

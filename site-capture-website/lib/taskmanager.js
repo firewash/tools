@@ -111,12 +111,16 @@ class TaskManager{
     }
 
     setScheduleBackgroundJob(startdate,starttime,interval,fn){
+        console.log("in setScheduleBackgroundJob,",startdate,starttime,interval);
         var job = null;
         switch(interval){
             case "onetime":
             case "":
                 var date = new Date(startdate+" "+starttime);
-                job= schedule.scheduleJob(date, fn);
+                job= schedule.scheduleJob(date, function(){
+                    console.log("job coming~");
+                    fn();
+                });
                 break;
             case "perhour": //这时候会忽略年月日,UI上这种情况就隐藏年月日的选择吧
                 var rule = new schedule.RecurrenceRule();
@@ -131,7 +135,7 @@ class TaskManager{
                 break;
             default:;
         }
-
+        console.log("Schedule success~");
         return job;
     }
     removeScheduleBackgroundJob(job){
