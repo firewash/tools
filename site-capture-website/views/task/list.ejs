@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <title><%= title %></title>
     <link rel="stylesheet" href="/public/bootstrap/bootstrap.min.css">
@@ -30,7 +30,9 @@
             <tr>
                 <th>所属域名</th>
                 <th>URL</th>
-                <th>定时执行(ms)</th>
+                <th>执行日期</th>
+                <th>执行时间</th>
+                <th>循环</th>
                 <th>是否激活</th>
                 <th>操作</th>
             </tr>
@@ -67,10 +69,28 @@
                         <input type="url" class="form-control" id="update_url" name="url" placeholder="请输入网址(http[s]://...)" v-model="url">
                         <label for="name">Domain</label>
                         <input type="text" class="form-control" id="update_domain" name="domain" placeholder="请输入域名"  v-model="domain">
-                        <label for="name">定时执行</label>
-                        <input type="number" class="form-control" id="update_interval" name="interval" placeholder="毫秒(0或者为空表示不定期执行)" v-model="interval">
+
                         <label for="name">文件前缀</label>
                         <input type="text" class="form-control" id="update_name_prefix"  name="name_prefix" placeholder="存储在磁盘上的图片前缀" v-model="name_prefix">
+
+                        <label for="name">开始时间</label>
+                        <div>
+                            <input type="date" class="form-control" id="update_startdate" name="startdate" placeholder="开始日期" v-model="startdate">
+                            <input type="time" class="form-control" id="update_starttime" name="starttime" placeholder="开始时间" v-model="starttime">
+                        </div>
+
+                        <label >定时执行</label>
+                        <div>
+                            <label class="checkbox-inline">
+                                <input type="radio"  id="update_scheduled_checkbox1" name="scheduled" placeholder="一次性" value="onetime" v-model="scheduled">一次性
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="radio" id="update_scheduled_checkbox2" name="scheduled" placeholder="每小时" value="perhour" v-model="scheduled">每小时
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="radio" id="update_scheduled_checkbox3" name="scheduled" placeholder="每天" value="perday" v-model="scheduled">每天
+                            </label>
+                        </div>
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" id="update_enabled" name="enabled" checked="false" v-model="enabled" value="true"> 任务是否激活(未激活的任务不会在后台执行)
@@ -120,27 +140,27 @@
                         <!--<input type="number" class="form-control" id="interval" name="interval" placeholder="毫秒(0或者为空表示不定期执行)">-->
                         <label for="name">文件前缀</label>
                         <input type="text" class="form-control" id="name_prefix"  name="name_prefix" placeholder="存储在磁盘上的图片前缀"  v-model="name_prefix">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="enabled" value="true"> 任务是否激活(未激活的任务不会在后台执行)
-                            </label>
-                        </div>
+
                         <label for="name">开始时间</label>
                         <div>
                             <input type="date" class="form-control" id="startdate" name="startdate" placeholder="开始日期">
                             <input type="time" class="form-control" id="starttime" name="starttime" placeholder="开始时间">
                         </div>
-
                         <label >定时执行</label>
                         <div>
                             <label class="checkbox-inline">
-                                <input type="radio"  id="scheduled" name="scheduled" placeholder="一次性" value="onetime" checked>一次性
+                                <input type="radio"  id="scheduled_checkbox1" name="scheduled" placeholder="一次性" value="onetime" checked>一次性
                             </label>
                             <label class="checkbox-inline">
-                                <input type="radio" id="scheduled" name="scheduled" placeholder="每小时" value="perhour">每小时
+                                <input type="radio" id="scheduled_checkbox2" name="scheduled" placeholder="每小时" value="perhour">每小时
                             </label>
                             <label class="checkbox-inline">
-                                <input type="radio" id="scheduled" name="scheduled" placeholder="每天" value="perday">每天
+                                <input type="radio" id="scheduled_checkbox3" name="scheduled" placeholder="每天" value="perday">每天
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="enabled" value="true"> 任务是否激活(未激活的任务不会在后台执行)
                             </label>
                         </div>
                     </div>
@@ -155,11 +175,9 @@
         </div>
     </div>
 </div>
-
 <!-- end:  model for add and update-->
 
 </body>
-
 <script>
     function renderList(arr) {
         var list = $("#list");
@@ -168,7 +186,9 @@
             var html = `
                             <td>${item.domain}</td>
                             <td>${item.url}</td>
-                            <td>${item.interval}</td>
+                            <td>${item.startdate}</td>
+                            <td>${item.starttime}</td>
+                            <td>${item.scheduled}</td>
                             <td>${item.enabled}</td>
                             <td>
                                 <button class="task_setting"  value="${item._id}">编辑</button>
@@ -176,8 +196,7 @@
                                 <button class="run_task" value="${item._id}">立即执行一次</button>
                              </td>
                        `;
-            line.html(html);
-            line.data("origindata", item);
+            line.html(html).data("origindata", item);
             list.append(line);
         })
     }
@@ -217,7 +236,9 @@
             id:"11",
             domain:"",
             url:"",
-            interval:0,
+            startdate:"",
+            starttime:"",
+            scheduled:"",
             name_prefix:"",
             enabled:true
         };
@@ -259,7 +280,6 @@
                 }
             });
         });
-
 
         $("#newTaskModel").on("shown.bs.modal",function(e){
             var d = new Date();

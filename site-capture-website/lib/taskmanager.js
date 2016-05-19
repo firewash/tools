@@ -18,8 +18,9 @@ class TaskManager{
         var p = dboperator.getTasks();
         p.then( result => {
             var taskList = result.data;
+            console.log("all task count: ",taskList.length);
             taskList.forEach( opt => {
-                console.log("Enable:",opt.enabled);
+                console.log("Task list item ,Enable:",opt.enabled);
                 if(opt.enabled){
                     this.scheduleTask(opt);
                 }
@@ -27,18 +28,13 @@ class TaskManager{
         },(err)=>{
             console("Err:", err);
         });
-        Promise.resolve(p);
     }
 
     //执行一个任务,执行一次(忽略任务中的enabled标志)
     executeTask(taskinfo){
         console.log("Run a task:",taskinfo);
         if(!taskinfo)return;
-        //todo 测试代码,可以去掉
-        if(taskinfo.url.indexOf("sogou.com")>-1)taskinfo.url+=Math.random();//todo Node下竟然没有includes这个方法
-
         //预处理一下数据
-
         var name_prefix = taskinfo.name_prefix || _CONFIG.name_prefix,
             date = new Date(), //IOS时间
             time = date.getTime();
@@ -60,7 +56,7 @@ class TaskManager{
             //开始图像对比
             console.log("In afterCpture,target is:", data);
             return dboperator.getLastestCaptureEntry({url: data.url});
-        }).then( last_data=>{
+        }).then(last_data => {
             if(last_data){
                 console.log("Has a pre capture, now diff with it.");
                 target_data.diffwith = last_data._id;
@@ -99,56 +95,60 @@ class TaskManager{
      */
     scheduleTask(task){
         //this.executeTask(task);
-        console.log("判断是否配置了定时任务");
+        console.log("Fn scheduleTask, 判断是否配置了定时任务");
         if (task.startdate &&　task.starttime) {
             console.log("是.");
             var j = this.setScheduleBackgroundJob(task.startdate,task.starttime,task.scheduled,() => {
-                console.log("定时任务被启动.")
+                console.log("定时任务被启动.");
                 this.executeTask(task);
             });
-            taskQueue[task_id]=j;
+            taskQueue[task._id]=j;
         }
     }
-
+    //startdate= '2016-05-17',starttime = '19:38'
     setScheduleBackgroundJob(startdate,starttime,interval,fn){
         console.log("in setScheduleBackgroundJob,",startdate,starttime,interval);
-        var job = null;
+        var job = null,
+            rule=null,
+            timedetail = starttime.split(":"),
+            hour = timedetail[0]||0,
+            minute = timedetail[1]||0;
         switch(interval){
-            case "onetime":
-            case "":
-                var date = new Date(startdate+" "+starttime);
-                job= schedule.scheduleJob(date, function(){
-                    console.log("job coming~");
-                    fn();
-                });
-                break;
             case "perhour": //这时候会忽略年月日,UI上这种情况就隐藏年月日的选择吧
-                var rule = new schedule.RecurrenceRule();
-                rule.minute = starttime.minute;
-                job= schedule.scheduleJob(rule, fn);
+                rule = {minute: +minute};
                 break;
             case "perday":
-                var rule = new schedule.RecurrenceRule();
-                rule.hour = starttime.hour;
-                rule.minute = starttime.minute;
-                job= schedule.scheduleJob(rule, fn);
+                rule = {hour:+hour, minute:+minute};
                 break;
-            default:;
+            case "onetime":
+            case "":
+            default:
+                rule = new Date(startdate+" "+starttime);
+                break;
         }
-        console.log("Schedule success~");
+        console.log("rule ok",rule);
+        if(rule){
+            job= schedule.scheduleJob(rule, function(){
+                console.log("job coming~",startdate,starttime,interval);
+                fn();
+            });
+            console.log("Schedule success~");
+        }
+
         return job;
     }
     removeScheduleBackgroundJob(job){
         return job.cancel();
     }
-
+    removeScheduleBackgroundJobByTaskId(taskId){
+        //todo
+    }
 
     executeTaskById(taskId){
         console.log("executeTaskById");
         dboperator.getTasks({_id:taskId}).then(result => {
             this.executeTask(result.data[0])
         });
-
     }
 }
 
