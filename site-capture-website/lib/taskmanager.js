@@ -62,7 +62,7 @@ class TaskManager{
      */
     scheduleTask(task){
         console.log("Fn scheduleTask, 是否要配置定时任务?");
-        if (opt.enabled && task.startdate &&　task.starttime && this.isTaskUpdated(task)) {
+        if (task.enabled && task.startdate &&　task.starttime && this.isTaskUpdated(task)) {
             console.log("是.");
             taskQueue[task._id] && this.cancelScheduledJob(taskQueue[task._id].job);
             var j = this.setScheduleFunctionCall(task.startdate,task.starttime,task.scheduled,() => {

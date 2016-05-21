@@ -6,11 +6,13 @@
  */
 
 "use strict";
-var taskmgr = require("../lib/taskmanager");
 
 //主函数
 (function main() {
+    var taskmgr = require("../lib/taskmanager");
     taskmgr.launchAllTasks();
+
+    var server = require("../bin/www.js");
 })();
 
 

@@ -1,6 +1,8 @@
+"use strict";
+
 var express = require('express');
 var router = express.Router();
-var dbreader = require("../lib/dboperator");
+var dboperator = require("../lib/dboperator");
 
 function realPath(filename,format){
     return "/capture/" + filename +"."+ format;
@@ -20,7 +22,7 @@ var RouterSets={
         var opt = {};
         if(query._id)opt._id=query._id;
 
-        var p = dbreader.getCaptureEntry(opt);
+        var p = dboperator.getCaptureEntry(opt);
         p.then(data => {
             console.log("get data callback", data);
             var diffwith_info = data.diffwith_info||{},

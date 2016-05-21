@@ -47,6 +47,12 @@ var Transformer={
     }
 };
 
+var eventHandles = {
+    "afterAddTask":[],
+    "afterUpdateTask":[],
+    "afterDeleteTask":[],
+};
+
 class DBOperator {
     constructor() {
         var mongodb = require("mongodb");
@@ -82,6 +88,24 @@ class DBOperator {
             this.db = null;
         }
     }
+
+    addEventListener(name,fn){
+        eventHandles[name].push(fn);
+        return this;
+    }
+    removeEventListener(name,fn){
+       //todo
+        return this;
+    }
+
+    triggerEvent(name){
+        var arr = eventHandles[name],res=true;
+        for(var i=0,len=arr.length;i<len; i++){
+            res = res && arr[i].call(this);
+        }
+        return res;
+    }
+
 
     //todo 获取所有数据
     getAllCaptureEntries(callback) {
@@ -288,6 +312,7 @@ class DBOperator {
             return db.collection(TABLES.task).insertOne(_data);
         }).then(result=>{
             console.log("Result:",result);
+            this.triggerEvent("afterAddTask");
             return result;
         });
     }
@@ -309,6 +334,7 @@ class DBOperator {
             return db.collection(TABLES.task).updateOne(queryCondition,{$set:updateinfo});
         }).then(result=>{
             console.log("Update success:", result);
+            this.triggerEvent("afterUpdateTask");
             return result;
         });
     }
@@ -319,12 +345,11 @@ class DBOperator {
         return Promise.resolve().then(()=>{
             return this.connect();
         }).then(db=>{
-            return new Promise((resolve,reject)=>{
-                console.log("db.deleteOne, _id:",_id)
-                db.collection(TABLES.task).deleteOne({_id:ObjectID(_id)}, (err,results) => {
-                    err?reject(err):resolve(results);
-                });
-            });
+            console.log("db.deleteOne, _id:",_id)
+            return db.collection(TABLES.task).deleteOne({_id:ObjectID(_id)});
+        }).then(results => {
+            this.triggerEvent("afterDeleteTask");
+            return results;
         });
     }
 }
