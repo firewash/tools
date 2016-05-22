@@ -3,6 +3,7 @@ var phantom = require('phantom');
 var Global_CONFIG = require("../config.js");
 var path = require("path");
 var URL = require("url");
+var loggie = require('../lib/loggie');
 
 var _CONFIG = {
     capture_image_save_folder: Global_CONFIG.capture_image_save_folder,

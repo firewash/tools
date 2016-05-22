@@ -1,6 +1,7 @@
 "use strict";
 
 var express = require('express');
+var loggie = require('../lib/loggie');
 var dboperator = require("../lib/dboperator");
 var taskmgr = require("../lib/taskmanager");
 dboperator.addEventListener("afterAddTask",function(){taskmgr.syncAndScheduleAllTasks()});

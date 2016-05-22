@@ -1,5 +1,6 @@
 "use strict";
 
+var loggie = require('../lib/loggie');
 var Global_CONFIG = require("../config.js");
 var comparer = require("./comparer");
 var capturer = require("./capturer");

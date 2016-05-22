@@ -16,6 +16,7 @@
     "ejs": "~2.3.3",
     "express": "~4.13.1",
     "jquery": "",
+    "log4js": "^0.6.36",
     "mongodb": "",
     "morgan": "~1.6.1",
     "node-resemble-js": "~0.0.5",

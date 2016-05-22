@@ -1,5 +1,6 @@
 "use strict";
 
+var loggie = require('../lib/loggie');
 var ObjectID = require("mongodb").ObjectID;
 var TABLES = {
    "capture" : "origin_captures",

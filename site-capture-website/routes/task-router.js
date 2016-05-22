@@ -1,4 +1,7 @@
+"use strict";
+
 var express = require('express');
+var loggie = require('../lib/loggie');
 var router = express.Router();
 var dboperator = require("../lib/dboperator");
 
