@@ -8,14 +8,15 @@
     "node": true
   },
   "ecmaFeatures":{
-    "arrowFunctions":true
+    "arrowFunctions":true,
+    "classes": true
   },
   "plugins": [
     //"react",
     //"html"
   ],
   "extends": [
-    //"airbnb"
+    "airbnb"
     // "airbnb-base/legacy"
   ],
   "rules": {
