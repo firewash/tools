@@ -12,12 +12,11 @@
     "classes": true
   },
   "plugins": [
-    //"react",
-    //"html"
+    // "react",
+     "html"
   ],
   "extends": [
     "airbnb"
-    // "airbnb-base/legacy"
   ],
   "rules": {
     "comma-dangle": [2, "never"]

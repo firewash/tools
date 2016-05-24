@@ -16,14 +16,14 @@ dboperator.addEventListener("afterDeleteTask", function () {
 var router = express.Router();
 
 /* 任务相关的API */
-router.get('/task/run', function (req, res, next) {
+router.get('/task/run', function (req, res) {
     var data = {msg: "请指定任务ID"};
     res.send(data);
 });
 
-router.post('/task/add', function (req, res, next) {
+router.post('/task/add', function (req, res) {
     var data = req.body;
-    console.log("post request:", data)
+    console.log("post request:", data);
     dboperator.addTask(data).then(result => {
         console.log("Then addtask . ");
         res.status("201").send(result);
@@ -33,7 +33,7 @@ router.post('/task/add', function (req, res, next) {
     });
 });
 
-router.put('/task/:id', function (req, res, next) {
+router.put('/task/:id', function (req, res) {
     console.log("/task/:id put update request.req.param: ", req.params, "and req.body: ", req.body);
     let taskid = req.params.id,
         updateinfo = req.body;
@@ -55,7 +55,7 @@ router.put('/task/:id', function (req, res, next) {
     });
 });
 
-router.delete('/task/:id', function (req, res, next) {
+router.delete('/task/:id', function (req, res) {
     var id = req.params.id;
     console.log("request /task/:id/delete", id);
 
@@ -70,7 +70,7 @@ router.delete('/task/:id', function (req, res, next) {
     });
 });
 
-router.post('/task/:id/run', function (req, res, next) {
+router.post('/task/:id/run', function (req, res) {
     var id = req.params.id;
     console.log("/task/:id/run", id);
     taskmgr.executeTaskById(id);
@@ -80,14 +80,14 @@ router.post('/task/:id/run', function (req, res, next) {
     res.send(data);
 });
 
-router.post('/capture/list', function (req, res, next) {
+router.post('/capture/list', function (req, res) {
     console.log("/capture/list", req.params, req.body);
     let opt = req.body;
     var result = {
         condition: opt,
         err: null,
         data: null
-    }
+    };
 
     var p = dboperator.getCaptureEntries(opt);
     p.then(function (arr) {

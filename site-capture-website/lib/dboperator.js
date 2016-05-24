@@ -3,22 +3,22 @@
 var loggie = require('../lib/loggie');
 var ObjectID = require("mongodb").ObjectID;
 var TABLES = {
-   "capture" : "origin_captures",
-    "task":"tasks"
+    "capture": "origin_captures",
+    "task": "tasks"
 };
-var Transformer={
+var Transformer = {
     //把搜索条件中的不合法数据转换为合法
-    queryConditionOfCapture(condition){
+    queryConditionOfCapture: function (condition) {
         //处理模糊搜索的字段. 作为URL的模糊字段
-        if(condition.hasOwnProperty("hazy")){
+        if (condition.hasOwnProperty("hazy")) {
             var value = condition.hazy.trim();
-            if(value!="")condition.url = new RegExp(value,"i");
+            if (value != "")condition.url = new RegExp(value, "i");
             delete condition.hazy;
         }
         //处理模糊搜索的字段. 作为URL的模糊字段
-        if(condition.hasOwnProperty("taskid")){
+        if (condition.hasOwnProperty("taskid")) {
             var value = condition.taskid;
-            if(typeof value == "string"){
+            if (typeof value == "string") {
                 condition.taskid = ObjectID(value);
             }
         }
@@ -26,7 +26,7 @@ var Transformer={
     },
 
     //把数据库origin_captures的文档一些不合法数据为合法
-    captureDoc(doc) {
+    captureDoc: function (doc) {
         if (doc.interval) {
             doc.interval = +doc.interval;
         }
@@ -34,24 +34,24 @@ var Transformer={
     },
 
     //任务处理
-    taskDoc:function(data){
+    taskDoc: function (data) {
         return {
-            domain:data.domain,
-            url: /^https?:/i.test(data.url)?data.url:"http://"+data.url,
-            startdate:data.startdate,
-            starttime:data.starttime,
-            scheduled : data.scheduled || "onetime",
+            domain: data.domain,
+            url: /^https?:/i.test(data.url) ? data.url : "http://" + data.url,
+            startdate: data.startdate,
+            starttime: data.starttime,
+            scheduled: data.scheduled || "onetime",
             name_prefix: data.name_prefix,
             enabled: !!data.enabled,
-            createtime:new Date()
+            createtime: new Date()
         };
     }
 };
 
 var eventHandles = {
-    "afterAddTask":[],
-    "afterUpdateTask":[],
-    "afterDeleteTask":[],
+    "afterAddTask": [],
+    "afterUpdateTask": [],
+    "afterDeleteTask": [],
 };
 
 class DBOperator {
@@ -68,11 +68,11 @@ class DBOperator {
     connect() {
         return new Promise((resolve, reject)=> {
             console.log("Try db connect");
-            if(this.db){
+            if (this.db) {
                 resolve(this.db);
-            }else{
+            } else {
                 this.MongoClient.connect(this.url, (err, db) => {
-                    console.log(err ? ("MongoDB connnect error!",err) : "MongoDB connnect success~.");
+                    console.log(err ? ("MongoDB connnect error!", err) : "MongoDB connnect success~.");
                     this.db = db;
                     err ? reject(err) : resolve(db);
                 });
@@ -84,24 +84,25 @@ class DBOperator {
      * 关闭数据库
      * */
     close() {
-        if(this.db ){
+        if (this.db) {
             this.db.close();
             this.db = null;
         }
     }
 
-    addEventListener(name,fn){
+    addEventListener(name, fn) {
         eventHandles[name].push(fn);
         return this;
     }
-    removeEventListener(name,fn){
-       //todo
+
+    removeEventListener(name, fn) {
+        //todo
         return this;
     }
 
-    triggerEvent(name){
-        var arr = eventHandles[name],res=true;
-        for(var i=0,len=arr.length;i<len; i++){
+    triggerEvent(name) {
+        var arr = eventHandles[name], res = true;
+        for (var i = 0, len = arr.length; i < len; i++) {
             res = res && arr[i].call(this);
         }
         return res;
@@ -144,13 +145,13 @@ class DBOperator {
                  }];
 
      * */
-     getCaptureEntries(opt) {
+    getCaptureEntries(opt) {
         var queryCondition = Transformer.queryConditionOfCapture(opt);
 
-        return Promise.resolve().then(()=>{
+        return Promise.resolve().then(()=> {
             return this.connect();
         }).then(db => {
-            console.log("Connect then,",queryCondition);
+            console.log("Connect then,", queryCondition);
             return db.collection(TABLES.capture).find(queryCondition).toArray();
         }).then(arr => {
             console.log("Find then,length: ", arr.length);
@@ -187,7 +188,7 @@ class DBOperator {
                     }
                 };
      * */
-      getCaptureEntry(opt) {
+    getCaptureEntry(opt) {
         console.log("getCaptureEntry:", opt);
         var queryCondition = {
             _id: ObjectID(opt._id)
@@ -200,21 +201,21 @@ class DBOperator {
         };
         var db = null;
 
-        return Promise.resolve().then(()=>{
+        return Promise.resolve().then(()=> {
             return this.connect();
-        }).then( _db=>{
-            db=_db;
+        }).then(_db=> {
+            db = _db;
             console.log("then connnect. queryCondition", queryCondition);
             return db.collection(TABLES.capture).find(queryCondition).limit(1).toArray();
-        }).then( arr=>{
+        }).then(arr=> {
             console.log("Find origin info:", arr);
             var origin = data.origin_info = arr && arr[0] ? arr[0] : null;
 
-            return new Promise(resolve=>{
+            return new Promise(resolve=> {
                 if (origin && origin.diffwith) {
                     console.log("Find diff info ...");
                     var diffwith_id = origin.diffwith;
-                    db.collection(TABLES.capture).find({_id:ObjectID(diffwith_id)}).limit(1).toArray().then( arr => {
+                    db.collection(TABLES.capture).find({_id: ObjectID(diffwith_id)}).limit(1).toArray().then(arr => {
                         console.log("Found diff info ", arr);
                         data.diffwith_info = arr && arr[0] ? arr[0] : null;
                         resolve(data);
@@ -233,21 +234,21 @@ class DBOperator {
      *      with_diff_info: flase as default
      * }
      * */
-     getLastestCaptureEntry(opt) {
+    getLastestCaptureEntry(opt) {
         console.log("GetLastestCaptureEntry:", opt.url);
         var queryCondition = {
             url: opt.url
         };
         console.log("queryCondition", queryCondition);
-        return new Promise((resolve, reject)=>{
+        return new Promise((resolve, reject)=> {
             var p = this.connect();
-            p.then( db => {
-                db.collection(TABLES.capture).find(queryCondition).sort({timestamp: -1}).limit(1).toArray().then( arr => {
+            p.then(db => {
+                db.collection(TABLES.capture).find(queryCondition).sort({timestamp: -1}).limit(1).toArray().then(arr => {
                     console.log("Result: ", arr);
                     var data = arr && arr[0] ? arr[0] : null;
                     resolve(data);
                 });
-            },err=>{
+            }, err=> {
                 reject(err);
             });
         });
@@ -256,13 +257,13 @@ class DBOperator {
     //保存一个截图数据
     saveCaptureData(data) {
         console.log("Will save capture data:", data);
-        return Promise.resolve().then(()=>{
+        return Promise.resolve().then(()=> {
             return this.connect();
-        }).then(db=>{
+        }).then(db=> {
             console.log("Will insert.");
             return db.collection(TABLES.capture).insertOne(Transformer.captureDoc(data));
-        }).then(result=>{
-            console.log("SaveCaptureData sucess, result.insertedId: ",result.insertedId);
+        }).then(result=> {
+            console.log("SaveCaptureData sucess, result.insertedId: ", result.insertedId);
             this.close();
             return result
         });
@@ -282,72 +283,73 @@ class DBOperator {
      */
     getTasks(opt) {
         console.log("getTasks, opt is:", opt);
-        var queryCondition = {},opt=opt||{};
+        var queryCondition = {}, opt = opt || {};
         //安全填入
         opt._id && (queryCondition._id = ObjectID(opt._id));
 
-        return Promise.resolve().then(()=>{
+        return Promise.resolve().then(()=> {
             return this.connect();
         }).then(db => {
             console.log("then connect, queryCondition", queryCondition);
             return db.collection(TABLES.task).find(queryCondition).toArray();
-        }).then(arr=>{
+        }).then(arr=> {
             console.log("will return:")
             return {
                 query_condition: queryCondition,
                 data: arr
             };
-        });;
+        });
+        ;
     }
 
     //添加一个新任务
-    addTask(data){
+    addTask(data) {
         console.log("add task fn.");
         var _data = Transformer.taskDoc(data);
 
-        return Promise.resolve().then(()=>{
+        return Promise.resolve().then(()=> {
             console.log("Will connect.");
             return this.connect();
         }).then(db => {
             console.log("Insert data", _data);
             return db.collection(TABLES.task).insertOne(_data);
-        }).then(result=>{
-            console.log("Result:",result);
+        }).then(result=> {
+            console.log("Result:", result);
             this.triggerEvent("afterAddTask");
             return result;
         });
     }
 
     //更新一个任务数据. 差量更新机制.
-    updateTask (opt,updateinfo){
+    updateTask(opt, updateinfo) {
         console.log("UpdateTask, opt is:", opt);
         //处理查询条件
-        var queryCondition = {},opt=opt||{};
+        var queryCondition = {}, opt = opt || {};
         opt._id && (queryCondition._id = ObjectID(opt._id));
         //处理update info
-        updateinfo._id　&&　(delete updateinfo._id);
+        updateinfo._id && (delete updateinfo._id);
         updateinfo.updatetime = new Date();
 
-        return Promise.resolve().then(()=>{
+        return Promise.resolve().then(()=> {
             return this.connect();
         }).then(db => {
-            console.log("then connect,queryCondition:",queryCondition,"updateinfo: ",updateinfo);
-            return db.collection(TABLES.task).updateOne(queryCondition,{$set:updateinfo});
-        }).then(result=>{
+            console.log("then connect,queryCondition:", queryCondition, "updateinfo: ", updateinfo);
+            return db.collection(TABLES.task).updateOne(queryCondition, {$set: updateinfo});
+        }).then(result=> {
             console.log("Update success:", result);
             this.triggerEvent("afterUpdateTask");
             return result;
         });
     }
 
-    deleteTask(opt){
+    deleteTask(opt) {
         var _id = opt._id;
-        console.log("dboperator deleteTask, _id:",_id)
-        return Promise.resolve().then(()=>{
+        console.log("dboperator deleteTask, _id:", _id)
+        return Promise.resolve().then(()=> {
             return this.connect();
-        }).then(db=>{
-            console.log("db.deleteOne, _id:",_id)
-            return db.collection(TABLES.task).deleteOne({_id:ObjectID(_id)});
+        }).then(db=> {
+            console.log("db.deleteOne, _id:", _id)
+            return db.collection(TABLES.task).deleteOne({_id: ObjectID(_id)});
         }).then(results => {
             this.triggerEvent("afterDeleteTask");
             return results;

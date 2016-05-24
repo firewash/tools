@@ -32,7 +32,7 @@ class Capturer {
             format: opt.format || _CONFIG.format,
             timestamp_start_capture : date,
             timestamp_capture_complete :  null,
-            description : date.toString(),
+            description : date.toString()
         };
 
         return Promise.resolve().then(()=>{
@@ -52,7 +52,7 @@ class Capturer {
             return page.open(url)
         }).then(status=>{
             return new Promise((resolve)=>{ //给一些网站一些加载的时间
-                console.log("Waiting page full loaded.")
+                console.log("Waiting page full loaded.");
                 setTimeout(()=>{
                     resolve(status);
                 },10000);
