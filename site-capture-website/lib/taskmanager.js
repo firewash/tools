@@ -136,7 +136,7 @@ class TaskManager {
         if (!taskinfo)return;
 
         //预处理一下数据
-        var name_prefix = taskinfo.name_prefix || _CONFIG.name_prefix,
+        var name_prefix = taskinfo.name_prefix || Global_CONFIG.name_prefix,
             date = new Date(), //IOS时间
             time = date.getTime();
         var opt = {

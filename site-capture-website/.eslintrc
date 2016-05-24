@@ -7,18 +7,20 @@
     "jquery": true,
     "node": true
   },
-  "ecmaFeatures":{
-    "arrowFunctions":true,
-    "classes": true
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "plugins": [
     // "react",
-     "html"
+    // "html"
   ],
   "extends": [
-    "airbnb"
+    //"airbnb"
   ],
   "rules": {
-    "comma-dangle": [2, "never"]
+    //"comma-dangle": [2, "never"]//不允许逗号结尾
   }
 }

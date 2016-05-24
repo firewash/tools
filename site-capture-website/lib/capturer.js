@@ -1,6 +1,6 @@
 "use strict";
 var phantom = require('phantom');
-var Global_CONFIG = require("../config.js");
+var Global_CONFIG = require('../config.js');
 var path = require("path");
 var URL = require("url");
 var loggie = require('../lib/loggie');

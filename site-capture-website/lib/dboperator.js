@@ -51,7 +51,7 @@ var Transformer = {
 var eventHandles = {
     "afterAddTask": [],
     "afterUpdateTask": [],
-    "afterDeleteTask": [],
+    "afterDeleteTask": []
 };
 
 class DBOperator {
@@ -257,16 +257,16 @@ class DBOperator {
     //保存一个截图数据
     saveCaptureData(data) {
         console.log("Will save capture data:", data);
-        return Promise.resolve().then(()=> {
-            return this.connect();
-        }).then(db=> {
-            console.log("Will insert.");
-            return db.collection(TABLES.capture).insertOne(Transformer.captureDoc(data));
-        }).then(result=> {
-            console.log("SaveCaptureData sucess, result.insertedId: ", result.insertedId);
-            this.close();
-            return result
-        });
+        return Promise.resolve()
+            .then(()=> this.connect())
+            .then(db=> {
+                console.log("Will insert.");
+                return db.collection(TABLES.capture).insertOne(Transformer.captureDoc(data));
+            }).then(result=> {
+                console.log("SaveCaptureData sucess, result.insertedId: ", result.insertedId);
+                this.close();
+                return result
+            });
     }
 
     /**
@@ -282,8 +282,9 @@ class DBOperator {
      ];
      */
     getTasks(opt) {
-        console.log("getTasks, opt is:", opt);
-        var queryCondition = {}, opt = opt || {};
+        console.log("getTasks, opt is:",opt);
+        opt = opt || {};
+        var queryCondition = {};
         //安全填入
         opt._id && (queryCondition._id = ObjectID(opt._id));
 
@@ -293,13 +294,12 @@ class DBOperator {
             console.log("then connect, queryCondition", queryCondition);
             return db.collection(TABLES.task).find(queryCondition).toArray();
         }).then(arr=> {
-            console.log("will return:")
+            console.log("will return:");
             return {
                 query_condition: queryCondition,
                 data: arr
             };
         });
-        ;
     }
 
     //添加一个新任务
@@ -324,7 +324,8 @@ class DBOperator {
     updateTask(opt, updateinfo) {
         console.log("UpdateTask, opt is:", opt);
         //处理查询条件
-        var queryCondition = {}, opt = opt || {};
+        opt = opt || {};
+        var queryCondition = {};
         opt._id && (queryCondition._id = ObjectID(opt._id));
         //处理update info
         updateinfo._id && (delete updateinfo._id);
@@ -344,11 +345,11 @@ class DBOperator {
 
     deleteTask(opt) {
         var _id = opt._id;
-        console.log("dboperator deleteTask, _id:", _id)
+        console.log("dboperator deleteTask, _id:", _id);
         return Promise.resolve().then(()=> {
             return this.connect();
         }).then(db=> {
-            console.log("db.deleteOne, _id:", _id)
+            console.log("db.deleteOne, _id:", _id);
             return db.collection(TABLES.task).deleteOne({_id: ObjectID(_id)});
         }).then(results => {
             this.triggerEvent("afterDeleteTask");
