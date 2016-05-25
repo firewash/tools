@@ -6,7 +6,7 @@
     "www": "node ./bin/www",
     "start": "node ./bin/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint lib"
+    "lint": "eslint lib/comparer.js"
   },
   "dependencies": {
     "assert": "~1.3.0",

@@ -1,23 +1,24 @@
-var path = require("path");
-var log4js = require("log4js");
+const path = require('path');
+const log4js = require('log4js');
+const config = require('../config');
 
 log4js.configure({
     appenders: [
-        {"type": "console", "category": "console"},
-        { type: 'file', filename: '../log/capture.log', category: 'cheese'  ,reloadSecs: 300  }  //todo wangle 不生效~再试试
+        { type: 'console', category: 'console' },
+        // todo wangle 不生效~再试试
+        { type: 'file', filename: config.log_path, category: 'console', reloadSecs: 300 }
     ],
     replaceConsole: true
 });
 
-var log4js = require('log4js');
-var logger = log4js.getLogger("cheese");
+const logger = log4js.getLogger('console');
 
 module.exports = logger;
 
 /**
  * Exmple
  *
- loggie.debug("Some debug messages");
+ loggie.debug('Some debug messages');
  loggie.trace('Entering cheese testing');
  loggie.debug('Got cheese.');
  loggie.info('Cheese is Gouda.');

@@ -1,7 +1,7 @@
 //通过命令行进入mongo命令
 mongo
 //创建数据库
-use tools_site_capture
+use tools_site_capture;
 
 //创建用户
 db.createUser({ 

@@ -15,12 +15,13 @@
   },
   "plugins": [
     // "react",
-    // "html"
+     "html"
   ],
   "extends": [
-    //"airbnb"
+    "airbnb"
   ],
   "rules": {
     //"comma-dangle": [2, "never"]//不允许逗号结尾
+    "indent": ["warn", 4]
   }
 }

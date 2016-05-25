@@ -1,0 +1,254 @@
+[2016-05-25 16:06:22.009] [INFO] console - 首次获取并执行所有任务
+[2016-05-25 16:06:22.012] [INFO] console - getTasks, opt is: undefined
+[2016-05-25 16:06:22.177] [INFO] console - 工程目录:  f:\GitHub\tools\site-capture-website
+[2016-05-25 16:06:22.221] [INFO] console - Try db connect
+[2016-05-25 16:06:22.263] [INFO] console - MongoDB connnect success~.
+[2016-05-25 16:06:22.264] [INFO] console - then connect, queryCondition {}
+[2016-05-25 16:06:22.288] [INFO] console - will return:
+[2016-05-25 16:06:22.288] [INFO] console - all task count:  4
+[2016-05-25 16:06:22.288] [INFO] console - Task list item ,Enable: true
+[2016-05-25 16:06:22.288] [INFO] console - Fn scheduleTask, 是否要配置定时任务?
+[2016-05-25 16:06:22.289] [INFO] console - 是.
+[2016-05-25 16:06:22.289] [INFO] console - in setScheduleFunctionCall, 2016-05-17 18:24 onetime
+[2016-05-25 16:06:22.289] [INFO] console - rule ok Tue May 17 2016 18:24:00 GMT+0800 (中国标准时间)
+[2016-05-25 16:06:22.291] [INFO] console - Schedule success~
+[2016-05-25 16:07:15.648] [INFO] console - getTasks, opt is: undefined
+[2016-05-25 16:07:15.648] [INFO] console - Try db connect
+[2016-05-25 16:07:15.649] [INFO] console - then connect, queryCondition {}
+[2016-05-25 16:07:15.650] [INFO] console - will return:
+[2016-05-25 16:07:15.651] [INFO] console - then getAllTasks { query_condition: {},
+  data: 
+   [ { _id: 573af109883c694045b9ea29,
+       domain: 'www.uc123.com',
+       url: 'http://www.uc123.com',
+       startdate: '2016-05-17',
+       starttime: '18:24',
+       scheduled: 'onetime',
+       name_prefix: 'www.uc123.com',
+       enabled: true,
+       createtime: Tue May 17 2016 18:23:05 GMT+0800 (中国标准时间) },
+     { _id: 573af4d9883c694045b9ea2a,
+       domain: 'www.sina.com',
+       url: 'http://www.sina.com',
+       startdate: '2016-05-17',
+       starttime: '19:38',
+       scheduled: 'perhour',
+       name_prefix: 'www.sina.com',
+       enabled: true,
+       createtime: Tue May 17 2016 18:39:21 GMT+0800 (中国标准时间) },
+     { _id: 573af4f1883c694045b9ea2b,
+       domain: 'www.baidu.com',
+       url: 'http://www.baidu.com',
+       startdate: '2016-05-17',
+       starttime: '09:00',
+       scheduled: 'perhour',
+       name_prefix: 'www.baidu.com',
+       enabled: true,
+       createtime: Tue May 17 2016 18:39:45 GMT+0800 (中国标准时间),
+       updatetime: Wed May 18 2016 16:22:45 GMT+0800 (中国标准时间) },
+     { _id: 573c22da19a91e084a72668d,
+       domain: 'www.duba.com',
+       url: 'http://www.duba.com',
+       startdate: '2016-05-18',
+       starttime: '16:50',
+       scheduled: 'perhour',
+       name_prefix: 'www.duba.com',
+       enabled: true,
+       createtime: Wed May 18 2016 16:07:54 GMT+0800 (中国标准时间),
+       updatetime: Wed May 18 2016 16:44:12 GMT+0800 (中国标准时间) } ] }
+[2016-05-25 16:07:19.697] [INFO] console - /capture/list {} { taskid: '573af4d9883c694045b9ea2a' }
+[2016-05-25 16:07:19.699] [INFO] console - Try db connect
+[2016-05-25 16:07:19.699] [INFO] console - Connect then, { taskid: 573af4d9883c694045b9ea2a }
+[2016-05-25 16:07:19.711] [INFO] console - Find then,length:  38
+[2016-05-25 16:07:19.711] [INFO] console - then getCaptureEntries, lenth:  38
+[2016-05-25 16:07:21.384] [INFO] console - getCaptureEntry: { _id: '573b3ea998273968494e75e9' }
+[2016-05-25 16:07:21.384] [INFO] console - queryCondition: { _id: 573b3ea998273968494e75e9 }
+[2016-05-25 16:07:21.385] [INFO] console - Try db connect
+[2016-05-25 16:07:21.385] [INFO] console - then connnect. queryCondition { _id: 573b3ea998273968494e75e9 }
+[2016-05-25 16:07:21.391] [INFO] console - Find origin info: [ { _id: 573b3ea998273968494e75e9,
+    taskid: 573af4d9883c694045b9ea2a,
+    taskinfo: 
+     { _id: 573af4d9883c694045b9ea2a,
+       domain: 'www.sina.com',
+       url: 'http://www.sina.com',
+       startdate: '2016-05-17',
+       starttime: '19:38',
+       scheduled: 'perhour',
+       name_prefix: 'www.sina.com',
+       enabled: true,
+       createtime: Tue May 17 2016 18:39:21 GMT+0800 (中国标准时间) },
+    url: 'http://www.sina.com',
+    quality: 60,
+    filename: 'www.sina.com_1463500440414',
+    format: 'png',
+    timestamp_start_capture: Tue May 17 2016 23:54:00 GMT+0800 (中国标准时间),
+    timestamp_capture_complete: Tue May 17 2016 23:54:17 GMT+0800 (中国标准时间),
+    description: 'Tue May 17 2016 23:54:00 GMT+0800 (中国标准时间)' } ]
+[2016-05-25 16:07:21.393] [INFO] console - get data callback { query_condition: { _id: 573b3ea998273968494e75e9 },
+  origin_info: 
+   { _id: 573b3ea998273968494e75e9,
+     taskid: 573af4d9883c694045b9ea2a,
+     taskinfo: 
+      { _id: 573af4d9883c694045b9ea2a,
+        domain: 'www.sina.com',
+        url: 'http://www.sina.com',
+        startdate: '2016-05-17',
+        starttime: '19:38',
+        scheduled: 'perhour',
+        name_prefix: 'www.sina.com',
+        enabled: true,
+        createtime: Tue May 17 2016 18:39:21 GMT+0800 (中国标准时间) },
+     url: 'http://www.sina.com',
+     quality: 60,
+     filename: 'www.sina.com_1463500440414',
+     format: 'png',
+     timestamp_start_capture: Tue May 17 2016 23:54:00 GMT+0800 (中国标准时间),
+     timestamp_capture_complete: Tue May 17 2016 23:54:17 GMT+0800 (中国标准时间),
+     description: 'Tue May 17 2016 23:54:00 GMT+0800 (中国标准时间)' },
+  diffwith_info: null }
+[2016-05-25 16:07:21.394] [INFO] console - Detail page will render: { id: 573b3ea998273968494e75e9,
+  title: '采集详情 - http://www.sina.com',
+  time: 'Invalid Date',
+  diffratio: '',
+  has_diffwith_img: false,
+  is_similar: undefined,
+  origin_img: '/capture/www.sina.com_1463500440414.png',
+  diffwith_img: '/capture/undefined.undefined',
+  diff_img: '',
+  diffinfo: {},
+  taskinfo: 
+   { _id: 573af4d9883c694045b9ea2a,
+     domain: 'www.sina.com',
+     url: 'http://www.sina.com',
+     startdate: '2016-05-17',
+     starttime: '19:38',
+     scheduled: 'perhour',
+     name_prefix: 'www.sina.com',
+     enabled: true,
+     createtime: Tue May 17 2016 18:39:21 GMT+0800 (中国标准时间) } }
+[2016-05-25 16:07:24.611] [INFO] console - getCaptureEntry: { _id: '573b401298273968494e75f5' }
+[2016-05-25 16:07:24.611] [INFO] console - queryCondition: { _id: 573b401298273968494e75f5 }
+[2016-05-25 16:07:24.612] [INFO] console - Try db connect
+[2016-05-25 16:07:24.612] [INFO] console - then connnect. queryCondition { _id: 573b401298273968494e75f5 }
+[2016-05-25 16:07:24.613] [INFO] console - Find origin info: [ { _id: 573b401298273968494e75f5,
+    taskid: 573af4d9883c694045b9ea2a,
+    taskinfo: 
+     { _id: 573af4d9883c694045b9ea2a,
+       domain: 'www.sina.com',
+       url: 'http://www.sina.com',
+       startdate: '2016-05-17',
+       starttime: '19:38',
+       scheduled: 'perhour',
+       name_prefix: 'www.sina.com',
+       enabled: true,
+       createtime: Tue May 17 2016 18:39:21 GMT+0800 (中国标准时间) },
+    url: 'http://www.sina.com',
+    quality: 60,
+    filename: 'www.sina.com_1463500800410',
+    format: 'png',
+    timestamp_start_capture: Wed May 18 2016 00:00:00 GMT+0800 (中国标准时间),
+    timestamp_capture_complete: Wed May 18 2016 00:00:15 GMT+0800 (中国标准时间),
+    description: 'Wed May 18 2016 00:00:00 GMT+0800 (中国标准时间)',
+    diffwith: 573b3ea998273968494e75e9,
+    diffinfo: 
+     { isSameDimensions: false,
+       dimensionDifference: [Object],
+       misMatchPercentage: '14.94',
+       analysisTime: 517,
+       similar: false,
+       diffimg: 'www.sina.com_1463500800410_diff' } } ]
+[2016-05-25 16:07:24.618] [INFO] console - Find diff info ...
+[2016-05-25 16:07:24.619] [INFO] console - Found diff info  [ { _id: 573b3ea998273968494e75e9,
+    taskid: 573af4d9883c694045b9ea2a,
+    taskinfo: 
+     { _id: 573af4d9883c694045b9ea2a,
+       domain: 'www.sina.com',
+       url: 'http://www.sina.com',
+       startdate: '2016-05-17',
+       starttime: '19:38',
+       scheduled: 'perhour',
+       name_prefix: 'www.sina.com',
+       enabled: true,
+       createtime: Tue May 17 2016 18:39:21 GMT+0800 (中国标准时间) },
+    url: 'http://www.sina.com',
+    quality: 60,
+    filename: 'www.sina.com_1463500440414',
+    format: 'png',
+    timestamp_start_capture: Tue May 17 2016 23:54:00 GMT+0800 (中国标准时间),
+    timestamp_capture_complete: Tue May 17 2016 23:54:17 GMT+0800 (中国标准时间),
+    description: 'Tue May 17 2016 23:54:00 GMT+0800 (中国标准时间)' } ]
+[2016-05-25 16:07:24.620] [INFO] console - get data callback { query_condition: { _id: 573b401298273968494e75f5 },
+  origin_info: 
+   { _id: 573b401298273968494e75f5,
+     taskid: 573af4d9883c694045b9ea2a,
+     taskinfo: 
+      { _id: 573af4d9883c694045b9ea2a,
+        domain: 'www.sina.com',
+        url: 'http://www.sina.com',
+        startdate: '2016-05-17',
+        starttime: '19:38',
+        scheduled: 'perhour',
+        name_prefix: 'www.sina.com',
+        enabled: true,
+        createtime: Tue May 17 2016 18:39:21 GMT+0800 (中国标准时间) },
+     url: 'http://www.sina.com',
+     quality: 60,
+     filename: 'www.sina.com_1463500800410',
+     format: 'png',
+     timestamp_start_capture: Wed May 18 2016 00:00:00 GMT+0800 (中国标准时间),
+     timestamp_capture_complete: Wed May 18 2016 00:00:15 GMT+0800 (中国标准时间),
+     description: 'Wed May 18 2016 00:00:00 GMT+0800 (中国标准时间)',
+     diffwith: 573b3ea998273968494e75e9,
+     diffinfo: 
+      { isSameDimensions: false,
+        dimensionDifference: [Object],
+        misMatchPercentage: '14.94',
+        analysisTime: 517,
+        similar: false,
+        diffimg: 'www.sina.com_1463500800410_diff' } },
+  diffwith_info: 
+   { _id: 573b3ea998273968494e75e9,
+     taskid: 573af4d9883c694045b9ea2a,
+     taskinfo: 
+      { _id: 573af4d9883c694045b9ea2a,
+        domain: 'www.sina.com',
+        url: 'http://www.sina.com',
+        startdate: '2016-05-17',
+        starttime: '19:38',
+        scheduled: 'perhour',
+        name_prefix: 'www.sina.com',
+        enabled: true,
+        createtime: Tue May 17 2016 18:39:21 GMT+0800 (中国标准时间) },
+     url: 'http://www.sina.com',
+     quality: 60,
+     filename: 'www.sina.com_1463500440414',
+     format: 'png',
+     timestamp_start_capture: Tue May 17 2016 23:54:00 GMT+0800 (中国标准时间),
+     timestamp_capture_complete: Tue May 17 2016 23:54:17 GMT+0800 (中国标准时间),
+     description: 'Tue May 17 2016 23:54:00 GMT+0800 (中国标准时间)' } }
+[2016-05-25 16:07:24.622] [INFO] console - Detail page will render: { id: 573b401298273968494e75f5,
+  title: '采集详情 - http://www.sina.com',
+  time: 'Invalid Date',
+  diffratio: '14.94',
+  has_diffwith_img: true,
+  is_similar: false,
+  origin_img: '/capture/www.sina.com_1463500800410.png',
+  diffwith_img: '/capture/www.sina.com_1463500440414.png',
+  diff_img: '/capture/www.sina.com_1463500800410_diff.png',
+  diffinfo: 
+   { isSameDimensions: false,
+     dimensionDifference: { width: 0, height: -12 },
+     misMatchPercentage: '14.94',
+     analysisTime: 517,
+     similar: false,
+     diffimg: 'www.sina.com_1463500800410_diff' },
+  taskinfo: 
+   { _id: 573af4d9883c694045b9ea2a,
+     domain: 'www.sina.com',
+     url: 'http://www.sina.com',
+     startdate: '2016-05-17',
+     starttime: '19:38',
+     scheduled: 'perhour',
+     name_prefix: 'www.sina.com',
+     enabled: true,
+     createtime: Tue May 17 2016 18:39:21 GMT+0800 (中国标准时间) } }
