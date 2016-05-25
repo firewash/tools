@@ -1,11 +1,12 @@
-"use strict";
+'use strict';
 
 var express = require('express');
 var loggie = require('../lib/loggie');
 var router = express.Router();
 var dboperator = require("../lib/dboperator");
+var taskmgr = require("../lib/taskmanager");
 
-router.get('/list', (req, res, next)=>{
+router.get('/list', (req, res) => {
     Promise.resolve().then(function(){
         return dboperator.getTasks();
     }).then(result=>{
