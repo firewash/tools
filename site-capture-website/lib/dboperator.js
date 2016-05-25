@@ -48,7 +48,7 @@ var Transformer = {
     }
 };
 
-var eventHandles = {
+const eventHandles = {
     "afterAddTask": [],
     "afterUpdateTask": [],
     "afterDeleteTask": []
@@ -66,13 +66,13 @@ class DBOperator {
     }
 
     connect() {
-        return new Promise((resolve, reject)=> {
-            console.log("Try db connect");
+        return new Promise((resolve, reject) => {
+            console.log('Try db connect');
             if (this.db) {
                 resolve(this.db);
             } else {
                 this.MongoClient.connect(this.url, (err, db) => {
-                    console.log(err ? ("MongoDB connnect error!", err) : "MongoDB connnect success~.");
+                    console.log(err ? ('MongoDB connnect error!', err) : 'MongoDB connnect success~.');
                     this.db = db;
                     err ? reject(err) : resolve(db);
                 });
@@ -96,20 +96,22 @@ class DBOperator {
     }
 
     removeEventListener(name, fn) {
-        //todo
+        // todo
         return this;
     }
 
     triggerEvent(name) {
-        var arr = eventHandles[name], res = true;
-        for (var i = 0, len = arr.length; i < len; i++) {
+        loggie.info('dboperator triggerEvent', name);
+        let arr = eventHandles[name];
+        let res = true;
+        for (let i = 0, len = arr.length; i < len; i++) {
             res = res && arr[i].call(this);
         }
         return res;
     }
 
 
-    //todo 获取所有数据
+    // todo 获取所有数据
     getAllCaptureEntries(callback) {
         console.log("in getAllCaptureEntries");
         this.connect(function () {
@@ -148,7 +150,7 @@ class DBOperator {
     getCaptureEntries(opt) {
         var queryCondition = Transformer.queryConditionOfCapture(opt);
 
-        return Promise.resolve().then(()=> {
+        return Promise.resolve().then(() => {
             return this.connect();
         }).then(db => {
             console.log("Connect then,", queryCondition);

@@ -1,5 +1,3 @@
-'use strict';
-
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
@@ -9,17 +7,16 @@ const loggie = require('./lib/loggie');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const GLOBAL_CONFIG = require('./config.js');
-
-console.log('工程目录: ', __dirname);
-
 const app = express();
+
+loggie.info('工程目录: ', __dirname);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-const accessLogStream = fs.createWriteStream(`${__dirname}/access.log`, {flags: 'a'});
+const accessLogStream = fs.createWriteStream(`${__dirname}/access.log`, { flags: 'a' });
 app.use(logger('combined', { stream: accessLogStream }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -62,7 +59,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function (err, req, res) {
+app.use((err, req, res) => {
     res.status(err.status || 500)
         .render('error', {
             message: err.message,

@@ -6,12 +6,11 @@ const comparer = require('./comparer');
 const capturer = require('./capturer');
 const dboperator = require('./dboperator');
 const schedule = require('node-schedule');
-dboperator.config = GlobalConfig;
-
-// 真正不停跑定时任务的管理器
-var  taskQueue = {
+const taskQueue = { // 真正不停跑定时任务的管理器
     // task_id;{taskinfo:json, job:object, expired:bool}
 };
+dboperator.config = GlobalConfig;
+
 
 function isJsonEquals(json_a, json_b) {
     return JSON.stringify(json_a) === JSON.stringify(json_b);
@@ -43,25 +42,26 @@ class TaskManager {
                 taskQueue[opt._id].expired = false;
             });
         }).then(() => {
-            for (key in taskQueue) { // 移除没有了的任务
+            loggie.info('尝试移除没有了的任务, taskQueue: ', taskQueue);
+            for (let key in taskQueue) {
                 if (taskQueue[key].expired) {
                     this.cancelScheduledJobByTaskId(key);
                 }
             }
         }).catch(err => {
-            console("Err:", err);
+            console('Err:', err);
         });
     }
 
     // 判断新来的taskinfo相对于就的task是否发生更新(以前没有\内容变了,都认为是更新了)
     isTaskUpdated(newTaskinfo) {
-        var _id = newTaskinfo._id;
-        var oldTaskinfo = taskQueue[_id];
-        var updated = !oldTaskinfo || !isJsonEquals(newTaskinfo, oldTaskinfo.taskinfo);
-        loggie.info("isTaskUpdated : ",updated);
-        loggie.info(taskQueue[_id]);
-        if(oldTaskinfo)loggie.info(isJsonEquals(newTaskinfo, oldTaskinfo.taskinfo));
-        return updated;
+        const _id = newTaskinfo._id;
+        const oldTaskinfo = taskQueue[_id];
+        loggie.info('old task info is: ', taskQueue[_id]);
+        const noChange = oldTaskinfo && isJsonEquals(newTaskinfo, oldTaskinfo.taskinfo);
+        loggie.info('isTaskUpdated : ', !noChange);
+        if (oldTaskinfo) loggie.info(isJsonEquals(newTaskinfo, oldTaskinfo.taskinfo));
+        return !noChange;
     }
 
     /**
@@ -69,10 +69,10 @@ class TaskManager {
      *   如果已经有相同task的任务，则会删除重新创建。
      */
     scheduleTask(task) {
-        loggie.info('scheduleTask,  task: ',task);
+        loggie.info('In scheduleTask fn,  task: ', task);
         if (task.enabled && task.startdate && task.starttime && this.isTaskUpdated(task)) {
             loggie.info('要配置定时任务.');
-            if(taskQueue[task._id]) {
+            if (taskQueue[task._id]) {
                 loggie.info('存在旧任务，先删掉了。马上加新的。');
                 this.cancelScheduledJobByTaskId(task._id);
             }
@@ -89,6 +89,8 @@ class TaskManager {
                 taskinfo: task,
                 job: j
             };
+        }else{
+            loggie.info('无需配置定时任务.');
         }
     }
 
@@ -127,6 +129,7 @@ class TaskManager {
 
     cancelScheduledJobByTaskId(taskId) {
         if (!taskQueue[taskId]) return null;
+        loggie.info('cancelScheduledJobByTaskId', taskId);
         const task = taskQueue[taskId];
         delete taskQueue[taskId];
         return task.job.cancel();
@@ -138,8 +141,8 @@ class TaskManager {
 
     executeTaskById(taskId) {
         loggie.info('executeTaskById');
-        return dboperator.getTasks({_id: taskId}).then(result => {
-            this.executeTask(result.data[0])
+        return dboperator.getTasks({ _id: taskId }).then(result => {
+            this.executeTask(result.data[0]);
         });
     }
 
@@ -164,11 +167,9 @@ class TaskManager {
         };
 
         loggie.info('立即执行这个截图任务');
-        capturer.capture(opt).then(data=> {
+        capturer.capture(opt).then(data => {
             loggie.info('Thenable capturer.capture');
             Object.assign(target_data, data);
-
-            // 开始图像对比
             loggie.info('In afterCpture,target is:', data);
             return dboperator.getLastestCaptureEntry({ url: data.url });
         }).then(lastData => {

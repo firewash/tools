@@ -4,36 +4,36 @@ const express = require('express');
 const loggie = require('../lib/loggie');
 const dboperator = require('../lib/dboperator');
 const taskmgr = require('../lib/taskmanager');
-dboperator.addEventListener('afterAddTask', function () {
-    taskmgr.syncAndScheduleAllTasks()
+dboperator.addEventListener('afterAddTask', () => {
+    taskmgr.syncAndScheduleAllTasks();
 });
-dboperator.addEventListener('afterUpdateTask', function () {
-    taskmgr.syncAndScheduleAllTasks()
+dboperator.addEventListener('afterUpdateTask', () => {
+    taskmgr.syncAndScheduleAllTasks();
 });
-dboperator.addEventListener('afterDeleteTask', function () {
-    taskmgr.syncAndScheduleAllTasks()
+dboperator.addEventListener('afterDeleteTask', () => {
+    taskmgr.syncAndScheduleAllTasks();
 });
 const router = express.Router();
 
 /* 任务相关的API */
-router.get('/task/run', function (req, res) {
-    const data = {msg: '请指定任务ID'};
+router.get('/task/run', (req, res) => {
+    const data = { msg: '请指定任务ID' };
     res.send(data);
 });
 
-router.post('/task/add', function (req, res) {
+router.post('/task/add', (req, res) => {
     const data = req.body;
     console.log('post request:', data);
     dboperator.addTask(data).then(result => {
         console.log('Then addtask . ');
         res.status('201').send(result);
-    }).catch(function (err) {
+    }).catch(err => {
         console.log('Error,', err);
         res.send(err);
     });
 });
 
-router.put('/task/:id', function (req, res) {
+router.put('/task/:id', (req, res) => {
     console.log('/task/:id put update request.req.param: ', req.params, 'and req.body: ', req.body);
     let taskid = req.params.id,
         updateinfo = req.body;
@@ -43,7 +43,7 @@ router.put('/task/:id', function (req, res) {
     }
 
     console.log(taskid, updateinfo);
-    dboperator.updateTask({_id: taskid}, updateinfo).then(result => {
+    dboperator.updateTask({ _id: taskid }, updateinfo).then(result => {
         const data = {
             msg: taskid + ' 任务更新完成.Result:' + result
         };
@@ -59,8 +59,8 @@ router.delete('/task/:id', (req, res) => {
     const id = req.params.id;
     console.log('request /task/:id/delete', id);
 
-    dboperator.deleteTask({_id: id}).then(result => {
-        console.log('Delete success ', result);
+    dboperator.deleteTask({ _id: id }).then(result => {
+        console.log('Delete success ', result.id);
         res.send({
             message: `${id}删除成功`
         });

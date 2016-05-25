@@ -9,7 +9,7 @@ var taskmgr = require("../lib/taskmanager");
 router.get('/list', (req, res) => {
     Promise.resolve().then(function(){
         return dboperator.getTasks();
-    }).then(result=>{
+    }).then(result => {
         console.log("then getAllTasks",result);
         var items = result.data;
         res.render('task/list', {
