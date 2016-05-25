@@ -8,7 +8,7 @@ const dboperator = require('./dboperator');
 const schedule = require('node-schedule');
 dboperator.config = GlobalConfig;
 
-let taskQueue = {
+const taskQueue = {
     // task_id;{taskinfo:json, job:object, expired:bool}
 };
 
@@ -124,6 +124,10 @@ class TaskManager {
     cancelScheduledJobByTaskId(taskId) {
         let task = taskQueue[taskId];
         return this.cancelScheduledJob(task.job);
+    }
+
+    getScheduledTasks() {
+        return taskQueue;
     }
 
     executeTaskById(taskId) {
