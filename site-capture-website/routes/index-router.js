@@ -1,12 +1,12 @@
-"use strict";
+'use strict';
 
-var express = require('express');
-var router = express.Router();
-var loggie = require('../lib/loggie');
+const express = require('express');
+const router = express.Router();
+const loggie = require('../lib/loggie');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/', (req, res) => {
+    res.render('index', {title: 'Express'});
 });
 
 

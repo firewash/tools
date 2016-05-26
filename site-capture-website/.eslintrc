@@ -22,6 +22,7 @@
   ],
   "rules": {
     "comma-dangle": [2, "never"],// 不允许逗号结尾
-    "indent": ["warn", 4]
+    "indent": ["warn", 4],
+    "strict": ["off","safe"]
   }
 }

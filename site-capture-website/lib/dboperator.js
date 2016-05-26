@@ -1,46 +1,47 @@
-"use strict";
+'use strict';
 
-var loggie = require('../lib/loggie');
-var ObjectID = require("mongodb").ObjectID;
-var TABLES = {
-    "capture": "origin_captures",
-    "task": "tasks"
+const loggie = require('../lib/loggie');
+const mongodbObjectID = require('mongodb').ObjectID;
+const TABLES = {
+    capture: 'origin_captures',
+    task: 'tasks'
 };
-var Transformer = {
-    //把搜索条件中的不合法数据转换为合法
-    queryConditionOfCapture: function (condition) {
-        //处理模糊搜索的字段. 作为URL的模糊字段
-        if (condition.hasOwnProperty("hazy")) {
-            var value = condition.hazy.trim();
-            if (value != "")condition.url = new RegExp(value, "i");
+const Transformer = {
+    // 把搜索条件中的不合法数据转换为合法
+    queryConditionOfCapture(_condition) {
+        const condition = _condition;
+        // 处理模糊搜索的字段. 作为URL的模糊字段
+        if (condition.hasOwnProperty('hazy')) {
+            const value = condition.hazy.trim();
+            if (value !== '')condition.url = new RegExp(value, 'i');
             delete condition.hazy;
         }
-        //处理模糊搜索的字段. 作为URL的模糊字段
-        if (condition.hasOwnProperty("taskid")) {
-            var value = condition.taskid;
-            if (typeof value == "string") {
-                condition.taskid = ObjectID(value);
+        // 处理模糊搜索的字段. 作为URL的模糊字段
+        if (condition.hasOwnProperty('taskid')) {
+            let value = condition.taskid;
+            if (typeof value === 'string') {
+                condition.taskid = mongodbObjectID(value);
             }
         }
         return condition;
     },
 
-    //把数据库origin_captures的文档一些不合法数据为合法
-    captureDoc: function (doc) {
+    // 把数据库origin_captures的文档一些不合法数据为合法
+    captureDoc(doc) {
         if (doc.interval) {
             doc.interval = +doc.interval;
         }
         return doc;
     },
 
-    //任务处理
-    taskDoc: function (data) {
+    // 任务处理
+    taskDoc(data) {
         return {
             domain: data.domain,
-            url: /^https?:/i.test(data.url) ? data.url : "http://" + data.url,
+            url: /^https?:/i.test(data.url) ? data.url : 'http://' + data.url,
             startdate: data.startdate,
             starttime: data.starttime,
-            scheduled: data.scheduled || "onetime",
+            scheduled: data.scheduled || 'onetime',
             name_prefix: data.name_prefix,
             enabled: !!data.enabled,
             createtime: new Date()
@@ -49,16 +50,16 @@ var Transformer = {
 };
 
 const eventHandles = {
-    "afterAddTask": [],
-    "afterUpdateTask": [],
-    "afterDeleteTask": []
+    afterAddTask: [],
+    afterUpdateTask: [],
+    afterDeleteTask: []
 };
 
 class DBOperator {
     constructor() {
-        var mongodb = require("mongodb");
-        var MongoClient = mongodb.MongoClient;
-        var url = 'mongodb://localhost:27017/tools_site_capture';
+        const mongodb = require('mongodb');
+        const MongoClient = mongodb.MongoClient;
+        const url = 'mongodb://localhost:27017/tools_site_capture';
 
         this.db = null;
         this.MongoClient = MongoClient;
@@ -67,12 +68,12 @@ class DBOperator {
 
     connect() {
         return new Promise((resolve, reject) => {
-            console.log('Try db connect');
+            loggie.info('Try db connect');
             if (this.db) {
                 resolve(this.db);
             } else {
                 this.MongoClient.connect(this.url, (err, db) => {
-                    console.log(err ? ('MongoDB connnect error!', err) : 'MongoDB connnect success~.');
+                    loggie.info(err ? ('MongoDB connnect error!', err) : 'MongoDB connnect success~.');
                     this.db = db;
                     err ? reject(err) : resolve(db);
                 });
@@ -113,14 +114,14 @@ class DBOperator {
 
     // todo 获取所有数据
     getAllCaptureEntries(callback) {
-        console.log("in getAllCaptureEntries");
+        loggie.info('in getAllCaptureEntries');
         this.connect(function () {
             var cursor = this.db.collection(TABLES.capture).find();
             cursor.each(function (err, item) {
                 if (item) {
-                    console.log(item);
+                    loggie.info(item);
                 } else {
-                    console.log("over");
+                    loggie.info('over');
                 }
             });
         });
@@ -153,10 +154,10 @@ class DBOperator {
         return Promise.resolve().then(() => {
             return this.connect();
         }).then(db => {
-            console.log("Connect then,", queryCondition);
+            loggie.info('Connect then,', queryCondition);
             return db.collection(TABLES.capture).find(queryCondition).toArray();
         }).then(arr => {
-            console.log("Find then,length: ", arr.length);
+            loggie.info('Find then,length: ', arr.length);
             return arr;
         });
     }
@@ -191,34 +192,34 @@ class DBOperator {
                 };
      * */
     getCaptureEntry(opt) {
-        console.log("getCaptureEntry:", opt);
-        var queryCondition = {
-            _id: ObjectID(opt._id)
+        loggie.info('getCaptureEntry:', opt);
+        const queryCondition = {
+            _id: mongodbObjectID(opt._id)
         };
-        console.log("queryCondition:", queryCondition);
-        var data = {
+        loggie.info('queryCondition:', queryCondition);
+        const data = {
             query_condition: queryCondition,
             origin_info: null,
             diffwith_info: null
         };
-        var db = null;
+        let db = null;
 
-        return Promise.resolve().then(()=> {
+        return Promise.resolve().then(() => {
             return this.connect();
-        }).then(_db=> {
+        }).then(_db => {
             db = _db;
-            console.log("then connnect. queryCondition", queryCondition);
+            loggie.info('then connnect. queryCondition', queryCondition);
             return db.collection(TABLES.capture).find(queryCondition).limit(1).toArray();
-        }).then(arr=> {
-            console.log("Find origin info:", arr);
+        }).then(arr => {
+            loggie.info('Find origin info:', arr);
             var origin = data.origin_info = arr && arr[0] ? arr[0] : null;
 
             return new Promise(resolve=> {
                 if (origin && origin.diffwith) {
-                    console.log("Find diff info ...");
+                    loggie.info('Find diff info ...');
                     var diffwith_id = origin.diffwith;
-                    db.collection(TABLES.capture).find({_id: ObjectID(diffwith_id)}).limit(1).toArray().then(arr => {
-                        console.log("Found diff info ", arr);
+                    db.collection(TABLES.capture).find({ _id: mongodbObjectID(diffwith_id) }).limit(1).toArray().then(arr => {
+                        loggie.info('Found diff info ', arr);
                         data.diffwith_info = arr && arr[0] ? arr[0] : null;
                         resolve(data);
                     });
@@ -237,37 +238,37 @@ class DBOperator {
      * }
      * */
     getLastestCaptureEntry(opt) {
-        console.log("GetLastestCaptureEntry:", opt.url);
+        loggie.info('GetLastestCaptureEntry:', opt.url);
         var queryCondition = {
             url: opt.url
         };
-        console.log("queryCondition", queryCondition);
+        loggie.info('queryCondition', queryCondition);
         return new Promise((resolve, reject)=> {
             var p = this.connect();
             p.then(db => {
-                db.collection(TABLES.capture).find(queryCondition).sort({timestamp: -1}).limit(1).toArray().then(arr => {
-                    console.log("Result: ", arr);
+                db.collection(TABLES.capture).find(queryCondition).sort({ timestamp: -1 }).limit(1).toArray().then(arr => {
+                    loggie.info('Result: ', arr);
                     var data = arr && arr[0] ? arr[0] : null;
                     resolve(data);
                 });
-            }, err=> {
+            }, err => {
                 reject(err);
             });
         });
     }
 
-    //保存一个截图数据
+    // 保存一个截图数据
     saveCaptureData(data) {
-        console.log("Will save capture data:", data);
+        loggie.info('Will save capture data:', data);
         return Promise.resolve()
-            .then(()=> this.connect())
-            .then(db=> {
-                console.log("Will insert.");
+            .then(() => this.connect())
+            .then(db => {
+                loggie.info('Will insert.');
                 return db.collection(TABLES.capture).insertOne(Transformer.captureDoc(data));
-            }).then(result=> {
-                console.log("SaveCaptureData sucess, result.insertedId: ", result.insertedId);
+            }).then(result => {
+                loggie.info('SaveCaptureData sucess, result.insertedId: ', result.insertedId);
                 this.close();
-                return result
+                return result;
             });
     }
 
@@ -283,20 +284,20 @@ class DBOperator {
      },...
      ];
      */
-    getTasks(opt) {
-        console.log("getTasks, opt is:",opt);
-        opt = opt || {};
-        var queryCondition = {};
-        //安全填入
-        opt._id && (queryCondition._id = ObjectID(opt._id));
+    getTasks(_opt) {
+        loggie.info('getTasks, opt is:',_opt);
+        const opt = _opt || {};
+        const queryCondition = {};
+        // 安全填入
+        if(opt._id)queryCondition._id = mongodbObjectID(opt._id);
 
-        return Promise.resolve().then(()=> {
-            return this.connect();
-        }).then(db => {
-            console.log("then connect, queryCondition", queryCondition);
+        return Promise.resolve().then(() =>
+            this.connect()
+        ).then(db => {
+            loggie.info('then connect, queryCondition', queryCondition);
             return db.collection(TABLES.task).find(queryCondition).toArray();
-        }).then(arr=> {
-            console.log("will return:");
+        }).then(arr => {
+            loggie.info('will return:');
             return {
                 query_condition: queryCondition,
                 data: arr
@@ -304,59 +305,59 @@ class DBOperator {
         });
     }
 
-    //添加一个新任务
+    // 添加一个新任务
     addTask(data) {
-        console.log("add task fn.");
-        var _data = Transformer.taskDoc(data);
+        loggie.info('add task fn.');
+        const newData = Transformer.taskDoc(data);
 
-        return Promise.resolve().then(()=> {
-            console.log("Will connect.");
+        return Promise.resolve().then(() => {
+            loggie.info('Will connect.');
             return this.connect();
         }).then(db => {
-            console.log("Insert data", _data);
-            return db.collection(TABLES.task).insertOne(_data);
-        }).then(result=> {
-            console.log("Result:", result);
-            this.triggerEvent("afterAddTask");
+            loggie.info('Insert data', newData);
+            return db.collection(TABLES.task).insertOne(newData);
+        }).then(result => {
+            loggie.info('Result:', result);
+            this.triggerEvent('afterAddTask');
             return result;
         });
     }
 
-    //更新一个任务数据. 差量更新机制.
-    updateTask(opt, updateinfo) {
-        console.log("UpdateTask, opt is:", opt);
-        //处理查询条件
-        opt = opt || {};
-        var queryCondition = {};
-        opt._id && (queryCondition._id = ObjectID(opt._id));
-        //处理update info
+    // 更新一个任务数据. 差量更新机制.
+    updateTask(_opt, updateinfo) {
+        loggie.info('UpdateTask, opt is:', _opt);
+        // 处理查询条件
+        const opt = _opt || {};
+        const queryCondition = {};
+        if(opt._id) queryCondition._id = mongodbObjectID(opt._id);
+        // 处理update info
         updateinfo._id && (delete updateinfo._id);
         updateinfo.updatetime = new Date();
 
-        return Promise.resolve().then(()=> {
-            return this.connect();
-        }).then(db => {
-            console.log("then connect,queryCondition:", queryCondition, "updateinfo: ", updateinfo);
-            return db.collection(TABLES.task).updateOne(queryCondition, {$set: updateinfo});
-        }).then(result=> {
-            console.log("Update success:", result);
-            this.triggerEvent("afterUpdateTask");
-            return result;
-        });
+        return Promise.resolve()
+            .then(() => this.connect())
+            .then(db => {
+                loggie.info('then connect,queryCondition:', queryCondition, 'updateinfo: ', updateinfo);
+                return db.collection(TABLES.task).updateOne(queryCondition, { $set: updateinfo });
+            }).then(result => {
+                loggie.info('Update success:', result);
+                this.triggerEvent('afterUpdateTask');
+                return result;
+            });
     }
 
     deleteTask(opt) {
-        var _id = opt._id;
-        console.log("dboperator deleteTask, _id:", _id);
-        return Promise.resolve().then(()=> {
-            return this.connect();
-        }).then(db=> {
-            console.log("db.deleteOne, _id:", _id);
-            return db.collection(TABLES.task).deleteOne({_id: ObjectID(_id)});
-        }).then(results => {
-            this.triggerEvent("afterDeleteTask");
-            return results;
-        });
+        const _id = opt._id;
+        loggie.info('dboperator deleteTask, _id:', _id);
+        return Promise.resolve()
+            .then(() => this.connect())
+            .then(db => {
+                loggie.info('db.deleteOne, _id:', _id);
+                return db.collection(TABLES.task).deleteOne({ _id: mongodbObjectID(_id) });
+            }).then(results => {
+                this.triggerEvent('afterDeleteTask');
+                return results;
+            });
     }
 }
 

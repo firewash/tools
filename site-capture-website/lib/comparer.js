@@ -1,7 +1,9 @@
-var resemble = require('node-resemble-js');
-var fs = require("fs");
-var loggie = require('../lib/loggie');
-var RATIO_BASELINE_DEFAULT = require("../config.js").image_compare_ratio_baseline; //图像对比差异率最低值基线
+'use strict';
+
+const resemble = require('node-resemble-js');
+const fs = require('fs');
+const loggie = require('../lib/loggie');
+const RATIO_BASELINE_DEFAULT = require('../config.js').image_compare_ratio_baseline; // 图像对比差异率最低值基线
 
 resemble.outputSettings({
     errorColor: {
@@ -23,8 +25,8 @@ resemble.outputSettings({
  *
  *  不过目前,先让Key相同就是了.
  * */
-function dataTransfer_resemble2system(from) {
-    var to = {};
+function dataTransfer4resemble2system(from) {
+    const to = {};
     to.isSameDimensions = from.isSameDimensions;
     to.dimensionDifference = from.dimensionDifference;
     to.misMatchPercentage = from.misMatchPercentage;
@@ -32,46 +34,46 @@ function dataTransfer_resemble2system(from) {
     return to;
 }
 
-function Comparer() {
+class Comparer {
+    // 对比两个文件，并将对比结果图片写入磁盘
+    // opt={file1 file2 resultfile ratio_baseline}
+    diff(option) {
+        const opt = option;
+        loggie.info('Inner diff function. opt is:', opt);
+        const target = opt.target;
+        const other = opt.other;
+        const resultfile = opt.resultfile;
+        const ratioBaseline = opt.ratio || RATIO_BASELINE_DEFAULT;
 
-}
-
-Comparer.prototype = {
-    //对比两个文件，并将对比结果图片写入磁盘
-    //opt={file1 file2 resultfile ratio_baseline}
-    diff: function (opt) {
-        console.log("Inner diff function. opt is:", opt);
-        var target = opt.target,
-            other = opt.other,
-            resultfile = opt.resultfile,
-            ratio_baseline = opt.ratio || RATIO_BASELINE_DEFAULT;
-
-        return new Promise((resolve, reject)=> {
+        return new Promise((resolve, reject) => {
             try {
-                var file_data_target = fs.readFileSync(target);
-                var file_data_other = fs.readFileSync(other);
+                const fileDataTarget = fs.readFileSync(target);
+                const fileDataOther = fs.readFileSync(other);
 
-                resemble(file_data_target).compareTo(file_data_other).ignoreNothing().onComplete(_data => {
-                    var data = dataTransfer_resemble2system(_data);
-                    console.log("Resemble diff complete", data);
-                    opt.diffinfo = data;
-                    opt.ratio_baseline = ratio_baseline;
-                    if (+data.misMatchPercentage <= ratio_baseline) {
-                        data.similar = true;
-                        data.message = "misMatchPercentage is too low,donnot save compare result~";
-                    } else {
-                        console.log("Save diff image to ", resultfile);
-                        data.similar = false;
-                        _data.getDiffImage().pack().pipe(fs.createWriteStream(resultfile));
-                    }
-                    resolve(data);
-                });
-            } catch (e) {//TODO: 文件比如other在磁盘上不存在时的异常，try目前捕获不到。奇怪
-                console.log("Catch diff err: ", e);
-                reject({msg: e.msg}, null);
+                resemble(fileDataTarget)
+                    .compareTo(fileDataOther)
+                    .ignoreNothing()
+                    .onComplete(_data => {
+                        const data = dataTransfer4resemble2system(_data);
+                        loggie.info('Resemble diff complete', data);
+                        opt.diffinfo = data;
+                        opt.ratio_baseline = ratioBaseline;
+                        if (+data.misMatchPercentage <= ratioBaseline) {
+                            data.similar = true;
+                            data.message = 'misMatchPercentage too low,donnot save compare result~';
+                        } else {
+                            loggie.info('Save diff image to ', resultfile);
+                            data.similar = false;
+                            _data.getDiffImage().pack().pipe(fs.createWriteStream(resultfile));
+                        }
+                        resolve(data);
+                    });
+            } catch (e) {   // TODO: 文件比如other在磁盘上不存在时的异常，try目前捕获不到。奇怪
+                loggie.info('Catch diff err: ', e);
+                reject({ msg: e.msg }, null);
             }
         });
     }
-};
+}
 
 module.exports = new Comparer();

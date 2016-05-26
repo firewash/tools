@@ -1,3 +1,5 @@
+'use strict';
+
 const path = require('path');
 const log4js = require('log4js');
 const config = require('../config');
@@ -6,7 +8,7 @@ log4js.configure({
     appenders: [
         { type: 'console', category: 'console' },
         // todo wangle 不生效~再试试
-        { type: 'file', filename: config.log_path, category: 'console', reloadSecs: 300 }
+        { type: 'file', filename: config.logPath, category: 'console', reloadSecs: 300 }
     ],
     replaceConsole: true
 });

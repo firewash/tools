@@ -1,12 +1,12 @@
-"use strict";
+'use strict';
 
-var loggie = require('../lib/loggie');
-var express = require('express');
-var router = express.Router();
+// const loggie = require('../lib/loggie');
+const express = require('express');
+const router = express.Router();
 
 /* GET users listing. */
-router.get('/a', function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/a', (req, res) => {
+    res.send('respond with a resource');
 });
 
 module.exports = router;

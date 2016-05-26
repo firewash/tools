@@ -23,49 +23,49 @@ router.get('/task/run', (req, res) => {
 
 router.post('/task/add', (req, res) => {
     const data = req.body;
-    console.log('post request:', data);
+    loggie.info('post request:', data);
     dboperator.addTask(data).then(result => {
-        console.log('Then addtask . ');
+        loggie.info('Then addtask . ');
         res.status('201').send(result);
     }).catch(err => {
-        console.log('Error,', err);
+        loggie.info('Error,', err);
         res.send(err);
     });
 });
 
 router.put('/task/:id', (req, res) => {
-    console.log('/task/:id put update request.req.param: ', req.params, 'and req.body: ', req.body);
-    let taskid = req.params.id,
-        updateinfo = req.body;
+    loggie.info('/task/:id put update request.req.param: ', req.params, 'and req.body: ', req.body);
+    const taskid = req.params.id;
+    const updateinfo = req.body;
 
     if (typeof updateinfo.enabled === 'string') {
-        updateinfo.enabled = updateinfo.enabled == 'true' ? true : false;
+        updateinfo.enabled = updateinfo.enabled === 'true';
     }
 
-    console.log(taskid, updateinfo);
+    loggie.info(taskid, updateinfo);
     dboperator.updateTask({ _id: taskid }, updateinfo).then(result => {
         const data = {
-            msg: taskid + ' 任务更新完成.Result:' + result
+            msg: `${taskid} 任务更新完成.Result:${result}`
         };
         res.send(data);
     }, err => {
         res.send({
-            msg: taskid + ' 任务更新失败.Error:' + err
+            msg: `${taskid} 任务更新失败.Error:${err}`
         });
     });
 });
 
 router.delete('/task/:id', (req, res) => {
     const id = req.params.id;
-    console.log('request /task/:id/delete', id);
+    loggie.info('request /task/:id/delete', id);
 
     dboperator.deleteTask({ _id: id }).then(result => {
-        console.log('Delete success ', result.id);
+        loggie.info('Delete success ', result.id);
         res.send({
             message: `${id}删除成功`
         });
     }, err => {
-        console.log('Delete errlr,', err);
+        loggie.info('Delete errlr,', err);
         res.send(err);
     });
 });
@@ -88,8 +88,8 @@ router.get('/task/queue', (req, res) => {
 });
 
 router.post('/capture/list', (req, res) => {
-    console.log('/capture/list', req.params, req.body);
-    let opt = req.body;
+    loggie.info('/capture/list', req.params, req.body);
+    const opt = req.body;
     const result = {
         condition: opt,
         err: null,
@@ -98,12 +98,12 @@ router.post('/capture/list', (req, res) => {
 
     dboperator.getCaptureEntries(opt)
         .then(arr => {
-            console.log('then getCaptureEntries, lenth: ', arr.length);
+            loggie.info('then getCaptureEntries, lenth: ', arr.length);
             result.data = arr;
             res.send(result);
         }, err => {
             result.err = {
-                msg: taskid + ' 任务更新指令失败.Err:' + err
+                msg: `${opt.taskid} 任务更新指令失败.Err:${err}`
             };
             res.send(result);
         });

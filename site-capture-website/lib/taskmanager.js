@@ -1,19 +1,21 @@
 'use strict';
 
 const loggie = require('../lib/loggie');
-const GlobalConfig = require('../config.js');
+const gConfig = require('../config.js');
 const comparer = require('./comparer');
 const capturer = require('./capturer');
 const dboperator = require('./dboperator');
 const schedule = require('node-schedule');
 const idField = '_id';
+const imageFolder = gConfig.captureImageSaveFolder;
 const taskQueue = { // 真正不停跑定时任务的管理器
     // task_id;{taskinfo:json, job:object, expired:bool}
 };
-dboperator.config = GlobalConfig;
+dboperator.config = gConfig;
 
-function isJsonEquals(json_a, json_b) {
-    return JSON.stringify(json_a) === JSON.stringify(json_b);
+// 粗暴的判断两个JSON是否内容相同
+function isJsonEquals(jsonA, jsonB) {
+    return JSON.stringify(jsonA) === JSON.stringify(jsonB);
 }
 class TaskManager {
     // 取出所有任务并执行
@@ -104,17 +106,17 @@ class TaskManager {
         const hour = timedetail[0] || 0;
         const minute = timedetail[1] || 0;
         switch (interval) {
-            case 'perhour': // 这时候会忽略年月日,UI上这种情况就隐藏年月日的选择吧
-                rule = {minute: +minute};
-                break;
-            case 'perday':
-                rule = {hour: +hour, minute: +minute};
-                break;
-            case 'onetime':
-            case '':
-            default:
-                rule = new Date(`${startdate} ${starttime}`);
-                break;
+        case 'perhour': // 这时候会忽略年月日,UI上这种情况就隐藏年月日的选择吧
+            rule = { minute: +minute };
+            break;
+        case 'perday':
+            rule = { hour: +hour, minute: +minute };
+            break;
+        case 'onetime':
+        case '':
+        default:
+            rule = new Date(`${startdate} ${starttime}`);
+            break;
         }
         loggie.info('rule ok', rule);
         if (rule) {
@@ -154,17 +156,17 @@ class TaskManager {
         if (!taskinfo) return;
 
         // 预处理一下数据
-        var name_prefix = taskinfo.name_prefix || GlobalConfig.name_prefix,
+        const namePrefix = taskinfo.name_prefix || gConfig.namePrefix,
             date = new Date(), // IOS时间
             time = date.getTime();
-        var opt = {
+        const opt = {
             url: taskinfo.url,
-            name_prefix: name_prefix,
-            filename: name_prefix + '_' + time,
+            name_prefix: namePrefix,
+            filename: `${namePrefix}_${time}`
         };
-        var target_data = {
+        let target_data = {
             taskid: taskinfo[idField],
-            taskinfo: taskinfo,
+            taskinfo
         };
 
         loggie.info('立即执行这个截图任务');
@@ -177,14 +179,14 @@ class TaskManager {
             if (lastData) {
                 loggie.info('Has a pre capture, now diff with it.');
                 target_data.diffwith = lastData[idField];
-                let resultFileName = target_data.filename + '_diff';
-                var opt = {
-                    target: `${GlobalConfig.captureImageSaveFolder}${target_data.filename}.${target_data.format}`,
-                    other: `${GlobalConfig.captureImageSaveFolder}${lastData.filename}.${lastData.format}`,
-                    resultfile: `${GlobalConfig.captureImageSaveFolder}${resultFileName}.${target_data.format}`
+                const resultFileName = `${target_data.filename}_diff`;
+                const diffOption = {
+                    target: `${imageFolder}${target_data.filename}.${target_data.format}`,
+                    other: `${imageFolder}${lastData.filename}.${lastData.format}`,
+                    resultfile: `${imageFolder}${resultFileName}.${target_data.format}`
                 };
-                loggie.info('Before diff, opt is: ', opt);
-                return comparer.diff(opt).then(data => {
+                loggie.info('Before diff, diffOption is: ', diffOption);
+                return comparer.diff(diffOption).then(data => {
                     loggie.info('Diff success. add diff info  to target data', data);
                     target_data.diffinfo = data;
                     if (!target_data.diffinfo.similar) {
