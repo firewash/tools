@@ -2349,3 +2349,2710 @@ TypeError: Cannot read property 'cancel' of null
        name_prefix: 'www.duba.com',
        enabled: true,
        createtime: Thu May 26 2016 18:01:45 GMT+0800 (中国标准时间) } ] }
+[2016-05-26 20:53:31.927] [INFO] console - 首次获取并执行所有任务
+[2016-05-26 20:53:31.932] [INFO] console - syncAndScheduleAllTasks
+[2016-05-26 20:53:31.933] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 20:53:32.190] [INFO] console - 工程目录:  f:\github\tools\site-capture-website
+[2016-05-26 20:53:32.261] [INFO] console - Try db connect
+[2016-05-26 20:53:32.305] [INFO] console - MongoDB connnect success~.
+[2016-05-26 20:53:32.305] [INFO] console - then connect, queryCondition {}
+[2016-05-26 20:53:32.334] [INFO] console - will return:
+[2016-05-26 20:53:32.335] [INFO] console - All task length:  1
+[2016-05-26 20:53:32.335] [INFO] console - Task list item ,Enable: true
+[2016-05-26 20:53:32.335] [INFO] console - In scheduleTask fn,  task:  { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 20:53:32.337] [INFO] console - old task info is:  undefined
+[2016-05-26 20:53:32.338] [INFO] console - isTaskUpdated :  true
+[2016-05-26 20:53:32.338] [INFO] console - 要配置定时任务.
+[2016-05-26 20:53:32.338] [INFO] console - in setScheduleFunctionCall, 2016-05-25 23:58 onetime
+[2016-05-26 20:53:32.339] [INFO] console - rule ok Wed May 25 2016 23:58:00 GMT+0800 (中国标准时间)
+[2016-05-26 20:53:32.341] [INFO] console - Schedule success~
+[2016-05-26 20:53:32.341] [INFO] console - 尝试移除没有了的任务, taskQueue:  { '5745ca6ab076be641f3a574d': 
+   { taskinfo: 
+      { _id: 5745ca6ab076be641f3a574d,
+        domain: 'www.uc123.com',
+        url: 'http://www.uc123.com',
+        startdate: '2016-05-25',
+        starttime: '23:58',
+        scheduled: 'onetime',
+        name_prefix: 'www.uc123.com',
+        enabled: true,
+        createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+     job: null,
+     expired: false } }
+[2016-05-26 20:53:32.342] [INFO] console - 尝试结束 
+[2016-05-26 20:53:46.072] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 20:53:46.072] [INFO] console - Try db connect
+[2016-05-26 20:53:46.073] [INFO] console - then connect, queryCondition {}
+[2016-05-26 20:53:46.075] [INFO] console - will return:
+[2016-05-26 20:53:46.075] [INFO] console - then getAllTasks { query_condition: {},
+  data: 
+   [ { _id: 5745ca6ab076be641f3a574d,
+       domain: 'www.uc123.com',
+       url: 'http://www.uc123.com',
+       startdate: '2016-05-25',
+       starttime: '23:58',
+       scheduled: 'onetime',
+       name_prefix: 'www.uc123.com',
+       enabled: true,
+       createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) } ] }
+[2016-05-26 21:01:06.681] [INFO] console - 首次获取并执行所有任务
+[2016-05-26 21:01:06.685] [INFO] console - syncAndScheduleAllTasks
+[2016-05-26 21:01:06.687] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 21:01:06.873] [INFO] console - 工程目录:  f:\github\tools\site-capture-website
+[2016-05-26 21:01:06.910] [INFO] console - Try db connect
+[2016-05-26 21:01:06.949] [INFO] console - MongoDB connnect success~.
+[2016-05-26 21:01:06.950] [INFO] console - then connect, queryCondition {}
+[2016-05-26 21:01:06.969] [INFO] console - will return:
+[2016-05-26 21:01:06.969] [INFO] console - All task length:  1
+[2016-05-26 21:01:06.969] [INFO] console - Task list item ,Enable: true
+[2016-05-26 21:01:06.970] [INFO] console - In scheduleTask fn,  task:  { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 21:01:06.972] [INFO] console - old task info is:  undefined
+[2016-05-26 21:01:06.972] [INFO] console - isTaskUpdated :  true
+[2016-05-26 21:01:06.972] [INFO] console - 要配置定时任务.
+[2016-05-26 21:01:06.972] [INFO] console - in setScheduleFunctionCall, 2016-05-25 23:58 onetime
+[2016-05-26 21:01:06.973] [INFO] console - rule ok Wed May 25 2016 23:58:00 GMT+0800 (中国标准时间)
+[2016-05-26 21:01:06.975] [INFO] console - Schedule success~
+[2016-05-26 21:01:06.975] [INFO] console - 尝试移除没有了的任务, taskQueue:  { '5745ca6ab076be641f3a574d': 
+   { taskinfo: 
+      { _id: 5745ca6ab076be641f3a574d,
+        domain: 'www.uc123.com',
+        url: 'http://www.uc123.com',
+        startdate: '2016-05-25',
+        starttime: '23:58',
+        scheduled: 'onetime',
+        name_prefix: 'www.uc123.com',
+        enabled: true,
+        createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+     job: null,
+     expired: false } }
+[2016-05-26 21:01:06.976] [INFO] console - 尝试结束 
+[2016-05-26 21:08:24.033] [INFO] console - 首次获取并执行所有任务
+[2016-05-26 21:08:24.038] [INFO] console - syncAndScheduleAllTasks
+[2016-05-26 21:08:24.039] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 21:08:24.234] [INFO] console - 工程目录:  f:\github\tools\site-capture-website
+[2016-05-26 21:08:24.273] [INFO] console - Try db connect
+[2016-05-26 21:08:24.314] [INFO] console - MongoDB connnect success~.
+[2016-05-26 21:08:24.314] [INFO] console - then connect, queryCondition {}
+[2016-05-26 21:08:24.338] [INFO] console - will return:
+[2016-05-26 21:08:24.338] [INFO] console - All task length:  1
+[2016-05-26 21:08:24.338] [INFO] console - Task list item ,Enable: true
+[2016-05-26 21:08:24.339] [INFO] console - In scheduleTask fn,  task:  { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 21:08:24.341] [INFO] console - old task info is:  undefined
+[2016-05-26 21:08:24.341] [INFO] console - isTaskUpdated :  true
+[2016-05-26 21:08:24.341] [INFO] console - 要配置定时任务.
+[2016-05-26 21:08:24.342] [INFO] console - in setScheduleFunctionCall, 2016-05-25 23:58 onetime
+[2016-05-26 21:08:24.342] [INFO] console - rule ok Wed May 25 2016 23:58:00 GMT+0800 (中国标准时间)
+[2016-05-26 21:08:24.344] [INFO] console - Schedule success~
+[2016-05-26 21:08:24.345] [INFO] console - 尝试移除没有了的任务, taskQueue:  { '5745ca6ab076be641f3a574d': 
+   { taskinfo: 
+      { _id: 5745ca6ab076be641f3a574d,
+        domain: 'www.uc123.com',
+        url: 'http://www.uc123.com',
+        startdate: '2016-05-25',
+        starttime: '23:58',
+        scheduled: 'onetime',
+        name_prefix: 'www.uc123.com',
+        enabled: true,
+        createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+     job: null,
+     expired: false } }
+[2016-05-26 21:08:24.347] [INFO] console - 尝试结束 
+[2016-05-26 21:11:18.753] [INFO] console - 首次获取并执行所有任务
+[2016-05-26 21:11:18.757] [INFO] console - syncAndScheduleAllTasks
+[2016-05-26 21:11:18.759] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 21:11:18.960] [INFO] console - 工程目录:  f:\github\tools\site-capture-website
+[2016-05-26 21:11:19.000] [INFO] console - Try db connect
+[2016-05-26 21:11:19.046] [INFO] console - MongoDB connnect success~.
+[2016-05-26 21:11:19.046] [INFO] console - then connect, queryCondition {}
+[2016-05-26 21:11:19.072] [INFO] console - will return:
+[2016-05-26 21:11:19.073] [INFO] console - All task length:  1
+[2016-05-26 21:11:19.073] [INFO] console - Task list item ,Enable: true
+[2016-05-26 21:11:19.074] [INFO] console - In scheduleTask fn,  task:  { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 21:11:19.077] [INFO] console - old task info is:  undefined
+[2016-05-26 21:11:19.077] [INFO] console - isTaskUpdated :  true
+[2016-05-26 21:11:19.077] [INFO] console - 要配置定时任务.
+[2016-05-26 21:11:19.078] [INFO] console - in setScheduleFunctionCall, 2016-05-25 23:58 onetime
+[2016-05-26 21:11:19.078] [INFO] console - rule ok Wed May 25 2016 23:58:00 GMT+0800 (中国标准时间)
+[2016-05-26 21:11:19.081] [INFO] console - Schedule success~
+[2016-05-26 21:11:19.082] [INFO] console - 尝试移除没有了的任务, taskQueue:  { '5745ca6ab076be641f3a574d': 
+   { taskinfo: 
+      { _id: 5745ca6ab076be641f3a574d,
+        domain: 'www.uc123.com',
+        url: 'http://www.uc123.com',
+        startdate: '2016-05-25',
+        starttime: '23:58',
+        scheduled: 'onetime',
+        name_prefix: 'www.uc123.com',
+        enabled: true,
+        createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+     job: null,
+     expired: false } }
+[2016-05-26 21:11:19.083] [INFO] console - 尝试结束 
+[2016-05-26 21:11:21.740] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 21:11:21.741] [INFO] console - Try db connect
+[2016-05-26 21:11:21.741] [INFO] console - then connect, queryCondition {}
+[2016-05-26 21:11:21.743] [INFO] console - will return:
+[2016-05-26 21:11:21.744] [INFO] console - then getAllTasks { query_condition: {},
+  data: 
+   [ { _id: 5745ca6ab076be641f3a574d,
+       domain: 'www.uc123.com',
+       url: 'http://www.uc123.com',
+       startdate: '2016-05-25',
+       starttime: '23:58',
+       scheduled: 'onetime',
+       name_prefix: 'www.uc123.com',
+       enabled: true,
+       createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) } ] }
+[2016-05-26 21:11:24.004] [INFO] console - /capture/list {} { taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 21:11:24.005] [INFO] console - Try db connect
+[2016-05-26 21:11:24.006] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 21:11:24.007] [INFO] console - Find then,length:  0
+[2016-05-26 21:11:24.007] [INFO] console - then getCaptureEntries, lenth:  0
+[2016-05-26 21:11:29.399] [INFO] console - /task/:id/run 5745ca6ab076be641f3a574d
+[2016-05-26 21:11:29.400] [INFO] console - executeTaskById
+[2016-05-26 21:11:29.400] [INFO] console - getTasks, opt is: { _id: '5745ca6ab076be641f3a574d' }
+[2016-05-26 21:11:29.402] [INFO] console - Try db connect
+[2016-05-26 21:11:29.402] [INFO] console - then connect, queryCondition { _id: 5745ca6ab076be641f3a574d }
+[2016-05-26 21:11:29.434] [INFO] console - will return:
+[2016-05-26 21:11:29.435] [INFO] console - Run a task: { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 21:11:29.435] [INFO] console - 立即执行这个截图任务
+[2016-05-26 21:11:29.436] [INFO] console - In capture fn, option:  { url: 'http://www.uc123.com',
+  name_prefix: 'www.uc123.com',
+  filename: 'www.uc123.com_1464268289435' }
+[2016-05-26 21:11:29.585] [INFO] console - Success: phantom.create, http://www.uc123.com
+[2016-05-26 21:11:31.406] [INFO] console - Success: createPage, page default setting is : http://www.uc123.com
+[2016-05-26 22:26:04.235] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 22:26:04.236] [INFO] console - Try db connect
+[2016-05-26 22:26:04.236] [INFO] console - then connect, queryCondition {}
+[2016-05-26 22:26:04.238] [INFO] console - will return:
+[2016-05-26 22:26:04.238] [INFO] console - then getAllTasks { query_condition: {},
+  data: 
+   [ { _id: 5745ca6ab076be641f3a574d,
+       domain: 'www.uc123.com',
+       url: 'http://www.uc123.com',
+       startdate: '2016-05-25',
+       starttime: '23:58',
+       scheduled: 'onetime',
+       name_prefix: 'www.uc123.com',
+       enabled: true,
+       createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) } ] }
+[2016-05-26 22:26:07.170] [INFO] console - /capture/list {} { taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:26:07.170] [INFO] console - Try db connect
+[2016-05-26 22:26:07.171] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:26:07.172] [INFO] console - Find then,length:  0
+[2016-05-26 22:26:07.172] [INFO] console - then getCaptureEntries, lenth:  0
+[2016-05-26 22:26:09.715] [INFO] console - /task/:id/run 5745ca6ab076be641f3a574d
+[2016-05-26 22:26:09.715] [INFO] console - executeTaskById
+[2016-05-26 22:26:09.716] [INFO] console - getTasks, opt is: { _id: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:26:09.717] [INFO] console - Try db connect
+[2016-05-26 22:26:09.718] [INFO] console - then connect, queryCondition { _id: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:26:09.719] [INFO] console - will return:
+[2016-05-26 22:26:09.719] [INFO] console - Run a task: { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:26:09.722] [INFO] console - 立即执行这个截图任务
+[2016-05-26 22:26:09.723] [INFO] console - In capture fn, option:  { url: 'http://www.uc123.com',
+  name_prefix: 'www.uc123.com',
+  filename: 'www.uc123.com_1464272769722' }
+[2016-05-26 22:26:09.741] [INFO] console - Success: phantom.create, http://www.uc123.com
+[2016-05-26 22:26:11.317] [INFO] console - Success: createPage, page default setting is : http://www.uc123.com
+[2016-05-26 22:26:12.664] [INFO] console - /task/:id/run 5745ca6ab076be641f3a574d
+[2016-05-26 22:26:12.664] [INFO] console - executeTaskById
+[2016-05-26 22:26:12.665] [INFO] console - getTasks, opt is: { _id: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:26:12.666] [INFO] console - Try db connect
+[2016-05-26 22:26:12.666] [INFO] console - then connect, queryCondition { _id: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:26:12.668] [INFO] console - will return:
+[2016-05-26 22:26:12.669] [INFO] console - Run a task: { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:26:12.670] [INFO] console - 立即执行这个截图任务
+[2016-05-26 22:26:12.670] [INFO] console - In capture fn, option:  { url: 'http://www.uc123.com',
+  name_prefix: 'www.uc123.com',
+  filename: 'www.uc123.com_1464272772670' }
+[2016-05-26 22:26:12.684] [INFO] console - Success: phantom.create, http://www.uc123.com
+[2016-05-26 22:26:13.916] [INFO] console - Waiting page full loaded.
+[2016-05-26 22:26:14.223] [INFO] console - Success: createPage, page default setting is : http://www.uc123.com
+[2016-05-26 22:26:14.291] [INFO] console - /task/:id/run 5745ca6ab076be641f3a574d
+[2016-05-26 22:26:14.291] [INFO] console - executeTaskById
+[2016-05-26 22:26:14.291] [INFO] console - getTasks, opt is: { _id: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:26:14.292] [INFO] console - Try db connect
+[2016-05-26 22:26:14.293] [INFO] console - then connect, queryCondition { _id: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:26:14.295] [INFO] console - will return:
+[2016-05-26 22:26:14.295] [INFO] console - Run a task: { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:26:14.296] [INFO] console - 立即执行这个截图任务
+[2016-05-26 22:26:14.297] [INFO] console - In capture fn, option:  { url: 'http://www.uc123.com',
+  name_prefix: 'www.uc123.com',
+  filename: 'www.uc123.com_1464272774296' }
+[2016-05-26 22:26:14.313] [INFO] console - Success: phantom.create, http://www.uc123.com
+[2016-05-26 22:26:15.619] [INFO] console - /task/:id/run 5745ca6ab076be641f3a574d
+[2016-05-26 22:26:15.619] [INFO] console - executeTaskById
+[2016-05-26 22:26:15.619] [INFO] console - getTasks, opt is: { _id: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:26:15.620] [INFO] console - Try db connect
+[2016-05-26 22:26:15.620] [INFO] console - then connect, queryCondition { _id: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:26:15.621] [INFO] console - will return:
+[2016-05-26 22:26:15.622] [INFO] console - Run a task: { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:26:15.622] [INFO] console - 立即执行这个截图任务
+[2016-05-26 22:26:15.622] [INFO] console - In capture fn, option:  { url: 'http://www.uc123.com',
+  name_prefix: 'www.uc123.com',
+  filename: 'www.uc123.com_1464272775622' }
+[2016-05-26 22:26:15.636] [INFO] console - Success: phantom.create, http://www.uc123.com
+[2016-05-26 22:26:15.876] [INFO] console - Success: createPage, page default setting is : http://www.uc123.com
+[2016-05-26 22:26:16.867] [INFO] console - Waiting page full loaded.
+[2016-05-26 22:26:16.994] [INFO] console - /task/:id/run 5745ca6ab076be641f3a574d
+[2016-05-26 22:26:16.995] [INFO] console - executeTaskById
+[2016-05-26 22:26:16.995] [INFO] console - getTasks, opt is: { _id: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:26:16.998] [INFO] console - Try db connect
+[2016-05-26 22:26:16.999] [INFO] console - then connect, queryCondition { _id: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:26:17.001] [INFO] console - will return:
+[2016-05-26 22:26:17.001] [INFO] console - Run a task: { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:26:17.002] [INFO] console - 立即执行这个截图任务
+[2016-05-26 22:26:17.003] [INFO] console - In capture fn, option:  { url: 'http://www.uc123.com',
+  name_prefix: 'www.uc123.com',
+  filename: 'www.uc123.com_1464272777002' }
+[2016-05-26 22:26:17.018] [INFO] console - Success: phantom.create, http://www.uc123.com
+[2016-05-26 22:26:17.203] [INFO] console - Success: createPage, page default setting is : http://www.uc123.com
+[2016-05-26 22:26:18.244] [INFO] console - Waiting page full loaded.
+[2016-05-26 22:26:18.583] [INFO] console - Success: createPage, page default setting is : http://www.uc123.com
+[2016-05-26 22:26:19.157] [INFO] console - Waiting page full loaded.
+[2016-05-26 22:26:19.158] [INFO] console - Waiting page full loaded.
+[2016-05-26 22:26:22.836] [INFO] console - /task/:id/run 5745ca6ab076be641f3a574d
+[2016-05-26 22:26:22.837] [INFO] console - executeTaskById
+[2016-05-26 22:26:22.837] [INFO] console - getTasks, opt is: { _id: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:26:22.838] [INFO] console - Try db connect
+[2016-05-26 22:26:22.838] [INFO] console - then connect, queryCondition { _id: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:26:22.840] [INFO] console - will return:
+[2016-05-26 22:26:22.840] [INFO] console - Run a task: { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:26:22.841] [INFO] console - 立即执行这个截图任务
+[2016-05-26 22:26:22.841] [INFO] console - In capture fn, option:  { url: 'http://www.uc123.com',
+  name_prefix: 'www.uc123.com',
+  filename: 'www.uc123.com_1464272782841' }
+[2016-05-26 22:26:22.856] [INFO] console - Success: phantom.create, http://www.uc123.com
+[2016-05-26 22:26:23.916] [INFO] console - Page open status:  success http://www.uc123.com
+[2016-05-26 22:26:23.917] [INFO] console - Will render page to: f:\github\tools\site-capture-data\result\www.uc123.com_1464272769722.png
+[2016-05-26 22:26:24.377] [INFO] console - Success: createPage, page default setting is : http://www.uc123.com
+[2016-05-26 22:26:24.483] [INFO] console - Page render and save, result:  true
+[2016-05-26 22:26:24.484] [INFO] console - Thenable capturer.capture
+[2016-05-26 22:26:24.484] [INFO] console - In afterCpture,target is: { url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272769722',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:26:09 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:26:24 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:26:09 GMT+0800 (中国标准时间)' }
+[2016-05-26 22:26:24.485] [INFO] console - GetLastestCaptureEntry: http://www.uc123.com
+[2016-05-26 22:26:24.485] [INFO] console - queryCondition { url: 'http://www.uc123.com' }
+[2016-05-26 22:26:24.485] [INFO] console - Try db connect
+[2016-05-26 22:26:24.488] [INFO] console - Result:  [ { _id: 57406094c284cf7019516325,
+    taskid: 57405f71c284cf7019516321,
+    taskinfo: 
+     { _id: 57405f71c284cf7019516321,
+       domain: 'www.uc123.com',
+       url: 'http://www.uc123.com',
+       startdate: '2016-05-21',
+       starttime: '21:20',
+       scheduled: 'perhour',
+       name_prefix: 'www.uc123.com',
+       enabled: true,
+       createtime: Sat May 21 2016 21:15:29 GMT+0800 (中国标准时间) },
+    url: 'http://www.uc123.com',
+    quality: 60,
+    filename: 'www.uc123.com_1463836800178',
+    format: 'png',
+    timestamp_start_capture: Sat May 21 2016 21:20:00 GMT+0800 (中国标准时间),
+    timestamp_capture_complete: Sat May 21 2016 21:20:20 GMT+0800 (中国标准时间),
+    description: 'Sat May 21 2016 21:20:00 GMT+0800 (中国标准时间)' } ]
+[2016-05-26 22:26:24.489] [INFO] console - Has a pre capture, now diff with it.
+[2016-05-26 22:26:24.489] [INFO] console - Before diff, diffOption is:  { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272769722.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1463836800178.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272769722_diff.png' }
+[2016-05-26 22:26:24.493] [INFO] console - Inner diff function. opt is: { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272769722.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1463836800178.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272769722_diff.png' }
+[2016-05-26 22:26:24.728] [INFO] console - /task/:id/run 5745ca6ab076be641f3a574d
+[2016-05-26 22:26:24.729] [INFO] console - executeTaskById
+[2016-05-26 22:26:24.729] [INFO] console - getTasks, opt is: { _id: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:26:24.730] [INFO] console - Try db connect
+[2016-05-26 22:26:24.730] [INFO] console - then connect, queryCondition { _id: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:26:24.737] [INFO] console - will return:
+[2016-05-26 22:26:24.737] [INFO] console - Run a task: { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:26:24.738] [INFO] console - 立即执行这个截图任务
+[2016-05-26 22:26:24.738] [INFO] console - In capture fn, option:  { url: 'http://www.uc123.com',
+  name_prefix: 'www.uc123.com',
+  filename: 'www.uc123.com_1464272784738' }
+[2016-05-26 22:26:24.754] [INFO] console - Success: phantom.create, http://www.uc123.com
+[2016-05-26 22:26:25.807] [INFO] console - Resemble diff complete { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '3.51',
+  analysisTime: 260 }
+[2016-05-26 22:26:25.808] [INFO] console - Save diff image to  f:\github\tools\site-capture-data\result\www.uc123.com_1464272769722_diff.png
+[2016-05-26 22:26:26.328] [INFO] console - Diff success. add diff info  to target data { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '3.51',
+  analysisTime: 260,
+  similar: false }
+[2016-05-26 22:26:26.329] [INFO] console - Will dboperator.saveCaptureData
+[2016-05-26 22:26:26.329] [INFO] console - Will save capture data: { taskid: 5745ca6ab076be641f3a574d,
+  taskinfo: 
+   { _id: 5745ca6ab076be641f3a574d,
+     domain: 'www.uc123.com',
+     url: 'http://www.uc123.com',
+     startdate: '2016-05-25',
+     starttime: '23:58',
+     scheduled: 'onetime',
+     name_prefix: 'www.uc123.com',
+     enabled: true,
+     createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+  url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272769722',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:26:09 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:26:24 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:26:09 GMT+0800 (中国标准时间)',
+  diffwith: 57406094c284cf7019516325,
+  diffinfo: 
+   { isSameDimensions: true,
+     dimensionDifference: { width: 0, height: 0 },
+     misMatchPercentage: '3.51',
+     analysisTime: 260,
+     similar: false,
+     diffimg: 'www.uc123.com_1464272769722_diff' } }
+[2016-05-26 22:26:26.330] [INFO] console - Try db connect
+[2016-05-26 22:26:26.331] [INFO] console - Will insert.
+[2016-05-26 22:26:26.339] [INFO] console - /task/:id/run 5745ca6ab076be641f3a574d
+[2016-05-26 22:26:26.339] [INFO] console - executeTaskById
+[2016-05-26 22:26:26.340] [INFO] console - getTasks, opt is: { _id: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:26:26.342] [INFO] console - Try db connect
+[2016-05-26 22:26:26.342] [INFO] console - then connect, queryCondition { _id: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:26:26.344] [INFO] console - Waiting page full loaded.
+[2016-05-26 22:26:26.344] [INFO] console - Success: createPage, page default setting is : http://www.uc123.com
+[2016-05-26 22:26:26.354] [INFO] console - SaveCaptureData sucess, result.insertedId:  574707921765d8b01dd5ad83
+[2016-05-26 22:26:26.869] [INFO] console - Page open status:  success http://www.uc123.com
+[2016-05-26 22:26:26.869] [INFO] console - Will render page to: f:\github\tools\site-capture-data\result\www.uc123.com_1464272772670.png
+[2016-05-26 22:26:27.396] [INFO] console - Page render and save, result:  true
+[2016-05-26 22:26:27.397] [INFO] console - Thenable capturer.capture
+[2016-05-26 22:26:27.397] [INFO] console - In afterCpture,target is: { url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272772670',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:26:12 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:26:27 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:26:12 GMT+0800 (中国标准时间)' }
+[2016-05-26 22:26:27.397] [INFO] console - GetLastestCaptureEntry: http://www.uc123.com
+[2016-05-26 22:26:27.397] [INFO] console - queryCondition { url: 'http://www.uc123.com' }
+[2016-05-26 22:26:27.398] [INFO] console - Try db connect
+[2016-05-26 22:26:27.412] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:26:27.414] [INFO] console - Result:  [ { _id: 57406094c284cf7019516325,
+    taskid: 57405f71c284cf7019516321,
+    taskinfo: 
+     { _id: 57405f71c284cf7019516321,
+       domain: 'www.uc123.com',
+       url: 'http://www.uc123.com',
+       startdate: '2016-05-21',
+       starttime: '21:20',
+       scheduled: 'perhour',
+       name_prefix: 'www.uc123.com',
+       enabled: true,
+       createtime: Sat May 21 2016 21:15:29 GMT+0800 (中国标准时间) },
+    url: 'http://www.uc123.com',
+    quality: 60,
+    filename: 'www.uc123.com_1463836800178',
+    format: 'png',
+    timestamp_start_capture: Sat May 21 2016 21:20:00 GMT+0800 (中国标准时间),
+    timestamp_capture_complete: Sat May 21 2016 21:20:20 GMT+0800 (中国标准时间),
+    description: 'Sat May 21 2016 21:20:00 GMT+0800 (中国标准时间)' } ]
+[2016-05-26 22:26:27.415] [INFO] console - Has a pre capture, now diff with it.
+[2016-05-26 22:26:27.415] [INFO] console - Before diff, diffOption is:  { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272772670.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1463836800178.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272772670_diff.png' }
+[2016-05-26 22:26:27.416] [INFO] console - Inner diff function. opt is: { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272772670.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1463836800178.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272772670_diff.png' }
+[2016-05-26 22:26:28.245] [INFO] console - Page open status:  success http://www.uc123.com
+[2016-05-26 22:26:28.246] [INFO] console - Will render page to: f:\github\tools\site-capture-data\result\www.uc123.com_1464272774296.png
+[2016-05-26 22:26:28.788] [INFO] console - Resemble diff complete { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '3.51',
+  analysisTime: 395 }
+[2016-05-26 22:26:28.789] [INFO] console - Save diff image to  f:\github\tools\site-capture-data\result\www.uc123.com_1464272772670_diff.png
+[2016-05-26 22:26:29.256] [INFO] console - Diff success. add diff info  to target data { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '3.51',
+  analysisTime: 395,
+  similar: false }
+[2016-05-26 22:26:29.256] [INFO] console - Will dboperator.saveCaptureData
+[2016-05-26 22:26:29.257] [INFO] console - Will save capture data: { taskid: 5745ca6ab076be641f3a574d,
+  taskinfo: 
+   { _id: 5745ca6ab076be641f3a574d,
+     domain: 'www.uc123.com',
+     url: 'http://www.uc123.com',
+     startdate: '2016-05-25',
+     starttime: '23:58',
+     scheduled: 'onetime',
+     name_prefix: 'www.uc123.com',
+     enabled: true,
+     createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+  url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272772670',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:26:12 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:26:27 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:26:12 GMT+0800 (中国标准时间)',
+  diffwith: 57406094c284cf7019516325,
+  diffinfo: 
+   { isSameDimensions: true,
+     dimensionDifference: { width: 0, height: 0 },
+     misMatchPercentage: '3.51',
+     analysisTime: 395,
+     similar: false,
+     diffimg: 'www.uc123.com_1464272772670_diff' } }
+[2016-05-26 22:26:29.258] [INFO] console - Try db connect
+[2016-05-26 22:26:29.258] [INFO] console - Will insert.
+[2016-05-26 22:26:29.259] [INFO] console - Page open status:  success http://www.uc123.com
+[2016-05-26 22:26:29.259] [INFO] console - Will render page to: f:\github\tools\site-capture-data\result\www.uc123.com_1464272775622.png
+[2016-05-26 22:26:29.260] [INFO] console - Page open status:  success http://www.uc123.com
+[2016-05-26 22:26:29.260] [INFO] console - Will render page to: f:\github\tools\site-capture-data\result\www.uc123.com_1464272777002.png
+[2016-05-26 22:26:29.260] [INFO] console - Waiting page full loaded.
+[2016-05-26 22:26:29.260] [INFO] console - Page render and save, result:  true
+[2016-05-26 22:26:29.261] [INFO] console - Thenable capturer.capture
+[2016-05-26 22:26:29.261] [INFO] console - In afterCpture,target is: { url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272774296',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:26:14 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:26:29 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:26:14 GMT+0800 (中国标准时间)' }
+[2016-05-26 22:26:29.261] [INFO] console - GetLastestCaptureEntry: http://www.uc123.com
+[2016-05-26 22:26:29.261] [INFO] console - queryCondition { url: 'http://www.uc123.com' }
+[2016-05-26 22:26:29.261] [INFO] console - Try db connect
+[2016-05-26 22:26:29.267] [INFO] console - SaveCaptureData sucess, result.insertedId:  574707951765d8b01dd5ad84
+[2016-05-26 22:26:29.269] [INFO] console - Error capturer.capture: { [MongoError: server localhost:27017 sockets closed]
+  name: 'MongoError',
+  message: 'server localhost:27017 sockets closed' }
+MongoError: server localhost:27017 sockets closed
+    at Server.destroy (f:\github\tools\site-capture-website\node_modules\mongodb-core\lib\topologies\server.js:1074:47)
+    at Server.close (f:\github\tools\site-capture-website\node_modules\mongodb\lib\server.js:417:17)
+    at Db.close (f:\github\tools\site-capture-website\node_modules\mongodb\lib\db.js:357:19)
+    at DBOperator.close (f:\github\tools\site-capture-website\lib\dboperator.js:98:21)
+    at f:\github\tools\site-capture-website\lib\dboperator.js:279:22
+    at process._tickCallback (node.js:401:9)
+[2016-05-26 22:26:29.271] [INFO] console - Will save capture data: { taskid: 5745ca6ab076be641f3a574d,
+  taskinfo: 
+   { _id: 5745ca6ab076be641f3a574d,
+     domain: 'www.uc123.com',
+     url: 'http://www.uc123.com',
+     startdate: '2016-05-25',
+     starttime: '23:58',
+     scheduled: 'onetime',
+     name_prefix: 'www.uc123.com',
+     enabled: true,
+     createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+  url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272774296',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:26:14 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:26:29 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:26:14 GMT+0800 (中国标准时间)',
+  error: { message: 'server localhost:27017 sockets closed' } }
+[2016-05-26 22:26:29.273] [INFO] console - Try db connect
+[2016-05-26 22:26:29.294] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:26:29.294] [INFO] console - Will insert.
+[2016-05-26 22:26:29.299] [INFO] console - SaveCaptureData sucess, result.insertedId:  574707951765d8b01dd5ad85
+[2016-05-26 22:26:29.861] [INFO] console - Page render and save, result:  true
+[2016-05-26 22:26:29.862] [INFO] console - Thenable capturer.capture
+[2016-05-26 22:26:29.862] [INFO] console - In afterCpture,target is: { url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272775622',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:26:15 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:26:29 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:26:15 GMT+0800 (中国标准时间)' }
+[2016-05-26 22:26:29.864] [INFO] console - GetLastestCaptureEntry: http://www.uc123.com
+[2016-05-26 22:26:29.864] [INFO] console - queryCondition { url: 'http://www.uc123.com' }
+[2016-05-26 22:26:29.864] [INFO] console - Try db connect
+[2016-05-26 22:26:29.866] [INFO] console - Page render and save, result:  true
+[2016-05-26 22:26:29.866] [INFO] console - Thenable capturer.capture
+[2016-05-26 22:26:29.866] [INFO] console - In afterCpture,target is: { url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272777002',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:26:17 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:26:29 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:26:17 GMT+0800 (中国标准时间)' }
+[2016-05-26 22:26:29.867] [INFO] console - GetLastestCaptureEntry: http://www.uc123.com
+[2016-05-26 22:26:29.867] [INFO] console - queryCondition { url: 'http://www.uc123.com' }
+[2016-05-26 22:26:29.867] [INFO] console - Try db connect
+[2016-05-26 22:26:29.882] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:26:29.884] [INFO] console - Result:  [ { _id: 57406094c284cf7019516325,
+    taskid: 57405f71c284cf7019516321,
+    taskinfo: 
+     { _id: 57405f71c284cf7019516321,
+       domain: 'www.uc123.com',
+       url: 'http://www.uc123.com',
+       startdate: '2016-05-21',
+       starttime: '21:20',
+       scheduled: 'perhour',
+       name_prefix: 'www.uc123.com',
+       enabled: true,
+       createtime: Sat May 21 2016 21:15:29 GMT+0800 (中国标准时间) },
+    url: 'http://www.uc123.com',
+    quality: 60,
+    filename: 'www.uc123.com_1463836800178',
+    format: 'png',
+    timestamp_start_capture: Sat May 21 2016 21:20:00 GMT+0800 (中国标准时间),
+    timestamp_capture_complete: Sat May 21 2016 21:20:20 GMT+0800 (中国标准时间),
+    description: 'Sat May 21 2016 21:20:00 GMT+0800 (中国标准时间)' } ]
+[2016-05-26 22:26:29.885] [INFO] console - Has a pre capture, now diff with it.
+[2016-05-26 22:26:29.885] [INFO] console - Before diff, diffOption is:  { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272775622.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1463836800178.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272775622_diff.png' }
+[2016-05-26 22:26:29.885] [INFO] console - Inner diff function. opt is: { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272775622.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1463836800178.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272775622_diff.png' }
+[2016-05-26 22:26:30.040] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:26:30.044] [INFO] console - Result:  [ { _id: 57406094c284cf7019516325,
+    taskid: 57405f71c284cf7019516321,
+    taskinfo: 
+     { _id: 57405f71c284cf7019516321,
+       domain: 'www.uc123.com',
+       url: 'http://www.uc123.com',
+       startdate: '2016-05-21',
+       starttime: '21:20',
+       scheduled: 'perhour',
+       name_prefix: 'www.uc123.com',
+       enabled: true,
+       createtime: Sat May 21 2016 21:15:29 GMT+0800 (中国标准时间) },
+    url: 'http://www.uc123.com',
+    quality: 60,
+    filename: 'www.uc123.com_1463836800178',
+    format: 'png',
+    timestamp_start_capture: Sat May 21 2016 21:20:00 GMT+0800 (中国标准时间),
+    timestamp_capture_complete: Sat May 21 2016 21:20:20 GMT+0800 (中国标准时间),
+    description: 'Sat May 21 2016 21:20:00 GMT+0800 (中国标准时间)' } ]
+[2016-05-26 22:26:30.045] [INFO] console - Has a pre capture, now diff with it.
+[2016-05-26 22:26:30.045] [INFO] console - Before diff, diffOption is:  { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272777002.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1463836800178.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272777002_diff.png' }
+[2016-05-26 22:26:30.045] [INFO] console - Inner diff function. opt is: { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272777002.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1463836800178.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272777002_diff.png' }
+[2016-05-26 22:26:31.863] [INFO] console - Resemble diff complete { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '3.54',
+  analysisTime: 252 }
+[2016-05-26 22:26:31.866] [INFO] console - Save diff image to  f:\github\tools\site-capture-data\result\www.uc123.com_1464272775622_diff.png
+[2016-05-26 22:26:32.343] [INFO] console - Diff success. add diff info  to target data { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '3.54',
+  analysisTime: 252,
+  similar: false }
+[2016-05-26 22:26:32.343] [INFO] console - Will dboperator.saveCaptureData
+[2016-05-26 22:26:32.344] [INFO] console - Will save capture data: { taskid: 5745ca6ab076be641f3a574d,
+  taskinfo: 
+   { _id: 5745ca6ab076be641f3a574d,
+     domain: 'www.uc123.com',
+     url: 'http://www.uc123.com',
+     startdate: '2016-05-25',
+     starttime: '23:58',
+     scheduled: 'onetime',
+     name_prefix: 'www.uc123.com',
+     enabled: true,
+     createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+  url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272775622',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:26:15 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:26:29 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:26:15 GMT+0800 (中国标准时间)',
+  diffwith: 57406094c284cf7019516325,
+  diffinfo: 
+   { isSameDimensions: true,
+     dimensionDifference: { width: 0, height: 0 },
+     misMatchPercentage: '3.54',
+     analysisTime: 252,
+     similar: false,
+     diffimg: 'www.uc123.com_1464272775622_diff' } }
+[2016-05-26 22:26:32.345] [INFO] console - Try db connect
+[2016-05-26 22:26:32.345] [INFO] console - Will insert.
+[2016-05-26 22:26:32.358] [INFO] console - /capture/list {} { taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:26:32.359] [INFO] console - Try db connect
+[2016-05-26 22:26:32.359] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:26:32.369] [INFO] console - SaveCaptureData sucess, result.insertedId:  574707981765d8b01dd5ad86
+[2016-05-26 22:26:32.937] [INFO] console - Resemble diff complete { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '3.51',
+  analysisTime: 431 }
+[2016-05-26 22:26:32.938] [INFO] console - Save diff image to  f:\github\tools\site-capture-data\result\www.uc123.com_1464272777002_diff.png
+[2016-05-26 22:26:33.417] [INFO] console - Diff success. add diff info  to target data { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '3.51',
+  analysisTime: 431,
+  similar: false }
+[2016-05-26 22:26:33.418] [INFO] console - Will dboperator.saveCaptureData
+[2016-05-26 22:26:33.418] [INFO] console - Will save capture data: { taskid: 5745ca6ab076be641f3a574d,
+  taskinfo: 
+   { _id: 5745ca6ab076be641f3a574d,
+     domain: 'www.uc123.com',
+     url: 'http://www.uc123.com',
+     startdate: '2016-05-25',
+     starttime: '23:58',
+     scheduled: 'onetime',
+     name_prefix: 'www.uc123.com',
+     enabled: true,
+     createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+  url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272777002',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:26:17 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:26:29 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:26:17 GMT+0800 (中国标准时间)',
+  diffwith: 57406094c284cf7019516325,
+  diffinfo: 
+   { isSameDimensions: true,
+     dimensionDifference: { width: 0, height: 0 },
+     misMatchPercentage: '3.51',
+     analysisTime: 431,
+     similar: false,
+     diffimg: 'www.uc123.com_1464272777002_diff' } }
+[2016-05-26 22:26:33.419] [INFO] console - Try db connect
+[2016-05-26 22:26:33.446] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:26:33.446] [INFO] console - Will insert.
+[2016-05-26 22:26:33.447] [INFO] console - SaveCaptureData sucess, result.insertedId:  574707991765d8b01dd5ad87
+[2016-05-26 22:26:36.345] [INFO] console - Page open status:  success http://www.uc123.com
+[2016-05-26 22:26:36.345] [INFO] console - Will render page to: f:\github\tools\site-capture-data\result\www.uc123.com_1464272782841.png
+[2016-05-26 22:26:36.836] [INFO] console - Page render and save, result:  true
+[2016-05-26 22:26:36.837] [INFO] console - Thenable capturer.capture
+[2016-05-26 22:26:36.837] [INFO] console - In afterCpture,target is: { url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272782841',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:26:22 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:26:36 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:26:22 GMT+0800 (中国标准时间)' }
+[2016-05-26 22:26:36.837] [INFO] console - GetLastestCaptureEntry: http://www.uc123.com
+[2016-05-26 22:26:36.838] [INFO] console - queryCondition { url: 'http://www.uc123.com' }
+[2016-05-26 22:26:36.838] [INFO] console - Try db connect
+[2016-05-26 22:26:36.848] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:26:36.852] [INFO] console - Result:  [ { _id: 57406094c284cf7019516325,
+    taskid: 57405f71c284cf7019516321,
+    taskinfo: 
+     { _id: 57405f71c284cf7019516321,
+       domain: 'www.uc123.com',
+       url: 'http://www.uc123.com',
+       startdate: '2016-05-21',
+       starttime: '21:20',
+       scheduled: 'perhour',
+       name_prefix: 'www.uc123.com',
+       enabled: true,
+       createtime: Sat May 21 2016 21:15:29 GMT+0800 (中国标准时间) },
+    url: 'http://www.uc123.com',
+    quality: 60,
+    filename: 'www.uc123.com_1463836800178',
+    format: 'png',
+    timestamp_start_capture: Sat May 21 2016 21:20:00 GMT+0800 (中国标准时间),
+    timestamp_capture_complete: Sat May 21 2016 21:20:20 GMT+0800 (中国标准时间),
+    description: 'Sat May 21 2016 21:20:00 GMT+0800 (中国标准时间)' } ]
+[2016-05-26 22:26:36.853] [INFO] console - Has a pre capture, now diff with it.
+[2016-05-26 22:26:36.853] [INFO] console - Before diff, diffOption is:  { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272782841.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1463836800178.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272782841_diff.png' }
+[2016-05-26 22:26:36.854] [INFO] console - Inner diff function. opt is: { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272782841.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1463836800178.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272782841_diff.png' }
+[2016-05-26 22:26:38.170] [INFO] console - Resemble diff complete { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '3.54',
+  analysisTime: 400 }
+[2016-05-26 22:26:38.171] [INFO] console - Save diff image to  f:\github\tools\site-capture-data\result\www.uc123.com_1464272782841_diff.png
+[2016-05-26 22:26:38.639] [INFO] console - Diff success. add diff info  to target data { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '3.54',
+  analysisTime: 400,
+  similar: false }
+[2016-05-26 22:26:38.640] [INFO] console - Will dboperator.saveCaptureData
+[2016-05-26 22:26:38.640] [INFO] console - Will save capture data: { taskid: 5745ca6ab076be641f3a574d,
+  taskinfo: 
+   { _id: 5745ca6ab076be641f3a574d,
+     domain: 'www.uc123.com',
+     url: 'http://www.uc123.com',
+     startdate: '2016-05-25',
+     starttime: '23:58',
+     scheduled: 'onetime',
+     name_prefix: 'www.uc123.com',
+     enabled: true,
+     createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+  url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272782841',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:26:22 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:26:36 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:26:22 GMT+0800 (中国标准时间)',
+  diffwith: 57406094c284cf7019516325,
+  diffinfo: 
+   { isSameDimensions: true,
+     dimensionDifference: { width: 0, height: 0 },
+     misMatchPercentage: '3.54',
+     analysisTime: 400,
+     similar: false,
+     diffimg: 'www.uc123.com_1464272782841_diff' } }
+[2016-05-26 22:26:38.641] [INFO] console - Try db connect
+[2016-05-26 22:26:38.641] [INFO] console - Will insert.
+[2016-05-26 22:26:38.643] [INFO] console - SaveCaptureData sucess, result.insertedId:  5747079e1765d8b01dd5ad88
+[2016-05-26 22:26:39.261] [INFO] console - Page open status:  success http://www.uc123.com
+[2016-05-26 22:26:39.261] [INFO] console - Will render page to: f:\github\tools\site-capture-data\result\www.uc123.com_1464272784738.png
+[2016-05-26 22:26:39.751] [INFO] console - Page render and save, result:  true
+[2016-05-26 22:26:39.752] [INFO] console - Thenable capturer.capture
+[2016-05-26 22:26:39.752] [INFO] console - In afterCpture,target is: { url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272784738',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:26:24 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:26:39 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:26:24 GMT+0800 (中国标准时间)' }
+[2016-05-26 22:26:39.752] [INFO] console - GetLastestCaptureEntry: http://www.uc123.com
+[2016-05-26 22:26:39.753] [INFO] console - queryCondition { url: 'http://www.uc123.com' }
+[2016-05-26 22:26:39.753] [INFO] console - Try db connect
+[2016-05-26 22:26:39.764] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:26:39.766] [INFO] console - Result:  [ { _id: 57406094c284cf7019516325,
+    taskid: 57405f71c284cf7019516321,
+    taskinfo: 
+     { _id: 57405f71c284cf7019516321,
+       domain: 'www.uc123.com',
+       url: 'http://www.uc123.com',
+       startdate: '2016-05-21',
+       starttime: '21:20',
+       scheduled: 'perhour',
+       name_prefix: 'www.uc123.com',
+       enabled: true,
+       createtime: Sat May 21 2016 21:15:29 GMT+0800 (中国标准时间) },
+    url: 'http://www.uc123.com',
+    quality: 60,
+    filename: 'www.uc123.com_1463836800178',
+    format: 'png',
+    timestamp_start_capture: Sat May 21 2016 21:20:00 GMT+0800 (中国标准时间),
+    timestamp_capture_complete: Sat May 21 2016 21:20:20 GMT+0800 (中国标准时间),
+    description: 'Sat May 21 2016 21:20:00 GMT+0800 (中国标准时间)' } ]
+[2016-05-26 22:26:39.768] [INFO] console - Has a pre capture, now diff with it.
+[2016-05-26 22:26:39.768] [INFO] console - Before diff, diffOption is:  { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272784738.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1463836800178.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272784738_diff.png' }
+[2016-05-26 22:26:39.768] [INFO] console - Inner diff function. opt is: { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272784738.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1463836800178.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272784738_diff.png' }
+[2016-05-26 22:26:41.066] [INFO] console - Resemble diff complete { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '3.54',
+  analysisTime: 396 }
+[2016-05-26 22:26:41.067] [INFO] console - Save diff image to  f:\github\tools\site-capture-data\result\www.uc123.com_1464272784738_diff.png
+[2016-05-26 22:26:41.530] [INFO] console - Diff success. add diff info  to target data { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '3.54',
+  analysisTime: 396,
+  similar: false }
+[2016-05-26 22:26:41.530] [INFO] console - Will dboperator.saveCaptureData
+[2016-05-26 22:26:41.530] [INFO] console - Will save capture data: { taskid: 5745ca6ab076be641f3a574d,
+  taskinfo: 
+   { _id: 5745ca6ab076be641f3a574d,
+     domain: 'www.uc123.com',
+     url: 'http://www.uc123.com',
+     startdate: '2016-05-25',
+     starttime: '23:58',
+     scheduled: 'onetime',
+     name_prefix: 'www.uc123.com',
+     enabled: true,
+     createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+  url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272784738',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:26:24 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:26:39 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:26:24 GMT+0800 (中国标准时间)',
+  diffwith: 57406094c284cf7019516325,
+  diffinfo: 
+   { isSameDimensions: true,
+     dimensionDifference: { width: 0, height: 0 },
+     misMatchPercentage: '3.54',
+     analysisTime: 396,
+     similar: false,
+     diffimg: 'www.uc123.com_1464272784738_diff' } }
+[2016-05-26 22:26:41.531] [INFO] console - Try db connect
+[2016-05-26 22:26:41.531] [INFO] console - Will insert.
+[2016-05-26 22:26:41.533] [INFO] console - SaveCaptureData sucess, result.insertedId:  574707a11765d8b01dd5ad89
+[2016-05-26 22:27:20.199] [INFO] console - /capture/list {} { taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:27:20.200] [INFO] console - Try db connect
+[2016-05-26 22:27:20.212] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:27:20.213] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:27:20.215] [INFO] console - Find then,length:  7
+[2016-05-26 22:27:20.215] [INFO] console - then getCaptureEntries, lenth:  7
+[2016-05-26 22:27:39.911] [INFO] console - /capture/list {} { taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:27:39.911] [INFO] console - Try db connect
+[2016-05-26 22:27:39.911] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:27:39.912] [INFO] console - Find then,length:  0
+[2016-05-26 22:27:39.912] [INFO] console - then getCaptureEntries, lenth:  0
+[2016-05-26 22:27:42.584] [INFO] console - /task/:id/run 5745ca6ab076be641f3a574d
+[2016-05-26 22:27:42.584] [INFO] console - executeTaskById
+[2016-05-26 22:27:42.584] [INFO] console - getTasks, opt is: { _id: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:27:42.585] [INFO] console - Try db connect
+[2016-05-26 22:27:42.586] [INFO] console - then connect, queryCondition { _id: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:27:42.587] [INFO] console - will return:
+[2016-05-26 22:27:42.588] [INFO] console - Run a task: { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:27:42.588] [INFO] console - 立即执行这个截图任务
+[2016-05-26 22:27:42.589] [INFO] console - In capture fn, option:  { url: 'http://www.uc123.com',
+  name_prefix: 'www.uc123.com',
+  filename: 'www.uc123.com_1464272862588' }
+[2016-05-26 22:27:42.609] [INFO] console - Success: phantom.create, http://www.uc123.com
+[2016-05-26 22:27:43.680] [INFO] console - /task/:id/run 5745ca6ab076be641f3a574d
+[2016-05-26 22:27:43.680] [INFO] console - executeTaskById
+[2016-05-26 22:27:43.680] [INFO] console - getTasks, opt is: { _id: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:27:43.681] [INFO] console - Try db connect
+[2016-05-26 22:27:43.681] [INFO] console - then connect, queryCondition { _id: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:27:43.682] [INFO] console - will return:
+[2016-05-26 22:27:43.682] [INFO] console - Run a task: { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:27:43.682] [INFO] console - 立即执行这个截图任务
+[2016-05-26 22:27:43.683] [INFO] console - In capture fn, option:  { url: 'http://www.uc123.com',
+  name_prefix: 'www.uc123.com',
+  filename: 'www.uc123.com_1464272863682' }
+[2016-05-26 22:27:43.698] [INFO] console - Success: phantom.create, http://www.uc123.com
+[2016-05-26 22:27:44.120] [INFO] console - Success: createPage, page default setting is : http://www.uc123.com
+[2016-05-26 22:27:44.619] [INFO] console - /task/:id/run 5745ca6ab076be641f3a574d
+[2016-05-26 22:27:44.619] [INFO] console - executeTaskById
+[2016-05-26 22:27:44.619] [INFO] console - getTasks, opt is: { _id: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:27:44.620] [INFO] console - Try db connect
+[2016-05-26 22:27:44.620] [INFO] console - then connect, queryCondition { _id: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:27:44.621] [INFO] console - will return:
+[2016-05-26 22:27:44.621] [INFO] console - Run a task: { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:27:44.621] [INFO] console - 立即执行这个截图任务
+[2016-05-26 22:27:44.621] [INFO] console - In capture fn, option:  { url: 'http://www.uc123.com',
+  name_prefix: 'www.uc123.com',
+  filename: 'www.uc123.com_1464272864621' }
+[2016-05-26 22:27:44.635] [INFO] console - Success: phantom.create, http://www.uc123.com
+[2016-05-26 22:27:45.223] [INFO] console - Success: createPage, page default setting is : http://www.uc123.com
+[2016-05-26 22:27:45.597] [INFO] console - /task/:id/run 5745ca6ab076be641f3a574d
+[2016-05-26 22:27:45.597] [INFO] console - executeTaskById
+[2016-05-26 22:27:45.598] [INFO] console - getTasks, opt is: { _id: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:27:45.599] [INFO] console - Try db connect
+[2016-05-26 22:27:45.599] [INFO] console - then connect, queryCondition { _id: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:27:45.600] [INFO] console - will return:
+[2016-05-26 22:27:45.600] [INFO] console - Run a task: { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:27:45.601] [INFO] console - 立即执行这个截图任务
+[2016-05-26 22:27:45.601] [INFO] console - In capture fn, option:  { url: 'http://www.uc123.com',
+  name_prefix: 'www.uc123.com',
+  filename: 'www.uc123.com_1464272865601' }
+[2016-05-26 22:27:45.618] [INFO] console - Success: phantom.create, http://www.uc123.com
+[2016-05-26 22:27:46.199] [INFO] console - Success: createPage, page default setting is : http://www.uc123.com
+[2016-05-26 22:27:46.701] [INFO] console - Waiting page full loaded.
+[2016-05-26 22:27:46.734] [INFO] console - /task/:id/run 5745ca6ab076be641f3a574d
+[2016-05-26 22:27:46.735] [INFO] console - executeTaskById
+[2016-05-26 22:27:46.735] [INFO] console - getTasks, opt is: { _id: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:27:46.735] [INFO] console - Try db connect
+[2016-05-26 22:27:46.735] [INFO] console - then connect, queryCondition { _id: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:27:46.736] [INFO] console - will return:
+[2016-05-26 22:27:46.736] [INFO] console - Run a task: { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:27:46.737] [INFO] console - 立即执行这个截图任务
+[2016-05-26 22:27:46.737] [INFO] console - In capture fn, option:  { url: 'http://www.uc123.com',
+  name_prefix: 'www.uc123.com',
+  filename: 'www.uc123.com_1464272866737' }
+[2016-05-26 22:27:46.755] [INFO] console - Success: phantom.create, http://www.uc123.com
+[2016-05-26 22:27:47.203] [INFO] console - Success: createPage, page default setting is : http://www.uc123.com
+[2016-05-26 22:27:47.855] [INFO] console - /task/:id/run 5745ca6ab076be641f3a574d
+[2016-05-26 22:27:47.856] [INFO] console - executeTaskById
+[2016-05-26 22:27:47.856] [INFO] console - getTasks, opt is: { _id: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:27:47.856] [INFO] console - Try db connect
+[2016-05-26 22:27:47.856] [INFO] console - then connect, queryCondition { _id: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:27:47.857] [INFO] console - will return:
+[2016-05-26 22:27:47.857] [INFO] console - Run a task: { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:27:47.858] [INFO] console - 立即执行这个截图任务
+[2016-05-26 22:27:47.858] [INFO] console - In capture fn, option:  { url: 'http://www.uc123.com',
+  name_prefix: 'www.uc123.com',
+  filename: 'www.uc123.com_1464272867858' }
+[2016-05-26 22:27:47.873] [INFO] console - Success: phantom.create, http://www.uc123.com
+[2016-05-26 22:27:48.313] [INFO] console - Waiting page full loaded.
+[2016-05-26 22:27:48.368] [INFO] console - Success: createPage, page default setting is : http://www.uc123.com
+[2016-05-26 22:27:49.017] [INFO] console - /task/:id/run 5745ca6ab076be641f3a574d
+[2016-05-26 22:27:49.017] [INFO] console - executeTaskById
+[2016-05-26 22:27:49.017] [INFO] console - getTasks, opt is: { _id: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:27:49.018] [INFO] console - Try db connect
+[2016-05-26 22:27:49.018] [INFO] console - then connect, queryCondition { _id: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:27:49.019] [INFO] console - will return:
+[2016-05-26 22:27:49.019] [INFO] console - Run a task: { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:27:49.020] [INFO] console - 立即执行这个截图任务
+[2016-05-26 22:27:49.020] [INFO] console - In capture fn, option:  { url: 'http://www.uc123.com',
+  name_prefix: 'www.uc123.com',
+  filename: 'www.uc123.com_1464272869020' }
+[2016-05-26 22:27:49.039] [INFO] console - Success: phantom.create, http://www.uc123.com
+[2016-05-26 22:27:49.117] [INFO] console - Waiting page full loaded.
+[2016-05-26 22:27:49.294] [INFO] console - Waiting page full loaded.
+[2016-05-26 22:27:49.477] [INFO] console - Success: createPage, page default setting is : http://www.uc123.com
+[2016-05-26 22:27:50.105] [INFO] console - /task/:id/run 5745ca6ab076be641f3a574d
+[2016-05-26 22:27:50.105] [INFO] console - executeTaskById
+[2016-05-26 22:27:50.105] [INFO] console - getTasks, opt is: { _id: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:27:50.106] [INFO] console - Try db connect
+[2016-05-26 22:27:50.106] [INFO] console - then connect, queryCondition { _id: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:27:50.107] [INFO] console - will return:
+[2016-05-26 22:27:50.107] [INFO] console - Run a task: { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:27:50.107] [INFO] console - 立即执行这个截图任务
+[2016-05-26 22:27:50.107] [INFO] console - In capture fn, option:  { url: 'http://www.uc123.com',
+  name_prefix: 'www.uc123.com',
+  filename: 'www.uc123.com_1464272870107' }
+[2016-05-26 22:27:50.123] [INFO] console - Success: phantom.create, http://www.uc123.com
+[2016-05-26 22:27:50.626] [INFO] console - Success: createPage, page default setting is : http://www.uc123.com
+[2016-05-26 22:27:50.769] [INFO] console - Waiting page full loaded.
+[2016-05-26 22:27:51.578] [INFO] console - Waiting page full loaded.
+[2016-05-26 22:27:51.725] [INFO] console - Success: createPage, page default setting is : http://www.uc123.com
+[2016-05-26 22:27:52.301] [INFO] console - Waiting page full loaded.
+[2016-05-26 22:27:53.865] [INFO] console - Waiting page full loaded.
+[2016-05-26 22:27:56.701] [INFO] console - Page open status:  success http://www.uc123.com
+[2016-05-26 22:27:56.701] [INFO] console - Will render page to: f:\github\tools\site-capture-data\result\www.uc123.com_1464272862588.png
+[2016-05-26 22:27:57.124] [INFO] console - /capture/list {} { taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:27:57.124] [INFO] console - Try db connect
+[2016-05-26 22:27:57.124] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:27:57.126] [INFO] console - Find then,length:  0
+[2016-05-26 22:27:57.126] [INFO] console - then getCaptureEntries, lenth:  0
+[2016-05-26 22:27:57.248] [INFO] console - Page render and save, result:  true
+[2016-05-26 22:27:57.248] [INFO] console - Thenable capturer.capture
+[2016-05-26 22:27:57.249] [INFO] console - In afterCpture,target is: { url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272862588',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:27:42 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:27:57 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:27:42 GMT+0800 (中国标准时间)' }
+[2016-05-26 22:27:57.249] [INFO] console - GetLastestCaptureEntry: http://www.uc123.com
+[2016-05-26 22:27:57.249] [INFO] console - queryCondition { url: 'http://www.uc123.com' }
+[2016-05-26 22:27:57.249] [INFO] console - Try db connect
+[2016-05-26 22:27:57.250] [INFO] console - Result:  []
+[2016-05-26 22:27:57.250] [INFO] console - No last data
+[2016-05-26 22:27:57.250] [INFO] console - Will dboperator.saveCaptureData
+[2016-05-26 22:27:57.250] [INFO] console - Will save capture data: { taskid: 5745ca6ab076be641f3a574d,
+  taskinfo: 
+   { _id: 5745ca6ab076be641f3a574d,
+     domain: 'www.uc123.com',
+     url: 'http://www.uc123.com',
+     startdate: '2016-05-25',
+     starttime: '23:58',
+     scheduled: 'onetime',
+     name_prefix: 'www.uc123.com',
+     enabled: true,
+     createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+  url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272862588',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:27:42 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:27:57 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:27:42 GMT+0800 (中国标准时间)' }
+[2016-05-26 22:27:57.251] [INFO] console - Try db connect
+[2016-05-26 22:27:57.251] [INFO] console - Will insert.
+[2016-05-26 22:27:57.252] [INFO] console - SaveCaptureData sucess, result.insertedId:  574707ed1765d8b01dd5ad8a
+[2016-05-26 22:27:58.173] [INFO] console - /capture/list {} { taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:27:58.174] [INFO] console - Try db connect
+[2016-05-26 22:27:58.185] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:27:58.185] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:27:58.186] [INFO] console - Find then,length:  1
+[2016-05-26 22:27:58.186] [INFO] console - then getCaptureEntries, lenth:  1
+[2016-05-26 22:27:58.314] [INFO] console - Page open status:  success http://www.uc123.com
+[2016-05-26 22:27:58.314] [INFO] console - Will render page to: f:\github\tools\site-capture-data\result\www.uc123.com_1464272864621.png
+[2016-05-26 22:27:58.865] [INFO] console - /capture/list {} { taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:27:58.866] [INFO] console - Try db connect
+[2016-05-26 22:27:58.866] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:27:58.867] [INFO] console - Find then,length:  1
+[2016-05-26 22:27:58.867] [INFO] console - then getCaptureEntries, lenth:  1
+[2016-05-26 22:27:58.887] [INFO] console - Page render and save, result:  true
+[2016-05-26 22:27:58.887] [INFO] console - Thenable capturer.capture
+[2016-05-26 22:27:58.887] [INFO] console - In afterCpture,target is: { url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272864621',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:27:44 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:27:58 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:27:44 GMT+0800 (中国标准时间)' }
+[2016-05-26 22:27:58.887] [INFO] console - GetLastestCaptureEntry: http://www.uc123.com
+[2016-05-26 22:27:58.888] [INFO] console - queryCondition { url: 'http://www.uc123.com' }
+[2016-05-26 22:27:58.888] [INFO] console - Try db connect
+[2016-05-26 22:27:58.889] [INFO] console - Result:  [ { _id: 574707ed1765d8b01dd5ad8a,
+    taskid: 5745ca6ab076be641f3a574d,
+    taskinfo: 
+     { _id: 5745ca6ab076be641f3a574d,
+       domain: 'www.uc123.com',
+       url: 'http://www.uc123.com',
+       startdate: '2016-05-25',
+       starttime: '23:58',
+       scheduled: 'onetime',
+       name_prefix: 'www.uc123.com',
+       enabled: true,
+       createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+    url: 'http://www.uc123.com',
+    quality: 90,
+    filename: 'www.uc123.com_1464272862588',
+    format: 'png',
+    timestamp_start_capture: Thu May 26 2016 22:27:42 GMT+0800 (中国标准时间),
+    timestamp_capture_complete: Thu May 26 2016 22:27:57 GMT+0800 (中国标准时间),
+    description: 'Thu May 26 2016 22:27:42 GMT+0800 (中国标准时间)' } ]
+[2016-05-26 22:27:58.890] [INFO] console - Has a pre capture, now diff with it.
+[2016-05-26 22:27:58.890] [INFO] console - Before diff, diffOption is:  { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272864621.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272862588.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272864621_diff.png' }
+[2016-05-26 22:27:58.890] [INFO] console - Inner diff function. opt is: { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272864621.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272862588.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272864621_diff.png' }
+[2016-05-26 22:27:59.147] [INFO] console - Page open status:  success http://www.uc123.com
+[2016-05-26 22:27:59.147] [INFO] console - Will render page to: f:\github\tools\site-capture-data\result\www.uc123.com_1464272863682.png
+[2016-05-26 22:27:59.294] [INFO] console - Page open status:  success http://www.uc123.com
+[2016-05-26 22:27:59.294] [INFO] console - Will render page to: f:\github\tools\site-capture-data\result\www.uc123.com_1464272865601.png
+[2016-05-26 22:27:59.751] [INFO] console - Page render and save, result:  true
+[2016-05-26 22:27:59.760] [INFO] console - Thenable capturer.capture
+[2016-05-26 22:27:59.760] [INFO] console - In afterCpture,target is: { url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272863682',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:27:43 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:27:59 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:27:43 GMT+0800 (中国标准时间)' }
+[2016-05-26 22:27:59.760] [INFO] console - GetLastestCaptureEntry: http://www.uc123.com
+[2016-05-26 22:27:59.761] [INFO] console - queryCondition { url: 'http://www.uc123.com' }
+[2016-05-26 22:27:59.761] [INFO] console - Try db connect
+[2016-05-26 22:27:59.765] [INFO] console - Result:  [ { _id: 574707ed1765d8b01dd5ad8a,
+    taskid: 5745ca6ab076be641f3a574d,
+    taskinfo: 
+     { _id: 5745ca6ab076be641f3a574d,
+       domain: 'www.uc123.com',
+       url: 'http://www.uc123.com',
+       startdate: '2016-05-25',
+       starttime: '23:58',
+       scheduled: 'onetime',
+       name_prefix: 'www.uc123.com',
+       enabled: true,
+       createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+    url: 'http://www.uc123.com',
+    quality: 90,
+    filename: 'www.uc123.com_1464272862588',
+    format: 'png',
+    timestamp_start_capture: Thu May 26 2016 22:27:42 GMT+0800 (中国标准时间),
+    timestamp_capture_complete: Thu May 26 2016 22:27:57 GMT+0800 (中国标准时间),
+    description: 'Thu May 26 2016 22:27:42 GMT+0800 (中国标准时间)' } ]
+[2016-05-26 22:27:59.766] [INFO] console - Has a pre capture, now diff with it.
+[2016-05-26 22:27:59.766] [INFO] console - Before diff, diffOption is:  { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272863682.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272862588.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272863682_diff.png' }
+[2016-05-26 22:27:59.767] [INFO] console - Inner diff function. opt is: { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272863682.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272862588.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272863682_diff.png' }
+[2016-05-26 22:28:00.033] [INFO] console - Page render and save, result:  true
+[2016-05-26 22:28:00.033] [INFO] console - Thenable capturer.capture
+[2016-05-26 22:28:00.033] [INFO] console - In afterCpture,target is: { url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272865601',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:27:45 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:28:00 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:27:45 GMT+0800 (中国标准时间)' }
+[2016-05-26 22:28:00.034] [INFO] console - GetLastestCaptureEntry: http://www.uc123.com
+[2016-05-26 22:28:00.034] [INFO] console - queryCondition { url: 'http://www.uc123.com' }
+[2016-05-26 22:28:00.034] [INFO] console - Try db connect
+[2016-05-26 22:28:00.036] [INFO] console - Result:  [ { _id: 574707ed1765d8b01dd5ad8a,
+    taskid: 5745ca6ab076be641f3a574d,
+    taskinfo: 
+     { _id: 5745ca6ab076be641f3a574d,
+       domain: 'www.uc123.com',
+       url: 'http://www.uc123.com',
+       startdate: '2016-05-25',
+       starttime: '23:58',
+       scheduled: 'onetime',
+       name_prefix: 'www.uc123.com',
+       enabled: true,
+       createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+    url: 'http://www.uc123.com',
+    quality: 90,
+    filename: 'www.uc123.com_1464272862588',
+    format: 'png',
+    timestamp_start_capture: Thu May 26 2016 22:27:42 GMT+0800 (中国标准时间),
+    timestamp_capture_complete: Thu May 26 2016 22:27:57 GMT+0800 (中国标准时间),
+    description: 'Thu May 26 2016 22:27:42 GMT+0800 (中国标准时间)' } ]
+[2016-05-26 22:28:00.037] [INFO] console - Has a pre capture, now diff with it.
+[2016-05-26 22:28:00.037] [INFO] console - Before diff, diffOption is:  { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272865601.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272862588.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272865601_diff.png' }
+[2016-05-26 22:28:00.038] [INFO] console - Inner diff function. opt is: { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272865601.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272862588.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272865601_diff.png' }
+[2016-05-26 22:28:00.852] [INFO] console - Resemble diff complete { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '0.00',
+  analysisTime: 258 }
+[2016-05-26 22:28:00.854] [INFO] console - Diff success. add diff info  to target data { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '0.00',
+  analysisTime: 258,
+  similar: true,
+  message: 'misMatchPercentage too low,donnot save compare result~' }
+[2016-05-26 22:28:00.854] [INFO] console - Will dboperator.saveCaptureData
+[2016-05-26 22:28:00.855] [INFO] console - Will save capture data: { taskid: 5745ca6ab076be641f3a574d,
+  taskinfo: 
+   { _id: 5745ca6ab076be641f3a574d,
+     domain: 'www.uc123.com',
+     url: 'http://www.uc123.com',
+     startdate: '2016-05-25',
+     starttime: '23:58',
+     scheduled: 'onetime',
+     name_prefix: 'www.uc123.com',
+     enabled: true,
+     createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+  url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272864621',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:27:44 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:27:58 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:27:44 GMT+0800 (中国标准时间)',
+  diffwith: 574707ed1765d8b01dd5ad8a,
+  diffinfo: 
+   { isSameDimensions: true,
+     dimensionDifference: { width: 0, height: 0 },
+     misMatchPercentage: '0.00',
+     analysisTime: 258,
+     similar: true,
+     message: 'misMatchPercentage too low,donnot save compare result~' } }
+[2016-05-26 22:28:00.855] [INFO] console - Try db connect
+[2016-05-26 22:28:00.855] [INFO] console - Will insert.
+[2016-05-26 22:28:00.872] [INFO] console - Page open status:  success http://www.uc123.com
+[2016-05-26 22:28:00.873] [INFO] console - Will render page to: f:\github\tools\site-capture-data\result\www.uc123.com_1464272866737.png
+[2016-05-26 22:28:00.875] [INFO] console - SaveCaptureData sucess, result.insertedId:  574707f01765d8b01dd5ad8b
+[2016-05-26 22:28:01.218] [INFO] console - /capture/list {} { taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:28:01.219] [INFO] console - Try db connect
+[2016-05-26 22:28:01.250] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:28:01.251] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:28:01.261] [INFO] console - Find then,length:  2
+[2016-05-26 22:28:01.261] [INFO] console - then getCaptureEntries, lenth:  2
+[2016-05-26 22:28:01.416] [INFO] console - Page render and save, result:  true
+[2016-05-26 22:28:01.417] [INFO] console - Thenable capturer.capture
+[2016-05-26 22:28:01.417] [INFO] console - In afterCpture,target is: { url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272866737',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:27:46 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:28:01 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:27:46 GMT+0800 (中国标准时间)' }
+[2016-05-26 22:28:01.417] [INFO] console - GetLastestCaptureEntry: http://www.uc123.com
+[2016-05-26 22:28:01.418] [INFO] console - queryCondition { url: 'http://www.uc123.com' }
+[2016-05-26 22:28:01.418] [INFO] console - Try db connect
+[2016-05-26 22:28:01.420] [INFO] console - Result:  [ { _id: 574707ed1765d8b01dd5ad8a,
+    taskid: 5745ca6ab076be641f3a574d,
+    taskinfo: 
+     { _id: 5745ca6ab076be641f3a574d,
+       domain: 'www.uc123.com',
+       url: 'http://www.uc123.com',
+       startdate: '2016-05-25',
+       starttime: '23:58',
+       scheduled: 'onetime',
+       name_prefix: 'www.uc123.com',
+       enabled: true,
+       createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+    url: 'http://www.uc123.com',
+    quality: 90,
+    filename: 'www.uc123.com_1464272862588',
+    format: 'png',
+    timestamp_start_capture: Thu May 26 2016 22:27:42 GMT+0800 (中国标准时间),
+    timestamp_capture_complete: Thu May 26 2016 22:27:57 GMT+0800 (中国标准时间),
+    description: 'Thu May 26 2016 22:27:42 GMT+0800 (中国标准时间)' } ]
+[2016-05-26 22:28:01.421] [INFO] console - Has a pre capture, now diff with it.
+[2016-05-26 22:28:01.421] [INFO] console - Before diff, diffOption is:  { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272866737.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272862588.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272866737_diff.png' }
+[2016-05-26 22:28:01.421] [INFO] console - Inner diff function. opt is: { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272866737.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272862588.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272866737_diff.png' }
+[2016-05-26 22:28:01.712] [INFO] console - Page open status:  success http://www.uc123.com
+[2016-05-26 22:28:01.712] [INFO] console - Will render page to: f:\github\tools\site-capture-data\result\www.uc123.com_1464272867858.png
+[2016-05-26 22:28:02.036] [INFO] console - /capture/list {} { taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:28:02.037] [INFO] console - Try db connect
+[2016-05-26 22:28:02.037] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:28:02.041] [INFO] console - Find then,length:  2
+[2016-05-26 22:28:02.041] [INFO] console - then getCaptureEntries, lenth:  2
+[2016-05-26 22:28:02.287] [INFO] console - Page render and save, result:  true
+[2016-05-26 22:28:02.287] [INFO] console - Thenable capturer.capture
+[2016-05-26 22:28:02.287] [INFO] console - In afterCpture,target is: { url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272867858',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:27:47 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:28:02 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:27:47 GMT+0800 (中国标准时间)' }
+[2016-05-26 22:28:02.288] [INFO] console - GetLastestCaptureEntry: http://www.uc123.com
+[2016-05-26 22:28:02.288] [INFO] console - queryCondition { url: 'http://www.uc123.com' }
+[2016-05-26 22:28:02.288] [INFO] console - Try db connect
+[2016-05-26 22:28:02.291] [INFO] console - Result:  [ { _id: 574707ed1765d8b01dd5ad8a,
+    taskid: 5745ca6ab076be641f3a574d,
+    taskinfo: 
+     { _id: 5745ca6ab076be641f3a574d,
+       domain: 'www.uc123.com',
+       url: 'http://www.uc123.com',
+       startdate: '2016-05-25',
+       starttime: '23:58',
+       scheduled: 'onetime',
+       name_prefix: 'www.uc123.com',
+       enabled: true,
+       createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+    url: 'http://www.uc123.com',
+    quality: 90,
+    filename: 'www.uc123.com_1464272862588',
+    format: 'png',
+    timestamp_start_capture: Thu May 26 2016 22:27:42 GMT+0800 (中国标准时间),
+    timestamp_capture_complete: Thu May 26 2016 22:27:57 GMT+0800 (中国标准时间),
+    description: 'Thu May 26 2016 22:27:42 GMT+0800 (中国标准时间)' } ]
+[2016-05-26 22:28:02.292] [INFO] console - Has a pre capture, now diff with it.
+[2016-05-26 22:28:02.292] [INFO] console - Before diff, diffOption is:  { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272867858.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272862588.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272867858_diff.png' }
+[2016-05-26 22:28:02.293] [INFO] console - Inner diff function. opt is: { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272867858.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272862588.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272867858_diff.png' }
+[2016-05-26 22:28:02.574] [INFO] console - Page open status:  success http://www.uc123.com
+[2016-05-26 22:28:02.575] [INFO] console - Will render page to: f:\github\tools\site-capture-data\result\www.uc123.com_1464272869020.png
+[2016-05-26 22:28:03.170] [INFO] console - Page render and save, result:  true
+[2016-05-26 22:28:03.171] [INFO] console - Thenable capturer.capture
+[2016-05-26 22:28:03.171] [INFO] console - In afterCpture,target is: { url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272869020',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:27:49 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:28:03 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:27:49 GMT+0800 (中国标准时间)' }
+[2016-05-26 22:28:03.171] [INFO] console - GetLastestCaptureEntry: http://www.uc123.com
+[2016-05-26 22:28:03.171] [INFO] console - queryCondition { url: 'http://www.uc123.com' }
+[2016-05-26 22:28:03.171] [INFO] console - Try db connect
+[2016-05-26 22:28:03.177] [INFO] console - Result:  [ { _id: 574707ed1765d8b01dd5ad8a,
+    taskid: 5745ca6ab076be641f3a574d,
+    taskinfo: 
+     { _id: 5745ca6ab076be641f3a574d,
+       domain: 'www.uc123.com',
+       url: 'http://www.uc123.com',
+       startdate: '2016-05-25',
+       starttime: '23:58',
+       scheduled: 'onetime',
+       name_prefix: 'www.uc123.com',
+       enabled: true,
+       createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+    url: 'http://www.uc123.com',
+    quality: 90,
+    filename: 'www.uc123.com_1464272862588',
+    format: 'png',
+    timestamp_start_capture: Thu May 26 2016 22:27:42 GMT+0800 (中国标准时间),
+    timestamp_capture_complete: Thu May 26 2016 22:27:57 GMT+0800 (中国标准时间),
+    description: 'Thu May 26 2016 22:27:42 GMT+0800 (中国标准时间)' } ]
+[2016-05-26 22:28:03.179] [INFO] console - Has a pre capture, now diff with it.
+[2016-05-26 22:28:03.179] [INFO] console - Before diff, diffOption is:  { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272869020.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272862588.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272869020_diff.png' }
+[2016-05-26 22:28:03.179] [INFO] console - Inner diff function. opt is: { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272869020.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272862588.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272869020_diff.png' }
+[2016-05-26 22:28:03.458] [INFO] console - /capture/list {} { taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:28:03.458] [INFO] console - Try db connect
+[2016-05-26 22:28:03.458] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:28:03.465] [INFO] console - Find then,length:  2
+[2016-05-26 22:28:03.465] [INFO] console - then getCaptureEntries, lenth:  2
+[2016-05-26 22:28:04.276] [INFO] console - Resemble diff complete { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '0.00',
+  analysisTime: 377 }
+[2016-05-26 22:28:04.276] [INFO] console - Diff success. add diff info  to target data { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '0.00',
+  analysisTime: 377,
+  similar: true,
+  message: 'misMatchPercentage too low,donnot save compare result~' }
+[2016-05-26 22:28:04.277] [INFO] console - Will dboperator.saveCaptureData
+[2016-05-26 22:28:04.277] [INFO] console - Will save capture data: { taskid: 5745ca6ab076be641f3a574d,
+  taskinfo: 
+   { _id: 5745ca6ab076be641f3a574d,
+     domain: 'www.uc123.com',
+     url: 'http://www.uc123.com',
+     startdate: '2016-05-25',
+     starttime: '23:58',
+     scheduled: 'onetime',
+     name_prefix: 'www.uc123.com',
+     enabled: true,
+     createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+  url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272863682',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:27:43 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:27:59 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:27:43 GMT+0800 (中国标准时间)',
+  diffwith: 574707ed1765d8b01dd5ad8a,
+  diffinfo: 
+   { isSameDimensions: true,
+     dimensionDifference: { width: 0, height: 0 },
+     misMatchPercentage: '0.00',
+     analysisTime: 377,
+     similar: true,
+     message: 'misMatchPercentage too low,donnot save compare result~' } }
+[2016-05-26 22:28:04.278] [INFO] console - Try db connect
+[2016-05-26 22:28:04.278] [INFO] console - Will insert.
+[2016-05-26 22:28:04.281] [INFO] console - Page open status:  success http://www.uc123.com
+[2016-05-26 22:28:04.281] [INFO] console - Will render page to: f:\github\tools\site-capture-data\result\www.uc123.com_1464272870107.png
+[2016-05-26 22:28:04.283] [INFO] console - /capture/list {} { taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:28:04.284] [INFO] console - Try db connect
+[2016-05-26 22:28:04.284] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:28:04.294] [INFO] console - SaveCaptureData sucess, result.insertedId:  574707f41765d8b01dd5ad8c
+[2016-05-26 22:28:04.927] [INFO] console - Resemble diff complete { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '0.03',
+  analysisTime: 367 }
+[2016-05-26 22:28:04.928] [INFO] console - Diff success. add diff info  to target data { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '0.03',
+  analysisTime: 367,
+  similar: true,
+  message: 'misMatchPercentage too low,donnot save compare result~' }
+[2016-05-26 22:28:04.928] [INFO] console - Will dboperator.saveCaptureData
+[2016-05-26 22:28:04.928] [INFO] console - Will save capture data: { taskid: 5745ca6ab076be641f3a574d,
+  taskinfo: 
+   { _id: 5745ca6ab076be641f3a574d,
+     domain: 'www.uc123.com',
+     url: 'http://www.uc123.com',
+     startdate: '2016-05-25',
+     starttime: '23:58',
+     scheduled: 'onetime',
+     name_prefix: 'www.uc123.com',
+     enabled: true,
+     createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+  url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272865601',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:27:45 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:28:00 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:27:45 GMT+0800 (中国标准时间)',
+  diffwith: 574707ed1765d8b01dd5ad8a,
+  diffinfo: 
+   { isSameDimensions: true,
+     dimensionDifference: { width: 0, height: 0 },
+     misMatchPercentage: '0.03',
+     analysisTime: 367,
+     similar: true,
+     message: 'misMatchPercentage too low,donnot save compare result~' } }
+[2016-05-26 22:28:04.929] [INFO] console - Try db connect
+[2016-05-26 22:28:04.940] [INFO] console - Page render and save, result:  true
+[2016-05-26 22:28:04.941] [INFO] console - Thenable capturer.capture
+[2016-05-26 22:28:04.941] [INFO] console - In afterCpture,target is: { url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272870107',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:27:50 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:28:04 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:27:50 GMT+0800 (中国标准时间)' }
+[2016-05-26 22:28:04.941] [INFO] console - GetLastestCaptureEntry: http://www.uc123.com
+[2016-05-26 22:28:04.941] [INFO] console - queryCondition { url: 'http://www.uc123.com' }
+[2016-05-26 22:28:04.941] [INFO] console - Try db connect
+[2016-05-26 22:28:04.958] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:28:04.958] [INFO] console - Will insert.
+[2016-05-26 22:28:04.960] [INFO] console - SaveCaptureData sucess, result.insertedId:  574707f41765d8b01dd5ad8d
+[2016-05-26 22:28:04.962] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:28:04.965] [INFO] console - Result:  [ { _id: 574707ed1765d8b01dd5ad8a,
+    taskid: 5745ca6ab076be641f3a574d,
+    taskinfo: 
+     { _id: 5745ca6ab076be641f3a574d,
+       domain: 'www.uc123.com',
+       url: 'http://www.uc123.com',
+       startdate: '2016-05-25',
+       starttime: '23:58',
+       scheduled: 'onetime',
+       name_prefix: 'www.uc123.com',
+       enabled: true,
+       createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+    url: 'http://www.uc123.com',
+    quality: 90,
+    filename: 'www.uc123.com_1464272862588',
+    format: 'png',
+    timestamp_start_capture: Thu May 26 2016 22:27:42 GMT+0800 (中国标准时间),
+    timestamp_capture_complete: Thu May 26 2016 22:27:57 GMT+0800 (中国标准时间),
+    description: 'Thu May 26 2016 22:27:42 GMT+0800 (中国标准时间)' } ]
+[2016-05-26 22:28:04.966] [INFO] console - Has a pre capture, now diff with it.
+[2016-05-26 22:28:04.966] [INFO] console - Before diff, diffOption is:  { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272870107.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272862588.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272870107_diff.png' }
+[2016-05-26 22:28:04.967] [INFO] console - Inner diff function. opt is: { target: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272870107.png',
+  other: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272862588.png',
+  resultfile: 'f:\\github\\tools\\site-capture-data\\result\\www.uc123.com_1464272870107_diff.png' }
+[2016-05-26 22:28:06.659] [INFO] console - Resemble diff complete { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '0.03',
+  analysisTime: 394 }
+[2016-05-26 22:28:06.660] [INFO] console - Diff success. add diff info  to target data { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '0.03',
+  analysisTime: 394,
+  similar: true,
+  message: 'misMatchPercentage too low,donnot save compare result~' }
+[2016-05-26 22:28:06.660] [INFO] console - Will dboperator.saveCaptureData
+[2016-05-26 22:28:06.660] [INFO] console - Will save capture data: { taskid: 5745ca6ab076be641f3a574d,
+  taskinfo: 
+   { _id: 5745ca6ab076be641f3a574d,
+     domain: 'www.uc123.com',
+     url: 'http://www.uc123.com',
+     startdate: '2016-05-25',
+     starttime: '23:58',
+     scheduled: 'onetime',
+     name_prefix: 'www.uc123.com',
+     enabled: true,
+     createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+  url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272866737',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:27:46 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:28:01 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:27:46 GMT+0800 (中国标准时间)',
+  diffwith: 574707ed1765d8b01dd5ad8a,
+  diffinfo: 
+   { isSameDimensions: true,
+     dimensionDifference: { width: 0, height: 0 },
+     misMatchPercentage: '0.03',
+     analysisTime: 394,
+     similar: true,
+     message: 'misMatchPercentage too low,donnot save compare result~' } }
+[2016-05-26 22:28:06.661] [INFO] console - Try db connect
+[2016-05-26 22:28:06.661] [INFO] console - Will insert.
+[2016-05-26 22:28:06.664] [INFO] console - SaveCaptureData sucess, result.insertedId:  574707f61765d8b01dd5ad8e
+[2016-05-26 22:28:07.997] [INFO] console - Resemble diff complete { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '0.03',
+  analysisTime: 661 }
+[2016-05-26 22:28:07.998] [INFO] console - Diff success. add diff info  to target data { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '0.03',
+  analysisTime: 661,
+  similar: true,
+  message: 'misMatchPercentage too low,donnot save compare result~' }
+[2016-05-26 22:28:07.998] [INFO] console - Will dboperator.saveCaptureData
+[2016-05-26 22:28:07.999] [INFO] console - Will save capture data: { taskid: 5745ca6ab076be641f3a574d,
+  taskinfo: 
+   { _id: 5745ca6ab076be641f3a574d,
+     domain: 'www.uc123.com',
+     url: 'http://www.uc123.com',
+     startdate: '2016-05-25',
+     starttime: '23:58',
+     scheduled: 'onetime',
+     name_prefix: 'www.uc123.com',
+     enabled: true,
+     createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+  url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272867858',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:27:47 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:28:02 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:27:47 GMT+0800 (中国标准时间)',
+  diffwith: 574707ed1765d8b01dd5ad8a,
+  diffinfo: 
+   { isSameDimensions: true,
+     dimensionDifference: { width: 0, height: 0 },
+     misMatchPercentage: '0.03',
+     analysisTime: 661,
+     similar: true,
+     message: 'misMatchPercentage too low,donnot save compare result~' } }
+[2016-05-26 22:28:07.999] [INFO] console - Try db connect
+[2016-05-26 22:28:08.026] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:28:08.026] [INFO] console - Will insert.
+[2016-05-26 22:28:08.028] [INFO] console - SaveCaptureData sucess, result.insertedId:  574707f81765d8b01dd5ad8f
+[2016-05-26 22:28:10.922] [INFO] console - Resemble diff complete { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '0.03',
+  analysisTime: 2457 }
+[2016-05-26 22:28:10.922] [INFO] console - Diff success. add diff info  to target data { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '0.03',
+  analysisTime: 2457,
+  similar: true,
+  message: 'misMatchPercentage too low,donnot save compare result~' }
+[2016-05-26 22:28:10.923] [INFO] console - Will dboperator.saveCaptureData
+[2016-05-26 22:28:10.923] [INFO] console - Will save capture data: { taskid: 5745ca6ab076be641f3a574d,
+  taskinfo: 
+   { _id: 5745ca6ab076be641f3a574d,
+     domain: 'www.uc123.com',
+     url: 'http://www.uc123.com',
+     startdate: '2016-05-25',
+     starttime: '23:58',
+     scheduled: 'onetime',
+     name_prefix: 'www.uc123.com',
+     enabled: true,
+     createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+  url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272869020',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:27:49 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:28:03 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:27:49 GMT+0800 (中国标准时间)',
+  diffwith: 574707ed1765d8b01dd5ad8a,
+  diffinfo: 
+   { isSameDimensions: true,
+     dimensionDifference: { width: 0, height: 0 },
+     misMatchPercentage: '0.03',
+     analysisTime: 2457,
+     similar: true,
+     message: 'misMatchPercentage too low,donnot save compare result~' } }
+[2016-05-26 22:28:10.924] [INFO] console - Try db connect
+[2016-05-26 22:28:10.935] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:28:10.935] [INFO] console - Will insert.
+[2016-05-26 22:28:10.937] [INFO] console - SaveCaptureData sucess, result.insertedId:  574707fa1765d8b01dd5ad90
+[2016-05-26 22:28:13.330] [INFO] console - Resemble diff complete { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '0.03',
+  analysisTime: 2125 }
+[2016-05-26 22:28:13.331] [INFO] console - Diff success. add diff info  to target data { isSameDimensions: true,
+  dimensionDifference: { width: 0, height: 0 },
+  misMatchPercentage: '0.03',
+  analysisTime: 2125,
+  similar: true,
+  message: 'misMatchPercentage too low,donnot save compare result~' }
+[2016-05-26 22:28:13.331] [INFO] console - Will dboperator.saveCaptureData
+[2016-05-26 22:28:13.331] [INFO] console - Will save capture data: { taskid: 5745ca6ab076be641f3a574d,
+  taskinfo: 
+   { _id: 5745ca6ab076be641f3a574d,
+     domain: 'www.uc123.com',
+     url: 'http://www.uc123.com',
+     startdate: '2016-05-25',
+     starttime: '23:58',
+     scheduled: 'onetime',
+     name_prefix: 'www.uc123.com',
+     enabled: true,
+     createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+  url: 'http://www.uc123.com',
+  quality: 90,
+  filename: 'www.uc123.com_1464272870107',
+  format: 'png',
+  timestamp_start_capture: Thu May 26 2016 22:27:50 GMT+0800 (中国标准时间),
+  timestamp_capture_complete: Thu May 26 2016 22:28:04 GMT+0800 (中国标准时间),
+  description: 'Thu May 26 2016 22:27:50 GMT+0800 (中国标准时间)',
+  diffwith: 574707ed1765d8b01dd5ad8a,
+  diffinfo: 
+   { isSameDimensions: true,
+     dimensionDifference: { width: 0, height: 0 },
+     misMatchPercentage: '0.03',
+     analysisTime: 2125,
+     similar: true,
+     message: 'misMatchPercentage too low,donnot save compare result~' } }
+[2016-05-26 22:28:13.332] [INFO] console - Try db connect
+[2016-05-26 22:28:13.343] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:28:13.343] [INFO] console - Will insert.
+[2016-05-26 22:28:13.344] [INFO] console - SaveCaptureData sucess, result.insertedId:  574707fd1765d8b01dd5ad91
+[2016-05-26 22:28:14.208] [INFO] console - /capture/list {} { taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:28:14.209] [INFO] console - Try db connect
+[2016-05-26 22:28:14.219] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:28:14.220] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:28:14.226] [INFO] console - Find then,length:  8
+[2016-05-26 22:28:14.226] [INFO] console - then getCaptureEntries, lenth:  8
+[2016-05-26 22:29:14.657] [INFO] console - /capture/list {} { taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:29:14.657] [INFO] console - Try db connect
+[2016-05-26 22:29:14.657] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:29:14.659] [INFO] console - Find then,length:  8
+[2016-05-26 22:29:14.659] [INFO] console - then getCaptureEntries, lenth:  8
+[2016-05-26 22:29:40.747] [INFO] console - /capture/list {} { taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:29:40.747] [INFO] console - Try db connect
+[2016-05-26 22:29:40.747] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:29:40.749] [INFO] console - Find then,length:  8
+[2016-05-26 22:29:40.749] [INFO] console - then getCaptureEntries, lenth:  8
+[2016-05-26 22:31:25.397] [INFO] console - 首次获取并执行所有任务
+[2016-05-26 22:31:25.402] [INFO] console - syncAndScheduleAllTasks
+[2016-05-26 22:31:25.403] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 22:31:25.677] [INFO] console - 工程目录:  f:\github\tools\site-capture-website
+[2016-05-26 22:31:25.738] [INFO] console - Try db connect
+[2016-05-26 22:31:25.777] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:31:25.777] [INFO] console - then connect, queryCondition {}
+[2016-05-26 22:31:25.797] [INFO] console - will return:
+[2016-05-26 22:31:25.797] [INFO] console - All task length:  1
+[2016-05-26 22:31:25.797] [INFO] console - Task list item ,Enable: true
+[2016-05-26 22:31:25.797] [INFO] console - In scheduleTask fn,  task:  { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:31:25.800] [INFO] console - old task info is:  undefined
+[2016-05-26 22:31:25.800] [INFO] console - isTaskUpdated :  true
+[2016-05-26 22:31:25.800] [INFO] console - 要配置定时任务.
+[2016-05-26 22:31:25.801] [INFO] console - in setScheduleFunctionCall, 2016-05-25 23:58 onetime
+[2016-05-26 22:31:25.801] [INFO] console - rule ok Wed May 25 2016 23:58:00 GMT+0800 (中国标准时间)
+[2016-05-26 22:31:25.803] [INFO] console - Schedule success~
+[2016-05-26 22:31:25.803] [INFO] console - 尝试移除没有了的任务, taskQueue:  { '5745ca6ab076be641f3a574d': 
+   { taskinfo: 
+      { _id: 5745ca6ab076be641f3a574d,
+        domain: 'www.uc123.com',
+        url: 'http://www.uc123.com',
+        startdate: '2016-05-25',
+        starttime: '23:58',
+        scheduled: 'onetime',
+        name_prefix: 'www.uc123.com',
+        enabled: true,
+        createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+     job: null,
+     expired: false } }
+[2016-05-26 22:31:25.805] [INFO] console - 尝试结束 
+[2016-05-26 22:31:28.205] [INFO] console - /capture/list {} { taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:31:28.207] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d,
+  skip: undefined,
+  limit: undefined }
+[2016-05-26 22:31:28.208] [INFO] console - Try db connect
+[2016-05-26 22:31:28.208] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d,
+  skip: undefined,
+  limit: undefined }
+[2016-05-26 22:31:28.212] [INFO] console - Find then,length:  8
+[2016-05-26 22:31:28.212] [INFO] console - then getCaptureEntries, lenth:  8
+[2016-05-26 22:32:51.850] [INFO] console - /capture/list {} { hazy: '', begin: '-1', count: '5' }
+[2016-05-26 22:32:51.851] [INFO] console - getCaptureEntries, queryCondition: { begin: '-1', count: '5', skip: '-1', limit: '5' }
+[2016-05-26 22:32:51.851] [INFO] console - Try db connect
+[2016-05-26 22:32:51.851] [INFO] console - Connect then, { begin: '-1', count: '5', skip: '-1', limit: '5' }
+[2016-05-26 22:32:51.852] [INFO] console - Find then,length:  0
+[2016-05-26 22:32:51.853] [INFO] console - then getCaptureEntries, lenth:  0
+[2016-05-26 22:32:54.178] [INFO] console - /capture/list {} { hazy: '', begin: '-1', count: '5' }
+[2016-05-26 22:32:54.178] [INFO] console - getCaptureEntries, queryCondition: { begin: '-1', count: '5', skip: '-1', limit: '5' }
+[2016-05-26 22:32:54.179] [INFO] console - Try db connect
+[2016-05-26 22:32:54.179] [INFO] console - Connect then, { begin: '-1', count: '5', skip: '-1', limit: '5' }
+[2016-05-26 22:32:54.180] [INFO] console - Find then,length:  0
+[2016-05-26 22:32:54.180] [INFO] console - then getCaptureEntries, lenth:  0
+[2016-05-26 22:32:56.236] [INFO] console - /capture/list {} { hazy: '', begin: '-1', count: '5' }
+[2016-05-26 22:32:56.237] [INFO] console - getCaptureEntries, queryCondition: { begin: '-1', count: '5', skip: '-1', limit: '5' }
+[2016-05-26 22:32:56.237] [INFO] console - Try db connect
+[2016-05-26 22:32:56.238] [INFO] console - Connect then, { begin: '-1', count: '5', skip: '-1', limit: '5' }
+[2016-05-26 22:32:56.238] [INFO] console - Find then,length:  0
+[2016-05-26 22:32:56.239] [INFO] console - then getCaptureEntries, lenth:  0
+[2016-05-26 22:32:59.210] [INFO] console - /capture/list {} { hazy: '', begin: '-1', count: '5' }
+[2016-05-26 22:32:59.212] [INFO] console - getCaptureEntries, queryCondition: { begin: '-1', count: '5', skip: '-1', limit: '5' }
+[2016-05-26 22:32:59.214] [INFO] console - Try db connect
+[2016-05-26 22:32:59.215] [INFO] console - Connect then, { begin: '-1', count: '5', skip: '-1', limit: '5' }
+[2016-05-26 22:32:59.220] [INFO] console - Find then,length:  0
+[2016-05-26 22:32:59.220] [INFO] console - then getCaptureEntries, lenth:  0
+[2016-05-26 22:32:59.364] [INFO] console - /capture/list {} { hazy: '', begin: '-1', count: '5' }
+[2016-05-26 22:32:59.366] [INFO] console - getCaptureEntries, queryCondition: { begin: '-1', count: '5', skip: '-1', limit: '5' }
+[2016-05-26 22:32:59.367] [INFO] console - Try db connect
+[2016-05-26 22:32:59.368] [INFO] console - Connect then, { begin: '-1', count: '5', skip: '-1', limit: '5' }
+[2016-05-26 22:32:59.371] [INFO] console - Find then,length:  0
+[2016-05-26 22:32:59.372] [INFO] console - then getCaptureEntries, lenth:  0
+[2016-05-26 22:33:01.312] [INFO] console - /capture/list {} { taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:33:01.313] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d,
+  skip: undefined,
+  limit: undefined }
+[2016-05-26 22:33:01.313] [INFO] console - Try db connect
+[2016-05-26 22:33:01.313] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d,
+  skip: undefined,
+  limit: undefined }
+[2016-05-26 22:33:01.315] [INFO] console - Find then,length:  8
+[2016-05-26 22:33:01.316] [INFO] console - then getCaptureEntries, lenth:  8
+[2016-05-26 22:34:38.667] [INFO] console - /capture/list {} { begin: '-1', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:34:38.669] [INFO] console - getCaptureEntries, queryCondition: { begin: '-1',
+  count: '5',
+  taskid: 5745ca6ab076be641f3a574d,
+  skip: '-1',
+  limit: '5' }
+[2016-05-26 22:34:38.669] [INFO] console - Try db connect
+[2016-05-26 22:34:38.669] [INFO] console - Connect then, { begin: '-1',
+  count: '5',
+  taskid: 5745ca6ab076be641f3a574d,
+  skip: '-1',
+  limit: '5' }
+[2016-05-26 22:34:38.670] [INFO] console - Find then,length:  0
+[2016-05-26 22:34:38.672] [INFO] console - then getCaptureEntries, lenth:  0
+[2016-05-26 22:34:44.201] [INFO] console - /capture/list {} { begin: '-1', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:34:44.202] [INFO] console - getCaptureEntries, queryCondition: { begin: '-1',
+  count: '5',
+  taskid: 5745ca6ab076be641f3a574d,
+  skip: '-1',
+  limit: '5' }
+[2016-05-26 22:34:44.203] [INFO] console - Try db connect
+[2016-05-26 22:34:44.203] [INFO] console - Connect then, { begin: '-1',
+  count: '5',
+  taskid: 5745ca6ab076be641f3a574d,
+  skip: '-1',
+  limit: '5' }
+[2016-05-26 22:34:44.204] [INFO] console - Find then,length:  0
+[2016-05-26 22:34:44.204] [INFO] console - then getCaptureEntries, lenth:  0
+[2016-05-26 22:34:47.035] [INFO] console - /capture/list {} { begin: '-1', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:34:47.035] [INFO] console - getCaptureEntries, queryCondition: { begin: '-1',
+  count: '5',
+  taskid: 5745ca6ab076be641f3a574d,
+  skip: '-1',
+  limit: '5' }
+[2016-05-26 22:34:47.035] [INFO] console - Try db connect
+[2016-05-26 22:34:47.036] [INFO] console - Connect then, { begin: '-1',
+  count: '5',
+  taskid: 5745ca6ab076be641f3a574d,
+  skip: '-1',
+  limit: '5' }
+[2016-05-26 22:34:47.037] [INFO] console - Find then,length:  0
+[2016-05-26 22:34:47.037] [INFO] console - then getCaptureEntries, lenth:  0
+[2016-05-26 22:35:37.711] [INFO] console - 首次获取并执行所有任务
+[2016-05-26 22:35:37.715] [INFO] console - syncAndScheduleAllTasks
+[2016-05-26 22:35:37.716] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 22:35:37.906] [INFO] console - 工程目录:  f:\github\tools\site-capture-website
+[2016-05-26 22:35:37.945] [INFO] console - Try db connect
+[2016-05-26 22:35:37.987] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:35:37.988] [INFO] console - then connect, queryCondition {}
+[2016-05-26 22:35:38.009] [INFO] console - will return:
+[2016-05-26 22:35:38.009] [INFO] console - All task length:  1
+[2016-05-26 22:35:38.009] [INFO] console - Task list item ,Enable: true
+[2016-05-26 22:35:38.010] [INFO] console - In scheduleTask fn,  task:  { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:35:38.011] [INFO] console - old task info is:  undefined
+[2016-05-26 22:35:38.012] [INFO] console - isTaskUpdated :  true
+[2016-05-26 22:35:38.012] [INFO] console - 要配置定时任务.
+[2016-05-26 22:35:38.013] [INFO] console - in setScheduleFunctionCall, 2016-05-25 23:58 onetime
+[2016-05-26 22:35:38.013] [INFO] console - rule ok Wed May 25 2016 23:58:00 GMT+0800 (中国标准时间)
+[2016-05-26 22:35:38.015] [INFO] console - Schedule success~
+[2016-05-26 22:35:38.015] [INFO] console - 尝试移除没有了的任务, taskQueue:  { '5745ca6ab076be641f3a574d': 
+   { taskinfo: 
+      { _id: 5745ca6ab076be641f3a574d,
+        domain: 'www.uc123.com',
+        url: 'http://www.uc123.com',
+        startdate: '2016-05-25',
+        starttime: '23:58',
+        scheduled: 'onetime',
+        name_prefix: 'www.uc123.com',
+        enabled: true,
+        createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+     job: null,
+     expired: false } }
+[2016-05-26 22:35:38.016] [INFO] console - 尝试结束 
+[2016-05-26 22:35:40.043] [INFO] console - /capture/list {} { begin: '-1', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:35:40.044] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d, skip: '-1', limit: '5' }
+[2016-05-26 22:35:40.044] [INFO] console - Try db connect
+[2016-05-26 22:35:40.045] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d, skip: '-1', limit: '5' }
+[2016-05-26 22:35:40.047] [INFO] console - Find then,length:  0
+[2016-05-26 22:35:40.047] [INFO] console - then getCaptureEntries, lenth:  0
+[2016-05-26 22:35:41.720] [INFO] console - /capture/list {} { begin: '-1', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:35:41.721] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d, skip: '-1', limit: '5' }
+[2016-05-26 22:35:41.721] [INFO] console - Try db connect
+[2016-05-26 22:35:41.721] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d, skip: '-1', limit: '5' }
+[2016-05-26 22:35:41.722] [INFO] console - Find then,length:  0
+[2016-05-26 22:35:41.722] [INFO] console - then getCaptureEntries, lenth:  0
+[2016-05-26 22:35:42.371] [INFO] console - /capture/list {} { begin: '-1', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:35:42.372] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d, skip: '-1', limit: '5' }
+[2016-05-26 22:35:42.373] [INFO] console - Try db connect
+[2016-05-26 22:35:42.373] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d, skip: '-1', limit: '5' }
+[2016-05-26 22:35:42.374] [INFO] console - Find then,length:  0
+[2016-05-26 22:35:42.374] [INFO] console - then getCaptureEntries, lenth:  0
+[2016-05-26 22:35:51.316] [INFO] console - 首次获取并执行所有任务
+[2016-05-26 22:35:51.321] [INFO] console - syncAndScheduleAllTasks
+[2016-05-26 22:35:51.323] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 22:35:51.542] [INFO] console - 工程目录:  f:\github\tools\site-capture-website
+[2016-05-26 22:35:51.582] [INFO] console - Try db connect
+[2016-05-26 22:35:51.632] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:35:51.632] [INFO] console - then connect, queryCondition {}
+[2016-05-26 22:35:51.652] [INFO] console - will return:
+[2016-05-26 22:35:51.653] [INFO] console - All task length:  1
+[2016-05-26 22:35:51.653] [INFO] console - Task list item ,Enable: true
+[2016-05-26 22:35:51.653] [INFO] console - In scheduleTask fn,  task:  { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:35:51.655] [INFO] console - old task info is:  undefined
+[2016-05-26 22:35:51.656] [INFO] console - isTaskUpdated :  true
+[2016-05-26 22:35:51.656] [INFO] console - 要配置定时任务.
+[2016-05-26 22:35:51.656] [INFO] console - in setScheduleFunctionCall, 2016-05-25 23:58 onetime
+[2016-05-26 22:35:51.657] [INFO] console - rule ok Wed May 25 2016 23:58:00 GMT+0800 (中国标准时间)
+[2016-05-26 22:35:51.658] [INFO] console - Schedule success~
+[2016-05-26 22:35:51.659] [INFO] console - 尝试移除没有了的任务, taskQueue:  { '5745ca6ab076be641f3a574d': 
+   { taskinfo: 
+      { _id: 5745ca6ab076be641f3a574d,
+        domain: 'www.uc123.com',
+        url: 'http://www.uc123.com',
+        startdate: '2016-05-25',
+        starttime: '23:58',
+        scheduled: 'onetime',
+        name_prefix: 'www.uc123.com',
+        enabled: true,
+        createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+     job: null,
+     expired: false } }
+[2016-05-26 22:35:51.660] [INFO] console - 尝试结束 
+[2016-05-26 22:35:53.548] [INFO] console - /capture/list {} { begin: '-1', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:35:53.549] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d, limit: '5' }
+[2016-05-26 22:35:53.549] [INFO] console - Try db connect
+[2016-05-26 22:35:53.550] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d, limit: '5' }
+[2016-05-26 22:35:53.552] [INFO] console - Find then,length:  0
+[2016-05-26 22:35:53.552] [INFO] console - then getCaptureEntries, lenth:  0
+[2016-05-26 22:35:54.447] [INFO] console - /capture/list {} { begin: '-1', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:35:54.447] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d, limit: '5' }
+[2016-05-26 22:35:54.448] [INFO] console - Try db connect
+[2016-05-26 22:35:54.448] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d, limit: '5' }
+[2016-05-26 22:35:54.449] [INFO] console - Find then,length:  0
+[2016-05-26 22:35:54.449] [INFO] console - then getCaptureEntries, lenth:  0
+[2016-05-26 22:36:16.984] [INFO] console - 首次获取并执行所有任务
+[2016-05-26 22:36:16.988] [INFO] console - syncAndScheduleAllTasks
+[2016-05-26 22:36:16.990] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 22:36:17.179] [INFO] console - 工程目录:  f:\github\tools\site-capture-website
+[2016-05-26 22:36:17.217] [INFO] console - Try db connect
+[2016-05-26 22:36:17.257] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:36:17.257] [INFO] console - then connect, queryCondition {}
+[2016-05-26 22:36:17.277] [INFO] console - will return:
+[2016-05-26 22:36:17.278] [INFO] console - All task length:  1
+[2016-05-26 22:36:17.278] [INFO] console - Task list item ,Enable: true
+[2016-05-26 22:36:17.278] [INFO] console - In scheduleTask fn,  task:  { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:36:17.280] [INFO] console - old task info is:  undefined
+[2016-05-26 22:36:17.280] [INFO] console - isTaskUpdated :  true
+[2016-05-26 22:36:17.281] [INFO] console - 要配置定时任务.
+[2016-05-26 22:36:17.281] [INFO] console - in setScheduleFunctionCall, 2016-05-25 23:58 onetime
+[2016-05-26 22:36:17.281] [INFO] console - rule ok Wed May 25 2016 23:58:00 GMT+0800 (中国标准时间)
+[2016-05-26 22:36:17.283] [INFO] console - Schedule success~
+[2016-05-26 22:36:17.283] [INFO] console - 尝试移除没有了的任务, taskQueue:  { '5745ca6ab076be641f3a574d': 
+   { taskinfo: 
+      { _id: 5745ca6ab076be641f3a574d,
+        domain: 'www.uc123.com',
+        url: 'http://www.uc123.com',
+        startdate: '2016-05-25',
+        starttime: '23:58',
+        scheduled: 'onetime',
+        name_prefix: 'www.uc123.com',
+        enabled: true,
+        createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+     job: null,
+     expired: false } }
+[2016-05-26 22:36:17.284] [INFO] console - 尝试结束 
+[2016-05-26 22:36:21.210] [INFO] console - /capture/list {} { begin: '-1', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:36:21.212] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d, limit: 5 }
+[2016-05-26 22:36:21.212] [INFO] console - Try db connect
+[2016-05-26 22:36:21.213] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d, limit: 5 }
+[2016-05-26 22:36:21.215] [INFO] console - Find then,length:  0
+[2016-05-26 22:36:21.216] [INFO] console - then getCaptureEntries, lenth:  0
+[2016-05-26 22:36:22.290] [INFO] console - /capture/list {} { begin: '-1', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:36:22.290] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d, limit: 5 }
+[2016-05-26 22:36:22.291] [INFO] console - Try db connect
+[2016-05-26 22:36:22.291] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d, limit: 5 }
+[2016-05-26 22:36:22.292] [INFO] console - Find then,length:  0
+[2016-05-26 22:36:22.292] [INFO] console - then getCaptureEntries, lenth:  0
+[2016-05-26 22:36:34.910] [INFO] console - 首次获取并执行所有任务
+[2016-05-26 22:36:34.916] [INFO] console - syncAndScheduleAllTasks
+[2016-05-26 22:36:34.918] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 22:36:35.138] [INFO] console - 工程目录:  f:\github\tools\site-capture-website
+[2016-05-26 22:36:35.177] [INFO] console - Try db connect
+[2016-05-26 22:36:35.214] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:36:35.214] [INFO] console - then connect, queryCondition {}
+[2016-05-26 22:36:35.233] [INFO] console - will return:
+[2016-05-26 22:36:35.233] [INFO] console - All task length:  1
+[2016-05-26 22:36:35.233] [INFO] console - Task list item ,Enable: true
+[2016-05-26 22:36:35.234] [INFO] console - In scheduleTask fn,  task:  { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:36:35.236] [INFO] console - old task info is:  undefined
+[2016-05-26 22:36:35.236] [INFO] console - isTaskUpdated :  true
+[2016-05-26 22:36:35.236] [INFO] console - 要配置定时任务.
+[2016-05-26 22:36:35.236] [INFO] console - in setScheduleFunctionCall, 2016-05-25 23:58 onetime
+[2016-05-26 22:36:35.237] [INFO] console - rule ok Wed May 25 2016 23:58:00 GMT+0800 (中国标准时间)
+[2016-05-26 22:36:35.239] [INFO] console - Schedule success~
+[2016-05-26 22:36:35.239] [INFO] console - 尝试移除没有了的任务, taskQueue:  { '5745ca6ab076be641f3a574d': 
+   { taskinfo: 
+      { _id: 5745ca6ab076be641f3a574d,
+        domain: 'www.uc123.com',
+        url: 'http://www.uc123.com',
+        startdate: '2016-05-25',
+        starttime: '23:58',
+        scheduled: 'onetime',
+        name_prefix: 'www.uc123.com',
+        enabled: true,
+        createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+     job: null,
+     expired: false } }
+[2016-05-26 22:36:35.240] [INFO] console - 尝试结束 
+[2016-05-26 22:36:36.092] [INFO] console - /capture/list {} { begin: '-1', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:36:36.094] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:36:36.094] [INFO] console - Try db connect
+[2016-05-26 22:36:36.094] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:36:36.097] [INFO] console - Find then,length:  8
+[2016-05-26 22:36:36.097] [INFO] console - then getCaptureEntries, lenth:  8
+[2016-05-26 22:50:10.125] [INFO] console - 首次获取并执行所有任务
+[2016-05-26 22:50:10.129] [INFO] console - syncAndScheduleAllTasks
+[2016-05-26 22:50:10.131] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 22:50:10.338] [INFO] console - 工程目录:  f:\github\tools\site-capture-website
+[2016-05-26 22:50:10.379] [INFO] console - Try db connect
+[2016-05-26 22:50:10.423] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:50:10.424] [INFO] console - then connect, queryCondition {}
+[2016-05-26 22:50:10.448] [INFO] console - will return:
+[2016-05-26 22:50:10.448] [INFO] console - All task length:  1
+[2016-05-26 22:50:10.448] [INFO] console - Task list item ,Enable: true
+[2016-05-26 22:50:10.449] [INFO] console - In scheduleTask fn,  task:  { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:50:10.451] [INFO] console - old task info is:  undefined
+[2016-05-26 22:50:10.451] [INFO] console - isTaskUpdated :  true
+[2016-05-26 22:50:10.451] [INFO] console - 要配置定时任务.
+[2016-05-26 22:50:10.452] [INFO] console - in setScheduleFunctionCall, 2016-05-25 23:58 onetime
+[2016-05-26 22:50:10.452] [INFO] console - rule ok Wed May 25 2016 23:58:00 GMT+0800 (中国标准时间)
+[2016-05-26 22:50:10.454] [INFO] console - Schedule success~
+[2016-05-26 22:50:10.454] [INFO] console - 尝试移除没有了的任务, taskQueue:  { '5745ca6ab076be641f3a574d': 
+   { taskinfo: 
+      { _id: 5745ca6ab076be641f3a574d,
+        domain: 'www.uc123.com',
+        url: 'http://www.uc123.com',
+        startdate: '2016-05-25',
+        starttime: '23:58',
+        scheduled: 'onetime',
+        name_prefix: 'www.uc123.com',
+        enabled: true,
+        createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+     job: null,
+     expired: false } }
+[2016-05-26 22:50:10.456] [INFO] console - 尝试结束 
+[2016-05-26 22:50:15.181] [INFO] console - /capture/list {} { begin: '-1', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:50:15.182] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:50:15.183] [INFO] console - Try db connect
+[2016-05-26 22:50:15.183] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:50:39.381] [INFO] console - 首次获取并执行所有任务
+[2016-05-26 22:50:39.389] [INFO] console - syncAndScheduleAllTasks
+[2016-05-26 22:50:39.392] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 22:50:39.605] [INFO] console - 工程目录:  f:\github\tools\site-capture-website
+[2016-05-26 22:50:39.645] [INFO] console - Try db connect
+[2016-05-26 22:50:39.687] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:50:39.688] [INFO] console - then connect, queryCondition {}
+[2016-05-26 22:50:39.710] [INFO] console - will return:
+[2016-05-26 22:50:39.710] [INFO] console - All task length:  1
+[2016-05-26 22:50:39.710] [INFO] console - Task list item ,Enable: true
+[2016-05-26 22:50:39.711] [INFO] console - In scheduleTask fn,  task:  { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:50:39.713] [INFO] console - old task info is:  undefined
+[2016-05-26 22:50:39.713] [INFO] console - isTaskUpdated :  true
+[2016-05-26 22:50:39.714] [INFO] console - 要配置定时任务.
+[2016-05-26 22:50:39.714] [INFO] console - in setScheduleFunctionCall, 2016-05-25 23:58 onetime
+[2016-05-26 22:50:39.715] [INFO] console - rule ok Wed May 25 2016 23:58:00 GMT+0800 (中国标准时间)
+[2016-05-26 22:50:39.717] [INFO] console - Schedule success~
+[2016-05-26 22:50:39.717] [INFO] console - 尝试移除没有了的任务, taskQueue:  { '5745ca6ab076be641f3a574d': 
+   { taskinfo: 
+      { _id: 5745ca6ab076be641f3a574d,
+        domain: 'www.uc123.com',
+        url: 'http://www.uc123.com',
+        startdate: '2016-05-25',
+        starttime: '23:58',
+        scheduled: 'onetime',
+        name_prefix: 'www.uc123.com',
+        enabled: true,
+        createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+     job: null,
+     expired: false } }
+[2016-05-26 22:50:39.718] [INFO] console - 尝试结束 
+[2016-05-26 22:50:40.932] [INFO] console - /capture/list {} { begin: '-1', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:50:40.933] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:50:40.934] [INFO] console - Try db connect
+[2016-05-26 22:50:40.934] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:51:42.678] [INFO] console - 首次获取并执行所有任务
+[2016-05-26 22:51:42.682] [INFO] console - syncAndScheduleAllTasks
+[2016-05-26 22:51:42.684] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 22:51:42.883] [INFO] console - 工程目录:  f:\github\tools\site-capture-website
+[2016-05-26 22:51:42.924] [INFO] console - Try db connect
+[2016-05-26 22:51:42.970] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:51:42.970] [INFO] console - then connect, queryCondition {}
+[2016-05-26 22:51:42.995] [INFO] console - will return:
+[2016-05-26 22:51:42.995] [INFO] console - All task length:  1
+[2016-05-26 22:51:42.995] [INFO] console - Task list item ,Enable: true
+[2016-05-26 22:51:42.996] [INFO] console - In scheduleTask fn,  task:  { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:51:42.998] [INFO] console - old task info is:  undefined
+[2016-05-26 22:51:42.998] [INFO] console - isTaskUpdated :  true
+[2016-05-26 22:51:42.998] [INFO] console - 要配置定时任务.
+[2016-05-26 22:51:42.998] [INFO] console - in setScheduleFunctionCall, 2016-05-25 23:58 onetime
+[2016-05-26 22:51:42.999] [INFO] console - rule ok Wed May 25 2016 23:58:00 GMT+0800 (中国标准时间)
+[2016-05-26 22:51:43.000] [INFO] console - Schedule success~
+[2016-05-26 22:51:43.001] [INFO] console - 尝试移除没有了的任务, taskQueue:  { '5745ca6ab076be641f3a574d': 
+   { taskinfo: 
+      { _id: 5745ca6ab076be641f3a574d,
+        domain: 'www.uc123.com',
+        url: 'http://www.uc123.com',
+        startdate: '2016-05-25',
+        starttime: '23:58',
+        scheduled: 'onetime',
+        name_prefix: 'www.uc123.com',
+        enabled: true,
+        createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+     job: null,
+     expired: false } }
+[2016-05-26 22:51:43.002] [INFO] console - 尝试结束 
+[2016-05-26 22:51:47.033] [INFO] console - /capture/list {} { begin: '-1', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:51:47.035] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:51:47.035] [INFO] console - Try db connect
+[2016-05-26 22:51:47.036] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:53:38.268] [INFO] console - 首次获取并执行所有任务
+[2016-05-26 22:53:38.273] [INFO] console - syncAndScheduleAllTasks
+[2016-05-26 22:53:38.274] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 22:53:38.455] [INFO] console - 工程目录:  f:\github\tools\site-capture-website
+[2016-05-26 22:53:38.501] [INFO] console - Try db connect
+[2016-05-26 22:53:38.538] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:53:38.539] [INFO] console - then connect, queryCondition {}
+[2016-05-26 22:53:38.558] [INFO] console - will return:
+[2016-05-26 22:53:38.558] [INFO] console - All task length:  1
+[2016-05-26 22:53:38.558] [INFO] console - Task list item ,Enable: true
+[2016-05-26 22:53:38.559] [INFO] console - In scheduleTask fn,  task:  { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:53:38.560] [INFO] console - old task info is:  undefined
+[2016-05-26 22:53:38.561] [INFO] console - isTaskUpdated :  true
+[2016-05-26 22:53:38.561] [INFO] console - 要配置定时任务.
+[2016-05-26 22:53:38.561] [INFO] console - in setScheduleFunctionCall, 2016-05-25 23:58 onetime
+[2016-05-26 22:53:38.561] [INFO] console - rule ok Wed May 25 2016 23:58:00 GMT+0800 (中国标准时间)
+[2016-05-26 22:53:38.563] [INFO] console - Schedule success~
+[2016-05-26 22:53:38.563] [INFO] console - 尝试移除没有了的任务, taskQueue:  { '5745ca6ab076be641f3a574d': 
+   { taskinfo: 
+      { _id: 5745ca6ab076be641f3a574d,
+        domain: 'www.uc123.com',
+        url: 'http://www.uc123.com',
+        startdate: '2016-05-25',
+        starttime: '23:58',
+        scheduled: 'onetime',
+        name_prefix: 'www.uc123.com',
+        enabled: true,
+        createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+     job: null,
+     expired: false } }
+[2016-05-26 22:53:38.565] [INFO] console - 尝试结束 
+[2016-05-26 22:53:39.877] [INFO] console - /capture/list {} { begin: '-1', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:53:39.878] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d } -1 5
+[2016-05-26 22:53:39.879] [INFO] console - Try db connect
+[2016-05-26 22:53:39.880] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:54:26.048] [INFO] console - 首次获取并执行所有任务
+[2016-05-26 22:54:26.052] [INFO] console - syncAndScheduleAllTasks
+[2016-05-26 22:54:26.053] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 22:54:26.264] [INFO] console - 工程目录:  f:\github\tools\site-capture-website
+[2016-05-26 22:54:26.308] [INFO] console - Try db connect
+[2016-05-26 22:54:26.345] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:54:26.345] [INFO] console - then connect, queryCondition {}
+[2016-05-26 22:54:26.363] [INFO] console - will return:
+[2016-05-26 22:54:26.364] [INFO] console - All task length:  1
+[2016-05-26 22:54:26.364] [INFO] console - Task list item ,Enable: true
+[2016-05-26 22:54:26.364] [INFO] console - In scheduleTask fn,  task:  { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:54:26.366] [INFO] console - old task info is:  undefined
+[2016-05-26 22:54:26.366] [INFO] console - isTaskUpdated :  true
+[2016-05-26 22:54:26.367] [INFO] console - 要配置定时任务.
+[2016-05-26 22:54:26.367] [INFO] console - in setScheduleFunctionCall, 2016-05-25 23:58 onetime
+[2016-05-26 22:54:26.367] [INFO] console - rule ok Wed May 25 2016 23:58:00 GMT+0800 (中国标准时间)
+[2016-05-26 22:54:26.369] [INFO] console - Schedule success~
+[2016-05-26 22:54:26.369] [INFO] console - 尝试移除没有了的任务, taskQueue:  { '5745ca6ab076be641f3a574d': 
+   { taskinfo: 
+      { _id: 5745ca6ab076be641f3a574d,
+        domain: 'www.uc123.com',
+        url: 'http://www.uc123.com',
+        startdate: '2016-05-25',
+        starttime: '23:58',
+        scheduled: 'onetime',
+        name_prefix: 'www.uc123.com',
+        enabled: true,
+        createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+     job: null,
+     expired: false } }
+[2016-05-26 22:54:26.370] [INFO] console - 尝试结束 
+[2016-05-26 22:54:28.762] [INFO] console - /capture/list {} { begin: '0', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:54:28.763] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d } 0 5
+[2016-05-26 22:54:28.764] [INFO] console - Try db connect
+[2016-05-26 22:54:28.764] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:54:28.769] [INFO] console - Find then,length:  5
+[2016-05-26 22:54:28.769] [INFO] console - then getCaptureEntries, lenth:  5
+[2016-05-26 22:54:59.153] [INFO] console - /capture/list {} { begin: '0', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:54:59.154] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d } 0 5
+[2016-05-26 22:54:59.154] [INFO] console - Try db connect
+[2016-05-26 22:54:59.154] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:54:59.156] [INFO] console - Find then,length:  5
+[2016-05-26 22:54:59.156] [INFO] console - then getCaptureEntries, lenth:  5
+[2016-05-26 22:55:04.469] [INFO] console - 首次获取并执行所有任务
+[2016-05-26 22:55:04.477] [INFO] console - syncAndScheduleAllTasks
+[2016-05-26 22:55:04.479] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 22:55:04.679] [INFO] console - 工程目录:  f:\github\tools\site-capture-website
+[2016-05-26 22:55:04.719] [INFO] console - Try db connect
+[2016-05-26 22:55:04.771] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:55:04.772] [INFO] console - then connect, queryCondition {}
+[2016-05-26 22:55:04.801] [INFO] console - will return:
+[2016-05-26 22:55:04.802] [INFO] console - All task length:  1
+[2016-05-26 22:55:04.802] [INFO] console - Task list item ,Enable: true
+[2016-05-26 22:55:04.802] [INFO] console - In scheduleTask fn,  task:  { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:55:04.804] [INFO] console - old task info is:  undefined
+[2016-05-26 22:55:04.805] [INFO] console - isTaskUpdated :  true
+[2016-05-26 22:55:04.805] [INFO] console - 要配置定时任务.
+[2016-05-26 22:55:04.805] [INFO] console - in setScheduleFunctionCall, 2016-05-25 23:58 onetime
+[2016-05-26 22:55:04.806] [INFO] console - rule ok Wed May 25 2016 23:58:00 GMT+0800 (中国标准时间)
+[2016-05-26 22:55:04.808] [INFO] console - Schedule success~
+[2016-05-26 22:55:04.808] [INFO] console - 尝试移除没有了的任务, taskQueue:  { '5745ca6ab076be641f3a574d': 
+   { taskinfo: 
+      { _id: 5745ca6ab076be641f3a574d,
+        domain: 'www.uc123.com',
+        url: 'http://www.uc123.com',
+        startdate: '2016-05-25',
+        starttime: '23:58',
+        scheduled: 'onetime',
+        name_prefix: 'www.uc123.com',
+        enabled: true,
+        createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+     job: null,
+     expired: false } }
+[2016-05-26 22:55:04.810] [INFO] console - 尝试结束 
+[2016-05-26 22:55:11.179] [INFO] console - /capture/list {} { begin: '0', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:55:11.181] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d } 0 5
+[2016-05-26 22:55:11.181] [INFO] console - Try db connect
+[2016-05-26 22:55:11.181] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:55:11.184] [INFO] console - Find then,length:  8
+[2016-05-26 22:55:11.185] [INFO] console - then getCaptureEntries, lenth:  8
+[2016-05-26 22:55:38.761] [INFO] console - 首次获取并执行所有任务
+[2016-05-26 22:55:38.766] [INFO] console - syncAndScheduleAllTasks
+[2016-05-26 22:55:38.768] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 22:55:38.968] [INFO] console - 工程目录:  f:\github\tools\site-capture-website
+[2016-05-26 22:55:39.008] [INFO] console - Try db connect
+[2016-05-26 22:55:39.057] [INFO] console - MongoDB connnect success~.
+[2016-05-26 22:55:39.057] [INFO] console - then connect, queryCondition {}
+[2016-05-26 22:55:39.083] [INFO] console - will return:
+[2016-05-26 22:55:39.083] [INFO] console - All task length:  1
+[2016-05-26 22:55:39.084] [INFO] console - Task list item ,Enable: true
+[2016-05-26 22:55:39.084] [INFO] console - In scheduleTask fn,  task:  { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 22:55:39.088] [INFO] console - old task info is:  undefined
+[2016-05-26 22:55:39.088] [INFO] console - isTaskUpdated :  true
+[2016-05-26 22:55:39.089] [INFO] console - 要配置定时任务.
+[2016-05-26 22:55:39.089] [INFO] console - in setScheduleFunctionCall, 2016-05-25 23:58 onetime
+[2016-05-26 22:55:39.090] [INFO] console - rule ok Wed May 25 2016 23:58:00 GMT+0800 (中国标准时间)
+[2016-05-26 22:55:39.092] [INFO] console - Schedule success~
+[2016-05-26 22:55:39.093] [INFO] console - 尝试移除没有了的任务, taskQueue:  { '5745ca6ab076be641f3a574d': 
+   { taskinfo: 
+      { _id: 5745ca6ab076be641f3a574d,
+        domain: 'www.uc123.com',
+        url: 'http://www.uc123.com',
+        startdate: '2016-05-25',
+        starttime: '23:58',
+        scheduled: 'onetime',
+        name_prefix: 'www.uc123.com',
+        enabled: true,
+        createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+     job: null,
+     expired: false } }
+[2016-05-26 22:55:39.094] [INFO] console - 尝试结束 
+[2016-05-26 22:55:41.424] [INFO] console - /capture/list {} { begin: '0', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 22:55:41.426] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d } 0 5
+[2016-05-26 22:55:41.426] [INFO] console - Try db connect
+[2016-05-26 22:55:41.426] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 22:55:41.431] [INFO] console - Find then,length:  5
+[2016-05-26 22:55:41.431] [INFO] console - then getCaptureEntries, lenth:  5
+[2016-05-26 23:00:35.749] [INFO] console - 首次获取并执行所有任务
+[2016-05-26 23:00:35.753] [INFO] console - syncAndScheduleAllTasks
+[2016-05-26 23:00:35.755] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 23:00:35.954] [INFO] console - 工程目录:  f:\github\tools\site-capture-website
+[2016-05-26 23:00:35.995] [INFO] console - Try db connect
+[2016-05-26 23:00:36.036] [INFO] console - MongoDB connnect success~.
+[2016-05-26 23:00:36.036] [INFO] console - then connect, queryCondition {}
+[2016-05-26 23:00:36.057] [INFO] console - will return:
+[2016-05-26 23:00:36.057] [INFO] console - All task length:  1
+[2016-05-26 23:00:36.057] [INFO] console - Task list item ,Enable: true
+[2016-05-26 23:00:36.058] [INFO] console - In scheduleTask fn,  task:  { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 23:00:36.060] [INFO] console - old task info is:  undefined
+[2016-05-26 23:00:36.060] [INFO] console - isTaskUpdated :  true
+[2016-05-26 23:00:36.060] [INFO] console - 要配置定时任务.
+[2016-05-26 23:00:36.060] [INFO] console - in setScheduleFunctionCall, 2016-05-25 23:58 onetime
+[2016-05-26 23:00:36.061] [INFO] console - rule ok Wed May 25 2016 23:58:00 GMT+0800 (中国标准时间)
+[2016-05-26 23:00:36.063] [INFO] console - Schedule success~
+[2016-05-26 23:00:36.063] [INFO] console - 尝试移除没有了的任务, taskQueue:  { '5745ca6ab076be641f3a574d': 
+   { taskinfo: 
+      { _id: 5745ca6ab076be641f3a574d,
+        domain: 'www.uc123.com',
+        url: 'http://www.uc123.com',
+        startdate: '2016-05-25',
+        starttime: '23:58',
+        scheduled: 'onetime',
+        name_prefix: 'www.uc123.com',
+        enabled: true,
+        createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+     job: null,
+     expired: false } }
+[2016-05-26 23:00:36.064] [INFO] console - 尝试结束 
+[2016-05-26 23:16:28.493] [INFO] console - 首次获取并执行所有任务
+[2016-05-26 23:16:28.498] [INFO] console - syncAndScheduleAllTasks
+[2016-05-26 23:16:28.500] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 23:16:28.726] [INFO] console - 工程目录:  f:\github\tools\site-capture-website
+[2016-05-26 23:16:28.776] [INFO] console - Try db connect
+[2016-05-26 23:16:28.819] [INFO] console - MongoDB connnect success~.
+[2016-05-26 23:16:28.820] [INFO] console - then connect, queryCondition {}
+[2016-05-26 23:16:28.843] [INFO] console - will return:
+[2016-05-26 23:16:28.844] [INFO] console - All task length:  1
+[2016-05-26 23:16:28.844] [INFO] console - Task list item ,Enable: true
+[2016-05-26 23:16:28.844] [INFO] console - In scheduleTask fn,  task:  { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 23:16:28.847] [INFO] console - old task info is:  undefined
+[2016-05-26 23:16:28.847] [INFO] console - isTaskUpdated :  true
+[2016-05-26 23:16:28.847] [INFO] console - 要配置定时任务.
+[2016-05-26 23:16:28.848] [INFO] console - in setScheduleFunctionCall, 2016-05-25 23:58 onetime
+[2016-05-26 23:16:28.848] [INFO] console - rule ok Wed May 25 2016 23:58:00 GMT+0800 (中国标准时间)
+[2016-05-26 23:16:28.850] [INFO] console - Schedule success~
+[2016-05-26 23:16:28.850] [INFO] console - 尝试移除没有了的任务, taskQueue:  { '5745ca6ab076be641f3a574d': 
+   { taskinfo: 
+      { _id: 5745ca6ab076be641f3a574d,
+        domain: 'www.uc123.com',
+        url: 'http://www.uc123.com',
+        startdate: '2016-05-25',
+        starttime: '23:58',
+        scheduled: 'onetime',
+        name_prefix: 'www.uc123.com',
+        enabled: true,
+        createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+     job: null,
+     expired: false } }
+[2016-05-26 23:16:28.852] [INFO] console - 尝试结束 
+[2016-05-26 23:16:36.760] [INFO] console - /capture/list {} { begin: '0', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 23:16:36.762] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d } 0 5
+[2016-05-26 23:16:36.762] [INFO] console - Try db connect
+[2016-05-26 23:16:36.762] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 23:16:36.766] [INFO] console - Find then,length:  5
+[2016-05-26 23:16:36.766] [INFO] console - @@@@@@@@@ undefined
+[2016-05-26 23:16:36.767] [INFO] console - then getCaptureEntries, lenth:  5
+[2016-05-26 23:16:51.802] [INFO] console - 首次获取并执行所有任务
+[2016-05-26 23:16:51.808] [INFO] console - syncAndScheduleAllTasks
+[2016-05-26 23:16:51.809] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 23:16:51.986] [INFO] console - 工程目录:  f:\github\tools\site-capture-website
+[2016-05-26 23:16:52.030] [INFO] console - Try db connect
+[2016-05-26 23:16:52.067] [INFO] console - MongoDB connnect success~.
+[2016-05-26 23:16:52.068] [INFO] console - then connect, queryCondition {}
+[2016-05-26 23:16:52.088] [INFO] console - will return:
+[2016-05-26 23:16:52.088] [INFO] console - All task length:  1
+[2016-05-26 23:16:52.088] [INFO] console - Task list item ,Enable: true
+[2016-05-26 23:16:52.089] [INFO] console - In scheduleTask fn,  task:  { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 23:16:52.090] [INFO] console - old task info is:  undefined
+[2016-05-26 23:16:52.091] [INFO] console - isTaskUpdated :  true
+[2016-05-26 23:16:52.091] [INFO] console - 要配置定时任务.
+[2016-05-26 23:16:52.091] [INFO] console - in setScheduleFunctionCall, 2016-05-25 23:58 onetime
+[2016-05-26 23:16:52.092] [INFO] console - rule ok Wed May 25 2016 23:58:00 GMT+0800 (中国标准时间)
+[2016-05-26 23:16:52.093] [INFO] console - Schedule success~
+[2016-05-26 23:16:52.093] [INFO] console - 尝试移除没有了的任务, taskQueue:  { '5745ca6ab076be641f3a574d': 
+   { taskinfo: 
+      { _id: 5745ca6ab076be641f3a574d,
+        domain: 'www.uc123.com',
+        url: 'http://www.uc123.com',
+        startdate: '2016-05-25',
+        starttime: '23:58',
+        scheduled: 'onetime',
+        name_prefix: 'www.uc123.com',
+        enabled: true,
+        createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+     job: null,
+     expired: false } }
+[2016-05-26 23:16:52.095] [INFO] console - 尝试结束 
+[2016-05-26 23:16:56.281] [INFO] console - /capture/list {} { begin: '0', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 23:16:56.282] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d } 0 5
+[2016-05-26 23:16:56.282] [INFO] console - Try db connect
+[2016-05-26 23:16:56.283] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 23:16:56.287] [INFO] console - Find then,length:  5
+[2016-05-26 23:16:56.287] [INFO] console - @@@@@@@@@ function (query, options, callback) {
+  var self = this;
+  var args = Array.prototype.slice.call(arguments, 0);
+  callback = args.pop();
+  if(typeof callback != 'function') args.push(callback);
+  var queryOption = args.length ? args.shift() || {} : {};
+  var optionsOption = args.length ? args.shift() || {} : {};
+
+  // Execute using callback
+  if(typeof callback == 'function') return count(self, queryOption, optionsOption, callback);
+
+  // Check if query is empty
+  query = query || {};
+  options = options || {};
+
+  // Return a Promise
+  return new this.s.promiseLibrary(function(resolve, reject) {
+    count(self, query, options, function(err, r) {
+      if(err) return reject(err);
+      resolve(r);
+    });
+  });
+}
+[2016-05-26 23:16:56.288] [INFO] console - then getCaptureEntries, lenth:  5
+[2016-05-26 23:17:02.553] [INFO] console - /capture/list {} { begin: '0', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 23:17:02.553] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d } 0 5
+[2016-05-26 23:17:02.554] [INFO] console - Try db connect
+[2016-05-26 23:17:02.554] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 23:17:02.556] [INFO] console - Find then,length:  5
+[2016-05-26 23:17:02.556] [INFO] console - @@@@@@@@@ function (query, options, callback) {
+  var self = this;
+  var args = Array.prototype.slice.call(arguments, 0);
+  callback = args.pop();
+  if(typeof callback != 'function') args.push(callback);
+  var queryOption = args.length ? args.shift() || {} : {};
+  var optionsOption = args.length ? args.shift() || {} : {};
+
+  // Execute using callback
+  if(typeof callback == 'function') return count(self, queryOption, optionsOption, callback);
+
+  // Check if query is empty
+  query = query || {};
+  options = options || {};
+
+  // Return a Promise
+  return new this.s.promiseLibrary(function(resolve, reject) {
+    count(self, query, options, function(err, r) {
+      if(err) return reject(err);
+      resolve(r);
+    });
+  });
+}
+[2016-05-26 23:17:02.556] [INFO] console - then getCaptureEntries, lenth:  5
+[2016-05-26 23:17:42.554] [INFO] console - 首次获取并执行所有任务
+[2016-05-26 23:17:42.559] [INFO] console - syncAndScheduleAllTasks
+[2016-05-26 23:17:42.560] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 23:17:42.744] [INFO] console - 工程目录:  f:\github\tools\site-capture-website
+[2016-05-26 23:17:42.782] [INFO] console - Try db connect
+[2016-05-26 23:17:42.819] [INFO] console - MongoDB connnect success~.
+[2016-05-26 23:17:42.820] [INFO] console - then connect, queryCondition {}
+[2016-05-26 23:17:42.839] [INFO] console - will return:
+[2016-05-26 23:17:42.839] [INFO] console - All task length:  1
+[2016-05-26 23:17:42.839] [INFO] console - Task list item ,Enable: true
+[2016-05-26 23:17:42.839] [INFO] console - In scheduleTask fn,  task:  { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 23:17:42.841] [INFO] console - old task info is:  undefined
+[2016-05-26 23:17:42.841] [INFO] console - isTaskUpdated :  true
+[2016-05-26 23:17:42.842] [INFO] console - 要配置定时任务.
+[2016-05-26 23:17:42.842] [INFO] console - in setScheduleFunctionCall, 2016-05-25 23:58 onetime
+[2016-05-26 23:17:42.842] [INFO] console - rule ok Wed May 25 2016 23:58:00 GMT+0800 (中国标准时间)
+[2016-05-26 23:17:42.844] [INFO] console - Schedule success~
+[2016-05-26 23:17:42.844] [INFO] console - 尝试移除没有了的任务, taskQueue:  { '5745ca6ab076be641f3a574d': 
+   { taskinfo: 
+      { _id: 5745ca6ab076be641f3a574d,
+        domain: 'www.uc123.com',
+        url: 'http://www.uc123.com',
+        startdate: '2016-05-25',
+        starttime: '23:58',
+        scheduled: 'onetime',
+        name_prefix: 'www.uc123.com',
+        enabled: true,
+        createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+     job: null,
+     expired: false } }
+[2016-05-26 23:17:42.846] [INFO] console - 尝试结束 
+[2016-05-26 23:17:47.841] [INFO] console - /capture/list {} { begin: '0', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 23:17:47.842] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d } 0 5
+[2016-05-26 23:17:47.843] [INFO] console - Try db connect
+[2016-05-26 23:17:47.843] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 23:17:47.848] [INFO] console - Find then,length:  5
+[2016-05-26 23:17:47.849] [INFO] console - @@@@@@@@@ function then() { [native code] }
+[2016-05-26 23:17:47.849] [INFO] console - then getCaptureEntries, lenth:  5
+[2016-05-26 23:26:36.127] [INFO] console - 首次获取并执行所有任务
+[2016-05-26 23:26:36.132] [INFO] console - syncAndScheduleAllTasks
+[2016-05-26 23:26:36.134] [INFO] console - getTasks, opt is: undefined
+[2016-05-26 23:26:36.330] [INFO] console - 工程目录:  f:\github\tools\site-capture-website
+[2016-05-26 23:26:36.371] [INFO] console - Try db connect
+[2016-05-26 23:26:36.411] [INFO] console - MongoDB connnect success~.
+[2016-05-26 23:26:36.412] [INFO] console - then connect, queryCondition {}
+[2016-05-26 23:26:36.431] [INFO] console - will return:
+[2016-05-26 23:26:36.431] [INFO] console - All task length:  1
+[2016-05-26 23:26:36.431] [INFO] console - Task list item ,Enable: true
+[2016-05-26 23:26:36.432] [INFO] console - In scheduleTask fn,  task:  { _id: 5745ca6ab076be641f3a574d,
+  domain: 'www.uc123.com',
+  url: 'http://www.uc123.com',
+  startdate: '2016-05-25',
+  starttime: '23:58',
+  scheduled: 'onetime',
+  name_prefix: 'www.uc123.com',
+  enabled: true,
+  createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) }
+[2016-05-26 23:26:36.434] [INFO] console - old task info is:  undefined
+[2016-05-26 23:26:36.434] [INFO] console - isTaskUpdated :  true
+[2016-05-26 23:26:36.434] [INFO] console - 要配置定时任务.
+[2016-05-26 23:26:36.435] [INFO] console - in setScheduleFunctionCall, 2016-05-25 23:58 onetime
+[2016-05-26 23:26:36.435] [INFO] console - rule ok Wed May 25 2016 23:58:00 GMT+0800 (中国标准时间)
+[2016-05-26 23:26:36.437] [INFO] console - Schedule success~
+[2016-05-26 23:26:36.437] [INFO] console - 尝试移除没有了的任务, taskQueue:  { '5745ca6ab076be641f3a574d': 
+   { taskinfo: 
+      { _id: 5745ca6ab076be641f3a574d,
+        domain: 'www.uc123.com',
+        url: 'http://www.uc123.com',
+        startdate: '2016-05-25',
+        starttime: '23:58',
+        scheduled: 'onetime',
+        name_prefix: 'www.uc123.com',
+        enabled: true,
+        createtime: Wed May 25 2016 23:53:14 GMT+0800 (中国标准时间) },
+     job: null,
+     expired: false } }
+[2016-05-26 23:26:36.438] [INFO] console - 尝试结束 
+[2016-05-26 23:26:38.958] [INFO] console - /capture/list {} { begin: '0', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 23:26:38.960] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d } 0 5
+[2016-05-26 23:26:38.960] [INFO] console - Try db connect
+[2016-05-26 23:26:38.961] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 23:26:38.965] [INFO] console - Find then,length:  5
+[2016-05-26 23:26:38.966] [INFO] console - then getCaptureEntries, lenth:  5
+[2016-05-26 23:26:44.048] [INFO] console - /capture/list {} { begin: '0', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 23:26:44.048] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d } 0 5
+[2016-05-26 23:26:44.049] [INFO] console - Try db connect
+[2016-05-26 23:26:44.049] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 23:26:44.051] [INFO] console - Find then,length:  5
+[2016-05-26 23:26:44.052] [INFO] console - then getCaptureEntries, lenth:  5
+[2016-05-26 23:43:34.498] [INFO] console - /capture/list {} { begin: '0', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 23:43:34.498] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d } 0 5
+[2016-05-26 23:43:34.499] [INFO] console - Try db connect
+[2016-05-26 23:43:34.499] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 23:43:34.501] [INFO] console - Find then,length:  5
+[2016-05-26 23:43:34.503] [INFO] console - then getCaptureEntries, lenth:  5
+[2016-05-26 23:46:23.799] [INFO] console - /capture/list {} { begin: '0', count: '5', taskid: '5745ca6ab076be641f3a574d' }
+[2016-05-26 23:46:23.800] [INFO] console - getCaptureEntries, queryCondition: { taskid: 5745ca6ab076be641f3a574d } 0 5
+[2016-05-26 23:46:23.801] [INFO] console - Try db connect
+[2016-05-26 23:46:23.801] [INFO] console - Connect then, { taskid: 5745ca6ab076be641f3a574d }
+[2016-05-26 23:46:23.804] [INFO] console - Find then,length:  5
+[2016-05-26 23:46:23.805] [INFO] console - then getCaptureEntries, lenth:  5

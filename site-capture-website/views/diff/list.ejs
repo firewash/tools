@@ -48,7 +48,7 @@
             列表页面
         </div>
 
-        <table id="capture_table" class="table">
+        <table id="capture_table" class="table table-striped">
             <thead>
                 <tr>
                     <th>URL</th>
@@ -62,7 +62,15 @@
             <tbody id="capture_list">
 
             </tbody>
+            <tfoot>
+
+            </tfoot>
         </table>
+        <!--todo-->
+        <ul class="pagination">
+            <li><a href="#">&laquo;</a></li>
+            <li><a href="#">1</a></li>
+        </ul>
     </div>
 
 </div>
@@ -71,7 +79,9 @@
 
 <script>
     var detail_url = "/diff/detail",
-        capture_list_url = "/api/capture/list";
+        capture_list_url = "/api/capture/list",
+            defaultStartIndex = 0,
+            defaultCountPerPage = 5;
 
     function renderList(arr) {
         var list = $("#capture_list");
@@ -92,7 +102,7 @@
     }
 
     function loadCaptureListData(condition){
-        $.post(capture_list_url,condition,function(result){
+        $.post(capture_list_url, condition, function(result){
             console.log(result);
             if(result.err){
                 alert("something error. look console.");
@@ -106,19 +116,24 @@
         //查询 hazyurl
         $("#hazyurl").keyup(function(e){
             loadCaptureListData({
-                hazy: $("#hazyurl").val()
+                hazy: $("#hazyurl").val(),
+                begin: defaultStartIndex,
+                count: defaultCountPerPage
             });
         })
     }
 
     function dataInit(){
         var hash = document.location.hash;
-        var condition = {};
+        var condition = {
+            begin: defaultStartIndex,
+            count: defaultCountPerPage
+        };
         if(hash){
             var arr = hash.substr(1).split("&");
-            arr.forEach(function(item){
+            arr.forEach(function(item) {
                 var t = item.split("=");
-                if(t.length==2)condition[t[0]]=t[1];
+                if(t.length == 2) condition[t[0]] = t[1];
             })
         }
         loadCaptureListData(condition);

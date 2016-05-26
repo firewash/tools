@@ -97,9 +97,9 @@ router.post('/capture/list', (req, res) => {
     };
 
     dboperator.getCaptureEntries(opt)
-        .then(arr => {
-            loggie.info('then getCaptureEntries, lenth: ', arr.length);
-            result.data = arr;
+        .then(_result => {
+            loggie.info('then getCaptureEntries, lenth: ', _result.data.length);
+            Object.assign(result, _result);
             res.send(result);
         }, err => {
             result.err = {
