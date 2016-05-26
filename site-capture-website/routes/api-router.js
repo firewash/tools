@@ -70,19 +70,19 @@ router.delete('/task/:id', (req, res) => {
     });
 });
 
-router.post('/task/:id/run', function (req, res) {
+router.post('/task/:id/run', (req, res) => {
     const id = req.params.id;
-    console.log('/task/:id/run', id);
+    loggie.info('/task/:id/run', id);
     taskmgr.executeTaskById(id);
     const data = {
-        msg: id + '任务发送启动指令.后台进行中'
+        msg: `${id}任务发送启动指令.后台进行中`
     };
     res.send(data);
 });
 
 router.get('/task/queue', (req, res) => {
     const data = {
-        msg: taskmgr.getScheduledTaskQueue()
+        data: taskmgr.getScheduledTaskQueue()
     };
     res.send(data);
 });

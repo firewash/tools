@@ -6,11 +6,11 @@ const comparer = require('./comparer');
 const capturer = require('./capturer');
 const dboperator = require('./dboperator');
 const schedule = require('node-schedule');
+const idField = '_id';
 const taskQueue = { // 真正不停跑定时任务的管理器
     // task_id;{taskinfo:json, job:object, expired:bool}
 };
 dboperator.config = GlobalConfig;
-
 
 function isJsonEquals(json_a, json_b) {
     return JSON.stringify(json_a) === JSON.stringify(json_b);
@@ -39,7 +39,7 @@ class TaskManager {
             taskList.forEach(opt => {
                 loggie.info('Task list item ,Enable:', opt.enabled);
                 this.scheduleTask(opt); // 添加新任务，或更新旧任务
-                taskQueue[opt._id].expired = false;
+                taskQueue[opt[idField]].expired = false;
             });
         }).then(() => {
             loggie.info('尝试移除没有了的任务, taskQueue: ', taskQueue);
@@ -48,16 +48,17 @@ class TaskManager {
                     this.cancelScheduledJobByTaskId(key);
                 }
             }
+            loggie.info('尝试结束 ');
         }).catch(err => {
-            console('Err:', err);
+            loggie.info('Err:', err);
         });
     }
 
     // 判断新来的taskinfo相对于就的task是否发生更新(以前没有\内容变了,都认为是更新了)
     isTaskUpdated(newTaskinfo) {
-        const _id = newTaskinfo._id;
-        const oldTaskinfo = taskQueue[_id];
-        loggie.info('old task info is: ', taskQueue[_id]);
+        const taskid = newTaskinfo[idField];
+        const oldTaskinfo = taskQueue[taskid];
+        loggie.info('old task info is: ', taskQueue[taskid]);
         const noChange = oldTaskinfo && isJsonEquals(newTaskinfo, oldTaskinfo.taskinfo);
         loggie.info('isTaskUpdated : ', !noChange);
         if (oldTaskinfo) loggie.info(isJsonEquals(newTaskinfo, oldTaskinfo.taskinfo));
@@ -72,9 +73,9 @@ class TaskManager {
         loggie.info('In scheduleTask fn,  task: ', task);
         if (task.enabled && task.startdate && task.starttime && this.isTaskUpdated(task)) {
             loggie.info('要配置定时任务.');
-            if (taskQueue[task._id]) {
+            if (taskQueue[task[idField]]) {
                 loggie.info('存在旧任务，先删掉了。马上加新的。');
-                this.cancelScheduledJobByTaskId(task._id);
+                this.cancelScheduledJobByTaskId(task[idField]);
             }
             let j = this.setScheduleFunctionCall(
                 task.startdate,
@@ -85,11 +86,11 @@ class TaskManager {
                     this.executeTask(task);
                 });
 
-            taskQueue[task._id] = {
+            taskQueue[task[idField]] = {
                 taskinfo: task,
                 job: j
             };
-        }else{
+        } else {
             loggie.info('无需配置定时任务.');
         }
     }
@@ -97,11 +98,11 @@ class TaskManager {
     // startdate= '2016-05-17',starttime = '19:38'
     setScheduleFunctionCall(startdate, starttime, interval, fn) {
         loggie.info('in setScheduleFunctionCall,', startdate, starttime, interval);
-        let job = null,
-            rule = null,
-            timedetail = starttime.split(':'),
-            hour = timedetail[0] || 0,
-            minute = timedetail[1] || 0;
+        let job = null;
+        let rule = null;
+        const timedetail = starttime.split(':');
+        const hour = timedetail[0] || 0;
+        const minute = timedetail[1] || 0;
         switch (interval) {
             case 'perhour': // 这时候会忽略年月日,UI上这种情况就隐藏年月日的选择吧
                 rule = {minute: +minute};
@@ -162,7 +163,7 @@ class TaskManager {
             filename: name_prefix + '_' + time,
         };
         var target_data = {
-            taskid: taskinfo._id,
+            taskid: taskinfo[idField],
             taskinfo: taskinfo,
         };
 
@@ -175,21 +176,21 @@ class TaskManager {
         }).then(lastData => {
             if (lastData) {
                 loggie.info('Has a pre capture, now diff with it.');
-                target_data.diffwith = lastData._id;
+                target_data.diffwith = lastData[idField];
                 let resultFileName = target_data.filename + '_diff';
                 var opt = {
-                    target: `${GlobalConfig.capture_image_save_folder}${target_data.filename}.${target_data.format}`,
-                    other: `${GlobalConfig.capture_image_save_folder}${lastData.filename}.${lastData.format}`,
-                    resultfile: `${GlobalConfig.capture_image_save_folder}${resultFileName}.${target_data.format}`
+                    target: `${GlobalConfig.captureImageSaveFolder}${target_data.filename}.${target_data.format}`,
+                    other: `${GlobalConfig.captureImageSaveFolder}${lastData.filename}.${lastData.format}`,
+                    resultfile: `${GlobalConfig.captureImageSaveFolder}${resultFileName}.${target_data.format}`
                 };
                 loggie.info('Before diff, opt is: ', opt);
                 return comparer.diff(opt).then(data => {
                     loggie.info('Diff success. add diff info  to target data', data);
                     target_data.diffinfo = data;
-                    if (!data.similar) {
-                        data.diffimg = resultFileName;
+                    if (!target_data.diffinfo.similar) {
+                        target_data.diffinfo.diffimg = resultFileName;
                     }
-                    //loggie.info(data)
+                    // loggie.info(data)
                 });
             } else {
                 loggie.info('No last data');
@@ -200,7 +201,7 @@ class TaskManager {
             dboperator.saveCaptureData(target_data);
         }).catch(err => {
             loggie.info('Error capturer.capture:', err);
-            target_data.error = {message: err.message};
+            target_data.error = { message: err.message };
             dboperator.saveCaptureData(target_data);
         });
     }

@@ -31,7 +31,7 @@ const apiRouters = require('./routes/api-router');  // 用户管理
 
 app.use('/', rootRoutes);
 app.use('/public', express.static(path.join(__dirname, 'public')));
-app.use('/capture', express.static(GLOBAL_CONFIG.capture_image_save_folder));
+app.use('/capture', express.static(GLOBAL_CONFIG.captureImageSaveFolder));
 app.use('/diff', diffRoutes);
 app.use('/task', taskRoutes);
 app.use('/users', users);
