@@ -166,8 +166,8 @@
         $("#hazyurl").keyup(function(e){
             loadCaptureListData({
                 hazy: $("#hazyurl").val(),
-                begin: startIndex,
-                count: countPerPage
+                begin: 0, // 检索时，就从第一个开始
+                count: pageInfo.countPerPage
             });
         })
     }
@@ -175,8 +175,8 @@
     function dataInit(){
         var hash = document.location.hash;
         var condition = {
-            begin: defaultStartIndex,
-            count: defaultCountPerPage
+            begin: pageInfo.currentStartIndex,
+            count: pageInfo.countPerPage
         };
         if(hash){
             var arr = hash.substr(1).split("&");
