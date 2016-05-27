@@ -6,6 +6,7 @@ const comparer = require('./comparer');
 const capturer = require('./capturer');
 const dboperator = require('./dboperator');
 const schedule = require('node-schedule');
+const notify = require('../lib/notify.js');
 const idField = '_id';
 const imageFolder = gConfig.captureImageSaveFolder;
 const taskQueue = { // 真正不停跑定时任务的管理器
@@ -201,6 +202,14 @@ class TaskManager {
         }).then(() => {
             loggie.info('Will dboperator.saveCaptureData');
             dboperator.saveCaptureData(target_data);
+        }).then(() => {
+            if (!target_data.diffinfo.similar) { // 误差大时，发邮件通知
+                notify.mail({
+                    contentUrl: `http://localhost:3000/diff/detail?_id=${target_data[idField]}`
+                    // content: JSON.stringify(target_data)
+                });
+            }
+
         }).catch(err => {
             loggie.info('Error capturer.capture:', err);
             target_data.error = { message: err.message };

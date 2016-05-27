@@ -53,7 +53,7 @@ class Capturer {
                 loggie.info('Waiting page full loaded.');
                 setTimeout(() => {
                     resolve(status);
-                }, 10000);
+                }, 1000);
             })
         ).then(status => {
             loggie.info('Page open status: ', status, option.url);
