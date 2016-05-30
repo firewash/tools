@@ -42,6 +42,7 @@ class TaskManager {
             taskList.forEach(opt => {
                 loggie.info('Task list item ,Enable:', opt.enabled);
                 this.scheduleTask(opt); // 添加新任务，或更新旧任务
+                // todo 只存在一个任务时,这里偶尔报错 [TypeError: Cannot set property 'expired' of undefined]
                 taskQueue[opt[idField]].expired = false;
             });
         }).then(() => {

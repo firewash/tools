@@ -38,11 +38,7 @@ router.put('/task/:id', (req, res) => {
     const taskid = req.params.id;
     const updateinfo = req.body;
 
-    if (typeof updateinfo.enabled === 'string') {
-        updateinfo.enabled = updateinfo.enabled === 'true';
-    }
-
-    loggie.info(taskid, updateinfo);
+    loggie.info('Will updateTask, ', taskid, updateinfo);
     dboperator.updateTask({ _id: taskid }, updateinfo).then(result => {
         const data = {
             msg: `${taskid} 任务更新完成.Result:${result}`

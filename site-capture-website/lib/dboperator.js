@@ -41,18 +41,23 @@ const Transformer = {
 
     // 任务处理 - 对传入的数据字段进行过滤处理
     taskDoc(data) {
-        return {
+        console.log("####",data.enabled, data.enabled === true || data.enabled === 'true' || data.enabled === 'on')
+        const newData = {
             domain: data.domain,
             url: /^https?:/i.test(data.url) ? data.url : `http://${data.url}`,
             startdate: data.startdate,
             starttime: data.starttime,
             scheduled: data.scheduled || 'onetime',
             name_prefix: data.name_prefix,
-            email_notify_enabled:data.email_notify_enabled,
-            email_list:data.email_list,
-            enabled: !!data.enabled,
+            email_notify_enabled: data.email_notify_enabled === true
+                                    || data.email_notify_enabled === 'true'
+                                    || data.email_notify_enabled === 'on',
+            email_list: data.email_list,
+            enabled: data.enabled === true || data.enabled === 'true' || data.enabled === 'on',
             createtime: new Date()
         };
+
+        return newData;
     }
 };
 
@@ -355,20 +360,21 @@ class DBOperator {
     }
 
     // 更新一个任务数据. 差量更新机制.
-    updateTask(_opt, updateinfo) {
-        loggie.info('UpdateTask, opt is:', _opt);
+    updateTask(_opt, _updateinfo) {
+        // loggie.info('UpdateTask, opt is:', _opt);
         // 处理查询条件
         const opt = _opt || {};
         const queryCondition = {};
-        if(opt._id) queryCondition._id = mongodbObjectID(opt._id);
+        if (opt[idField]) queryCondition[idField] = mongodbObjectID(opt[idField]);
         // 处理update info
-        updateinfo._id && (delete updateinfo._id);
+        const updateinfo = Transformer.taskDoc(_updateinfo);
+        if (updateinfo[idField]) (delete updateinfo[idField]);
         updateinfo.updatetime = new Date();
 
         return this.connect()
             .then(db => {
                 loggie.info('then connect');
-                loggie.info('queryCondition:', queryCondition, 'updateinfo: ', updateinfo);
+                loggie.info('updateTask. queryCondition:', queryCondition, 'updateinfo: ', updateinfo);
                 return db.collection(TABLES.task).updateOne(queryCondition, { $set: updateinfo });
             }).then(result => {
                 loggie.info('Update success:', result);
