@@ -203,13 +203,12 @@ class TaskManager {
             loggie.info('Will dboperator.saveCaptureData');
             dboperator.saveCaptureData(target_data);
         }).then(() => {
-            if (!target_data.diffinfo.similar) { // 误差大时，发邮件通知
+            if (taskinfo.email_notify_enabled && !target_data.diffinfo.similar) { // 误差大时，发邮件通知
                 notify.mail({
                     contentUrl: `http://localhost:3000/diff/detail?_id=${target_data[idField]}`
                     // content: JSON.stringify(target_data)
                 });
             }
-
         }).catch(err => {
             loggie.info('Error capturer.capture:', err);
             target_data.error = { message: err.message };

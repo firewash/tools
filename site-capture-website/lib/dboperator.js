@@ -39,7 +39,7 @@ const Transformer = {
         return doc;
     },
 
-    // 任务处理
+    // 任务处理 - 对传入的数据字段进行过滤处理
     taskDoc(data) {
         return {
             domain: data.domain,
@@ -48,6 +48,8 @@ const Transformer = {
             starttime: data.starttime,
             scheduled: data.scheduled || 'onetime',
             name_prefix: data.name_prefix,
+            email_notify_enabled:data.email_notify_enabled,
+            email_list:data.email_list,
             enabled: !!data.enabled,
             createtime: new Date()
         };

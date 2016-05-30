@@ -1,13 +1,13 @@
 /**
  * Created by wangle on 2016/5/27.
- */
-/**
- * Created by yushengjie on 16/5/26.
+ * 通知服务组件
+ *
  */
 
-const fs = require('fs');
+// const fs = require('fs');
 const request = require('request');
 const sendMail = require('./sendMail');
+const loggie = require('../lib/loggie.js');
 
 /**
  *  opt = {
@@ -17,15 +17,13 @@ const sendMail = require('./sendMail');
  *  }
  *
  * */
-function mail(opt, callback){
-    if(opt.contentUrl) {
-        // console.log('######### Convert URL');
-        var newOpt = opt;
+function mail(opt, callback) {
+    if (opt.contentUrl) {
+        const newOpt = opt;
         request.get(opt.contentUrl, (err, result) => {
-            var content = result.body.trim();
-            // console.log('#########',content.length);
-            newOpt.content = content;
+            newOpt.content = result.body.trim();
             delete newOpt.contentUrl;
+            loggie.info('Will send mail: ', newOpt);
             mail(newOpt, callback);
         });
         return;
@@ -40,10 +38,11 @@ function mail(opt, callback){
     };
 
     sendMail(postData);
-};
+}
 
-function sms(opt){
-
+function sms(opt) {
+    // todo
+    loggie.info('sms service, ', opt);
 }
 
 module.exports = {

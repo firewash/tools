@@ -91,9 +91,20 @@
                                 <input type="radio" id="update_scheduled_checkbox3" name="scheduled" placeholder="每天" value="perday" v-model="scheduled">每天
                             </label>
                         </div>
+                        <div  class="form-group" id="update-email-notify">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="update_email_notify_enabled" id="update_email_notify_enabled" v-model="email_notify_enabled"> 邮件订阅
+                                </label>
+                            </div>
+                            <div class="form-group" v-bind:class="{hidden:!email_notify_enabled}" id="update-email-notify-detail" >
+                                <label>收件人列表</label>
+                                <input type="text" name="email_list"  class="form-control" placeholder="邮箱地址(多个邮箱请使用英文分号;隔开)"  v-model="email_list">
+                            </div>
+                        </div>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" id="update_enabled" name="enabled" checked="false" v-model="enabled" value="true"> 任务是否激活（未激活时，不会被系统执行）
+                                <input type="checkbox" id="update_enabled" name="enabled" v-model="enabled" value="true"> 任务是否激活（未激活时，不会被系统执行）
                             </label>
                         </div>
                     </div>
@@ -158,9 +169,22 @@
                                 <input type="radio" id="scheduled_checkbox3" name="scheduled" placeholder="每天" value="perday">每天
                             </label>
                         </div>
+
+                        <div  class="form-group" id="email-notify">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="email_notify_enabled" id="email_notify_enabled" v-model="email_notify_enabled"> 邮件订阅
+                                </label>
+                            </div>
+                            <div class="form-group" v-bind:class="{hidden:!email_notify_enabled}" id="email-notify-detail" >
+                                <label>收件人列表</label>
+                                <input type="text" name="email_list"  class="form-control" placeholder="邮箱地址(多个邮箱请使用英文分号;隔开)">
+                            </div>
+                        </div>
+
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="enabled" checked="true"> 任务是否激活（未激活时，不会被系统执行）
+                                <input type="checkbox" name="enabled" checked="true" value="true"> 任务是否激活（未激活时，不会被系统执行）
                             </label>
                         </div>
                     </div>
@@ -240,6 +264,8 @@
             starttime:"",
             scheduled:"",
             name_prefix:"",
+            email_notify_enabled:false,
+            email_list:"",
             enabled:true
         };
 
@@ -247,6 +273,15 @@
             el: '#task_update_form',
             data: myModel
         });
+
+        //仅仅绑定展开与折叠的动作
+        new Vue({
+            el: "#email-notify",
+            data:{
+                "email_notify_enabled": true
+            }
+        });
+
     }();
 
     //事件绑定
