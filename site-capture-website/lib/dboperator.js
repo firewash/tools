@@ -288,7 +288,7 @@ class DBOperator {
         loggie.info('queryCondition', queryCondition);
         return this.connect().then(db =>
             db.collection(TABLES.capture)
-                .find(queryCondition).sort({ timestamp: -1 }).limit(1).toArray()
+                .find(queryCondition).sort({ timestamp_start_capture: -1 }).limit(1).toArray()
         ).then(arr => {
             loggie.info('Result: ', arr);
             return arr && arr[0] ? arr[0] : null;
