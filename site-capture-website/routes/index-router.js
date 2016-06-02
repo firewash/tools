@@ -2,11 +2,11 @@
 
 const express = require('express');
 const router = express.Router();
-const loggie = require('../lib/loggie');
+// const loggie = require('../lib/loggie').logger;
 
 /* GET home page. */
 router.get('/', (req, res) => {
-    res.render('index', {title: 'Express'});
+    res.render('index', { title: 'Express' });
 });
 
 

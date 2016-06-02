@@ -1,6 +1,6 @@
 'use strict';
 
-const loggie = require('../lib/loggie');
+const loggie = require('../lib/loggie').logger;
 const mongodbObjectID = require('mongodb').ObjectID;
 const mongodb = require('mongodb');
 const TABLES = {

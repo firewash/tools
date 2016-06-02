@@ -2,7 +2,7 @@
 
 const resemble = require('node-resemble-js');
 const fs = require('fs');
-const loggie = require('../lib/loggie');
+const loggie = require('../lib/loggie').logger;
 const RATIO_BASELINE_DEFAULT = require('../config.js').image_compare_ratio_baseline; // 图像对比差异率最低值基线
 
 resemble.outputSettings({

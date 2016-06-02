@@ -1,6 +1,6 @@
 'use strict';
 
-const loggie = require('../lib/loggie');
+const loggie = require('../lib/loggie').logger;
 const gConfig = require('../config.js');
 const comparer = require('./comparer');
 const capturer = require('./capturer');

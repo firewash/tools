@@ -1,6 +1,6 @@
 'use strict';
 
-// const loggie = require('../lib/loggie');
+// const loggie = require('../lib/loggie').logger;
 const express = require('express');
 const router = express.Router();
 

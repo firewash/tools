@@ -2,10 +2,9 @@
 
 const express = require('express');
 const path = require('path');
-const fs = require('fs');
 const favicon = require('serve-favicon');
-const logger = require('morgan');
-const loggie = require('./lib/loggie');
+const loggie = require('./lib/loggie').logger;
+const midLogger = require('./lib/loggie').midLogger;
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const GLOBAL_CONFIG = require('./config.js');
@@ -18,8 +17,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-const accessLogStream = fs.createWriteStream(`${__dirname}/access.log`, { flags: 'a' });
-app.use(logger('combined', { stream: accessLogStream }));
+midLogger.use(app);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());

@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const loggie = require('../lib/loggie');
+const loggie = require('../lib/loggie').logger;
 const router = express.Router();
 const dboperator = require('../lib/dboperator');
 // const taskmgr = require('../lib/taskmanager');

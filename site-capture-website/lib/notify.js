@@ -7,7 +7,7 @@
 // const fs = require('fs');
 const request = require('request');
 const sendMail = require('./sendMail');
-const loggie = require('../lib/loggie.js');
+const loggie = require('../lib/loggie').logger;
 
 /**
  *  opt = {

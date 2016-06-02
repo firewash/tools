@@ -4,7 +4,7 @@
 'use strict';
 const request = require('request');
 // const fs = require('fs');
-const loggie = require('../lib/loggie');
+const loggie = require('../lib/loggie').logger;
 const emailJobUrl = 'http://jenkins.shenma-inc.local:8080/view/basic_service/job' +
     '/mail_service/buildWithParameters?token=RUPAKtgjkMPanrFY&';
 
