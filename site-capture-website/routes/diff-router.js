@@ -1,12 +1,12 @@
-"use strict";
+'use strict';
 
 const express = require('express');
-var loggie = require('../lib/loggie').logger;
-var router = express.Router();
-var dboperator = require("../lib/dboperator");
+const loggie = require('../lib/loggie').logger;
+const router = express.Router();
+const dboperator = require('../lib/dboperator');
 
 function realPath(filename, format) {
-    return "/capture/" + filename + "." + format;
+    return `/capture/${filename}.${format}`;
 }
 
 // 路由集合
@@ -14,7 +14,7 @@ const RouterSets = {
     '/list': (req, res) => {
         // todo 要是能原生支持分析hash就好了,可以回填hazy
         res.render('diff/list', {
-            title: '采集列表',
+            title: '采集列表'
         });
     },
     '/detail': (req, res) => {
@@ -23,14 +23,13 @@ const RouterSets = {
         const opt = {};
         if (query._id)opt._id = query._id;
 
-        const p = dboperator.getCaptureEntry(opt);
-        p.then(data => {
+        dboperator.getCaptureEntry(opt).then(data => {
             console.log('get data callback', data);
-            let diffwith_info = data.diffwith_info || {},
-                origin_info = data.origin_info || {},
-                diffinfo = origin_info.diffinfo || {};
+            const diffwith_info = data.diffwith_info || {};
+            const origin_info = data.origin_info || {};
+            const diffinfo = origin_info.diffinfo || {};
 
-            let renderData = {
+            const renderData = {
                 id: origin_info._id,
                 title: '采集详情 - ' + origin_info.url,
                 time: (new Date(origin_info.timestamp_start_capture)).toLocaleString(),
@@ -43,12 +42,11 @@ const RouterSets = {
                 diffinfo: diffinfo,
                 taskinfo: origin_info.taskinfo
             };
-            console.log('Detail page will render:', renderData)
+            loggie.info('Detail page will render:', renderData)
             res.render('diff/detail', renderData);
         }).catch(e => {
-            console.log(e);
+            loggie.info(e);
         });
-        Promise.resolve(p);
     }
 };
 
