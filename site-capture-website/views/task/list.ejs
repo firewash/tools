@@ -94,7 +94,8 @@
                         <div  class="form-group" id="update-email-notify">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="email_notify_enabled" id="update_email_notify_enabled" v-model="email_notify_enabled"> 邮件订阅
+                                    <input type="checkbox" name="email_notify_enabled" id="update_email_notify_enabled" v-model="email_notify_enabled">
+                                    <span>邮件订阅 ( 变化率超过特定值时会发送邮件 ) </span>
                                 </label>
                             </div>
                             <div class="form-group" v-bind:class="{hidden:!email_notify_enabled}" id="update-email-notify-detail" >
@@ -173,7 +174,8 @@
                         <div  class="form-group" id="email-notify">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="email_notify_enabled" id="email_notify_enabled" v-model="email_notify_enabled"> 邮件订阅
+                                    <input type="checkbox" name="email_notify_enabled" id="email_notify_enabled" v-model="email_notify_enabled">
+                                    <span>邮件订阅 ( 变化率超过特定值时会发送邮件 ) </span>
                                 </label>
                             </div>
                             <div class="form-group" v-bind:class="{hidden:!email_notify_enabled}" id="email_notify_detail" >
