@@ -41,7 +41,7 @@ const Transformer = {
 
     // 任务处理 - 对传入的数据字段进行过滤处理
     taskDoc(data) {
-        console.log("####",data.enabled, data.enabled === true || data.enabled === 'true' || data.enabled === 'on')
+        // loggie.info('Transformer.taskDoc', data);
         const newData = {
             domain: data.domain,
             url: /^https?:/i.test(data.url) ? data.url : `http://${data.url}`,
@@ -56,7 +56,6 @@ const Transformer = {
             enabled: data.enabled === true || data.enabled === 'true' || data.enabled === 'on',
             createtime: new Date()
         };
-
         return newData;
     }
 };
@@ -79,7 +78,7 @@ class DBOperator {
 
     connect() {
         return Promise.resolve().then(() => {
-            loggie.info('Try db connect');
+            //  loggie.info('Try db connect');
             return new Promise((resolve, reject) => {
                 if (this.db) {
                     resolve(this.db);
@@ -140,8 +139,8 @@ class DBOperator {
     // todo 获取所有数据
     getAllCaptureEntries(callback) {
         loggie.info('in getAllCaptureEntries');
-        this.connect().then(() => {
-            const cursor = this.db.collection(TABLES.capture).find();
+        return this.connect().then(db => {
+            const cursor = db.collection(TABLES.capture).find();
             cursor.each((err, item) => {
                 if (item) {
                     loggie.info(item);
@@ -186,7 +185,7 @@ class DBOperator {
             data: [],
             totalCount: 0,
             begin,
-            limit,
+            limit
         };
         return this.connect().then(_db => {
             db = _db;
@@ -373,8 +372,8 @@ class DBOperator {
 
         return this.connect()
             .then(db => {
-                loggie.info('then connect');
-                loggie.info('updateTask. queryCondition:', queryCondition, 'updateinfo: ', updateinfo);
+                loggie.info('taskmanager.updateTask. queryCondition:',
+                                queryCondition, 'updateinfo: ', updateinfo);
                 return db.collection(TABLES.task).updateOne(queryCondition, { $set: updateinfo });
             }).then(result => {
                 loggie.info('Update success:', result);

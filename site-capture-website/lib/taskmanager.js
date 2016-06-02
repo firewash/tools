@@ -33,7 +33,9 @@ class TaskManager {
     syncAndScheduleAllTasks() {
         loggie.info('syncAndScheduleAllTasks');
         for (let key in taskQueue) { // 先进行标记
-            taskQueue[key].expired = true;
+            if (taskQueue.hasOwnProperty(key)) {
+                taskQueue[key].expired = true;
+            }
         }
 
         dboperator.getTasks().then(result => {
@@ -83,7 +85,7 @@ class TaskManager {
                 loggie.info('存在旧任务，先删掉了。马上加新的。');
                 this.cancelScheduledJobByTaskId(task[idField]);
             }
-            let j = this.setScheduleFunctionCall(
+            const j = this.setScheduleFunctionCall(
                 task.startdate,
                 task.starttime,
                 task.scheduled,
@@ -160,62 +162,63 @@ class TaskManager {
         if (!taskinfo) return;
 
         // 预处理一下数据
-        const namePrefix = taskinfo.name_prefix || gConfig.namePrefix,
-            date = new Date(), // IOS时间
-            time = date.getTime();
+        const namePrefix = taskinfo.name_prefix || gConfig.namePrefix;
+        const date = new Date(); // IOS时间
+        const time = date.getTime();
         const opt = {
             url: taskinfo.url,
             name_prefix: namePrefix,
             filename: `${namePrefix}_${time}`
         };
-        let target_data = {
+        const targetData = {
             taskid: taskinfo[idField],
             taskinfo
         };
 
         loggie.info('立即执行这个截图任务');
         capturer.capture(opt).then(data => {
-            loggie.info('Thenable capturer.capture');
-            Object.assign(target_data, data);
+            // loggie.info('Thenable capturer.capture');
+            Object.assign(targetData, data);
             loggie.info('In afterCpture,target is:', data);
             return dboperator.getLastestCaptureEntry({ url: data.url });
         }).then(lastData => {
+            let returnValue = null;
             if (lastData) {
                 loggie.info('Has a pre capture, now diff with it.');
-                target_data.diffwith = lastData[idField];
-                const resultFileName = `${target_data.filename}_diff`;
+                targetData.diffwith = lastData[idField];
+                const resultFileName = `${targetData.filename}_diff`;
                 const diffOption = {
-                    target: `${imageFolder}${target_data.filename}.${target_data.format}`,
+                    target: `${imageFolder}${targetData.filename}.${targetData.format}`,
                     other: `${imageFolder}${lastData.filename}.${lastData.format}`,
-                    resultfile: `${imageFolder}${resultFileName}.${target_data.format}`
+                    resultfile: `${imageFolder}${resultFileName}.${targetData.format}`
                 };
                 loggie.info('Before diff, diffOption is: ', diffOption);
-                return comparer.diff(diffOption).then(data => {
+                returnValue = comparer.diff(diffOption).then(data => {
                     loggie.info('Diff success. add diff info  to target data', data);
-                    target_data.diffinfo = data;
-                    if (!target_data.diffinfo.similar) {
-                        target_data.diffinfo.diffimg = resultFileName;
+                    targetData.diffinfo = data;
+                    if (!targetData.diffinfo.similar) {
+                        targetData.diffinfo.diffimg = resultFileName;
                     }
                     // loggie.info(data)
                 });
             } else {
                 loggie.info('No last data');
-                return null;
             }
+            return returnValue;
         }).then(() => {
             loggie.info('Will dboperator.saveCaptureData');
-            dboperator.saveCaptureData(target_data);
+            return dboperator.saveCaptureData(targetData);
         }).then(() => {
-            if (taskinfo.email_notify_enabled && !target_data.diffinfo.similar) { // 误差大时，发邮件通知
+            if (taskinfo.email_notify_enabled && !targetData.diffinfo.similar) { // 误差大时，发邮件通知
                 notify.mail({
-                    contentUrl: `http://localhost:3000/diff/detail?_id=${target_data[idField]}`
+                    contentUrl: `http://localhost:3000/diff/detail?_id=${targetData[idField]}`
                     // content: JSON.stringify(target_data)
                 });
             }
         }).catch(err => {
-            loggie.info('Error capturer.capture:', err);
-            target_data.error = { message: err.message };
-            dboperator.saveCaptureData(target_data);
+            loggie.error('Error whene capturer.capture:', err);
+            targetData.error = { message: err.message };
+            dboperator.saveCaptureData(targetData);
         });
     }
 }
