@@ -1,3 +1,5 @@
 node_modules
 data
 /site-capture-data
+/site-capture-website/*.log
+/site-capture-website/log/*.log
