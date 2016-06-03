@@ -41,7 +41,6 @@ const Transformer = {
 
     // 任务处理 - 对传入的数据字段进行过滤处理
     taskDoc(data) {
-        // loggie.info('Transformer.taskDoc', data);
         const newData = {
             domain: data.domain,
             url: /^https?:/i.test(data.url) ? data.url : `http://${data.url}`,
@@ -56,6 +55,7 @@ const Transformer = {
             enabled: data.enabled === true || data.enabled === 'true' || data.enabled === 'on',
             createtime: new Date()
         };
+        loggie.info('Transformer.taskDoc', data, newData);
         return newData;
     }
 };
@@ -78,7 +78,7 @@ class DBOperator {
 
     connect() {
         return Promise.resolve().then(() => {
-            //  loggie.info('Try db connect');
+            loggie.info('Try db connect');
             return new Promise((resolve, reject) => {
                 if (this.db) {
                     resolve(this.db);
@@ -133,23 +133,6 @@ class DBOperator {
             res = res && arr[i].call(this);
         }
         return res;
-    }
-
-
-    // todo 获取所有数据
-    getAllCaptureEntries(callback) {
-        loggie.info('in getAllCaptureEntries');
-        return this.connect().then(db => {
-            const cursor = db.collection(TABLES.capture).find();
-            cursor.each((err, item) => {
-                if (item) {
-                    loggie.info(item);
-                    callback.apply(item);
-                } else {
-                    loggie.info('over');
-                }
-            });
-        });
     }
 
     /**
@@ -383,13 +366,13 @@ class DBOperator {
     }
 
     deleteTask(opt) {
-        const _id = opt._id;
-        loggie.info('dboperator deleteTask, _id:', _id);
+        const id = opt[idField];
+        loggie.info('dboperator deleteTask, _id:', id);
         return Promise.resolve()
             .then(() => this.connect())
             .then(db => {
-                loggie.info('db.deleteOne, _id:', _id);
-                return db.collection(TABLES.task).deleteOne({ _id: mongodbObjectID(_id) });
+                loggie.info('db.deleteOne, _id:', id);
+                return db.collection(TABLES.task).deleteOne({ _id: mongodbObjectID(id) });
             }).then(results => {
                 this.triggerEvent('afterDeleteTask');
                 return results;

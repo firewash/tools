@@ -62,15 +62,15 @@
             <div class="modal-body">
                 <form id="task_update_form" class="form" action="/api/task/update" method="post" role="form">
                     <div class="form-group ">
-                        <label for="name">任务ID</label>
-                        <input type="text" class="form-control" id="update_id" name="_id" v-model="id" readonly/>
+                        <label for="_id">任务ID</label>
+                        <input type="text" class="form-control" id="update_id" name="_id" v-model="id" readonly title=""/>
 
-                        <label for="name">URL</label>
+                        <label for="url">URL</label>
                         <input type="url" class="form-control" id="update_url" name="url" placeholder="请输入网址(http[s]://...)" v-model="url">
-                        <label for="name">Domain</label>
+                        <label for="domain">Domain</label>
                         <input type="text" class="form-control" id="update_domain" name="domain" placeholder="请输入域名"  v-model="domain">
 
-                        <label for="name">文件前缀</label>
+                        <label for="name_prefix">文件前缀</label>
                         <input type="text" class="form-control" id="update_name_prefix"  name="name_prefix" placeholder="存储在磁盘上的图片前缀" v-model="name_prefix">
 
                         <label for="name">开始时间</label>
@@ -215,7 +215,7 @@
                             <td>${item.startdate}</td>
                             <td>${item.starttime}</td>
                             <td>${item.scheduled}</td>
-                            <td>${item.enabled}</td>
+                            <td><span class=${item.enabled?"enabled":""}>${item.enabled}</span></td>
                             <td>
                                 <button class="task_setting"  value="${item._id}">编辑</button>
                                 <button class="view_capture_list" value="${item._id}">查看监控结果</button>

@@ -7,8 +7,7 @@ const dboperator = require('../lib/dboperator');
 // const taskmgr = require('../lib/taskmanager');
 
 router.get('/list', (req, res) => {
-    Promise.resolve()
-        .then(() => dboperator.getTasks())
+    dboperator.getTasks()
         .then(result => {
             loggie.info('then getAllTasks', result);
             const items = result.data;

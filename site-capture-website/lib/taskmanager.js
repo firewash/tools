@@ -209,14 +209,19 @@ class TaskManager {
             loggie.info('Will dboperator.saveCaptureData');
             return dboperator.saveCaptureData(targetData);
         }).then(() => {
-            if (taskinfo.email_notify_enabled && !targetData.diffinfo.similar) { // 误差大时，发邮件通知
+            const willSendMail = taskinfo.email_notify_enabled
+                                    && targetData.diffinfo
+                                    && !targetData.diffinfo.similar;
+            if (willSendMail) { // 误差大时，发邮件通知
                 notify.mail({
                     contentUrl: `http://localhost:3000/diff/detail?_id=${targetData[idField]}`
                     // content: JSON.stringify(target_data)
                 });
+            } else {
+                loggie.info('Needless to send mail');
             }
         }).catch(err => {
-            loggie.error('Error whene capturer.capture:', err);
+            loggie.error('Error when capturer.capture:', err);
             targetData.error = { message: err.message };
             dboperator.saveCaptureData(targetData);
         });
