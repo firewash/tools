@@ -70,6 +70,11 @@
             height:100px;
             cursor:pointer;;
         }
+        #showmark_btn{
+            box-shadow: 0px 0px 35px 1px #888;
+            border-radius:5px;
+            border:2px solid #A3D0AF;
+        }
     </style>
 </head>
 <body>
@@ -83,6 +88,7 @@
             页面变化信息摘要
         </div>
         <div>
+            <label>网站:</label> <a href="<%= url %>" target="_blank"><%= url %></a>;<br>
             <label>采样时间:</label> <%= time %>;<br>
             <label>是否相似:</label> <%=  diffinfo.similar?"是":"否"  %> <label>差异率:</label> <%=  diffratio %><br>
             <label>页面宽高是否发生变化: </label> <%=  diffinfo.isSameDimensions?"是":"否"  %><br>

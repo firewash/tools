@@ -2,7 +2,9 @@
 
 const express = require('express');
 const loggie = require('../lib/loggie').logger;
+/* eslint-disable */
 const router = express.Router();
+/* eslint-enable */
 const dboperator = require('../lib/dboperator');
 const idField = '_id';
 
@@ -25,14 +27,15 @@ const RouterSets = {
         if (query[idField])opt[idField] = query[idField];
 
         dboperator.getCaptureEntry(opt).then(data => {
-            console.log('get data callback', data);
+            loggie.info('get data callback', data);
             const diffwithInfo = data.diffwith_info || {};
             const originInfo = data.origin_info || {};
             const diffinfo = originInfo.diffinfo || {};
 
             const renderData = {
                 id: originInfo[idField],
-                title: `'采集详情 - ${originInfo.url}`,
+                title: '采集详情',
+                url: originInfo.url,
                 time: (new Date(originInfo.timestamp_start_capture)).toLocaleString(),
                 diffratio: diffinfo.hasOwnProperty('misMatchPercentage')
                             ? diffinfo.misMatchPercentage : '-1',
@@ -41,7 +44,7 @@ const RouterSets = {
                 origin_img: realPath(originInfo.filename, originInfo.format),
                 diffwith_img: diffinfo.similar
                                 ? '' : realPath(diffwithInfo.filename, diffwithInfo.format),
-                diff_img: (function () {
+                diff_img: (function getDiffImgPath() {
                     let str = '';
                     if (!diffinfo.similar && diffinfo.diffimg) {
                         str = realPath(diffinfo.diffimg, originInfo.format);
@@ -51,7 +54,7 @@ const RouterSets = {
                 diffinfo,
                 taskinfo: originInfo.taskinfo
             };
-            loggie.info('Detail page will render:', renderData)
+            loggie.info('Detail page will render:', renderData);
             res.render('diff/detail', renderData);
         }).catch(e => {
             loggie.error('diff-router.js, /detail error: ', e);

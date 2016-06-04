@@ -18,7 +18,7 @@ const router = express.Router();
 /* 任务相关的API */
 router.get('/task/run', (req, res) => {
     const data = { msg: '请指定任务ID' };
-    res.send(data);
+    res.json(data);
 });
 
 router.post('/task/add', (req, res) => {
@@ -26,10 +26,10 @@ router.post('/task/add', (req, res) => {
     loggie.info('post request:', data);
     dboperator.addTask(data).then(result => {
         loggie.info('Then addtask . ');
-        res.status('201').send(result);
+        res.status('201').json(result);
     }).catch(err => {
         loggie.error('Error,', err);
-        res.send(err);
+        res.json(err);
     });
 });
 
@@ -43,9 +43,9 @@ router.put('/task/:id', (req, res) => {
         const data = {
             msg: `${taskid} 任务更新完成.Result:${result}`
         };
-        res.send(data);
+        res.json(data);
     }, err => {
-        res.send({
+        res.json({
             msg: `${taskid} 任务更新失败.Error:${err}`
         });
     });
@@ -57,12 +57,12 @@ router.delete('/task/:id', (req, res) => {
 
     dboperator.deleteTask({ _id: id }).then(result => {
         loggie.info('Delete success ', result.id);
-        res.send({
+        res.json({
             message: `${id}删除成功`
         });
     }, err => {
         loggie.info('Delete errlr,', err);
-        res.send(err);
+        res.json(err);
     });
 });
 
@@ -73,14 +73,17 @@ router.post('/task/:id/run', (req, res) => {
     const data = {
         msg: `${id}任务发送启动指令.后台进行中`
     };
-    res.send(data);
+    res.json(data);
 });
 
 router.get('/task/queue', (req, res) => {
     const data = {
         data: taskmgr.getScheduledTaskQueue()
     };
-    res.send(data);
+    // can instead by these
+    // res.setHeader('Content-Type', 'application/json;charset=utf-8');
+    // res.send(data);
+    res.json(data);
 });
 
 router.post('/capture/list', (req, res) => {
@@ -96,12 +99,12 @@ router.post('/capture/list', (req, res) => {
         .then(_result => {
             loggie.info('then getCaptureEntries, lenth: ', _result.data.length);
             Object.assign(result, _result);
-            res.send(result);
+            res.json(result);
         }, err => {
             result.err = {
                 msg: `${opt.taskid} 任务更新指令失败.Err:${err}`
             };
-            res.send(result);
+            res.json(result);
         });
 });
 

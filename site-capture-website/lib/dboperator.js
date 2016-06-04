@@ -92,11 +92,11 @@ class DBOperator {
                         } else {
                             loggie.info('MongoDB connnect success~.');
                             db.on('error', e => {
-                                loggie.error('1 Something error in MongoDB,', e);
+                                loggie.error('MongoDB: something error, e:', e);
                                 this.close();
                             });
                             db.on('timeout', e => {
-                                loggie.error('2 Something error in MongoDB,', e);
+                                loggie.error('MongoDB: timeout, e: ', e);
                                 this.close();
                             });
                             // db.on('reconnect', e => {
@@ -104,7 +104,7 @@ class DBOperator {
                             //    this.close();
                             // });
                             db.on('close', e => {
-                                loggie.info('4 Something error in MongoDB,', e);
+                                loggie.info('MongoDB: been closed, e: ', e);
                                 this.reset();
                             });
                             this.db = db;
@@ -148,7 +148,7 @@ class DBOperator {
     }
 
     triggerEvent(name) {
-        loggie.info('dboperator triggerEvent', name);
+        loggie.info('Dboperator triggerEvent', name);
         const arr = eventHandles[name];
         let res = true;
         for (let i = 0, len = arr.length; i < len; i++) {
@@ -184,14 +184,14 @@ class DBOperator {
         const begin = +opt.begin || 0;
         const limit = +opt.limit || 5;
         const queryCondition = Transformer.queryConditionOfCapture(opt);
-        loggie.info('getCaptureEntries, queryCondition:', queryCondition, begin, limit);
-        let db = null;
         const returnValue = {
             data: [],
             totalCount: 0,
             begin,
             limit
         };
+        let db = null;
+        loggie.info('GetCaptureEntries, queryCondition:', queryCondition, begin, limit);
         return this.connect().then(_db => {
             db = _db;
             loggie.info('Connect then,', queryCondition);
