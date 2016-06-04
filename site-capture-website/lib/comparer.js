@@ -69,7 +69,7 @@ class Comparer {
                         resolve(data);
                     });
             } catch (e) {   // TODO: 文件比如other在磁盘上不存在时的异常，try目前捕获不到。奇怪
-                loggie.info('Catch diff err: ', e);
+                loggie.error('Catch diff err: ', e);
                 reject({ msg: e.msg }, null);
             }
         });

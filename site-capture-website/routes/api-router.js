@@ -28,7 +28,7 @@ router.post('/task/add', (req, res) => {
         loggie.info('Then addtask . ');
         res.status('201').send(result);
     }).catch(err => {
-        loggie.info('Error,', err);
+        loggie.error('Error,', err);
         res.send(err);
     });
 });

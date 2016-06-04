@@ -4,6 +4,7 @@ const express = require('express');
 const loggie = require('../lib/loggie').logger;
 const router = express.Router();
 const dboperator = require('../lib/dboperator');
+const idField = '_id';
 
 function realPath(filename, format) {
     return `/capture/${filename}.${format}`;
@@ -21,31 +22,39 @@ const RouterSets = {
         const query = req.query;
         // 需要安全的处理一下传入的参数,不要直接传递
         const opt = {};
-        if (query._id)opt._id = query._id;
+        if (query[idField])opt[idField] = query[idField];
 
         dboperator.getCaptureEntry(opt).then(data => {
             console.log('get data callback', data);
-            const diffwith_info = data.diffwith_info || {};
-            const origin_info = data.origin_info || {};
-            const diffinfo = origin_info.diffinfo || {};
+            const diffwithInfo = data.diffwith_info || {};
+            const originInfo = data.origin_info || {};
+            const diffinfo = originInfo.diffinfo || {};
 
             const renderData = {
-                id: origin_info._id,
-                title: '采集详情 - ' + origin_info.url,
-                time: (new Date(origin_info.timestamp_start_capture)).toLocaleString(),
-                diffratio: diffinfo.hasOwnProperty('misMatchPercentage') ? diffinfo.misMatchPercentage : '-1',
-                has_diffwith_img: diffwith_info.filename ? true : false,
+                id: originInfo[idField],
+                title: `'采集详情 - ${originInfo.url}`,
+                time: (new Date(originInfo.timestamp_start_capture)).toLocaleString(),
+                diffratio: diffinfo.hasOwnProperty('misMatchPercentage')
+                            ? diffinfo.misMatchPercentage : '-1',
+                has_diffwith_img: !!diffwithInfo.filename,
                 is_similar: diffinfo.similar,
-                origin_img: realPath(origin_info.filename, origin_info.format),
-                diffwith_img: diffinfo.similar ? "" : realPath(diffwith_info.filename, diffwith_info.format),
-                diff_img: diffinfo.similar ? "" : diffinfo.diffimg ? realPath(diffinfo.diffimg, origin_info.format) : "",
-                diffinfo: diffinfo,
-                taskinfo: origin_info.taskinfo
+                origin_img: realPath(originInfo.filename, originInfo.format),
+                diffwith_img: diffinfo.similar
+                                ? '' : realPath(diffwithInfo.filename, diffwithInfo.format),
+                diff_img: (function () {
+                    let str = '';
+                    if (!diffinfo.similar && diffinfo.diffimg) {
+                        str = realPath(diffinfo.diffimg, originInfo.format);
+                    }
+                    return str;
+                }()),
+                diffinfo,
+                taskinfo: originInfo.taskinfo
             };
             loggie.info('Detail page will render:', renderData)
             res.render('diff/detail', renderData);
         }).catch(e => {
-            loggie.info(e);
+            loggie.error('diff-router.js, /detail error: ', e);
         });
     }
 };

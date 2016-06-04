@@ -32,12 +32,10 @@ class TaskManager {
     // 同步所有任务的执行状态,增删改jobs
     syncAndScheduleAllTasks() {
         loggie.info('syncAndScheduleAllTasks');
-        for (let key in taskQueue) { // 先进行标记
-            if (taskQueue.hasOwnProperty(key)) {
-                taskQueue[key].expired = true;
-            }
+        const keys = Object.keys(taskQueue);
+        for (let i = 0, len = keys.length; i < len; i++) {
+            taskQueue[keys[i]].expired = true;
         }
-
         dboperator.getTasks().then(result => {
             const taskList = result.data;
             loggie.info('All task length: ', taskList.length);
@@ -46,14 +44,14 @@ class TaskManager {
                 if (opt.enabled) {
                     this.scheduleTask(opt); // 添加新任务，或更新旧任务
                     // todo 只存在一个任务时,这里偶尔报错 [TypeError: Cannot set property 'expired' of undefined]
-                    taskQueue[opt[idField]].expired = false;
+                    if (taskQueue[opt[idField]]) taskQueue[opt[idField]].expired = false;
                 }
             });
         }).then(() => {
             loggie.info('尝试移除没有了的任务, taskQueue: ', taskQueue);
-            for (let key in taskQueue) {
-                if (taskQueue[key].expired) {
-                    this.cancelScheduledJobByTaskId(key);
+            for (let i = 0, len = keys.length; i < len; i++) {
+                if (taskQueue[keys[i]].expired) {
+                    this.cancelScheduledJobByTaskId(keys[i]);
                 }
             }
             loggie.info('尝试结束 ');
@@ -78,7 +76,8 @@ class TaskManager {
      *   如果已经有相同task的任务，则会删除重新创建。
      */
     scheduleTask(task) {
-        loggie.info('In scheduleTask fn,  task: ', task);
+        loggie.info('In scheduleTask fn, task param: ', task);
+        let scheduleResult = false;
         if (task.enabled && task.startdate && task.starttime && this.isTaskUpdated(task)) {
             loggie.info('要配置定时任务.');
             if (taskQueue[task[idField]]) {
@@ -94,13 +93,17 @@ class TaskManager {
                     this.executeTask(task);
                 });
 
-            taskQueue[task[idField]] = {
-                taskinfo: task,
-                job: j
-            };
+            if (j) {  // 有可能setScheduleFunctionCall会定制不成功(比如日期过期或不合理)
+                taskQueue[task[idField]] = {
+                    taskinfo: task,
+                    job: j
+                };
+                scheduleResult = true;
+            }
         } else {
             loggie.info('无需配置定时任务.');
         }
+        return scheduleResult;
     }
 
     // startdate= '2016-05-17',starttime = '19:38'
@@ -138,8 +141,8 @@ class TaskManager {
 
     cancelScheduledJobByTaskId(taskId) {
         if (!taskQueue[taskId]) return null;
-        loggie.info('cancelScheduledJobByTaskId', taskId);
         const task = taskQueue[taskId];
+        loggie.info('cancelScheduledJobByTaskId', task);
         delete taskQueue[taskId];
         return task.job.cancel();
     }

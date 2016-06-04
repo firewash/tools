@@ -8,7 +8,7 @@
 const path = require('path');
 const projectPath = __dirname;
 const dataPath = path.join(projectPath, '../', '/site-capture-data/');
-const logPath = path.join(__dirname, './log/console.log');
+const logPath = path.join(__dirname, './log/console');
 const accessLogPath = `${__dirname}/log/accesslog`;
 const captureImageSaveFolder = path.join(dataPath, '/result/');
 const userAgentBase = 'Mozilla/5.0 (Windows NT 10.0; WOW64) Chrome/49.0.2623.87 Safari/537.36';

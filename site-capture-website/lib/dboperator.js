@@ -81,17 +81,35 @@ class DBOperator {
             loggie.info('Try db connect');
             return new Promise((resolve, reject) => {
                 if (this.db) {
+                    // loggie.info('MongoDB connnect: Use last db.', this.db);
                     resolve(this.db);
                 } else {
+                    // option can be { autoReconnect: true },
                     this.MongoClient.connect(this.url, (err, db) => {
                         if (err) {
                             loggie.error('MongoDB connnect error!', err);
+                            reject(err);
                         } else {
                             loggie.info('MongoDB connnect success~.');
+                            db.on('error', e => {
+                                loggie.error('1 Something error in MongoDB,', e);
+                                this.close();
+                            });
+                            db.on('timeout', e => {
+                                loggie.error('2 Something error in MongoDB,', e);
+                                this.close();
+                            });
+                            // db.on('reconnect', e => {
+                            //    loggie.info('3 Something error in MongoDB,', e);
+                            //    this.close();
+                            // });
+                            db.on('close', e => {
+                                loggie.info('4 Something error in MongoDB,', e);
+                                this.reset();
+                            });
+                            this.db = db;
+                            resolve(db);
                         }
-
-                        this.db = db;
-                        if (err) reject(err); else resolve(db);
                     });
                 }
             });
@@ -104,8 +122,12 @@ class DBOperator {
     close() {
         if (this.db) {
             this.db.close();
-            this.db = null;
+            this.reset();
         }
+    }
+    // 内部状态归位
+    reset() {
+        this.db = null;
     }
 
     addEventListener(name, fn) {

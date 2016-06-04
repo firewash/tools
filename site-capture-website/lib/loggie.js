@@ -5,9 +5,18 @@ const config = require('../config');
 
 log4js.configure({
     appenders: [
+        // 后台运行的记录
         { type: 'console', category: 'console' },
-        // todo wangle 不生效~再试试
-        { type: 'file', filename: config.logPath, category: 'console', reloadSecs: 300 },
+        {
+            type: 'dateFile',
+            filename: config.logPath,
+            pattern: '_yyyy-MM-dd.log',
+            alwaysIncludePattern: true,
+            maxLogSize: 1024,
+            reloadSecs: 300,
+            category: 'console'
+        },
+        // accessLog:用户访问记录
         { type: 'console', category: 'accessLog' },
         {
             type: 'dateFile',
