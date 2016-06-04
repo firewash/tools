@@ -280,16 +280,14 @@ class DBOperator {
     // 保存一个截图数据
     saveCaptureData(data) {
         loggie.info('Will save capture data:', data);
-        return Promise.resolve()
-            .then(() => this.connect())
-            .then(db => {
-                loggie.info('Will insert.');
-                return db.collection(TABLES.capture).insertOne(Transformer.captureDoc(data));
-            }).then(result => {
-                loggie.info('SaveCaptureData sucess, result.insertedId: ', result.insertedId);
-                this.close();
-                return result;
-            });
+        return this.connect().then(db => {
+            loggie.info('Will insert.');
+            return db.collection(TABLES.capture).insertOne(Transformer.captureDoc(data));
+        }).then(result => {
+            loggie.info('SaveCaptureData sucess, result.insertedId: ', result.insertedId);
+            this.close();
+            return result;
+        });
     }
 
     /**
@@ -315,7 +313,7 @@ class DBOperator {
             loggie.info('then connect, queryCondition', queryCondition);
             return db.collection(TABLES.task).find(queryCondition).toArray();
         }).then(arr => {
-            loggie.info('will return:');
+            loggie.info('Result count', arr.length);
             return {
                 query_condition: queryCondition,
                 data: arr
@@ -328,10 +326,7 @@ class DBOperator {
         loggie.info('add task fn.');
         const newData = Transformer.taskDoc(data);
 
-        return Promise.resolve().then(() => {
-            loggie.info('Will connect.');
-            return this.connect();
-        }).then(db => {
+        return this.connect().then(db => {
             loggie.info('Insert data', newData);
             return db.collection(TABLES.task).insertOne(newData);
         }).then(result => {
@@ -353,30 +348,27 @@ class DBOperator {
         if (updateinfo[idField]) (delete updateinfo[idField]);
         updateinfo.updatetime = new Date();
 
-        return this.connect()
-            .then(db => {
-                loggie.info('taskmanager.updateTask. queryCondition:',
-                                queryCondition, 'updateinfo: ', updateinfo);
-                return db.collection(TABLES.task).updateOne(queryCondition, { $set: updateinfo });
-            }).then(result => {
-                loggie.info('Update success:', result);
-                this.triggerEvent('afterUpdateTask');
-                return result;
-            });
+        return this.connect().then(db => {
+            loggie.info('taskmanager.updateTask. queryCondition:',
+                            queryCondition, 'updateinfo: ', updateinfo);
+            return db.collection(TABLES.task).updateOne(queryCondition, { $set: updateinfo });
+        }).then(result => {
+            loggie.info('Update success:', result);
+            this.triggerEvent('afterUpdateTask');
+            return result;
+        });
     }
 
     deleteTask(opt) {
         const id = opt[idField];
         loggie.info('dboperator deleteTask, _id:', id);
-        return Promise.resolve()
-            .then(() => this.connect())
-            .then(db => {
-                loggie.info('db.deleteOne, _id:', id);
-                return db.collection(TABLES.task).deleteOne({ _id: mongodbObjectID(id) });
-            }).then(results => {
-                this.triggerEvent('afterDeleteTask');
-                return results;
-            });
+        return this.connect().then(db => {
+            loggie.info('db.deleteOne, _id:', id);
+            return db.collection(TABLES.task).deleteOne({ _id: mongodbObjectID(id) });
+        }).then(results => {
+            this.triggerEvent('afterDeleteTask');
+            return results;
+        });
     }
 }
 
