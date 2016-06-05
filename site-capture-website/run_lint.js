@@ -1,7 +1,8 @@
-var CLIEngine = require("eslint").CLIEngine;
+const CLIEngine = require('eslint').CLIEngine;
 
-var cli = new CLIEngine({
-    envs: ["browser", "mocha"],
+
+const cli = new CLIEngine({
+    envs: ['browser', 'mocha'],
     useEslintrc: true,
     rules: {
         semi: 2
@@ -9,5 +10,5 @@ var cli = new CLIEngine({
 });
 
 // lint myfile.js and all files in lib/
-var report = cli.executeOnFiles(["lib"]);
+const report = cli.executeOnFiles(['lib']);
 console.log(report);
