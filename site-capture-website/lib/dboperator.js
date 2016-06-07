@@ -22,9 +22,14 @@ const Transformer = {
         // 处理task id
         if (_condition.hasOwnProperty('taskid')) {
             const value = _condition.taskid;
-            if (typeof value === 'string') {
+            if (value && typeof value === 'string') {
                 condition.taskid = mongodbObjectID(value);
             }
+        }
+        // 变化率
+        if (_condition.hasOwnProperty('mismatch')) {
+            const value = +_condition.mismatch || 0;
+            condition['diffinfo.misMatchPercentage'] = { $gte: value };
         }
 
         return condition;

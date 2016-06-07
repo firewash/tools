@@ -22,8 +22,12 @@
 
         <form id="list_query" class="form-inline" action="#" method="get">
             <div class="form-group">
-                <label for="name">URL模糊搜索</label>
-                <input placeholder="模糊网址"   class="form-control" name="hazyurl" id="hazyurl" value=""/>
+                <label for="name">网站URL大概是：</label>
+                <input placeholder="模糊网址" type="search"  class="form-control" name="hazyurl" id="hazyurl" value=""/>
+                <label for="name">变化率大于等于：</label>
+                <input placeholder="变化率介于0~100"   class="form-control" name="mismatch" id="mismatch" value=""/>
+                <label for="name">所属任务</label>
+                <input placeholder="所属任务的ID"   class="form-control" name="taskid" id="taskid" value=""/>
 
                 <!--<label for="name" >时间范围</label>-->
                 <!--<select class="form-control">-->
@@ -53,7 +57,7 @@
             <thead>
                 <tr>
                     <th>URL</th>
-                    <th>执行时间</th>
+                    <th>执行时间(当前排序-倒序)</th>
                     <th>捕获完成时间</th>
                     <th>所属任务</th>
                     <th>变化率</th>
@@ -131,12 +135,25 @@
         })
     }
 
+    //日期转换为本地时间字符串
+    function date2str(date){ //date object , or date string.
+        var str = "";
+        if(date){
+            var d = new Date(date);
+            str = (new Date(date)).toLocaleString();
+            if(d.toDateString() == ((new Date).toDateString())){
+                str += " (今天)";
+            }
+        }
+        return str;
+    }
+
     function renderList(arr) {
         var list = $("#capture_list");
         list.html("");
         arr.forEach(function (item) {
-            var timestamp_start_capture = item.timestamp_start_capture?(new Date(item.timestamp_start_capture)).toLocaleString():"",
-                    timestamp_capture_complete = item.timestamp_capture_complete?(new Date(item.timestamp_capture_complete)).toLocaleString():"",
+            var timestamp_start_capture = date2str(item.timestamp_start_capture),
+                    timestamp_capture_complete = date2str(item.timestamp_capture_complete),
                     ratio = item.diffinfo?item.diffinfo.misMatchPercentage:0;
             let html = `<tr>
                             <td>${item.url}</td>
@@ -164,13 +181,23 @@
     }
 
     function bindEvent(){
-        //查询 hazyurl
-        $("#hazyurl").keyup(function(e){
-            loadCaptureListData({
+        var keyUpListener = function(e){
+            var condition = {
                 hazy: $("#hazyurl").val(),
+                mismatch: $("#mismatch").val(),
+                taskid: $("#taskid").val(),
                 begin: 0, // 检索时，就从第一个开始
                 limit: pageInfo.limit
-            });
+            };
+            loadCaptureListData(condition);
+        }
+
+        var searchTimer = null;
+        $("#list_query").find("input").keyup(function(e){
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(function(){
+                keyUpListener(e);
+            },500);
         })
     }
 
@@ -184,7 +211,13 @@
             var arr = hash.substr(1).split("&");
             arr.forEach(function(item) {
                 var t = item.split("=");
-                if(t.length == 2) condition[t[0]] = t[1];
+                if(t.length == 2){
+                    condition[t[0]] = t[1];
+                    var relateDom =$("#"+t[0]);
+                    if(relateDom[0]){
+                        relateDom.val(t[1])
+                    }
+                }
             })
         }
         loadCaptureListData(condition);

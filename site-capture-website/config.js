@@ -19,7 +19,7 @@ const GLOBAL_CONFIG = {
     captureImageSaveFolder, // 屏幕截图放置的磁盘位置
     captureImageQuality: 90,           // 屏幕截图的质量
     namePrefix: 'tool_site_capture_unknown_site',   // 图片存储的前缀
-    image_compare_ratio_baseline: 0.1,  // 图像相似度的最低阈值
+    image_compare_ratio_baseline: 0.01,  // 图像相似度的最低阈值
     userAgent,                // 捕获网站时phantom发出的UA
     logPath,    // 通用日志的存储文件
     accessLogPath   // 仅仅存储Express访问记录
