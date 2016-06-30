@@ -2,6 +2,7 @@
 
 const express = require('express');
 const loggie = require('../lib/loggie').logger;
+const url = require('url');
 /* eslint-disable */
 const router = express.Router();
 /* eslint-enable */
@@ -25,7 +26,12 @@ const RouterSets = {
         // 需要安全的处理一下传入的参数,不要直接传递
         const opt = {};
         if (query[idField])opt[idField] = query[idField];
-
+        // 页面环境信息
+        const origin = url.format({
+            protocol: req.protocol,
+            hostname: req.hostname,
+            port: 3000
+        });
         dboperator.getCaptureEntry(opt).then(data => {
             loggie.info('get data callback', data);
             const diffwithInfo = data.diffwith_info || {};
@@ -33,6 +39,7 @@ const RouterSets = {
             const diffinfo = originInfo.diffinfo || {};
 
             const renderData = {
+                origin: '',
                 id: originInfo[idField],
                 title: '采集详情',
                 url: originInfo.url,

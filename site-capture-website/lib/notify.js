@@ -31,8 +31,8 @@ function mail(opt, callback) {
 
     const postData = {
         mail_list: opt.list || 'le.wangl1@alibaba-inc.com',
-        mail_subject: opt.subject || `截屏监控_${Date.now()} (邮件模板待完善)`,
-        mail_content: opt.content || '测试成功', // fs.readFileSync('./report/Test.html'),
+        mail_subject: opt.subject || `截屏监控_${(new Date()).toLocaleString()} (邮件模板待完善)`,
+        mail_content: '' || '测试成功', // fs.readFileSync('./report/Test.html'),
         mail_content_type: 'html',
         mail_priority: '3'
     };

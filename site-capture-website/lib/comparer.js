@@ -29,7 +29,7 @@ function dataTransfer4resemble2system(from) {
     const to = {};
     to.isSameDimensions = from.isSameDimensions;
     to.dimensionDifference = from.dimensionDifference;
-    to.misMatchPercentage = from.misMatchPercentage;
+    to.misMatchPercentage = +from.misMatchPercentage;
     to.analysisTime = from.analysisTime;
     return to;
 }

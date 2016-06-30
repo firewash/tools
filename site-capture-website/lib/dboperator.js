@@ -8,26 +8,42 @@ const TABLES = {
     task: 'tasks'
 };
 const idField = '_id';
+
+// Object.hasOwnProperty的封装。因为NodeJS最新版本里，res.body虽然是object，但是hasOwnProperty被去掉了。
+function hasOwnKey(object, keyName) {
+    let rel = false;
+    if (object.hasOwnProperty) {
+        rel = object.hasOwnProperty(keyName);
+    } else {
+        rel = Object.hasOwnProperty.call(object, keyName);
+    }
+    return rel;
+}
+
 const Transformer = {
     // 把搜索条件中的不合法数据转换为合法
     queryConditionOfCapture(_condition) {
+        let a= Object.create(_condition);
+
+        console.log('!!!!!!!!!!!!', typeof a, typeof _condition.hazy, a.hasOwnProperty);
+
         const condition = {};
         // 处理模糊搜索的字段. 作为URL的模糊字段
-        if (_condition.hasOwnProperty('hazy')) {
+        if (hasOwnKey(_condition, 'hazy')) {
             const value = _condition.hazy.trim();
             if (value) {
                 condition.url = new RegExp(value, 'i');
             }
         }
         // 处理task id
-        if (_condition.hasOwnProperty('taskid')) {
+        if (hasOwnKey(_condition, 'taskid')) {
             const value = _condition.taskid;
             if (value && typeof value === 'string') {
                 condition.taskid = mongodbObjectID(value);
             }
         }
         // 变化率
-        if (_condition.hasOwnProperty('mismatch')) {
+        if (hasOwnKey(_condition, 'mismatch')) {
             const value = +_condition.mismatch || 0;
             condition['diffinfo.misMatchPercentage'] = { $gte: value };
         }
@@ -196,7 +212,7 @@ class DBOperator {
             limit
         };
         let db = null;
-        loggie.info('GetCaptureEntries, queryCondition:', queryCondition, begin, limit);
+        loggie.info('GetCaptureEntries, queryCondition:', queryCondition);
         return this.connect().then(_db => {
             db = _db;
             loggie.info('Connect then,', queryCondition);

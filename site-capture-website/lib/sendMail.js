@@ -22,4 +22,3 @@ function sendMail(data, callback) {
 }
 
 module.exports = sendMail;
-
