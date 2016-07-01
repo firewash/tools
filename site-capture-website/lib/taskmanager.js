@@ -217,7 +217,7 @@ class TaskManager {
                                     && !targetData.diffinfo.similar;
             if (willSendMail) { // 误差大时，发邮件通知
                 notify.mail({
-                    contentUrl: `http://localhost:3000/diff/detail?_id=${targetData[idField]}`
+                    contentUrl: `http://localhost:3000/diff/view-for-mail?_id=${targetData[idField]}`
                     // content: JSON.stringify(target_data)
                 });
             } else {

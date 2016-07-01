@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>截图监控邮件</title>
+    <style>
+        body{
+            font-family: Arial,'微软雅黑';
+            font-size:12px;
+        }
+    </style>
+</head>
+<body class="<%=  diffinfo.similar?"page-similar":""  %>">
+<div class="page-header">
+    <h1><%= title %></h1>
+</div>
+
+<div class="page-wraper" style="border:1px solid #ddf;padding:5px;">
+    <h2> 页面变化信息摘要</h2>
+    <label>网站:</label> <a href="<%= url %>" target="_blank"><%= url %></a>;<br>
+    <label>采样时间:</label> <%= time %>;<br>
+    <label>是否相似:</label> <%=  diffinfo.similar?"是":"否"  %> <label>差异率:</label> <%=  diffratio %><br>
+    <label>页面宽高保持未变: </label> <%=  diffinfo.isSameDimensions?"是":"否"  %><br>
+    <label>所属任务:</label>  <%=  taskinfo._id  %><br>
+</div>
+
+<div class="wraper">
+    <h2>本次采样和上次相比的差异</h2>
+    <img src="<%= host%><%= diff_img %>" width="" height=""/>
+
+    <h2>本次采样</h2>
+    <img src="<%= host%><%= origin_img %>" />
+
+    <h2>上次采样：</h2>
+    <img src="<%= host%><%= diffwith_img %>" />
+</div>
+</body>
+
+</html>
