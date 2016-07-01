@@ -76,8 +76,18 @@ const RouterSets = {
                 hostname: req.hostname,
                 port: 3000
             });
+            const detailPageUrl = url.format({
+                protocol: req.protocol,
+                hostname: req.hostname,
+                port: 3000,
+                pathname: '/diff/detail',
+                query: req.query
+
+            });
+            console.log("@@@@@@@@@@", detailPageUrl, req)
             renderData = {
                 host,
+                detailPageUrl,
                 id: originInfo[idField],
                 title: '采集详情',
                 url: originInfo.url,
