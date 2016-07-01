@@ -1,18 +1,22 @@
-const fs = require('fs');
-const gm = require('gm').subClass({imageMagick: true});
+const sizeOf = require('image-size');
 const tool = {
     size(imagePath) {
-        return Promise.resolve().then(() => {
-            return new Promise((resolve, reject) => {
-                gm(imagePath).size((err, value) => {
+        return Promise.resolve().then(() =>
+            new Promise((resolve, reject) => {
+                sizeOf(imagePath, (err, dimensions) => {
                     if (err) {
+                        // console.log('~~~~~', err);
                         reject(err);
                     } else {
-                        resolve(value);
+                        // console.log('~~~~~', dimensions.width, dimensions.height);
+                        resolve({
+                            width: dimensions.width,
+                            height: dimensions.height
+                        });
                     }
                 });
-            });
-        });
+            })
+       );
     }
 };
 

@@ -25,13 +25,13 @@
 
 <div class="wraper">
     <h2>本次采样和上次相比的差异</h2>
-    <img src="<%= host%><%= diff_img %>" width="" height=""/>
+    <img src="<%= host%><%= diff_img %>" width="<%= diff_image_width %>" height="<%= diff_image_height %>"/>
 
     <h2>本次采样</h2>
-    <img src="<%= host%><%= origin_img %>" />
+    <img src="<%= host%><%= origin_img %>" width="<%= diff_image_width %>" height="<%= diff_image_height %>" />
 
     <h2>上次采样：</h2>
-    <img src="<%= host%><%= diffwith_img %>" />
+    <img src="<%= host%><%= diffwith_img %>"  width="<%= diff_image_width %>" height="<%= diff_image_height %>" />
 </div>
 </body>
 

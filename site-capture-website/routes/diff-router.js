@@ -100,11 +100,10 @@ const RouterSets = {
                 taskinfo: originInfo.taskinfo
             };
             return originInfo;
-        }).then( info => {
+        }).then(info => {
             const path = `${GLOBAL_CONFIG.captureImageSaveFolder}${info.filename}.${info.format}`;
-            loggie.info('diff image disk past:', path);
-            return null;
-            // return graphinfo.size(path);  todo
+            // loggie.info('diff image disk path:', path);
+            return graphinfo.size(path);
         }).then((value) => {
             if (value) {
                 renderData.diff_image_width = value.width;
