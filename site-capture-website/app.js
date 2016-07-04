@@ -7,7 +7,7 @@ const loggie = require('./lib/loggie').logger;
 const midLogger = require('./lib/loggie').midLogger;
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const GLOBAL_CONFIG = require('./config.js');
+const config = require('./config.js');
 const app = express();
 
 loggie.info('工程目录: ', __dirname);
@@ -31,7 +31,7 @@ const apiRouters = require('./routes/api-router');  // 用户管理
 
 app.use('/', rootRoutes);
 app.use('/public', express.static(path.join(__dirname, 'public')));
-app.use('/capture', express.static(GLOBAL_CONFIG.captureImageSaveFolder));
+app.use('/capture', express.static(config.captureImageSaveFolder));
 app.use('/diff', diffRoutes);
 app.use('/task', taskRoutes);
 app.use('/users', users);

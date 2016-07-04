@@ -1,13 +1,9 @@
-#!/usr/bin/env node
-
-/**
- * Module dependencies.
- */
 'use strict';
 const app = require('../app');
 const debug = require('debug')('blog:server');
 const http = require('http');
 const loggie = require('../lib/loggie').logger;
+const config = require('../config');
 
 /**
  * Get port from environment and store in Express.
@@ -16,19 +12,16 @@ function normalizePort(val) {
     const port = parseInt(val, 10);
 
     if (isNaN(port)) {
-        // named pipe
         return val;
     }
 
     if (port >= 0) {
-        // port number
         return port;
     }
-
     return false;
 }
 
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || config.port);
 app.set('port', port);
 
 /**

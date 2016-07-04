@@ -4,7 +4,7 @@ const express = require('express');
 const loggie = require('../lib/loggie').logger;
 const url = require('url');
 const graphinfo = require('../lib/graphinfo');
-const GLOBAL_CONFIG = require('../config.js');
+const config = require('../config.js');
 /* eslint-disable */
 const router = express.Router();
 /* eslint-enable */
@@ -79,12 +79,12 @@ const RouterSets = {
             const detailPageUrl = url.format({
                 protocol: req.protocol,
                 hostname: req.hostname,
-                port: 3000,
+                port: config.port,
                 pathname: '/diff/detail',
                 query: req.query
 
             });
-            console.log("@@@@@@@@@@", detailPageUrl, req)
+            // console.log("@@@@@@@@@@", detailPageUrl, req)
             renderData = {
                 host,
                 detailPageUrl,
@@ -111,7 +111,7 @@ const RouterSets = {
             };
             return originInfo;
         }).then(info => {
-            const path = `${GLOBAL_CONFIG.captureImageSaveFolder}${info.filename}.${info.format}`;
+            const path = `${config.captureImageSaveFolder}${info.filename}.${info.format}`;
             // loggie.info('diff image disk path:', path);
             return graphinfo.size(path);
         }).then((value) => {

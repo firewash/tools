@@ -15,6 +15,8 @@ const userAgentBase = 'Mozilla/5.0 (Windows NT 10.0; WOW64) Chrome/49.0.2623.87 
 const userAgent = `${userAgentBase} SiteCapture/1.0`;
 
 const GLOBAL_CONFIG = {
+    domain: '100.85.133.144',   // 网站域名
+    port: 3000,
     projectPath,          // 当前项目文件夹,虽然__dirname也好用,但是自己封装更放心
     captureImageSaveFolder, // 屏幕截图放置的磁盘位置
     captureImageQuality: 90,           // 屏幕截图的质量
