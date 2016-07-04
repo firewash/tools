@@ -6,9 +6,4 @@
 'use strict';
 
 require('../bin/www.js');
-const taskmgr = require('../lib/taskmanager');
-
-// 主函数
-(function main() {
-    taskmgr.launchAllTasks();
-}());
+require('../lib/taskmanager').launchAllTasks();

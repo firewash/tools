@@ -1,5 +1,5 @@
 'use strict';
-const app = require('../app');
+const app = require('../lib/app');
 const debug = require('debug')('blog:server');
 const http = require('http');
 const loggie = require('../lib/loggie').logger;
