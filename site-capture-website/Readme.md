@@ -7,12 +7,15 @@
 *本项目只是前台任务项目*
 
 ## 如何运行 ##
-步骤:
+生产环境-步骤:
 
 1. npm install
-2. 直接执行文件`run.bat`,或 `node bin/www`
+2. 直接执行文件`run.bat`，或 `npm run start`
+3. 访问 http://ip:80/
 
-
+开发环境-步骤:
 1. npm install
-2. 直接执行文件`run.bat`,或 `node index.js`
+2. 直接执行文件`npm run dev`
+3. 访问 http://ip:3000/
 
+备注：暂时开发和生成环境共享数据库配置。

@@ -7,16 +7,42 @@
  * */
 const path = require('path');
 const projectPath = __dirname;
+const mode = (process.env.MODE||'').trim() || 'dev';
 const dataPath = path.join(projectPath, '../', '/site-capture-data/');
-const logPath = path.join(dataPath, './log/console');
-const accessLogPath = path.join(dataPath, '/log/accesslog');
+const logPath = (function getLogPath() {
+    let p = null;
+    if (mode === 'production') {
+        p = path.join(dataPath, './log/console');
+    } else if (mode === 'dev') {
+        p = path.join(dataPath, './log-dev-mode/console');
+    }
+    return p;
+}());
+const accessLogPath = (function getLogPath() {
+    let p = null;
+    if (mode === 'production') {
+        p = path.join(dataPath, '/log/accesslog');
+    } else if (mode === 'dev') {
+        p = path.join(dataPath, '/log-dev-mode/accesslog');
+    }
+    return p;
+}());
 const captureImageSaveFolder = path.join(dataPath, '/result/');
 const userAgentBase = 'Mozilla/5.0 (Windows NT 10.0; WOW64) Chrome/49.0.2623.87 Safari/537.36';
 const userAgent = `${userAgentBase} SiteCapture/1.0`;
 
 const GLOBAL_CONFIG = {
     domain: '100.85.133.144',   // 网站域名
-    port: 3000,
+    port: (function getPort() {
+        let port = 80;
+        if (mode === 'production') {
+            port = 80;
+        } else {
+            port = 3000;
+        }
+        return port;
+    }()),
+    mode,
     projectPath,          // 当前项目文件夹,虽然__dirname也好用,但是自己封装更放心
     captureImageSaveFolder, // 屏幕截图放置的磁盘位置
     captureImageQuality: 90,           // 屏幕截图的质量

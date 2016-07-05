@@ -10,17 +10,9 @@
     </style>
 </head>
 <body>
-<div>
-    网站<a href="<%= url %>" target="_blank"><%= url %></a> 的监控结果，详细请在线查看：<a href="<%= detailPageUrl %>"><%= detailPageUrl %></a>
-</div>
-
-<div class="page-header">
-    <h1><%= title %></h1>
-</div>
-
 <div class="page-wraper" style="border:1px solid #ddf;padding:5px;">
-    <h2> 页面变化信息摘要</h2>
-    <label>网站:</label> <a href="<%= url %>" target="_blank"><%= url %></a>;<br>
+    <h2> 摘要</h2>
+    <p>网站<a href="<%= url %>" target="_blank"><%= url %></a> 的监控结果，详细请在线查看：<a href="<%= detailPageUrl %>"><%= detailPageUrl %></a></p>
     <label>采样时间:</label> <%= time %>;<br>
     <label>是否相似:</label> <%= diffinfo.similar ? "是" : "否" %> <label>差异率:</label> <%= diffratio %><br>
     <label>页面宽高保持未变: </label> <%= diffinfo.isSameDimensions ? "是" : "否" %><br>
@@ -29,15 +21,15 @@
 
 <span style="display:inline-block;">
     <h2>本次采样和上次相比的差异</h2>
-    <img src="<%= host %><%= diff_img %>" width="<%= diff_image_width %>" height="<%= diff_image_height %>"/>
+    <img src="<%= host + diff_img %>" width="<%= diff_image_width %>" height="<%= diff_image_height %>"/>
 </span>
 <span style="display:inline-block;">
     <h2>本次采样</h2>
-   <img src="<%= host %><%= origin_img %>" width="<%= diff_image_width %>" height="<%= diff_image_height %>"/>
+   <img src="<%= host + origin_img %>" width="<%= diff_image_width %>" height="<%= diff_image_height %>"/>
 </span>
 <span style="display:inline-block;">
     <h2>上次采样：</h2>
-    <img src="<%= host %><%= diffwith_img %>" width="<%= diff_image_width %>" height="<%= diff_image_height %>"/>
+    <img src="<%= host + diffwith_img %>" width="<%= diff_image_width %>" height="<%= diff_image_height %>"/>
 </span>
 
 
