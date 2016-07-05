@@ -44,7 +44,7 @@ class Capturer {
             pageIns = page;
             pageIns.setting('Cache-Control', 'max-age=0');// 清除缓存(防止多次抓取没有用)
             pageIns.setting('userAgent', gConfig.userAgent);// 这句话会导致程序出错中断执行
-            pageIns.setting('viewportSize', { width: 1024, height: 5000 });
+            pageIns.setting('viewportSize', { width: 1920, height: 1080 });
             // pageIns.setting('height', 4800);
 
             let url = option.url;
@@ -63,7 +63,8 @@ class Capturer {
             return new Promise(resolve => { // 给一些网站一些加载的时间
                 loggie.info('Waiting page full loaded.');
                 const fn = `function(){
-                    document.body.scrollTop = document.body.scrollHeight;
+                    // 这句话会导致导航的搜索框偏移到顶部，奇怪
+                    // document.body.scrollTop = document.body.scrollHeight;
                 }`;
                 pageIns.evaluateJavaScript(fn);
                 setTimeout(() => {
