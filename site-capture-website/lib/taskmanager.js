@@ -217,8 +217,9 @@ class TaskManager {
                                     && !targetData.diffinfo.similar;
             if (willSendMail) { // 误差大时，发邮件通知
                 notify.mail({
-                    contentUrl: `http://${gConfig.domain}:${gConfig.port}/diff/view-for-mail?_id=${targetData[idField]}`
+                    contentUrl: `http://${gConfig.domain}:${gConfig.port}/diff/view-for-mail?_id=${targetData[idField]}`,
                     // content: JSON.stringify(target_data)
+                    list: taskinfo.email_list
                 });
             } else {
                 loggie.info('Needless to send mail');
