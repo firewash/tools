@@ -25,8 +25,6 @@ const Transformer = {
     queryConditionOfCapture(_condition) {
         let a= Object.create(_condition);
 
-        console.log('!!!!!!!!!!!!', typeof a, typeof _condition.hazy, a.hasOwnProperty);
-
         const condition = {};
         // 处理模糊搜索的字段. 作为URL的模糊字段
         if (hasOwnKey(_condition, 'hazy')) {
