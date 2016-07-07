@@ -1,3 +1,7 @@
+/**
+* Ç°Ì¨ÍøÕ¾
+*/
+
 'use strict';
 const app = require('../lib/app');
 const debug = require('debug')('blog:server');
