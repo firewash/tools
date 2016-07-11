@@ -1,19 +1,14 @@
-/**
- * Mocha -t 20000
- * */
+/* global define, it, describe */
+/* eslint func-names: 'off', prefer-arrow-callback: 'off'  */
+
 
 'use strict';
-var expect = require("chai").expect;
-const capturer = require('../lib/capturer');
+const expect = require('chai').expect;
 
-
-describe('Capturer', function(){
-    describe('.capture', function(){
-        it('should save an image of url', function(){
-           return capturer.capture({url:"http://www.uc123.com",filename:"unittest_sitecapture"}).then(result=>{
-               console.log(result);
-               expect(result).to.have.key("timestamp_capture_complete");
-           });
-        });
+describe('Array', function () {
+    it('常识相等', function () {
+        expect('everthing').to.be.ok;
+        expect(false).to.not.be.ok;
+        expect(0).to.be.not.equal('0');
     });
 });

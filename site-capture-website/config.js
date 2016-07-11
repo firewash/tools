@@ -9,6 +9,7 @@ const path = require('path');
 const projectPath = __dirname;
 const mode = (process.env.MODE||'').trim() || 'dev';
 const dataPath = path.join(projectPath, '../', '/site-capture-data/');
+// todo: logPath和accessLogPath并结合loggie处理，这里区分mode的三种情况还有待于优化
 const logPath = (function getLogPath() {
     let p = null;
     if (mode === 'production') {

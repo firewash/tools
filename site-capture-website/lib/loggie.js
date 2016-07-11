@@ -25,13 +25,39 @@ log4js.configure({
             alwaysIncludePattern: true,
             maxLogSize: 1024,
             category: 'accessLog'
+        },
+        // 单元测试
+        {
+            type: 'dateFile',
+            filename: config.logPath,
+            pattern: '_yyyy-MM-dd-unittest.log',
+            alwaysIncludePattern: true,
+            maxLogSize: 1024,
+            reloadSecs: 300,
+            category: 'unittest' // 啥都不做
         }
     ],
     replaceConsole: true
 });
 
-const logger = log4js.getLogger('console');
-const accessLog = log4js.getLogger('accessLog');
+let logger = null;
+let accessLog = null;
+switch (config.mode) {
+case 'dev':
+    logger = log4js.getLogger('console');
+    accessLog = log4js.getLogger('accessLog');
+    break;
+case 'production':
+    logger = log4js.getLogger('console');
+    accessLog = log4js.getLogger('accessLog');
+    break;
+case 'unittest':
+    logger = log4js.getLogger('unittest');
+    accessLog = log4js.getLogger('unittest');
+    break;
+default:
+    Error('木有指定工程运行模式');
+}
 
 module.exports = {
     logger,

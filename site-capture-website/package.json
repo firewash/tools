@@ -1,5 +1,5 @@
 {
-  "name": "site-capture-website",
+  "name": "kaca",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -7,6 +7,7 @@
     "start": "set MODE=production && node ./bin/index.js",
     "dev": "node ./bin/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "unittest":"set MODE=unittest && node node_modules/mocha/bin/mocha test/*",
     "lint-test": "eslint lib",
     "lint": "eslint lib --ignore-path .eslintignore --output-file eslint-result.log && exit 0"
   },
@@ -23,7 +24,6 @@
     "jquery": "",
     "log4js": "^0.6.36",
     "mongodb": "",
-    "morgan": "^1.6.1",
     "node-resemble-js": "^0.0.5",
     "resemblejs": "^2.2.0",
     "node-schedule": "^1.1.0",
@@ -37,6 +37,7 @@
     "eslint-plugin-html": "^1.4.0",
     "eslint-plugin-import": "^1.6.1",
     "eslint-plugin-jsx-a11y": "^1.0.4",
-    "eslint-plugin-react": "^5.0.1"
+    "eslint-plugin-react": "^5.0.1",
+    "mocha": "^2.5.3"
   }
 }

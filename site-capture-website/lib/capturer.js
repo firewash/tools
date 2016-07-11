@@ -90,7 +90,7 @@ class Capturer {
             pageIns = null;
             phantomIns = null;
             option.timestamp_capture_complete = new Date();
-            // loggie.info('Capture callback type is ', typeof callback);
+            //loggie.info(option);
             return option;
         });/* .catch(err=>{
             loggie.info('Capture inner error:',err);
