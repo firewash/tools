@@ -12,7 +12,7 @@ const notify = require('../lib/notify');
 describe('Capturer', function () {
     describe('.capture', function () {
         it('Save an image on the disk.', function () {
-            this.timeout(10000);
+            this.timeout(100000);
             return capturer.capture({ url: 'http://www.uc123.com', filename: 'unittest_sitecapture' })
                 .then(result => {
                     expect(result)
