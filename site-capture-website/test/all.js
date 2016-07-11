@@ -7,6 +7,7 @@
 'use strict';
 const expect = require('chai').expect;
 const capturer = require('../lib/capturer');
+const notify = require('../lib/notify');
 
 describe('Capturer', function () {
     describe('.capture', function () {
@@ -19,6 +20,22 @@ describe('Capturer', function () {
                     expect(result.timestamp_capture_complete)
                         .to.instanceOf(Date);
                 });
+        });
+    });
+});
+
+describe('Notify', function () {
+    describe('.mail', function () {
+        it('send mail to box', function () {
+            console.log('before every test in every file');
+            this.timeout(10000);
+            notify.mail({
+                content: '123',
+                list: 'le.wangl1@alibaba-inc.com'
+            }, function (err, result) {
+                expect(result).to.be.ok;
+                done();
+            });
         });
     });
 });

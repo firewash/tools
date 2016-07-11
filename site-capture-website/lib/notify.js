@@ -37,7 +37,7 @@ function mail(opt, callback) {
         mail_priority: '3'
     };
 
-    sendMail(postData);
+    sendMail(postData, callback);
 }
 
 function sms(opt) {

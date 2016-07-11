@@ -10,5 +10,6 @@ describe('Array', function () {
         expect('everthing').to.be.ok;
         expect(false).to.not.be.ok;
         expect(0).to.be.not.equal('0');
+        // expect(0).to.be.equal('0');
     });
 });
