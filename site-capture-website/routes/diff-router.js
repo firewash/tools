@@ -74,7 +74,7 @@ const RouterSets = {
             const host = url.format({ // 页面环境信息
                 protocol: req.protocol,
                 hostname: req.hostname,
-                port: 3000
+                port: req.port
             });
             const detailPageUrl = url.format({
                 protocol: req.protocol,
