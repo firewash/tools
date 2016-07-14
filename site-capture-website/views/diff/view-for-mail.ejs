@@ -11,8 +11,9 @@
 </head>
 <body>
 <div class="page-wraper" style="border:1px solid #ddf;padding:5px;">
-    <h2> 摘要</h2>
-    <p>网站<a href="<%= url %>" target="_blank"><%= url %></a> 的监控结果，详细请在线查看：<a href="<%= detailPageUrl %>"><%= detailPageUrl %></a></p>
+    <span> 摘要: </span>
+    <span>网站<a href="<%= url %>" target="_blank"><%= url %></a> 的监控结果，详细请在线查看：<a href="<%= detailPageUrl %>"><%= detailPageUrl %></a></span>
+    <br />
     <label>采样时间:</label> <%= time %>;<br>
     <label>是否相似:</label> <%= diffinfo.similar ? "是" : "否" %> <label>差异率:</label> <%= diffratio %><br>
     <label>页面宽高保持未变: </label> <%= diffinfo.isSameDimensions ? "是" : "否" %><br>
