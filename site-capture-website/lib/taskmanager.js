@@ -12,6 +12,11 @@ const imageFolder = gConfig.captureImageSaveFolder;
 const taskQueue = { // 真正不停跑定时任务的管理器
     // task_id;{taskinfo:json, job:object, expired:bool}
 };
+
+const events = {
+    'progress':[]
+}
+
 dboperator.config = gConfig;
 
 // 粗暴的判断两个JSON是否内容相同
@@ -19,6 +24,23 @@ function isJsonEquals(jsonA, jsonB) {
     return JSON.stringify(jsonA) === JSON.stringify(jsonB);
 }
 class TaskManager {
+    // 事件管理
+    addEventListener(eventName, fn) {
+        events[eventName].push(fn);
+    }
+    removeEventListener(eventName, fn) {
+        const index = events[eventName].indexOf(fn);
+        if (index > -1) events[eventName].splice(fn);
+    }
+    triggerEvent(eventName, ctx, data) {
+        const event = events[eventName];
+        if (event && event.length) {
+            event.forEach(fn => {
+                fn.call(ctx, data);
+            });
+        }
+    }
+
     // 取出所有任务并执行
     launchAllTasks() {
         loggie.info('首次获取并执行所有任务');
@@ -161,7 +183,7 @@ class TaskManager {
 
     // 执行一个任务,执行一次(忽略任务中的enabled标志)
     executeTask(taskinfo) {
-        loggie.info('Run a task:', taskinfo);
+        loggie.info('Run a capture task:', taskinfo);
         if (!taskinfo) return;
 
         // 预处理一下数据
@@ -178,9 +200,9 @@ class TaskManager {
             taskinfo
         };
 
-        loggie.info('立即执行这个截图任务');
+        this.triggerEvent('progress', taskinfo, { message: '准备执行' });
         capturer.capture(opt).then(data => {
-            // loggie.info('Thenable capturer.capture');
+            this.triggerEvent('progress', taskinfo, { message: '截图完成' });
             Object.assign(targetData, data);
             loggie.info('In afterCpture,target is:', data);
             return dboperator.getLastestCaptureEntry({ url: data.url });
@@ -188,6 +210,7 @@ class TaskManager {
             let returnValue = null;
             if (lastData) {
                 loggie.info('Has a pre capture, now diff with it.');
+                this.triggerEvent('progress', taskinfo, { message: '获取上次截屏信息' });
                 targetData.diffwith = lastData[idField];
                 const resultFileName = `${targetData.filename}_diff`;
                 const diffOption = {
@@ -196,13 +219,14 @@ class TaskManager {
                     resultfile: `${imageFolder}${resultFileName}.${targetData.format}`
                 };
                 loggie.info('Before diff, diffOption is: ', diffOption);
+                this.triggerEvent('progress', taskinfo, { message: '准备对比' });
                 returnValue = comparer.diff(diffOption).then(data => {
                     loggie.info('Diff success. add diff info  to target data', data);
                     targetData.diffinfo = data;
                     if (!targetData.diffinfo.similar) {
                         targetData.diffinfo.diffimg = resultFileName;
                     }
-                    // loggie.info(data)
+                    this.triggerEvent('progress', taskinfo, { message: '完成对比' });
                 });
             } else {
                 loggie.info('No last data');
@@ -212,6 +236,7 @@ class TaskManager {
             loggie.info('Will dboperator.saveCaptureData');
             return dboperator.saveCaptureData(targetData);
         }).then(() => {
+            this.triggerEvent('progress', taskinfo, { message: '数据已经存储' });
             const willSendMail = taskinfo.email_notify_enabled
                                     && targetData.diffinfo
                                     && !targetData.diffinfo.similar;
@@ -226,6 +251,7 @@ class TaskManager {
             }
         }).catch(err => {
             loggie.error('Error when capturer.capture:', err);
+            this.triggerEvent('progress', taskinfo, { message: '发生异常' });
             targetData.error = { message: err.message };
             dboperator.saveCaptureData(targetData);
         });

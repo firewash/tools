@@ -21,10 +21,14 @@ function mail(opt, callback) {
     if (opt.contentUrl) {
         const newOpt = opt;
         request.get(opt.contentUrl, (err, result) => {
-            newOpt.content = result.body.trim();
-            delete newOpt.contentUrl;
-            loggie.info('Will send mail: ', newOpt);
-            mail(newOpt, callback);
+            if (err) {
+                loggie.info('Notify.mail error: ', err);
+            } else {
+                newOpt.content = result.body.trim();
+                delete newOpt.contentUrl;
+                loggie.info('Will send mail: ', newOpt);
+                mail(newOpt, callback);
+            }
         });
         return;
     }

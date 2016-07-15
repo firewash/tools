@@ -363,18 +363,36 @@
                 },error:function(e){
                     alert("请求失败,刷新再试."+ JSON.stringify(e));
                 }
-            })
-
-
-
+            });
         });
     };
+
+    //通过SSE定时同步任务状态
+    function initStateSync() {
+        var es = new EventSource("/task/statesync");
+        window.es = es;
+        es.addEventListener("message",function(msg){
+            console.log("message",msg)
+        });
+        es.addEventListener("open",function(msg){
+            console.log("open",msg)
+        });
+        es.addEventListener("error",function(msg){
+            console.log("error",msg)
+            es.close();
+        });
+        es.addEventListener("close",function(msg){
+            console.log("close",msg);
+            //todo 此处再次重连。（为了释放服务器端内存专门要得这样搞得）
+        });
+    }
 
     //开始
     $(function () {
         var data = <%- JSON.stringify(data) %>;
         renderList(data);
         bindEvent();
+        initStateSync();
     })
 
 </script>
