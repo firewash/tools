@@ -1,13 +1,17 @@
 'use strict';
+
 /**
  * 业务运行时的全局配置.
  *
  * 注意:capture相关几个工程的配置要同步.
  *
  * */
+const loggie = require('./lib/loggie').logger;
 const path = require('path');
-const projectPath = __dirname;
-const mode = (process.env.MODE||'').trim() || 'dev';
+const projectPath = path.join(__dirname, '..');
+// loggie.info('工程目录: ', projectPath);
+const distPath = path.join(projectPath, 'build');
+const mode = (process.env.MODE || '').trim() || 'dev';
 const dataPath = path.join(projectPath, '../', '/site-capture-data/');
 // todo: logPath和accessLogPath并结合loggie处理，这里区分mode的三种情况还有待于优化
 const logPath = (function getLogPath() {
@@ -45,6 +49,7 @@ const GLOBAL_CONFIG = {
     }()),
     mode,
     projectPath,          // 当前项目文件夹,虽然__dirname也好用,但是自己封装更放心
+    distPath,
     captureImageSaveFolder, // 屏幕截图放置的磁盘位置
     captureImageQuality: 90,           // 屏幕截图的质量
     namePrefix: 'tool_site_capture_unknown_site',   // 图片存储的前缀

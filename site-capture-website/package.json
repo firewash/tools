@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "www": "node ./bin/www",
-    "start": "set MODE=production && node ./bin/index.js",
-    "dev": "node ./bin/index.js",
+    "www": "node build/bin/www",
+    "start": "set MODE=production && node build/bin/index.js",
+    "dev": "node build/bin/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "unittest": "set MODE=unittest && node node_modules/mocha/bin/mocha test/*",
     "lint-test": "eslint lib",
@@ -21,14 +21,15 @@
     "express": "^4.13.1",
     "gm": "^1.22.0",
     "image-size": "^0.5.0",
-    "jquery": "^3.1.0",
+    "jquery": "^1.9.1",
     "log4js": "^0.6.36",
     "mongodb": "^2.2.4",
     "node-resemble-js": "^0.0.5",
     "node-schedule": "^1.1.0",
     "phantom": "^2.0.10",
     "resemblejs": "^2.2.0",
-    "serve-favicon": "^2.3.0"
+    "serve-favicon": "^2.3.0",
+    "vue": "^1.0.26"
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -39,6 +40,7 @@
     "eslint-plugin-import": "^1.6.1",
     "eslint-plugin-jsx-a11y": "^1.0.4",
     "eslint-plugin-react": "^5.0.1",
+    "gulp": "^3.9.1",
     "mocha": "^2.5.3"
   }
 }

@@ -11,7 +11,7 @@ const config = require('../config.js');
 const app = express();
 
 const rootdir = path.join(__dirname, '..');
-loggie.info('工程目录: ', rootdir);
+
 
 // view engine setup
 app.set('views', path.join(rootdir, 'views'));
