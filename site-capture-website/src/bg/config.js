@@ -8,8 +8,8 @@
  * */
 const loggie = require('./lib/loggie').logger;
 const path = require('path');
-const projectPath = path.join(__dirname, '..');
-// loggie.info('工程目录: ', projectPath);
+const projectPath = path.join(__dirname, '../..');
+console.log('工程目录: ', projectPath);
 const distPath = path.join(projectPath, 'build');
 const mode = (process.env.MODE || '').trim() || 'dev';
 const dataPath = path.join(projectPath, '../', '/site-capture-data/');

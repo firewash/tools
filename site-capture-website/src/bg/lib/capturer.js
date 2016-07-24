@@ -4,7 +4,7 @@ const phantom = require('phantom');
 const gConfig = require('../config.js');
 const path = require('path');
 const URL = require('url');
-const loggie = require('../lib/loggie').logger;
+const loggie = require('../lib/loggie.js').logger;
 
 const localConfig = {
     captureImageSaveFolder: gConfig.captureImageSaveFolder,

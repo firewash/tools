@@ -1,6 +1,6 @@
 'use strict';
 
-const loggie = require('../lib/loggie').logger;
+const loggie = require('./loggie').logger;
 const gConfig = require('../config.js');
 const comparer = require('./comparer');
 const capturer = require('./capturer');
@@ -14,7 +14,7 @@ const taskQueue = { // 真正不停跑定时任务的管理器
 };
 
 const events = {
-    'progress':[]
+    progress: []
 }
 
 dboperator.config = gConfig;
@@ -98,6 +98,7 @@ class TaskManager {
      *   如果已经有相同task的任务，则会删除重新创建。
      */
     scheduleTask(task) {
+        console.log('~~~~~~~~~', loggie.info);
         loggie.info('In scheduleTask fn, task param: ', task);
         let scheduleResult = false;
         if (task.enabled && task.startdate && task.starttime && this.isTaskUpdated(task)) {
@@ -255,6 +256,10 @@ class TaskManager {
             targetData.error = { message: err.message };
             dboperator.saveCaptureData(targetData);
         });
+    }
+
+    test(){
+        console.log(1);
     }
 }
 

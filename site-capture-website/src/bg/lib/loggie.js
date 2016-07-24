@@ -43,21 +43,20 @@ log4js.configure({
 let logger = null;
 let accessLog = null;
 switch (config.mode) {
-case 'dev':
-case 'unittest':
-    logger = log4js.getLogger('console');
-    accessLog = log4js.getLogger('accessLog');
-    break;
-case 'production':
-    logger = log4js.getLogger('console');
-    accessLog = log4js.getLogger('accessLog');
-    break;
 // case 'unittest':
 //    logger = log4js.getLogger('unittest');
 //    accessLog = log4js.getLogger('unittest');
 //    break;
+case 'production':
+    logger = log4js.getLogger('console');
+    accessLog = log4js.getLogger('accessLog');
+    break;
+case 'dev':
+case 'unittest':
 default:
-    Error('木有指定工程运行模式');
+    logger = log4js.getLogger('console');
+    accessLog = log4js.getLogger('accessLog');
+    break;
 }
 
 module.exports = {

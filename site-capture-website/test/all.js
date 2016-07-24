@@ -6,15 +6,14 @@
 
 'use strict';
 const expect = require('chai').expect;
-const capturer = require('../lib/capturer');
-const notify = require('../lib/notify');
-const taskmanager = require('../lib/taskmanager');
+const capturer = require('../src/bg/lib/capturer');
+const notify = require('../src/bg/lib/notify');
+const taskmanager = require('../src/bg/lib/taskmanager');
 
 describe('Capturer', function () {
     describe('.capture', function () {
-        return;
         it('Save an image on the disk.', function () {
-            this.timeout(100000);
+            this.timeout(10000);
             return capturer.capture({ url: 'http://www.uc123.com', filename: 'unittest_sitecapture' })
                 .then(result => {
                     expect(result)

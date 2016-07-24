@@ -4,3 +4,5 @@ data
 /site-capture-website/*.log
 /site-capture-website/log/*.log
 /site-capture-website/build
+/site-capture-website/test/coverage
+/site-capture-website/coverage
