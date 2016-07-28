@@ -5,12 +5,34 @@
 /* eslint func-names: 'off', prefer-arrow-callback: 'off'  */
 
 'use strict';
+
+// common
 const expect = require('chai').expect;
+const path = require('path');
+
+// busyness
 const capturer = require('../src/bg/lib/capturer');
 const notify = require('../src/bg/lib/notify');
 const taskmanager = require('../src/bg/lib/taskmanager');
+const comparer = require('../src/bg/lib/comparer');
 
-describe('Capturer', function () {
+const testCaseFolder = __dirname;
+
+describe('Comparer', function () {
+    describe('diff', function () {
+        it('two same', function () {
+            const opt = {
+                target: path.join(testCaseFolder, 'assets/target.png'),
+                other: path.join(testCaseFolder, 'assets/other.png'),
+                resultfile: path.join(testCaseFolder, 'assets/result.png'),
+                ignore: []
+            };
+            comparer.diff(opt);
+        });
+    });
+});
+
+describe('Capturer', function () {return;
     describe('.capture', function () {
         it('Save an image on the disk.', function () {
             this.timeout(10000);
@@ -25,7 +47,7 @@ describe('Capturer', function () {
     });
 });
 
-describe('TaskManager', function () {
+describe('TaskManager', function () {return;
     describe('.isTaskUpdated', function () {
         before(function(){
             taskmanager.scheduleTask({taskinfo: {
@@ -80,7 +102,7 @@ describe('TaskManager', function () {
     });
 });
 
-describe('Notify', function () {
+describe('Notify', function () {return;
     describe('.mail', function () {
         it('send mail to box', function () {
             console.log('before every test in every file');

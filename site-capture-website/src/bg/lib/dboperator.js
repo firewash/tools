@@ -72,6 +72,7 @@ const Transformer = {
                                     || data.email_notify_enabled === 'on',
             email_list: data.email_list,
             enabled: data.enabled === true || data.enabled === 'true' || data.enabled === 'on',
+            ignore: data.ignore,
             createtime: new Date()
         };
         loggie.info('Transformer.taskDoc', data, newData);

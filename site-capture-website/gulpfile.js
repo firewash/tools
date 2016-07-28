@@ -13,6 +13,7 @@ gulp.task('bg-compiler', () => {
 });
 
 gulp.task('bg-service', () => {
+    return; // gulp配合webstorm时，就不要启动了。
     const nodemonConfig = {
         script: 'build/bg/bin/index.js',
         // ignore : [

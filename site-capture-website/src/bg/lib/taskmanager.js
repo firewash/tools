@@ -214,10 +214,17 @@ class TaskManager {
                 this.triggerEvent('progress', taskinfo, { message: '获取上次截屏信息' });
                 targetData.diffwith = lastData[idField];
                 const resultFileName = `${targetData.filename}_diff`;
+                let ignore;
+                try {
+                    ignore = JSON.parse(taskinfo.ignore);
+                } catch (e) {
+                    ignore = null;
+                }
                 const diffOption = {
                     target: `${imageFolder}${targetData.filename}.${targetData.format}`,
                     other: `${imageFolder}${lastData.filename}.${lastData.format}`,
-                    resultfile: `${imageFolder}${resultFileName}.${targetData.format}`
+                    resultfile: `${imageFolder}${resultFileName}.${targetData.format}`,
+                    ignore
                 };
                 loggie.info('Before diff, diffOption is: ', diffOption);
                 this.triggerEvent('progress', taskinfo, { message: '准备对比' });
@@ -258,7 +265,7 @@ class TaskManager {
         });
     }
 
-    test(){
+    test() {
         console.log(1);
     }
 }

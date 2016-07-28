@@ -5,8 +5,11 @@ const config = require('../config');
 
 log4js.configure({
     appenders: [
-        // 后台运行的记录
-        { type: 'console', category: 'console' },
+        // 生产环境
+        {
+            type: 'console',
+            category: 'production_bgLog'
+        },
         {
             type: 'dateFile',
             filename: config.logPath,
@@ -14,19 +17,21 @@ log4js.configure({
             alwaysIncludePattern: true,
             maxLogSize: 1024,
             reloadSecs: 300,
-            category: 'console'
+            category: 'production_bgLog'
         },
-        // accessLog:用户访问记录
-        { type: 'console', category: 'accessLog' },
+        {
+            type: 'console',
+            category: 'production_accessLog'
+        },
         {
             type: 'dateFile',
             filename: config.accessLogPath,
             pattern: '_yyyy-MM-dd.log',
             alwaysIncludePattern: true,
             maxLogSize: 1024,
-            category: 'accessLog'
+            category: 'production_accessLog'
         },
-        // 单元测试
+        // 开发 & 单元测试
         {
             type: 'dateFile',
             filename: config.logPath,
@@ -34,28 +39,41 @@ log4js.configure({
             alwaysIncludePattern: true,
             maxLogSize: 1024,
             reloadSecs: 300,
-            category: 'unittest' // 啥都不做
+            // category: 'dev_bgLog'
+        },
+        {
+            type: 'console',
+            category: 'dev_bgLog'
+        },
+        {
+            type: 'console',
+            category: 'dev_accessLog'
+        },
+        {
+            type: 'dateFile',
+            filename: config.accessLogPath,
+            pattern: '_yyyy-MM-dd.log',
+            alwaysIncludePattern: true,
+            maxLogSize: 1024,
+            category: 'dev_accessLog'
         }
+
     ],
-    replaceConsole: true
+    replaceConsole: false
 });
 
 let logger = null;
 let accessLog = null;
 switch (config.mode) {
-// case 'unittest':
-//    logger = log4js.getLogger('unittest');
-//    accessLog = log4js.getLogger('unittest');
-//    break;
 case 'production':
-    logger = log4js.getLogger('console');
-    accessLog = log4js.getLogger('accessLog');
+    logger = log4js.getLogger('production_bgLog');
+    accessLog = log4js.getLogger('production_accessLog');
     break;
 case 'dev':
 case 'unittest':
 default:
-    logger = log4js.getLogger('console');
-    accessLog = log4js.getLogger('accessLog');
+    logger = log4js.getLogger('dev_bgLog');
+    accessLog = log4js.getLogger('dev_accessLog');
     break;
 }
 

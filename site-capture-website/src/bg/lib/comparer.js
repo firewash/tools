@@ -44,35 +44,42 @@ class Comparer {
         const other = opt.other;
         const resultfile = opt.resultfile;
         const ratioBaseline = opt.ratio || RATIO_BASELINE_DEFAULT;
+        const ignore = opt.ignore || [];
 
-        return new Promise((resolve, reject) => {
-            try {
-                const fileDataTarget = fs.readFileSync(target);
-                const fileDataOther = fs.readFileSync(other);
-
-                resemble(fileDataTarget)
-                    .compareTo(fileDataOther)
-                    .ignoreNothing()
-                    .onComplete(_data => {
-                        const data = dataTransfer4resemble2system(_data);
-                        loggie.info('Resemble diff complete', data);
-                        opt.diffinfo = data;
-                        opt.ratio_baseline = ratioBaseline;
-                        if (+data.misMatchPercentage <= ratioBaseline) {
-                            data.similar = true;
-                            data.message = 'misMatchPercentage too low,donnot save compare result~';
-                        } else {
-                            loggie.info('Save diff image to ', resultfile);
-                            data.similar = false;
-                            _data.getDiffImage().pack().pipe(fs.createWriteStream(resultfile));
-                        }
-                        resolve(data);
-                    });
-            } catch (e) {   // TODO: 文件比如other在磁盘上不存在时的异常，try目前捕获不到。奇怪
-                loggie.error('Catch diff err: ', e);
-                reject({ msg: e.msg }, null);
-            }
+        return Promise.resolve().then(() => {
+            console.log('promise start');
+            return new Promise((resolve, reject) => {
+                try {
+                    // const fileDataTarget = fs.readFileSync(target);
+                    // const fileDataOther = fs.readFileSync(other);
+                    console.log('Will compare 11...');
+                    resemble(target).compareTo(other)
+                        .ignoreRectangles(ignore)
+                        .onComplete(function (_data) {
+                            console.log('true onComplete');
+                            const data = dataTransfer4resemble2system(_data);
+                            loggie.info('Resemble diff complete', data);
+                            opt.diffinfo = data;
+                            opt.ratio_baseline = ratioBaseline;
+                            if (+data.misMatchPercentage <= ratioBaseline) {
+                                data.similar = true;
+                                data.message = 'misMatchPercentage too low,donnot save compare result~';
+                            } else {
+                                loggie.info('Save diff image to ', resultfile);
+                                data.similar = false;
+                                _data.getDiffImage().pack().pipe(fs.createWriteStream(resultfile));
+                            }
+                            resolve(data);
+                        });
+                    console.log('after resemble');
+                } catch (e) {   // TODO: 文件比如other在磁盘上不存在时的异常，try目前捕获不到。奇怪
+                    loggie.error('Catch diff err: ', e);
+                    reject({ msg: e.msg }, null);
+                }
+            });
         });
+
+
     }
 }
 
