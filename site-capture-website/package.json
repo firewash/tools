@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "gulp",
+    "db": "mongod.exe --config=mongodb.conf",
     "start": "set MODE=production && node build/bg/bin/index.js",
     "dev": "node build/bg/bin/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
