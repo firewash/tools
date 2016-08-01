@@ -24,6 +24,10 @@ router.get('/list', (req, res) => {
         });
 });
 
+router.get('/ignorearea', (req, res) => {
+    res.render('task/ignorearea');
+});
+
 // Server-sent Event专用API，用来推送任务状态
 router.get('/statesync', (req, res) => {
     const retry = 1000 * 60 * 5; // ms

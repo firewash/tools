@@ -31,6 +31,9 @@
 
         <div class="form-group">
             <label for="name">忽略区域</label>
+            <label>
+                <a id="gate_ignore_editor" href='javascript:void 0;'> 在大窗口中编辑 </a>
+            </label>
             <input type="text" class="form-control" id="ignore"  name="ignore" placeholder="二维数组，形如[[0,0,100,200],[第二个矩形区域],...]"  v-model="ignore">
         </div>
 
@@ -54,3 +57,10 @@
         </div>
     </div>
 </form>
+<script>
+    (function(){
+        $("#gate_ignore_editor").click(function(e){
+            var sub = window.open('/task/ignorearea');
+        });
+    })();
+</script>
