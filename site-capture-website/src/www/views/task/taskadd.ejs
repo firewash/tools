@@ -28,12 +28,19 @@
                 <input type="radio" id="scheduled_checkbox3" name="scheduled" placeholder="每天" value="perday">每天
             </label>
         </div>
-
         <div class="form-group">
-            <label for="name">忽略区域</label>
-            <label>
+            <label for="">浏览器设置</label>
+            <p>
+                <input type="number" class="form-control" id="agent_width"  name="agent-width" placeholder="浏览器的宽"  v-model="agent_width" style="width:120px;">
+                <input type="number" class="form-control" id="agent_height"  name="agent-height" placeholder="浏览器的高"  v-model="agent_height" style="width:120px;">
+            </p>
+
+        </div>
+        <div class="form-group">
+            <label for="gate_ignore_editor">忽略区域</label>
+            <p>
                 <a id="gate_ignore_editor" href='javascript:void 0;'> 在大窗口中编辑 </a>
-            </label>
+            </p>
             <input type="text" class="form-control" id="ignore"  name="ignore" placeholder="二维数组，形如[[0,0,100,200],[第二个矩形区域],...]"  v-model="ignore">
         </div>
 
@@ -59,6 +66,42 @@
 </form>
 <script>
     (function(){
+        var data = {
+            url:"",
+            interval:0,
+            name_prefix:"",
+            enabled:true,
+            agent_width: 1024,
+            agent_height: 3000,
+            ignore:''
+        };
+        window.data = data; // 暴露给ignorearea,ejs用
+        // 数据绑定
+        new Vue({
+            el: '#task_add_form',
+            data:data ,
+            computed:{
+                domain:function(){
+                    var host = "";
+                    try{
+                        host = new URL(/^https?:/.test(this.url)?this.url:"http://"+this.url).host;
+                    }catch(e){
+                        console.log(e)
+                    }
+                    return host;
+                },
+                name_prefix:function(){
+                    var str = "";
+                    try{
+                        str = new URL(/^http[s]*:/.test(this.url)?this.url:"http://"+this.url).host;
+                    }catch(e){
+                        str = this.url;
+                    }
+                    return str;
+                }
+            }
+        });
+
         $("#gate_ignore_editor").click(function(e){
             var sub = window.open('/task/ignorearea');
         });

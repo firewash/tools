@@ -14,29 +14,46 @@
 </head>
 <body>
 
-<div style="position:sticky;z-index: 2;top:0;left:0;background:#f0c674;">
-    <p>
-        <label>窗口大小: </label>
-        <input type="text" v-model="winWidth">*<input type="text" v-model="winHeight">
-        <span>（后台截屏时将以这个大小截屏）</span>
-    </p>
-    <p>
-        <label>当前选择的结果：</label>
-        <textarea id="result" style="width:300px;height:100px;"></textarea>
-    </p>
+<div style="position:fixed;z-index: 2;top:0;left:0;width:100%;background:#f0c674;vertical-align: top">
+    <form action="#">
+        <p>
+            <label>窗口大小: </label>
+            <input type="text" v-model="agent_width">*<input type="text" v-model="agent_height">
+            <span>（后台截屏时将以这个大小截屏）</span>
+        </p>
+        <p>
+            <label>当前选择的结果：</label>
+            <textarea id="result" style="width:300px;height:60px;" v-model="ignore"></textarea>
+        </p>
+        <p>
+            <button id="btn_confirm" type="button">确定</button>
+            <!--<button type="reset">重置</button>-->
+            <button id="btn_cancel" type="button">取消</button>
+        </p>
+    </form>
+
 </div>
 
-<div id="wrap" style="potision:relative;height: 4000px;margin:100px auto;border:1px solid red;" v-bind:style="{ width:winWidth+'px' }">
+<div id="wrap" style="position:relative;height: 4000px;margin:160px auto;border:1px solid red;" v-bind:style="{ width:winWidth+'px' }">
     <iframe id="contentFrame" src="http://www.uc123.com" style="width:100%;height:100%"></iframe>
     <div id="selectLayer" style="position:absolute;left:0;top:0;width:100%;height:100%;background: rgba(0,0,0,0.3);"></div>
 </div>
 </body>
 
 <script>
+    //备用
+    function copy(src,dest){
+        for(var key in src){
+            dest[key]=src[key];
+        }
+    }
+
+    var pdata = window.opener.data;
+
     var config = {
-        winWidth:1024,
-        winHeight:3000,
-        data:null,
+        agent_width:  pdata.agent_width,
+        agent_height:  pdata.agent_height,
+        ignore: pdata.ignore,
     };
 
     new Vue({
@@ -44,10 +61,28 @@
         data: config
     });
 
-    $('#wrap').partition({
+    $('#selectLayer').partition({
+        pos: pdata.ignore,
         selectChanged: function(data){
-            result.value = JSON.stringify(data);
+            config.ignore = JSON.stringify(data);
         }
+    })
+
+    $('#btn_confirm').click(function(e){
+        if(pdata){
+            pdata.ignore = config.ignore;
+            pdata.agent_width = config.agent_width;
+            pdata.agent_height= config.agent_height;
+        }else{
+            alert('父窗口不存在');
+        }
+        window.close();
+        return false;
+    });
+
+    $("#btn_cancel").click(function(e){
+        window.close();
+        return false;
     })
 </script>
 </html>

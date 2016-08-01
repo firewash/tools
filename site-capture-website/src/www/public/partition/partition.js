@@ -69,6 +69,7 @@ jQuery.fn.extend(
                 // 添加
                 list.add(item);
                 self.append(dom);
+                item.render();
                 return item;
             };
 
@@ -101,40 +102,57 @@ jQuery.fn.extend(
                 return t;
             }
 
-            // 开始
-            // 初始化最外层
-            (function() {
-                self.addClass('partition');
-            }());
-
-            // 创建初始层
-            (function() {
-                var d = option.pos||[];
-                d.forEach(function(item){
-                    createItem(item[0],item[1],item[2],item[3]);
-                })
-            }());
-
-            var cur = null;
-            self.mousedown(function(e) {
-                self.addClass('dragging');
-                autoRender();
-                var x = e.offsetX, y = e.offsetY;
-                cur = createItem(x, y, x, y);
-                // console.log(e);
-            }).mousemove(function(e) {
-                if(cur) {
-                    var x = e.offsetX, y = e.offsetY;
-                    cur.end(x, y);
+            //设置数据
+            function setPosData(data){
+                if(typeof data === 'string'){
+                    try{
+                        data = JSON.parse(data);
+                    }catch(e){
+                        throw Error('setPosData data error,', data);
+                        return;
+                    }
                 }
-            });
-            $(document).mouseup(function() {
-                self.removeClass('dragging');
-                cur = null;
-                console.log('list: ', list);
-                stable();
-                cancelRender();
-            });
+                list.forEach(function(item){
+                    item[4].removeSelf();
+                });
+                data.forEach(function(item){
+                    createItem(item[0],item[1],item[2],item[3]);
+                });
+
+            }
+
+            // 开始
+            function init(){
+                // 初始化最外层;
+                self.addClass('partition');
+
+                // 创建初始数据
+                setPosData(option.pos);
+
+                //事件绑定
+                var cur = null;
+                self.mousedown(function(e) {
+                    self.addClass('dragging');
+                    autoRender();
+                    var x = e.offsetX, y = e.offsetY;
+                    cur = createItem(x, y, x, y);
+                    // console.log(e);
+                }).mousemove(function(e) {
+                    if(cur) {
+                        var x = e.offsetX, y = e.offsetY;
+                        cur.end(x, y);
+                    }
+                });
+                $(document).mouseup(function() {
+                    self.removeClass('dragging');
+                    cur = null;
+                    console.log('list: ', list);
+                    stable();
+                    cancelRender();
+                });
+            }
+            init();
+
         }
     }
 );

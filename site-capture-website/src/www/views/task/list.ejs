@@ -129,36 +129,6 @@
     }
     //添加任务的表单数据绑定
     !function (){
-        new Vue({
-            el: '#task_add_form',
-            data: {
-                url:"",
-                interval:0,
-                name_prefix:"",
-                enabled:true
-            },
-            computed:{
-                domain:function(){
-                    var host = "";
-                    try{
-                        host = new URL(/^https?:/.test(this.url)?this.url:"http://"+this.url).host;
-                    }catch(e){
-                        console.log(e)
-                    }
-                    return host;
-                },
-                name_prefix:function(){
-                    var str = "";
-                    try{
-                        str = new URL(/^http[s]*:/.test(this.url)?this.url:"http://"+this.url).host;
-                    }catch(e){
-                        str = this.url;
-                    }
-                    return str;
-                }
-            }
-        });
-
         var myModel = window.task_update_form_model = {
             id:"11",
             domain:"",
