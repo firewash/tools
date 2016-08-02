@@ -1,0 +1,185 @@
+<div class="modal fade" id="TaskEditorModel" tabindex="-1" role="dialog"
+     aria-labelledby="TaskEditorModel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    {{id ? '修改一个任务' : '添加一个任务'}}
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form id="task_edit_form" class="form-inline1" action="/api/task/add" method="post" role="form">
+                    <div class="form-group" v-if="id">
+                        <label for="_id">任务ID</label>
+                        <input type="text" class="form-control" id="update_id" name="_id" v-model="id" readonly title=""/>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">URL</label>
+                        <input type="url" class="form-control" id="url" name="url" required pattern="https?://.+" placeholder="请输入网址(http[s]://...)" v-model="url">
+                    </div>
+                    <div class="form-group ">
+                        <label for="name">Domain</label>
+                        <input type="text" class="form-control" id="domain" name="domain" placeholder="请输入域名" v-model="domain">
+                        <!--<label for="name">定时执行</label>-->
+                        <!--<input type="number" class="form-control" id="interval" name="interval" placeholder="毫秒(0或者为空表示不定期执行)">-->
+                        <label for="name">文件前缀</label>
+                        <input type="text" class="form-control" id="name_prefix"  name="name_prefix" placeholder="存储在磁盘上的图片前缀"  v-model="name_prefix">
+
+                        <label for="name">开始时间</label>
+                        <div>
+                            <input type="date" class="form-control" id="startdate" name="startdate" placeholder="开始日期" v-model="startdate">
+                            <input type="time" class="form-control" id="starttime" name="starttime" placeholder="开始时间" v-model="starttime">
+                        </div>
+                        <label >定时执行</label>
+                        <div>
+                            <label class="checkbox-inline">
+                                <input type="radio"  id="scheduled_checkbox1" name="scheduled" placeholder="一次性" value="onetime" v-model="scheduled">一次性
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="radio" id="scheduled_checkbox2" name="scheduled" placeholder="每小时" value="perhour" v-model="scheduled">每小时
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="radio" id="scheduled_checkbox3" name="scheduled" placeholder="每天" value="perday" v-model="scheduled">每天
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="">浏览器设置</label>
+                            <div>
+                                <div class=" checkbox-inline">
+                                    <label for="">宽</label>
+                                    <input type="number" class="form-control checkbox-inline" id="agent_width"  name="agent_width" placeholder="浏览器的宽"  v-model="agent_width" style="width:120px;">
+                                </div>
+                                <div class=" checkbox-inline">
+                                    <label for="">高</label>
+                                    <input type="number" class="form-control checkbox-inline" id="agent_height"  name="agent_height" placeholder="浏览器的高"  v-model="agent_height" style="width:120px;">
+                                </div>
+                            </div>
+                            <div >
+                                <div >
+                                    <label for="">UA</label>
+                                    <input type="text" class="form-control checkbox-inline" id="useragent"  name="useragent" placeholder="UserAgent字符"  v-model="useragent" style="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="gate_ignore_editor">忽略区域</label>
+                            <p>
+                                <a id="gate_ignore_editor" href='javascript:void 0;'> 在大窗口中编辑 </a>
+                            </p>
+                            <input type="text" class="form-control" id="ignore"  name="ignore" placeholder="二维数组，形如[[0,0,100,200],[第二个矩形区域],...]"  v-model="ignore">
+                        </div>
+
+                        <div class="form-group" id="email-notify">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="email_notify_enabled" id="email_notify_enabled" v-model="email_notify_enabled">
+                                    <span>邮件订阅 ( 变化率超过特定值时会发送邮件 ) </span>
+                                </label>
+                            </div>
+                            <div class="form-group" v-bind:class="{hidden:!email_notify_enabled}" id="email_notify_detail" >
+                                <label>收件人列表</label>
+                                <input type="text" id="email_list" name="email_list"  class="form-control" placeholder="邮箱地址(多个邮箱请使用英文分号;隔开)" v-model="email_list">
+                            </div>
+                        </div>
+
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="enabled" id="enabled" v-model="enabled"> 任务是否激活（未激活时，不会被系统执行） </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btn_delete_task" data-dismiss="modal" v-if="id">删除任务</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="submit" id="btn_confirm_task" class="btn btn-primary">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function(){
+
+
+        var data = window.formdata ={ // 暴露给ignorearea,ejs等用
+            id: "",
+            domain: "",
+            url:"",
+            startdate:"",
+            starttime:"",
+            interval:0,
+            name_prefix:"",
+            scheduled:"",
+            email_notify_enabled: false,
+            agent_width: 0,
+            agent_height: 0,
+            useragent: '' ,
+            ignore: '',
+            email_list:"",
+            enabled: true,
+        };
+        // 数据绑定
+        new Vue({
+            el: '#TaskEditorModel',
+            data:data ,
+            computed:{
+                domain:function(){
+                    var host = "";
+                    try{
+                        host = new URL(/^https?:/.test(this.url)?this.url:"http://"+this.url).host;
+                    }catch(e){
+                        console.log(e)
+                    }
+                    return host;
+                },
+                name_prefix:function(){
+                    var str = "";
+                    try{
+                        str = new URL(/^http[s]*:/.test(this.url)?this.url:"http://"+this.url).host;
+                    }catch(e){
+                        str = this.url;
+                    }
+                    return str;
+                }
+            }
+        });
+        // 提交
+        $("#btn_confirm_task").click(function(e){
+            if(data.id){
+                var api = "/api/task/"+ $("#update_id").val();
+                $.ajax({
+                    type:"PUT",
+                    url:api,
+                    data: $("#task_edit_form").serialize(),
+                    dataType: "json",
+                    success:function(e){
+                        alert("请求成功.,"+ JSON.stringify(e));
+                        window.location.reload();
+                    },error:function(e){
+                        alert("请求失败,刷新再试."+ JSON.stringify(e));
+                    }
+                });
+            }else{
+                var api = "/api/task/add";
+                $.post(api,$("#task_edit_form").serialize(),function(e){
+                    if(e&& e.ok){
+                        alert("添加成功,"+ JSON.stringify(e));
+                        window.location.reload();
+                    } else{
+                        alert("添加失败,"+ JSON.stringify(e));
+                    }
+                });
+            }
+            e.preventDefault();
+            return false;
+        });
+
+        $("#gate_ignore_editor").click(function(e){
+            var sub = window.open('/task/ignorearea');
+        });
+    })();
+</script>
