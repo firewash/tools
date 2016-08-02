@@ -44,7 +44,7 @@
     </div>
 </div>
 
-<% include taskadd.ejs %>
+<% include taskedit.ejs %>
 
 </body>
 <script>
@@ -91,16 +91,13 @@
 
     //事件绑定
     function bindEvent(){
-        $("#newTaskModel").on("shown.bs.modal",function(e){
-            var d = new Date(Date.now()+1000*60*5);//往后5分钟
-            document.getElementById("startdate").valueAsDate=d;
-            document.getElementById("starttime").defaultValue= d.toString().match(/\d\d:\d\d/);
-        });
-
         $("#btn_add_new_task").click(function(e){
             for(var i in defaultTaskData){
                 formdata[i] = defaultTaskData[i];
             }
+            var d = new Date(Date.now()+1000*60*5);//往后5分钟
+            document.getElementById("startdate").valueAsDate=d; // todo 这里不该操作dom，记得优化
+            document.getElementById("starttime").defaultValue= d.toString().match(/\d\d:\d\d/);
             $("#TaskEditorModel").modal();
         });
 
@@ -117,23 +114,6 @@
             var url = "/diff/list/#taskid="+ e.target.value;
             window.open(url);
         });
-
-        $("#btn_delete_task").click(function(){
-            var api = "/api/task/"+$("#update_id").val();
-            $.ajax({
-                type:"DELETE",
-                url:api,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success:function(e){
-                    //alert("删除成功,"+e);
-                    window.location.reload();
-                },error:function(e){
-                    alert("删除失败,刷新再试."+ e);
-                }
-            });
-        });
-
 
         $("#list .run_task").click(function(e){
             var api = "/api/task/"+ e.target.value +"/run";

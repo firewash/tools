@@ -93,7 +93,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="btn_delete_task" data-dismiss="modal" v-if="id">删除任务</button>
+                <button type="button" class="btn btn-danger" id="btn_delete_task" data-dismiss="modal" v-show="id">删除任务</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 <button type="submit" id="btn_confirm_task" class="btn btn-primary">提交</button>
             </div>
@@ -103,8 +103,6 @@
 
 <script>
     (function(){
-
-
         var data = window.formdata ={ // 暴露给ignorearea,ejs等用
             id: "",
             domain: "",
@@ -176,6 +174,24 @@
             }
             e.preventDefault();
             return false;
+        });
+
+        console.log('~~~~~~~~~',$("#btn_delete_task")[0])
+
+        $("#btn_delete_task").click(function(){
+            var api = "/api/task/"+$("#update_id").val();
+            $.ajax({
+                type:"DELETE",
+                url:api,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success:function(e){
+                    //alert("删除成功,"+e);
+                    window.location.reload();
+                },error:function(e){
+                    alert("删除失败,刷新再试."+ e);
+                }
+            });
         });
 
         $("#gate_ignore_editor").click(function(e){
