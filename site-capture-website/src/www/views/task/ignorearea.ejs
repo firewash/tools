@@ -15,27 +15,28 @@
 <body>
 
 <div style="position:fixed;z-index: 2;top:0;left:0;width:100%;background:#f0c674;vertical-align: top">
-    <form action="#">
-        <p>
+    <p>目前存在的问题：有的页面是不能被iFrame的，可以考虑Extension+ContentScript的方式来优化。</p>
+    <form action="#" class="form-inline">
+        <p class="form-group">
             <label>窗口大小: </label>
-            <input type="text" v-model="agent_width">*<input type="text" v-model="agent_height">
+            <input type="text" class="form-control" v-model="agent_width">*<input type="text" class="form-control" v-model="agent_height">
             <span>（后台截屏时将以这个大小截屏）</span>
         </p>
-        <p>
+        <p class="form-group">
             <label>当前选择的结果：</label>
-            <textarea id="result" style="width:300px;height:60px;" v-model="ignore"></textarea>
+            <textarea id="result" class="form-control" style="width:300px;height:60px;" v-model="ignore"></textarea>
         </p>
-        <p>
-            <button id="btn_confirm" type="button">确定</button>
+        <p class="form-group">
+            <button id="btn_confirm" type="button" class="btn btn-primary">确定</button>
             <!--<button type="reset">重置</button>-->
-            <button id="btn_cancel" type="button">取消</button>
+            <button id="btn_cancel" type="button" class="btn ">取消</button>
         </p>
     </form>
 
 </div>
 
 <div id="wrap" style="position:relative;height: 4000px;margin:160px auto;border:1px solid red;" v-bind:style="{ width:winWidth+'px' }">
-    <iframe id="contentFrame" src="http://www.uc123.com" style="width:100%;height:100%"></iframe>
+    <iframe id="contentFrame" src="about:blank" style="width:100%;height:100%" onerror="alert('你输入的网站打不开哦！');"></iframe>
     <div id="selectLayer" style="position:absolute;left:0;top:0;width:100%;height:100%;background: rgba(0,0,0,0.3);"></div>
 </div>
 </body>
@@ -48,6 +49,7 @@
         }
     }
 
+    //处理数据绑定
     var pdata = window.opener.data;
 
     var config = {
@@ -61,12 +63,22 @@
         data: config
     });
 
+    // 启动组件
     $('#selectLayer').partition({
         pos: pdata.ignore,
         selectChanged: function(data){
             config.ignore = JSON.stringify(data);
         }
     })
+
+    // 其他
+    if(pdata.url){
+        var url = /^https?:/i.test(pdata.url) ? pdata.url : `http://${pdata.url}`;
+        $("#contentFrame").attr('src',url);
+    }else{
+        alert("你还没有输入要截取的网站URL呢！");
+        window.close();
+    }
 
     $('#btn_confirm').click(function(e){
         if(pdata){
@@ -83,6 +95,10 @@
     $("#btn_cancel").click(function(e){
         window.close();
         return false;
-    })
+    });
+
+    window.location.reload = null;
+    window.location.assign=function(){};
+    window.onunload=function(){alert(12);return false}
 </script>
 </html>

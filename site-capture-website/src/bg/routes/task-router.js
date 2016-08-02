@@ -5,6 +5,7 @@ const loggie = require('../lib/loggie').logger;
 const router = express.Router(); // eslint-disable-line
 const dboperator = require('../lib/dboperator');
 const taskmanager = require('../lib/taskmanager');
+const config = require('../config');
 
 router.get('/list', (req, res) => {
     dboperator.getTasks()
@@ -14,7 +15,8 @@ router.get('/list', (req, res) => {
             res.render('task/list', {
                 title: '任务管理列表',
                 subtitle: '抓屏任务',
-                data: items
+                data: items,
+                useragent: config.useragent
             });
         }, err => {
             res.render('task/list', {

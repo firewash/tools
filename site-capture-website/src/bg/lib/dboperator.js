@@ -3,6 +3,7 @@
 const loggie = require('../lib/loggie').logger;
 const mongodbObjectID = require('mongodb').ObjectID;
 const mongodb = require('mongodb');
+const config = require('../config');
 const TABLES = {
     capture: 'origin_captures',
     task: 'tasks'
@@ -72,6 +73,9 @@ const Transformer = {
                                     || data.email_notify_enabled === 'on',
             email_list: data.email_list,
             enabled: data.enabled === true || data.enabled === 'true' || data.enabled === 'on',
+            agent_width: +data.agent_width,
+            agent_height: +data.agent_height,
+            useragent: data.useragent,
             ignore: data.ignore,
             createtime: new Date()
         };
@@ -89,7 +93,7 @@ const eventHandles = {
 class DBOperator {
     constructor() {
         const MongoClient = mongodb.MongoClient;
-        const url = 'mongodb://localhost:27017/tools_site_capture';
+        const url = config.db.url;
 
         this.db = null;
         this.MongoClient = MongoClient;

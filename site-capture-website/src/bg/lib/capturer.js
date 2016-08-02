@@ -1,15 +1,18 @@
 'use strict';
 
 const phantom = require('phantom');
-const gConfig = require('../config.js');
+const config = require('../config.js');
 const path = require('path');
 const URL = require('url');
 const loggie = require('../lib/loggie.js').logger;
 
 const localConfig = {
-    captureImageSaveFolder: gConfig.captureImageSaveFolder,
-    captureImageQuality: gConfig.captureImageQuality,
-    format: 'png'
+    captureImageSaveFolder: config.captureImageSaveFolder,
+    captureImageQuality: config.captureImageQuality,
+    format: config.format,
+    agent_width: config.agent_width,
+    agent_height: config.agent_height,
+    useragent: config.useragent
 };
 
 class Capturer {
@@ -28,6 +31,9 @@ class Capturer {
             format: opt.format || localConfig.format,
             timestamp_start_capture: date,
             timestamp_capture_complete: null,
+            agent_width: opt.agent_width || config.agent_width,
+            agent_height: opt.agent_height || config.agent_height,
+            useragent: opt.useragent || config.useragent,
             description: date.toString()
         };
 
@@ -43,8 +49,8 @@ class Capturer {
             loggie.info('Success: createPage, page default setting is :', option.url);
             pageIns = page;
             pageIns.setting('Cache-Control', 'max-age=0');// 清除缓存(防止多次抓取没有用)
-            pageIns.setting('userAgent', gConfig.userAgent);// 这句话会导致程序出错中断执行
-            pageIns.setting('viewportSize', { width: 1920, height: 1080 });
+            pageIns.setting('userAgent', option.useragent);// 这句话会导致程序出错中断执行
+            pageIns.setting('viewportSize', { width: option.agent_width, height: option.agent_height });
             // pageIns.setting('height', 4800);
 
             let url = option.url;

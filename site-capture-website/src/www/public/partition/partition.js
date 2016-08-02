@@ -108,8 +108,8 @@ jQuery.fn.extend(
                     try{
                         data = JSON.parse(data);
                     }catch(e){
-                        throw Error('setPosData data error,', data);
-                        return;
+                        console.error('setPosData data error,', data);
+                        data = [];
                     }
                 }
                 list.forEach(function(item){

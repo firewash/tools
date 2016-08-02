@@ -30,10 +30,23 @@
         </div>
         <div class="form-group">
             <label for="">浏览器设置</label>
-            <p>
-                <input type="number" class="form-control" id="agent_width"  name="agent-width" placeholder="浏览器的宽"  v-model="agent_width" style="width:120px;">
-                <input type="number" class="form-control" id="agent_height"  name="agent-height" placeholder="浏览器的高"  v-model="agent_height" style="width:120px;">
-            </p>
+            <div>
+                <div class=" checkbox-inline">
+                    <label for="">宽</label>
+                    <input type="number" class="form-control checkbox-inline" id="agent_width"  name="agent_width" placeholder="浏览器的宽"  v-model="agent_width" style="width:120px;">
+                </div>
+                <div class=" checkbox-inline">
+                    <label for="">高</label>
+                    <input type="number" class="form-control checkbox-inline" id="agent_height"  name="agent_height" placeholder="浏览器的高"  v-model="agent_height" style="width:120px;">
+                </div>
+            </div>
+            <div >
+                <div >
+                    <label for="">UA</label>
+                    <input type="text" class="form-control checkbox-inline" id="useragent"  name="useragent" placeholder="UserAgent字符"  v-model="useragent" style="">
+                </div>
+            </div>
+
 
         </div>
         <div class="form-group">
@@ -73,7 +86,8 @@
             enabled:true,
             agent_width: 1024,
             agent_height: 3000,
-            ignore:''
+            useragent: '<%= useragent %>' ,
+            ignore: ''
         };
         window.data = data; // 暴露给ignorearea,ejs用
         // 数据绑定
