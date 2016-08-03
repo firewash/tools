@@ -2,14 +2,33 @@
 <html lang="zh-CN">
 <head>
     <title><%= title %></title>
+    <meta name="data-spm" content="aaa">
+    <meta name="spm-id" content="spma.spmb/0.01">
+    <meta name="aplus-waiting" content="1">
+
     <link rel="stylesheet" href="/public/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/public/bootstrap/css/bootstrap-theme.min.css">
     <link rel='stylesheet' href='/public/stylesheets/style.css'/>
     <script src="/public/jquery/jquery.js"></script>
     <script src="/public/vue/vue.js"></script>
     <script src="/public/bootstrap/js/bootstrap.min.js"></script>
+
+    <script id="tb-beacon-aplus" src="//g.alicdn.com/alilog/mlog/aplus_v2.js"
+            exparams="category=&amp;userid=&amp;aplus&amp;yunid=&amp;1uI3JJzexnmn&amp;asid=AQAAAAAwpqFXrMQMKgAAAADTgJxcKsXaBA=="></script>
+    <script src="/public/aplus-abtest/index.js"></script>
 </head>
-<body>
+<body data-spm="bbb" data-spm-click="gostr=/aliyun;locaid=d201431">
+<script>
+//    var bucket = new ABtester({
+//        key: 'global',
+//        timestamp: 1450098645294,
+//        bucketName: 'ab',
+//        config: {
+//            version: ['A', 'B', 'C'],
+//            rate: [0.3, 0.3, 0.4]
+//        }
+//    });
+</script>
 <div class="page-header" onclick="window.location.reload()">
     <h1><%= title %>
         <small><%= subtitle %></small>
@@ -17,12 +36,15 @@
 </div>
 
 <div class="page-wraper" style="margin: 10px">
-    <div class="btn-group v-space">
-        <button type="button" class="btn btn-default" id="btn_add_new_task" accesskey="c">添加一个任务( Alt+C)</button>
+    <div class="btn-group v-space" data-spm="con">
+        <button type="button" class="btn btn-default" id="btn_add_new_task"
+                accesskey="c" data-spm="111">
+            添加一个任务( Alt+C)
+        </button>
     </div>
 
     <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading" data-spm-click="btn">
             所有任务
         </div>
         <table id="list" class="table">
