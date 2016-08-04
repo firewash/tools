@@ -39,45 +39,43 @@ class Comparer {
     // opt={file1 file2 resultfile ratio_baseline}
     diff(option) {
         const opt = option;
-        loggie.info('Inner diff function. opt is:', opt);
         const target = opt.target;
         const other = opt.other;
         const resultfile = opt.resultfile;
         const ratioBaseline = opt.ratio || RATIO_BASELINE_DEFAULT;
-        let ignore = (function(){
+        const ignore = (() => {
             let res = opt.ignore;
-            if(typeof res === 'string') {
-                try{
+            if (typeof res === 'string') {
+                try {
                     res = JSON.parse(res);
-                }catch(e){
-                    loggie.error('Comparer.diff error, as ignore is: ', ignore opt.ignore);
+                } catch (e) {
+                    loggie.error('Comparer.diff error, as ignore is: ', opt.ignore);
                 }
             }
-            if(res instanceof Array){
-                return res;
-            }else{
-                return [];
+            if (!(res instanceof Array)) {
+                res = [];
             }
-        }());
+            return res;
+        })();
+        loggie.info('Inner diff function. opt is:', opt);
 
-        return Promise.resolve().then(() => {
-            console.log('promise start');
-            return new Promise((resolve, reject) => {
+        return Promise.resolve().then(() =>
+            new Promise((resolve, reject) => {
                 try {
                     // const fileDataTarget = fs.readFileSync(target);
                     // const fileDataOther = fs.readFileSync(other);
-                    console.log('Will compare 11...');
+                    loggie.debug('Will compare 11...');
                     resemble(target).compareTo(other)
                         .ignoreRectangles(ignore)
-                        .onComplete(function (_data) {
-                            console.log('true onComplete');
+                        .onComplete(_data => {
+                            loggie.debug('true onComplete');
                             const data = dataTransfer4resemble2system(_data);
                             loggie.info('Resemble diff complete', data);
                             opt.diffinfo = data;
                             opt.ratio_baseline = ratioBaseline;
                             if (+data.misMatchPercentage <= ratioBaseline) {
                                 data.similar = true;
-                                data.message = 'misMatchPercentage too low,donnot save compare result~';
+                                data.message = 'Compare result not save,as low misMatchPercentage';
                             } else {
                                 loggie.info('Save diff image to ', resultfile);
                                 data.similar = false;
@@ -85,15 +83,13 @@ class Comparer {
                             }
                             resolve(data);
                         });
-                    console.log('after resemble');
+                    loggie.debug('after resemble');
                 } catch (e) {   // TODO: 文件比如other在磁盘上不存在时的异常，try目前捕获不到。奇怪
                     loggie.error('Catch diff err: ', e);
                     reject({ msg: e.msg }, null);
                 }
-            });
-        });
-
-
+            })
+        );
     }
 }
 

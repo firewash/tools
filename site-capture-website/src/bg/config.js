@@ -6,12 +6,13 @@
  * 注意:capture相关几个工程的配置要同步.
  *
  * */
-const loggie = require('./lib/loggie').logger;
 const path = require('path');
+
+// 环境配置
 const projectPath = path.join(__dirname, '../..');
-console.log('工程目录: ', projectPath);
 const distPath = path.join(projectPath, 'build');
 const mode = (process.env.MODE || '').trim() || 'dev';
+console.log('工程目录: ', projectPath);  // eslint-disable-line
 
 // 日志数据的配置
 const dataPath = path.join(projectPath, '../', '/site-capture-data/');
@@ -38,23 +39,19 @@ const captureImageSaveFolder = path.join(dataPath, '/result/');
 // 截屏浏览器的配置
 const userAgentBase = 'Mozilla/5.0 (Windows NT 10.0; WOW64) Chrome/49.0.2623.87 Safari/537.36';
 const useragent = `${userAgentBase} SiteCapture/1.0`;
+
 // 对外提供服务的网站域名和端口
 const domain = '100.85.133.144';
-const port = (function getPort() {
-    let port = 80;
-    if (mode === 'production') {
-        port = 80;
-    } else {
-        port = 3000;
-    }
-    return port;
-}());
+const port = {
+    production: 80,
+    dev: 3000
+}[mode] || 80;
 
 // 数据库配置
 const db = {
     url: 'mongodb://localhost:27017/tools_site_capture',
     username: '',
-    password:''
+    password: ''
 };
 
 module.exports = {
@@ -69,9 +66,11 @@ module.exports = {
     captureImageQuality: 90,           // 屏幕截图的质量
     namePrefix: 'tool_site_capture_unknown_site',   // 图片存储的前缀
     image_compare_ratio_baseline: 0.01,  // 图像相似度的最低阈值
-    agentWidth: 1030,   // 渲染网页的浏览器默认宽高
-    agentHeight: 770,
-    useragent,                // 捕获网站时phantom发出的UA
+    agent: {
+        width: 600,   // 渲染网页的浏览器默认宽高。哎，设置用处也不大啊。
+        height: 1000,
+        useragent          // 捕获网站时phantom发出的UA
+    },
     logPath,    // 通用日志的存储文件
     accessLogPath   // 仅仅存储Express访问记录
 };

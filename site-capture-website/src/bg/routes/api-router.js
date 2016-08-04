@@ -2,6 +2,7 @@
 
 const express = require('express');
 const loggie = require('../lib/loggie').logger;
+const capturer = require('../lib/capturer');
 const dboperator = require('../lib/dboperator');
 const taskmgr = require('../lib/taskmanager');
 dboperator.addEventListener('afterAddTask', () => {
@@ -13,7 +14,8 @@ dboperator.addEventListener('afterUpdateTask', () => {
 dboperator.addEventListener('afterDeleteTask', () => {
     taskmgr.syncAndScheduleAllTasks();
 });
-const router = express.Router();
+
+const router = express.Router(); // eslint-disable-line
 
 /* 任务相关的API */
 router.get('/task/run', (req, res) => {
@@ -66,6 +68,7 @@ router.delete('/task/:id', (req, res) => {
     });
 });
 
+// 执行一个任务
 router.post('/task/:id/run', (req, res) => {
     const id = req.params.id;
     loggie.info('/task/:id/run', id);
@@ -76,6 +79,7 @@ router.post('/task/:id/run', (req, res) => {
     res.json(data);
 });
 
+// 查询后台任务队列
 router.get('/task/queue', (req, res) => {
     const data = {
         data: taskmgr.getScheduledTaskQueue()
@@ -86,6 +90,7 @@ router.get('/task/queue', (req, res) => {
     res.json(data);
 });
 
+// 查询获取截屏记录集合
 router.post('/capture/list', (req, res) => {
     loggie.info('/capture/list', req.params, req.body);
     const opt = req.body;
@@ -106,6 +111,15 @@ router.post('/capture/list', (req, res) => {
             };
             res.json(result);
         });
+});
+
+// 临时预览一个网站 todo 可用于任务创建时的预览
+router.get('/capture/preview', (req, res) => {
+    const opt = req.body;
+    return capturer.capture(opt).then(data => {
+        res.json(data);
+    });
+
 });
 
 module.exports = router;

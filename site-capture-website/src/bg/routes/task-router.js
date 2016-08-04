@@ -16,9 +16,9 @@ router.get('/list', (req, res) => {
                 title: '任务管理列表',
                 subtitle: '抓屏任务',
                 data: items,
-                useragent: config.useragent,
-                agentWidth: config.agentWidth,
-                agentHeight: config.agentHeight
+                useragent: config.agent.useragent,
+                agentWidth: config.agent.width,
+                agentHeight: config.agent.height
             });
         }, err => {
             res.render('task/list', {

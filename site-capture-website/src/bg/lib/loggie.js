@@ -1,5 +1,18 @@
 'use strict';
 
+/**
+ * Exmple
+ *
+ loggie.debug('Some debug messages');
+ loggie.trace('Entering cheese testing');
+ loggie.debug('Got cheese.');
+ loggie.info('Cheese is Gouda.');
+ loggie.warn('Cheese is quite smelly.');
+ loggie.error('Cheese is too ripe!');
+ loggie.fatal('Cheese was breeding ground for listeria.');
+
+ * */
+
 const log4js = require('log4js');
 const config = require('../config');
 
@@ -91,16 +104,3 @@ module.exports = {
     }
 
 };
-
-/**
- * Exmple
- *
- loggie.debug('Some debug messages');
- loggie.trace('Entering cheese testing');
- loggie.debug('Got cheese.');
- loggie.info('Cheese is Gouda.');
- loggie.warn('Cheese is quite smelly.');
- loggie.error('Cheese is too ripe!');
- loggie.fatal('Cheese was breeding ground for listeria.');
-
- * */

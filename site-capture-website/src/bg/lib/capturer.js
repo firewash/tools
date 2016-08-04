@@ -2,6 +2,7 @@
 
 const phantom = require('phantom');
 const config = require('../config.js');
+const agent = config.agent;
 const path = require('path');
 const URL = require('url');
 const loggie = require('../lib/loggie.js').logger;
@@ -10,9 +11,6 @@ const localConfig = {
     captureImageSaveFolder: config.captureImageSaveFolder,
     captureImageQuality: config.captureImageQuality,
     format: config.format,
-    agentWidth: config.agentWidth,
-    agentHeight: config.agentHeight,
-    useragent: config.useragent
 };
 
 class Capturer {
@@ -31,9 +29,9 @@ class Capturer {
             format: opt.format || localConfig.format,
             timestamp_start_capture: date,
             timestamp_capture_complete: null,
-            agent_width: opt.agent_width || config.agentWidth,
-            agent_height: opt.agent_height || config.agentHeight,
-            useragent: opt.useragent || config.useragent,
+            agent_width: opt.agent_width || agent.width,
+            agent_height: opt.agent_height || agent.height,
+            useragent: opt.useragent || agent.useragent,
             description: date.toString()
         };
 
@@ -50,6 +48,7 @@ class Capturer {
             pageIns = page;
             pageIns.setting('Cache-Control', 'max-age=0');// 清除缓存(防止多次抓取没有用)
             pageIns.setting('userAgent', option.useragent);// 这句话会导致程序出错中断执行
+            // PhantomJS的Viewport对Render是无效的。因为类似于浏览器的打印。
             return pageIns.property('viewportSize', {
                 width: option.agent_width,
                 height: option.agent_height
@@ -72,7 +71,7 @@ class Capturer {
                 loggie.info('Waiting page full loaded.');
                 // todo
                 const fn = `function(){
-                     document.body.innerHTML = window.screen.width+','+window.screen.height+','+navigator.userAgent;
+                    document.body.innerHTML += window.screen.width+','+window.screen.height+','+navigator.userAgent;
                     // 这句话会导致导航的搜索框偏移到顶部，奇怪
                     // document.body.scrollTop = document.body.scrollHeight;
                 }`;
