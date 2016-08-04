@@ -28,7 +28,8 @@
     "mongodb": "^2.2.4",
     "node-resemble-js": "^0.0.5",
     "node-schedule": "^1.1.0",
-    "phantom": "^2.0.10",
+    "phantom": "^2.1.14",
+    "request": "^2.74.0",
     "resemblejs": "^2.2.0",
     "serve-favicon": "^2.3.0",
     "vue": "^1.0.26"

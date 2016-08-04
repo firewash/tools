@@ -69,8 +69,8 @@ module.exports = {
     captureImageQuality: 90,           // 屏幕截图的质量
     namePrefix: 'tool_site_capture_unknown_site',   // 图片存储的前缀
     image_compare_ratio_baseline: 0.01,  // 图像相似度的最低阈值
-    agentWidth: 1024,   // 渲染网页的浏览器默认宽高
-    agentHeight: 3000,
+    agentWidth: 1030,   // 渲染网页的浏览器默认宽高
+    agentHeight: 770,
     useragent,                // 捕获网站时phantom发出的UA
     logPath,    // 通用日志的存储文件
     accessLogPath   // 仅仅存储Express访问记录

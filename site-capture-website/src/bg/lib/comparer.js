@@ -44,7 +44,21 @@ class Comparer {
         const other = opt.other;
         const resultfile = opt.resultfile;
         const ratioBaseline = opt.ratio || RATIO_BASELINE_DEFAULT;
-        const ignore = opt.ignore || [];
+        let ignore = (function(){
+            let res = opt.ignore;
+            if(typeof res === 'string') {
+                try{
+                    res = JSON.parse(res);
+                }catch(e){
+                    loggie.error('Comparer.diff error, as ignore is: ', ignore opt.ignore);
+                }
+            }
+            if(res instanceof Array){
+                return res;
+            }else{
+                return [];
+            }
+        }());
 
         return Promise.resolve().then(() => {
             console.log('promise start');

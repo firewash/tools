@@ -10,8 +10,8 @@ const localConfig = {
     captureImageSaveFolder: config.captureImageSaveFolder,
     captureImageQuality: config.captureImageQuality,
     format: config.format,
-    agent_width: config.agent_width,
-    agent_height: config.agent_height,
+    agentWidth: config.agentWidth,
+    agentHeight: config.agentHeight,
     useragent: config.useragent
 };
 
@@ -31,8 +31,8 @@ class Capturer {
             format: opt.format || localConfig.format,
             timestamp_start_capture: date,
             timestamp_capture_complete: null,
-            agent_width: opt.agent_width || config.agent_width,
-            agent_height: opt.agent_height || config.agent_height,
+            agent_width: opt.agent_width || config.agentWidth,
+            agent_height: opt.agent_height || config.agentHeight,
             useragent: opt.useragent || config.useragent,
             description: date.toString()
         };
@@ -50,9 +50,11 @@ class Capturer {
             pageIns = page;
             pageIns.setting('Cache-Control', 'max-age=0');// 清除缓存(防止多次抓取没有用)
             pageIns.setting('userAgent', option.useragent);// 这句话会导致程序出错中断执行
-            pageIns.setting('viewportSize', { width: option.agent_width, height: option.agent_height });
-            // pageIns.setting('height', 4800);
-
+            return pageIns.property('viewportSize', {
+                width: option.agent_width,
+                height: option.agent_height
+            });
+        }).then(() => {
             let url = option.url;
             if (!URL.parse(url).protocol) url = `http://${url}`;
             return pageIns.open(url);
@@ -68,7 +70,9 @@ class Capturer {
             loggie.info('Page open status: ', status, option.url);
             return new Promise(resolve => { // 给一些网站一些加载的时间
                 loggie.info('Waiting page full loaded.');
+                // todo
                 const fn = `function(){
+                     document.body.innerHTML = window.screen.width+','+window.screen.height+','+navigator.userAgent;
                     // 这句话会导致导航的搜索框偏移到顶部，奇怪
                     // document.body.scrollTop = document.body.scrollHeight;
                 }`;
