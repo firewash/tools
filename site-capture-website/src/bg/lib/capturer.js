@@ -1,32 +1,32 @@
 'use strict';
 
 const phantom = require('phantom');
-const config = require('../config.js');
+const config = require('../config');
 const agent = config.agent;
 const path = require('path');
 const URL = require('url');
-const loggie = require('../lib/loggie.js').logger;
-
-const localConfig = {
-    captureImageSaveFolder: config.captureImageSaveFolder,
-    captureImageQuality: config.captureImageQuality,
-    format: config.format,
-};
+const loggie = require('../lib/loggie').logger;
 
 class Capturer {
     /*
-     *  option={url interval,name_prefix }
+     *  option={
+     *  url
+     *  interval
+     *  name_prefix
+      *  base64: bool 是否base64, 如果是，则直接转化为base64字符串，不会在磁盘上创建文件
+     *  }
      * */
     capture(opt) {
-        const folder = localConfig.captureImageSaveFolder;
+        const folder = config.captureImageSaveFolder;
         let pageIns = null;
         let phantomIns = null;
         const date = new Date(); // IOS时间
         const option = {
             url: opt.url,
-            quality: opt.quality || localConfig.captureImageQuality,
+            quality: opt.quality || config.captureImageQuality,
             filename: opt.filename,
-            format: opt.format || localConfig.format,
+            base64: opt.base64,
+            format: opt.format || config.format,
             timestamp_start_capture: date,
             timestamp_capture_complete: null,
             agent_width: opt.agent_width || agent.width,
@@ -84,16 +84,25 @@ class Capturer {
                 }, 1000);
             });
         }).then(() => {
-            const prop = {
-                format: option.format,
-                quality: option.quality
-            };
-            const filepath = path.join(folder, `${option.filename}.${option.format}`);
-            loggie.info('Will render page to:', filepath);
-            return pageIns.render(filepath, prop);
+            let next = null;
+            if (option.base64) {
+                loggie.info('Will render page to base64 format');
+                next = pageIns.renderBase64(option.format);
+
+            } else {
+                const prop = {
+                    format: option.format,
+                    quality: option.quality
+                };
+                const filepath = path.join(folder, `${option.filename}.${option.format}`);
+                loggie.info('Will render page to:', filepath);
+                next = pageIns.render(filepath, prop);
+            }
+            return next;
         }).then(result => {
             // todo 页面304缓存时render都会失败
-            loggie.info('Page render and save, result: ', result);
+            loggie.info('Page render result: OK');
+            option.renderResult = result;
             pageIns.close();
             phantomIns.exit();
             pageIns = null;

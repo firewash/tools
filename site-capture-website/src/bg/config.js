@@ -47,30 +47,29 @@ const port = {
     dev: 3000
 }[mode] || 80;
 
-// 数据库配置
-const db = {
-    url: 'mongodb://localhost:27017/tools_site_capture',
-    username: '',
-    password: ''
-};
-
 module.exports = {
     domain,
     port,
     mode,
-    db,
-    projectPath,          // 当前项目文件夹,虽然__dirname也好用,但是自己封装更放心
+    db: {       // 数据库配置
+        url: 'mongodb://localhost:27017/tools_site_capture',
+        username: '',
+        password: ''
+    },
+    projectPath,            // 当前项目文件夹,虽然__dirname也好用,但是自己封装更放心
     distPath,
     captureImageSaveFolder, // 屏幕截图放置的磁盘位置
     format: 'png',
-    captureImageQuality: 90,           // 屏幕截图的质量
+    captureImageQuality: 90,                        // 屏幕截图的质量
     namePrefix: 'tool_site_capture_unknown_site',   // 图片存储的前缀
-    image_compare_ratio_baseline: 0.01,  // 图像相似度的最低阈值
+    image_compare_ratio_baseline: 0.01,             // 图像相似度的最低阈值
     agent: {
-        width: 600,   // 渲染网页的浏览器默认宽高。哎，设置用处也不大啊。
+        width: 600,         // 渲染网页的浏览器默认宽高。哎，设置用处也不大啊。
         height: 1000,
-        useragent          // 捕获网站时phantom发出的UA
+        useragent           // 捕获网站时phantom发出的UA
     },
-    logPath,    // 通用日志的存储文件
-    accessLogPath   // 仅仅存储Express访问记录
+    log: {
+        logPath,        // 通用日志的存储文件
+        accessLogPath   // 仅仅存储Express访问记录
+    }
 };

@@ -88,6 +88,43 @@
         email_list:"",
         enabled: true,
     };
+    // 全局暴露的ignorearea,ejs等用
+    var formdata ={
+        id: "",
+        domain: "",
+        url:"",
+        startdate:"",
+        starttime:"",
+        interval:0,
+        name_prefix:"",
+        scheduled:"",
+        email_notify_enabled: false,
+        agent_width: 0,
+        agent_height: 0,
+        useragent: '' ,
+        ignore: '',
+        email_list:"",
+        enabled: true
+    };
+
+    function setTaskFormData(src){
+        var dest = formdata;
+        //考虑到新老数据的问题，得先用default的数据抹一遍。
+        for(let key in defaultTaskData) {
+            if(defaultTaskData.hasOwnProperty(key)){
+                dest[key] = defaultTaskData[key];
+            }
+        }
+        if(src){
+            for(let key in src) {
+                if(src.hasOwnProperty(key)){
+                    dest[key] = src[key];
+                }
+            }
+            if(src._id)formdata.id = src._id; //VueJS的_id会出错.
+        }
+
+    }
 
     function renderList(arr) {
         var list = $("#list");
@@ -114,9 +151,7 @@
     //事件绑定
     function bindEvent(){
         $("#btn_add_new_task").click(function(e){
-            for(var i in defaultTaskData){
-                formdata[i] = defaultTaskData[i];
-            }
+            setTaskFormData(null);
             var d = new Date(Date.now()+1000*60*5);//往后5分钟
             document.getElementById("startdate").valueAsDate=d; // todo 这里不该操作dom，记得优化
             document.getElementById("starttime").defaultValue= d.toString().match(/\d\d:\d\d/);
@@ -125,11 +160,7 @@
 
         $("#list .task_setting").click(function(e){
             var data = $(e.target).closest("tr").data("origindata");
-            for(var i in data){
-                formdata[i] = data[i];
-            }
-            formdata.id = data._id; //VueJS的_id会出错.
-
+            setTaskFormData(data);
             $("#TaskEditorModel").modal();
         });
         $("#list .view_capture_list").click(function(e){

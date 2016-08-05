@@ -25,7 +25,7 @@ log4js.configure({
         },
         {
             type: 'dateFile',
-            filename: config.logPath,
+            filename: config.log.logPath,
             pattern: '_yyyy-MM-dd.log',
             alwaysIncludePattern: true,
             maxLogSize: 1024,
@@ -38,7 +38,7 @@ log4js.configure({
         },
         {
             type: 'dateFile',
-            filename: config.accessLogPath,
+            filename: config.log.accessLogPath,
             pattern: '_yyyy-MM-dd.log',
             alwaysIncludePattern: true,
             maxLogSize: 1024,
@@ -47,7 +47,7 @@ log4js.configure({
         // 开发 & 单元测试
         {
             type: 'dateFile',
-            filename: config.logPath,
+            filename: config.log.logPath,
             pattern: '_yyyy-MM-dd-unittest.log',
             alwaysIncludePattern: true,
             maxLogSize: 1024,
@@ -64,7 +64,7 @@ log4js.configure({
         },
         {
             type: 'dateFile',
-            filename: config.accessLogPath,
+            filename: config.log.accessLogPath,
             pattern: '_yyyy-MM-dd.log',
             alwaysIncludePattern: true,
             maxLogSize: 1024,

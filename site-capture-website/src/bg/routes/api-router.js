@@ -114,12 +114,12 @@ router.post('/capture/list', (req, res) => {
 });
 
 // 临时预览一个网站 todo 可用于任务创建时的预览
-router.get('/capture/preview', (req, res) => {
+router.post('/capture/preview', (req, res) => {
     const opt = req.body;
+    opt.base64 = true; // preview的话就直接base64吧，不要创建本地文件了
     return capturer.capture(opt).then(data => {
         res.json(data);
     });
-
 });
 
 module.exports = router;

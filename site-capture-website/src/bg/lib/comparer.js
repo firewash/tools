@@ -35,8 +35,17 @@ function dataTransfer4resemble2system(from) {
 }
 
 class Comparer {
-    // 对比两个文件，并将对比结果图片写入磁盘
-    // opt={file1 file2 resultfile ratio_baseline}
+    /**
+     *  对比两个文件，并将对比结果图片写入磁盘
+     *  opt={
+     *      file1
+     *      file2
+     *      resultfile
+     *      ratio_baseline
+     *      ignore = [[x,y,width,height],...]
+     *   }
+     *
+     */
     diff(option) {
         const opt = option;
         const target = opt.target;
