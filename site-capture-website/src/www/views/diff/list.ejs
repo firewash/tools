@@ -19,33 +19,27 @@
         <div class="panel-heading">
             筛选条件
         </div>
+        <div class="panel-body">
+            <form id="list_query" class="form-inline" action="#" method="get" >
+                <div class="form-group">
+                    <div class="input-group">
+                        <label for="name" class="input-group-addon">网站URL大概是：</label>
+                        <input placeholder="模糊网址" type="search"  class="form-control" name="hazyurl" id="hazyurl" value=""/>
+                    </div>
 
-        <form id="list_query" class="form-inline" action="#" method="get">
-            <div class="form-group">
-                <label for="name">网站URL大概是：</label>
-                <input placeholder="模糊网址" type="search"  class="form-control" name="hazyurl" id="hazyurl" value=""/>
-                <label for="name">变化率大于等于：</label>
-                <input placeholder="变化率介于0~100"   class="form-control" name="mismatch" id="mismatch" value=""/>
-                <label for="name">所属任务</label>
-                <input placeholder="所属任务的ID"   class="form-control" name="taskid" id="taskid" value=""/>
+                    <div class="input-group">
+                        <label for="name" class="input-group-addon">变化率大于等于：</label>
+                        <input placeholder="变化率介于0~100"   class="form-control" name="mismatch" id="mismatch" value=""/>
+                    </div>
 
-                <!--<label for="name" >时间范围</label>-->
-                <!--<select class="form-control">-->
-                    <!--<option value="1">-->
-                        <!--今天-->
-                    <!--</option>-->
-                    <!--<option value="1">-->
-                        <!--前两天-->
-                    <!--</option>-->
-                    <!--<option value="1">-->
-                        <!--前一周-->
-                    <!--</option>-->
-                    <!--<option value="1">-->
-                        <!--自定义-->
-                    <!--</option>-->
-                <!--</select>-->
-            </div>
-        </form>
+                    <div class="input-group">
+                        <label for="name" class="input-group-addon">所属任务</label>
+                        <input placeholder="所属任务的ID"   class="form-control" name="taskid" id="taskid" value=""/>
+                    </div>
+                </div>
+            </form>
+        </div>
+
     </div>
 
     <div class="panel panel-default">
