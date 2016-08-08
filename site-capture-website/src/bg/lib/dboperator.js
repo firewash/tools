@@ -4,85 +4,14 @@ const loggie = require('../lib/loggie').logger;
 const mongodbObjectID = require('mongodb').ObjectID;
 const mongodb = require('mongodb');
 const config = require('../config');
+const taskInfoFactory = require('../models/taskinfo').factory;
+const captureInfoFactory = require('../models/captureinfo').factory;
+const captureQueryFactory = require('../models/captureEntriesQueryCondition').factory;
 const TABLES = {
     capture: 'origin_captures',
     task: 'tasks'
 };
 const idField = '_id';
-
-// Object.hasOwnProperty的封装。因为NodeJS最新版本里，res.body虽然是object，但是hasOwnProperty被去掉了。
-function hasOwnKey(object, keyName) {
-    let rel = false;
-    if (object.hasOwnProperty) {
-        rel = object.hasOwnProperty(keyName);
-    } else {
-        rel = Object.hasOwnProperty.call(object, keyName);
-    }
-    return rel;
-}
-
-const Transformer = {
-    // 把搜索条件中的不合法数据转换为合法
-    queryConditionOfCapture(_condition) {
-        let a= Object.create(_condition);
-
-        const condition = {};
-        // 处理模糊搜索的字段. 作为URL的模糊字段
-        if (hasOwnKey(_condition, 'hazy')) {
-            const value = _condition.hazy.trim();
-            if (value) {
-                condition.url = new RegExp(value, 'i');
-            }
-        }
-        // 处理task id
-        if (hasOwnKey(_condition, 'taskid')) {
-            const value = _condition.taskid;
-            if (value && typeof value === 'string') {
-                condition.taskid = mongodbObjectID(value);
-            }
-        }
-        // 变化率
-        if (hasOwnKey(_condition, 'mismatch')) {
-            const value = +_condition.mismatch || 0;
-            condition['diffinfo.misMatchPercentage'] = { $gte: value };
-        }
-
-        return condition;
-    },
-
-    // 把数据库origin_captures的文档一些不合法数据为合法
-    captureDoc(_doc) {
-        const doc = _doc;
-        if (doc.interval) {
-            doc.interval = +doc.interval;
-        }
-        return doc;
-    },
-
-    // 任务处理 - 对传入的数据字段进行过滤处理
-    taskDoc(data) {
-        const newData = {
-            domain: data.domain,
-            url: /^https?:/i.test(data.url) ? data.url : `http://${data.url}`,
-            startdate: data.startdate,
-            starttime: data.starttime,
-            scheduled: data.scheduled || 'onetime',
-            name_prefix: data.name_prefix,
-            email_notify_enabled: data.email_notify_enabled === true
-                                    || data.email_notify_enabled === 'true'
-                                    || data.email_notify_enabled === 'on',
-            email_list: data.email_list,
-            enabled: data.enabled === true || data.enabled === 'true' || data.enabled === 'on',
-            agent_width: +data.agent_width,
-            agent_height: +data.agent_height,
-            useragent: data.useragent,
-            ignore: data.ignore,
-            createtime: new Date()
-        };
-        loggie.info('Transformer.taskDoc', data, newData);
-        return newData;
-    }
-};
 
 const eventHandles = {
     afterAddTask: [],
@@ -207,7 +136,7 @@ class DBOperator {
     getCaptureEntries(opt) {
         const begin = +opt.begin || 0;
         const limit = +opt.limit || 5;
-        const queryCondition = Transformer.queryConditionOfCapture(opt);
+        const queryCondition = captureQueryFactory.create(opt);
         const returnValue = {
             data: [],
             totalCount: 0,
@@ -328,7 +257,7 @@ class DBOperator {
         loggie.info('Will save capture data:', data);
         return this.connect().then(db => {
             loggie.info('Will insert.');
-            return db.collection(TABLES.capture).insertOne(Transformer.captureDoc(data));
+            return db.collection(TABLES.capture).insertOne(captureInfoFactory.create(data));
         }).then(result => {
             loggie.info('SaveCaptureData sucess, result.insertedId: ', result.insertedId);
             this.close();
@@ -370,7 +299,7 @@ class DBOperator {
     // 添加一个新任务
     addTask(data) {
         loggie.info('add task fn.');
-        const newData = Transformer.taskDoc(data);
+        const newData = taskInfoFactory.create(data);
 
         return this.connect().then(db => {
             loggie.info('Insert data', newData);
@@ -390,7 +319,7 @@ class DBOperator {
         const queryCondition = {};
         if (opt[idField]) queryCondition[idField] = mongodbObjectID(opt[idField]);
         // 处理update info
-        const updateinfo = Transformer.taskDoc(_updateinfo);
+        const updateinfo = taskInfoFactory.create(_updateinfo);
         if (updateinfo[idField]) (delete updateinfo[idField]);
         updateinfo.updatetime = new Date();
 

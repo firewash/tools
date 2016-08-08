@@ -98,13 +98,12 @@ class TaskManager {
      *   如果已经有相同task的任务，则会删除重新创建。
      */
     scheduleTask(task) {
-        console.log('~~~~~~~~~', loggie.info);
         loggie.info('In scheduleTask fn, task param: ', task);
         let scheduleResult = false;
         if (task.enabled && task.startdate && task.starttime && this.isTaskUpdated(task)) {
             loggie.info('要配置定时任务.');
             if (taskQueue[task[idField]]) {
-                loggie.info('存在旧任务，先删掉了。马上加新的。');
+                loggie.info('存在旧任务，先删掉，再加新的');
                 this.cancelScheduledJobByTaskId(task[idField]);
             }
             const j = this.setScheduleFunctionCall(
