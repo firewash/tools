@@ -17,10 +17,9 @@ db.createUser({
 
 //建表
 db.createCollection("origin_captures");
-db.createCollection("diff_captures");
 db.createCollection("tasks");
 
-//插入一条测试护具
+//插入一条测试数据
 db.origin_captures.insert({
   "name":"img1",
   "time":"2016031512000000",
