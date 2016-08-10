@@ -25,10 +25,10 @@ class CaptureEntriesQueryCondition {
         if (hasOwnKey(_condition, 'taskid')) {
             const value = _condition.taskid;
             if (value) {
-                if (typeof value === 'string' && value.length === 12) {
+                if (typeof value === 'string' && value.length === 24) {
                     condition.taskid = mongodbObjectID(value);
                 } else {
-                    loggie.error('Task id is illegal in CaptureEntriesQueryCondition');
+                    loggie.error('Task id is illegal in CaptureEntriesQueryCondition: ', typeof value, value.length);
                 }
 
             }
