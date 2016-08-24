@@ -122,4 +122,15 @@ router.post('/capture/preview', (req, res) => {
     });
 });
 
+// 删除一个截屏条目
+router.delete('/capture/:id', (req, res) => {
+    const id = req.params.id;
+    return dboperator.deleteCaptureEntry({
+        id
+    }).then(data => {
+        res.json(data);
+    });
+});
+
+
 module.exports = router;

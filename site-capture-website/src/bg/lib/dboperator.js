@@ -265,6 +265,32 @@ class DBOperator {
         });
     }
 
+    // 删除一个截屏记录（先只支持基于id的删除）
+    deleteCaptureEntry(opt) {
+        loggie.info('Will delete capture data:', opt);
+
+        const id = opt.id;
+        let result = {ok: 0, n: 0};
+        let db = null;
+        if (!id) return false;
+        return this.connect().then(_db => {
+            db = _db;
+            //查询一下数据，将相关磁盘路径拿出来
+            loggie.info('find db info first, and get file path.');
+        }).then(() => {
+            loggie.info('Will delete db info.');
+            return db.collection(TABLES.capture).deleteOne({ _id: mongodbObjectID(id) });
+        }).then(r => {
+            result = r;
+            loggie.info('delete db success: ', result);
+            this.close();
+            loggie.info('Will delete disk file ');
+            // todo 删除本地磁盘文件
+            result.ok_diskfile = 1;
+            return result;
+        });
+    }
+
     /**
      * 获取所有的采集任务
      * arr = [

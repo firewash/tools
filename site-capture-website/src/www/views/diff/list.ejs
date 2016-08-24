@@ -55,6 +55,7 @@
                     <th>捕获完成时间</th>
                     <th>所属任务</th>
                     <th>变化率</th>
+                    <th>查看</th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -156,6 +157,7 @@
                             <td>${item.taskid}</td>
                             <td>${ratio}</td>
                             <td><a href="${detail_url}?_id=${item._id}" target="_blank">查看详情</a></td>
+                        <td><button class="delete" value="${item._id}">删除</button></td>
                         </tr>`
             list.append(html);
         })
@@ -192,7 +194,25 @@
             searchTimer = setTimeout(function(){
                 keyUpListener(e);
             },500);
-        })
+        });
+
+        $("#capture_table").on("click", ".delete", function(e){
+            alert(1)
+            var api = "/api/capture/"+ e.target.value;
+            $.ajax({
+                type:"DELETE",
+                url:api,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success:function(e){
+                    alert("删除成功:"+JSON.stringify(e)) ;
+                    window.location.reload();
+                },error:function(e){
+                    alert("删除失败,刷新再试."+ e);
+                }
+            });
+        });
+
     }
 
     function dataInit(){
