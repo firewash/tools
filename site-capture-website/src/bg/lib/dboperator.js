@@ -3,6 +3,8 @@
 const loggie = require('../lib/loggie').logger;
 const mongodbObjectID = require('mongodb').ObjectID;
 const mongodb = require('mongodb');
+const fs = require('fs');
+const path = require('path');
 const config = require('../config');
 const taskInfoFactory = require('../models/taskinfo').factory;
 const captureInfoFactory = require('../models/captureinfo').factory;
@@ -270,23 +272,61 @@ class DBOperator {
         loggie.info('Will delete capture data:', opt);
 
         const id = opt.id;
-        let result = {ok: 0, n: 0};
-        let db = null;
         if (!id) return false;
+        const result = {
+            id,
+            ok: 0,
+            ok_diskfile: 0
+        };
+        let db = null;
+        let pathCaptureFile = '';
+        let pathDiffFile = '';
         return this.connect().then(_db => {
             db = _db;
-            //查询一下数据，将相关磁盘路径拿出来
+            // 查询一下数据，将相关磁盘路径拿出来
             loggie.info('find db info first, and get file path.');
+            return db.collection(TABLES.capture)
+                .find({ _id: mongodbObjectID(id) }).limit(1).toArray();
+        }).then(arr => {
+            const item = arr[0];
+            if (item) {
+                const folder = config.captureImageSaveFolder;
+                pathCaptureFile = path.join(folder, `${item.filename}.${item.format}`);
+                const diffinfo = item.diffinfo;
+                if (diffinfo) {
+                    pathDiffFile = path.join(folder, `${item.filename}.${item.format}`);
+                }
+            }
         }).then(() => {
             loggie.info('Will delete db info.');
             return db.collection(TABLES.capture).deleteOne({ _id: mongodbObjectID(id) });
         }).then(r => {
-            result = r;
+            console.log('rrr ', r);
+            result.ok = r.result.ok;
             loggie.info('delete db success: ', result);
             this.close();
             loggie.info('Will delete disk file ');
             // todo 删除本地磁盘文件
+            if (pathCaptureFile) {
+                fs.unlink(pathCaptureFile, err => { // todo 文件删除的成功与否的状态，先不返回了
+                    if (err) {
+                        console.error('Delete file error: ', pathCaptureFile);
+                    } else {
+                        console.log('Delete file success: ', pathCaptureFile);
+                    }
+                });
+            }
+            if (pathDiffFile) {
+                fs.unlink(pathDiffFile, err => {
+                    if (err) {
+                        console.error('Delete file error: ', pathDiffFile);
+                    } else {
+                        console.log('Delete file success: ', pathDiffFile);
+                    }
+                });
+            }
             result.ok_diskfile = 1;
+            console.log('result ', result);
             return result;
         });
     }
