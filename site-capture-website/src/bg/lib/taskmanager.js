@@ -256,6 +256,7 @@ class TaskManager {
             } else {
                 loggie.info('Needless to send mail');
             }
+            this.triggerEvent('progress', taskinfo, { message: '有个截屏任务完成啦' });
         }).catch(err => {
             loggie.error('Error when capturer.capture:', err);
             this.triggerEvent('progress', taskinfo, { message: '发生异常' });

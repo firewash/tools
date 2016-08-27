@@ -43,8 +43,9 @@ router.get('/statesync', (req, res) => {
     });
 
     function fn(data) {
+
         // todo 每个statesync的访问，都要 addEventListener一下，代价不小啊
-        // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Add a progress event');
+        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ progress event responsed.');
         const msg = {
             taskinfo: this,
             data

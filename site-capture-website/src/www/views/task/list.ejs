@@ -4,14 +4,11 @@
     <title><%= title %></title>
     <meta name="data-spm" content="aaa">
     <meta name="spm-id" content="spma.spmb/0.01">
+    <meta name="description" content="页面开着时，当任务完成，会有Notification通知。">
     <meta name="aplus-waiting" content="1">
 
-    <link rel="stylesheet" href="/public/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/public/bootstrap/css/bootstrap-theme.min.css">
-    <link rel='stylesheet' href='/public/stylesheets/style.css'/>
-    <script src="/public/jquery/jquery.js"></script>
-    <script src="/public/vue/vue.js"></script>
-    <script src="/public/bootstrap/js/bootstrap.min.js"></script>
+    <% include ../common-head.ejs %>
+
 
     <script id="tb-beacon-aplus" src="//g.alicdn.com/alilog/mlog/aplus_v2.js"
             exparams="category=&amp;userid=&amp;aplus&amp;yunid=&amp;1uI3JJzexnmn&amp;asid=AQAAAAAwpqFXrMQMKgAAAADTgJxcKsXaBA=="></script>
@@ -181,7 +178,17 @@
         var es = new EventSource("/task/statesync");
         window.es = es;
         es.addEventListener("message",function(msg){
-            console.log("message",msg)
+            console.log("message",msg);
+            try {
+                var result = JSON.parse(msg.data);
+                var msg = result.data.message;
+                if (msg == "有个截屏任务完成啦") {
+                    notify("通知", "有个截屏任务完成啦");
+                }
+            }catch(e){
+                // nothing
+            }
+
         });
         es.addEventListener("open",function(msg){
             console.log("open",msg)
@@ -194,6 +201,31 @@
             console.log("close",msg);
             //todo 此处再次重连。（为了释放服务器端内存专门要得这样搞得）
         });
+
+        // todo use notify()
+    }
+
+    function notify(title, msg) {
+        if (!("Notification" in window)) {
+            alert("This browser does not support desktop notification");
+        }
+
+        Notification.requestPermission().then( function(pms) {
+            console.log("Notification.requestPermission result: ", pms);
+            switch (pms) {
+                case "granted":
+                    var notification = new Notification(title, {
+                        body: msg,
+                        icon: 'http://localhost:3000/public/images/smile.jpg'
+                    });
+                    break;
+                case "denied":
+                case "default":
+                default: break;
+                }
+        });
+
+
     }
 
     //开始
