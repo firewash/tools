@@ -91,13 +91,14 @@
                             <label><input type="checkbox" name="enabled" id="enabled" v-model="enabled"> 任务是否激活（未激活时，不会被系统执行） </label>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="btn_delete_task" data-dismiss="modal" v-show="id">删除任务</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="submit" id="btn_confirm_task" class="btn btn-primary">提交</button>
+                    </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="btn_delete_task" data-dismiss="modal" v-show="id">删除任务</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="submit" id="btn_confirm_task" class="btn btn-primary">提交</button>
-            </div>
+
         </div>
     </div>
 </div>
@@ -130,9 +131,9 @@
             this.name_prefix = str;
         })
 
-
         // 提交
-        $("#btn_confirm_task").click(function(e){
+        $("#task_edit_form").submit(function(e){
+            e.preventDefault();
             var api = null;
             if(data.id){
                 api = "/api/task/"+ $("#update_id").val();
@@ -159,7 +160,6 @@
                     }
                 });
             }
-            e.preventDefault();
             return false;
         });
 
