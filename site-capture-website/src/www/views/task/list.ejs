@@ -28,8 +28,8 @@
 //    });
 </script>
 <div class="page-header" onclick="window.location.reload()">
-    <h1><%= title %>
-        <small><%= subtitle %></small>
+    <h1>任务管理
+        <small>抓屏</small>
     </h1>
 </div>
 
@@ -58,7 +58,19 @@
             </tr>
             </thead>
             <tbody>
-
+                <tr v-for="item in items" data-index="{{$index}}">
+                    <td>{{item.domain}}</td>
+                    <td>{{item.url}}</td>
+                    <td>{{item.startdate}}</td>
+                    <td>{{item.starttime}}</td>
+                    <td>{{item.scheduled}}</td>
+                    <td><span class={{item.enabled?"enabled":""}}>{{item.enabled}}</span></td>
+                    <td>
+                        <button class="task_setting"  value="{{item._id}}">编辑</button>
+                        <button class="view_capture_list" value="{{item._id}}">查看监控结果</button>
+                        <button class="run_task" value="{{item._id}}">立即执行一次</button>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -124,27 +136,14 @@
 
     }
 
-    function renderList(arr) {
-        var list = $("#list");
-        arr.forEach(function (item) {
-            var line = $("<tr>");
-            var html = `
-                            <td>${item.domain}</td>
-                            <td>${item.url}</td>
-                            <td>${item.startdate}</td>
-                            <td>${item.starttime}</td>
-                            <td>${item.scheduled}</td>
-                            <td><span class=${item.enabled?"enabled":""}>${item.enabled}</span></td>
-                            <td>
-                                <button class="task_setting"  value="${item._id}">编辑</button>
-                                <button class="view_capture_list" value="${item._id}">查看监控结果</button>
-                                <button class="run_task" value="${item._id}">立即执行一次</button>
-                             </td>
-                       `;
-            line.html(html).data("origindata", item);
-            list.append(line);
-        })
-    }
+    var taskListData = {
+        items: []
+    };
+
+    new Vue({
+        el:"#list",
+        data: taskListData
+    });
 
     //事件绑定
     function bindEvent(){
@@ -156,17 +155,18 @@
             $("#TaskEditorModel").modal();
         });
 
-        $("#list .task_setting").click(function(e){
-            var data = $(e.target).closest("tr").data("origindata");
+        $("#list").on('click', '.task_setting', function(e){
+            var index = $(e.target).closest("tr").data("index");
+            var data = taskListData.items[index];
             setTaskFormData(data);
             $("#TaskEditorModel").modal();
         });
-        $("#list .view_capture_list").click(function(e){
+        $("#list").on('click', '.view_capture_list', function(e){
             var url = "/diff/list/#taskid="+ e.target.value;
             window.open(url);
         });
 
-        $("#list .run_task").click(function(e){
+        $("#list").on('click', '.run_task', function(e){
             var api = "/api/task/"+ e.target.value +"/run";
             $.post(api,{},function(json){
                 alert("Post请求返回了:"+JSON.stringify(json)) ;
@@ -224,14 +224,11 @@
                 default: break;
                 }
         });
-
-
     }
 
     //开始
     $(function () {
-        var data = <%- JSON.stringify(data) %>;
-        renderList(data);
+        taskListData.items = <%- JSON.stringify(data) %>;
         bindEvent();
         initStateSync();
     });

@@ -13,8 +13,6 @@ router.get('/list', (req, res) => {
             loggie.info('then getAllTasks', result);
             const items = result.data;
             res.render('task/list', {
-                title: '任务管理列表',
-                subtitle: '抓屏任务',
                 data: items,
                 useragent: config.agent.useragent,
                 agentWidth: config.agent.width,
