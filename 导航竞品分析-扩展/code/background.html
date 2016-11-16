@@ -18,18 +18,38 @@
             #result section ul{
                 list-style: decimal;
             } 
-            #result section .larger{
+            #result section button{
+                border: none;
+                cursor: pointer;
+                display: none;
+            } 
+            #result section li:hover button{
+                display: inline-block;
+            } 
+            
+            #result section .new{
                 background: green;
+            }
+
+            #result section .labels{
+                display: inline-block;
+                max-width: 200px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                vertical-align: bottom;
             }
             #result section .equal{
                 background: white;
             }
-            #result section .diff{
+            #result section .diff-label{
+                background: rgba(255,255,0,0.25);
+            }
+            #result section .diff-count{
                 background: yellow;
             }
         </style>
         <script src="background.js"></script>
-        <script src="vue.js"></script>
         <link >
     </head>
     <body>
@@ -43,6 +63,7 @@
           <button id="start">
               开始比较
           </button>
+          <progress id="progress"></progress>
         <p id="result">
         </p>
     </body>

@@ -10,26 +10,41 @@
 function dataCompare(curTab, toTab) {
     let cur = curTab.data;
     let to = toTab.data;
-    let key = null;
-    for(key in cur) {
-        switch(true) {
-            case !to[key]:
-                cur[key].cflag = 'larger';                
-                break;
-            case to[key].label === cur[key].label && to[key].href == cur[key].href:
-                cur[key].cflag = 'equal';
-                to[key].cflag = 'equal';
-                break;
-            default:
-                cur[key].cflag = 'diff';
-                to[key].cflag = 'diff';                
-        } 
+    let url = null;
+    for(url in cur) {
+        if(!to[url]) {
+            cur[url].cflag = 'new';
+            cur[url].des = "本页面有，而对方没有";
+            continue;
+        }
+        let toItemsKeys = Object.keys(to[url].items);
+        let curItemsKeys = Object.keys(cur[url].items);
+        
+        if(toItemsKeys.length !== curItemsKeys.length){
+            cur[url].cflag = 'diff-count';
+            to[url].cflag = 'diff-count';
+            cur[url].des = `本页面有${curItemsKeys.length}相同链接，对方有${toItemsKeys.length}相同链接`;
+            to[url].des = `本页面有${toItemsKeys.length}相同链接，对方有${curItemsKeys.length}相同链接`;
+            continue;
+        }
+        
+        if(toItemsKeys.join(";") === curItemsKeys.join(";")){
+            cur[url].cflag = 'equal';
+            to[url].cflag = 'equal';
+            continue;
+        }
+
+        cur[url].cflag = 'diff-label';
+        to[url].cflag = 'diff-label'; 
+        cur[url].des = cur[url].des = "两个页面的标签内容不同。"
     } 
-    for(key in to) {
-        if(!to[key].cflag){
-            to[key].cflag = 'larger';
+    for(url in to) {
+        if(!to[url].cflag){
+            to[url].cflag = 'new';
+            to[url].des = "本页面有，而对方没有";
         }        
     } 
+    window.forDebugAndWillRemoved = [curTab, toTab];
     return [curTab, toTab];
 }
 
@@ -40,6 +55,7 @@ function getPageData(tabid){
            file: "getSiteData.js"
            // code: "[123]"
         }, function(datas){
+            progress.grow();
             resolve({
                 tabid: tabid,
                 data: datas[0]||[]
@@ -59,6 +75,7 @@ function compareTabData(tabs){
     });
 
     return Promise.all(promises).then(function(dataArray){
+        progress.grow();
         return dataCompare(dataArray[0], dataArray[1]);
     });
 }
@@ -83,7 +100,7 @@ function refreshTabList(){
             }
         });
         $("#tabform").innerHTML = html;
-        var defaultRadio = $("#tabform").checkbase[0];
+        let defaultRadio = $("#tabform").checkbase[0];
         defaultRadio && (defaultRadio.checked = true);
         checkedTabArray = tabs;
     });
@@ -91,23 +108,36 @@ function refreshTabList(){
 
 //将比较结果显示出来
 function renderResult(result){
-    var html = "";
+    let html = "";
     result.forEach(function(siteData){
-        html += `<section><h1>${siteData.tabid}</h1><ul>`; 
-        var equalHTML = "";
-        var diffHTML = "";
-        var otherHTML = "";
-        for(var key in siteData.data){
-            var link = siteData.data[key];
-            var fragment = `<li class=${link.cflag}> ${link.cflag} ${link.label} <span title="${link.originHref}">${link.href}</span></li>`;
-            switch(link.cflag){
+        html += `<section data-tabid=${siteData.tabid}><h1>${siteData.tabid}</h1><ul>`; 
+        let equalHTML = "";
+        let diffLabelHTML = "";
+        let diffCountHTML = "";
+        let otherHTML = "";
+        for(let url in siteData.data){
+            let link = siteData.data[url];
+            let cflag = link.cflag;
+            let items = link.items;
+            let labels = Object.keys(items);
+            let count = labels.length;
+            let fragment = `<li class=${cflag} data-url=${url} 
+                                title='${JSON.stringify(items)}' > 
+                                ${cflag}
+                                <span title='出现${count}次'>${count>1?'['+count+']':''}</span>
+                                <span class="labels">${labels.join(";")}</span> 
+                                <span class='url'>${url}</span>
+                                <button title="在tab页中查看">View</button>
+                            </li>`;
+            switch(cflag){
                 case "equal":   equalHTML += fragment; break;
-                case "diff":    diffHTML += fragment; break;
-                case "larger":  otherHTML += fragment; break;
+                case "diff-count":    diffCountHTML += fragment; break;
+                case "diff-label":    diffLabelHTML += fragment; break;
+                case "new":  otherHTML += fragment; break;
                 default:        otherHTML += fragment; break;
             }
         }
-        html += equalHTML + diffHTML + otherHTML + "</ul></section>"; 
+        html += equalHTML + diffLabelHTML + diffCountHTML + otherHTML + "</ul></section>"; 
     });
     $("#result").innerHTML = html;
 }
@@ -116,41 +146,123 @@ function renderResult(result){
 function markTabDomTree(opt) {
     let tabid = opt.tabid;
     let data = opt.data;
-    chrome.tabs.executeScript(+tabid, {
-        code: ` (function(){
-                debugger;   
-                let data = ${JSON.stringify(data)}; 
-                for(let key in data){
-                    document.querySelector("[data-sn='"+data[key].dataSN+"']").dataset.result = data[key].cflag;
-                }
-                var style = document.getElementById("style_jingpinfenxi");
-                if(!style){
-                    style = document.createElement("style");
-                    style.id = "style_jingpinfenxi";
-                    style.title="for竞品分析"
-                }
-                style.innerHTML = "a[data-result = 'equal']{background-color:white}" 
-                                + "a[data-result = 'diff']{background-color:yellow}"
-                                + "a[data-result = 'larger']{background-color:rgba(0,255,0,0.5)}";
-                document.head.appendChild(style);          
-        })()`
-    }, function(datas){
-        
-    });
-}
-function markTabsDomTree(opts) {
-    opts.forEach(function(opt){
-        markTabDomTree(opt);
+    return Promise.resolve(function(){
+        return new Promise(function(resolve){
+            chrome.tabs.executeScript(+tabid, {
+                    code: ` (function(){
+                            // debugger;   
+                            let data = ${JSON.stringify(data)}; 
+                            let a = null;
+                            for(let url in data){
+                                let cflag = data[url].cflag;
+                                let items = data[url].items;
+                                for(let label in items){
+                                    for(let i=0,len= items[label].length; i<len; i++){
+                                        a = document.querySelector("[data-sn='"+items[label][i].dataSN+"']");
+                                        if(a){
+                                            a.dataset.result = cflag; 
+                                        }else{
+                                            debugger;
+                                        }
+                                    }
+                                }  
+                            }
+                            let style = document.getElementById("style_jingpinfenxi");
+                            if(!style){
+                                style = document.createElement("style");
+                                style.id = "style_jingpinfenxi";
+                                style.title="for竞品分析"
+                            }
+                            style.innerHTML = "a[data-result = 'equal']{background-color:white}" 
+                                            + "a[data-result = 'diff-count']{background-color:yellow}"
+                                            + "a[data-result = 'diff-label']{background-color:yellow}"
+                                            + "a[data-result = 'new']{background-color:rgba(0,255,0,0.5)}";
+                            document.head.appendChild(style);          
+                    })()`
+                }, function(datas){
+                    resolve(datas);
+                });
+        })
     })
 }
+function markTabsDomTree(opts) {
+    var items = opts.map(function(opt){
+        return markTabDomTree(opt);
+    });
+    return Promise.all(items);
+}
+
+//在tab页中高亮显示一些元素
+function visitDOMInTab(selector, tabid){
+    chrome.tabs.update(+tabid, {
+        highlighted: true
+    });
+    var animCSS = "@-webkit-keyframes jingpinfenxi_focus_anim {"
+            + "0%{box-shadow: 0px 0px 50px 50px red;}" 
+            + "100%{box-shadow: 0px 0px 0px 0px red;}"
+            + "}"
+            + ".jingpinfenxi_focus{-webkit-animation: jingpinfenxi_focus_anim 1s infinite linear;}";
+    chrome.tabs.executeScript(+tabid, {
+        code:`(function(){
+                    debugger;
+                    if(!document.getElementById('style_style_jingpinfenxi_focus')){
+                        var style = document.createElement("style");
+                        style.id = 'style_style_jingpinfenxi_focus';
+                        style.innerHTML = "${animCSS}";
+                        document.head.appendChild(style);
+                    }
+
+                    if(window.lastShowedLinks){
+                        for(let i=0, len = lastShowedLinks.length; i<len; i++){
+                            lastShowedLinks[i].classList.remove("jingpinfenxi_focus");
+                        }
+                    }
+                    let doms = window.lastShowedLinks = document.querySelectorAll("${selector}");
+                    for(let i=0, len = doms.length; i<len; i++){
+                        doms[i].classList.add("jingpinfenxi_focus");
+                    }
+                    doms[0] && doms[0].scrollIntoView();
+                })();
+              `
+    },function(data){});
+
+}
+
+//进度条
+var progress = {
+    init: function(){
+        var p = $("#progress");
+        p.max = 10;
+        p.value = 0;
+        this.dom = p;
+    },
+    max: 10,
+    from:function(value){
+        this.dom.value = +value;
+        this.dom.style.display = "inline-block";
+    },
+    to: function(value){
+        this.dom.value = +value;
+    },
+    grow: function(){
+        this.dom.value += 1;
+    },
+    end:function(value){
+        value = value || this.max;
+        this.to(value);
+        this.dom.style.display = "none";
+    }
+} 
  
 //初始化
 function init(){
+    progress.init();
     $("#start").onclick=function(){
+        progress.from(0);
         checkedBase = tabform.checkbase.value;
         checkedTabArray = [checkedBase];
         let checkboxes = tabform.checkgroup.values();
-        var item = null;
+        let item = null;
         while(item = checkboxes.next()){
             if(item.done){
                 break;
@@ -159,16 +271,41 @@ function init(){
             }
         }
 
-        compareTabData(checkedTabArray).then(function(result){
-            renderResult(result);
-            markTabsDomTree(result);
+        compareTabData(checkedTabArray).then(function(res){
+            progress.grow();
+            renderResult(res);
+            return res;
+        }).then(function(res){
+            progress.grow();
+            return markTabsDomTree(res);
+        }).then(function(){
+            progress.end();
         });
         
     }
 
-    chrome.browserAction.onClicked.addListener(function(tab) {
-        window.open("background.html");
-    });
+    $("#result").onclick=function(e){
+        let target = e.target;
+        let link = null;
+        let section = null;
+        if(target.tagName ==="BUTTON"){
+            while(true){
+                if(target === document.body || target === document.documentElement) break;
+                if(link && section) break;
+                if(target.tagName === "LI") {
+                    link = target;
+                } else if(target.tagName === "SECTION") {
+                    section = target;
+                }
+                target = target.parentNode;
+            }
+            if(link && section) {
+                let tabid = section.dataset.tabid;
+                let selector = `a[data-url='${link.dataset.url}']`;
+                visitDOMInTab(selector, tabid);
+            }
+        }
+    }
 
     chrome.tabs.onCreated.addListener(function(e){
         refreshTabList();
