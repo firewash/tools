@@ -66,6 +66,7 @@ function getPageData(tabid){
 
 //比较两个tab的数据
 function compareTabData(tabs){
+    console.log("compareTabData");
     if(tabs.length !== 2){
         alert("请只选择两个tab");
         return false;
@@ -86,28 +87,28 @@ let checkedTabArray = [];
 function refreshTabList(){
     chrome.tabs.query({},function(tabs){
         let html = `<table><tr>
-                        <th>基准</th>
-                        <th>对比</th>
+                        <th>对比(选2个)</th>
                         <th>tab.id</th> <th>tab.title</th> <th>tab.url</th>
                     </tr>`;
         tabs.forEach(function(tab, index){
             if(tab.url.startsWith("http")) {
                 html+=`<tr>
-                        <td><input type="radio" name="checkbase" value="${tab.id}" /></td>
                         <td><input type="checkbox" name="checkgroup" value="${tab.id}" /></td>
                         <td>${tab.id}</td> <td>${tab.title}</td> <td>${tab.url}</td>
                     </tr>`;
             }
         });
         $("#tabform").innerHTML = html;
-        let defaultRadio = $("#tabform").checkbase[0];
-        defaultRadio && (defaultRadio.checked = true);
+        var boxes = $("#tabform").checkgroup;
+        boxes[0] && (boxes[0].checked = true);
+        boxes[1] && (boxes[1].checked = true);
         checkedTabArray = tabs;
     });
 }
 
 //将比较结果显示出来
 function renderResult(result){
+    console.log("renderResult");
     let html = "";
     result.forEach(function(siteData){
         html += `<section data-tabid=${siteData.tabid}><h1>${siteData.tabid}</h1><ul>`; 
@@ -144,48 +145,51 @@ function renderResult(result){
 
 //将数据标记到tab页面
 function markTabDomTree(opt) {
+    console.log("markTabDomTree");
     let tabid = opt.tabid;
     let data = opt.data;
-    return Promise.resolve(function(){
-        return new Promise(function(resolve){
-            chrome.tabs.executeScript(+tabid, {
-                    code: ` (function(){
-                            // debugger;   
-                            let data = ${JSON.stringify(data)}; 
-                            let a = null;
-                            for(let url in data){
-                                let cflag = data[url].cflag;
-                                let items = data[url].items;
-                                for(let label in items){
-                                    for(let i=0,len= items[label].length; i<len; i++){
-                                        a = document.querySelector("[data-sn='"+items[label][i].dataSN+"']");
-                                        if(a){
-                                            a.dataset.result = cflag; 
-                                        }else{
-                                            debugger;
-                                        }
+    return new Promise(function(resolve){
+        chrome.tabs.executeScript(+tabid, {
+                code: ` (function(){
+                        // debugger;   
+                        let data = ${JSON.stringify(data)}; 
+                        let a = null;
+                        let cflag = null;
+                        let items = null;
+                        for(let url in data){
+                            cflag = data[url].cflag;
+                            items = data[url].items;
+                            for(let label in items){
+                                for(let i=0,len= items[label].length; i<len; i++){
+                                    a = document.querySelector("[data-sn='"+items[label][i].dataSN+"']");
+                                    if(a){
+                                        a.dataset.result = cflag;
+                                        a.title = cflag+"; 出现"+len+"次";
+                                    }else{
+                                        debugger;
                                     }
-                                }  
-                            }
-                            let style = document.getElementById("style_jingpinfenxi");
-                            if(!style){
-                                style = document.createElement("style");
-                                style.id = "style_jingpinfenxi";
-                                style.title="for竞品分析"
-                            }
-                            style.innerHTML = "a[data-result = 'equal']{background-color:white}" 
-                                            + "a[data-result = 'diff-count']{background-color:yellow}"
-                                            + "a[data-result = 'diff-label']{background-color:yellow}"
-                                            + "a[data-result = 'new']{background-color:rgba(0,255,0,0.5)}";
-                            document.head.appendChild(style);          
-                    })()`
-                }, function(datas){
-                    resolve(datas);
-                });
-        })
-    })
+                                }
+                            }  
+                        }
+                        let style = document.getElementById("style_jingpinfenxi");
+                        if(!style){
+                            style = document.createElement("style");
+                            style.id = "style_jingpinfenxi";
+                            style.title="for竞品分析"
+                        }
+                        style.innerHTML = "a[data-result = 'equal']{background-color:white}" 
+                                        + "a[data-result = 'diff-count']{background-color:yellow}"
+                                        + "a[data-result = 'diff-label']{background-color:yellow}"
+                                        + "a[data-result = 'new']{background-color:rgba(0,255,0,0.5)}";
+                        document.head.appendChild(style);          
+                })()`
+            }, function(datas){
+                resolve(datas);
+            });
+    })   
 }
 function markTabsDomTree(opts) {
+    console.log("markTabsDomTree");
     var items = opts.map(function(opt){
         return markTabDomTree(opt);
     });
@@ -194,12 +198,13 @@ function markTabsDomTree(opts) {
 
 //在tab页中高亮显示一些元素
 function visitDOMInTab(selector, tabid){
+    console.log("visitDOMInTab");
     chrome.tabs.update(+tabid, {
         highlighted: true
     });
     var animCSS = "@-webkit-keyframes jingpinfenxi_focus_anim {"
-            + "0%{box-shadow: 0px 0px 50px 50px red;}" 
-            + "100%{box-shadow: 0px 0px 0px 0px red;}"
+            + "0%{box-shadow: inset 0px 0px 15px 5px red, 0px 0px 15px 5px red;}" 
+            + "100%{box-shadow: 0px 0px 0px 0px red, 0px 0px 0px 0px red;}"
             + "}"
             + ".jingpinfenxi_focus{-webkit-animation: jingpinfenxi_focus_anim 1s infinite linear;}";
     chrome.tabs.executeScript(+tabid, {
@@ -222,6 +227,7 @@ function visitDOMInTab(selector, tabid){
                         doms[i].classList.add("jingpinfenxi_focus");
                     }
                     doms[0] && doms[0].scrollIntoView();
+                    document.body.scrollTop -= 200;
                 })();
               `
     },function(data){});
@@ -259,19 +265,20 @@ function init(){
     progress.init();
     $("#start").onclick=function(){
         progress.from(0);
-        checkedBase = tabform.checkbase.value;
-        checkedTabArray = [checkedBase];
+        checkedTabArray = [];
         let checkboxes = tabform.checkgroup.values();
         let item = null;
         while(item = checkboxes.next()){
             if(item.done){
                 break;
-            }else if(item.value.checked && item.value.value !== checkedBase){
+            }else if(item.value.checked){
                 checkedTabArray.push(item.value.value);
             }
         }
 
-        compareTabData(checkedTabArray).then(function(res){
+        Promise.resolve().then(function(){
+            return compareTabData(checkedTabArray);
+        }).then(function(res){
             progress.grow();
             renderResult(res);
             return res;

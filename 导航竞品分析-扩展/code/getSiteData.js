@@ -36,7 +36,7 @@ function bleedAndMarkData(opt) {
             if (protocol === 'http:' || protocol === 'https:') {
                 let label = item.innerText.replace(/\s/g, '');
                 let originHref = item.href;
-                let href = item.origin + item.pathname; //（不要包含search）
+                let href = item.hostname + item.pathname; //（不要包含search和protocol和端口号）
                 let key_url = href;   //拿URL当key会比较合适。数据存储的key
                 let key_label = label;  //label作为第二层Key
                 // let count = (data[key]&&data[key].count) ? (++data[key].count) : 1; //文档中出现的次数
