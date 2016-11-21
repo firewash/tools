@@ -1,5 +1,6 @@
 # 如何安装
 将crx包安装到Chrome浏览器，即可。
+
 1. 下载crx安装包到本地
 2. 打开Chrome浏览器
 2. 打开chrome://extensions页面
