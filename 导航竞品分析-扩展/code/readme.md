@@ -5,6 +5,7 @@
 2. 打开Chrome浏览器
 2. 打开chrome://extensions页面
 3. 将crx包拖动到此页面，即可完成安装。
+
  > 本扩展无法在到UCBrowser上使用。因为，UC对UC123.com做了保护，是禁止ContentScript注入的，因此会导致本扩展不能执行。
  
 
