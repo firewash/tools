@@ -22,7 +22,7 @@
 - equal： url相同，且出现次数相同，且每个label也相同。
 - diff-count：url相同，但是出现次数不同
 - diff-label：url相同，但是label不同
-- new：完全不同，则各自标记为new
+- larger：完全不同，则各自标记为larger
 
 ### 2 快速在Tab页中定位链接
 
