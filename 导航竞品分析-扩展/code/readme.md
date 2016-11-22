@@ -11,12 +11,15 @@
 
 
 
-# 如何使用
+# 如何使用对比网站
 1. 打开你要比较的两个tab页，比如www.uc123.com,www.hao123.com
 2. 点击浏览器右上角的扩展图标，会自动打开管理页面：chrome-extension://ejgdfjmcfogabiplkamhhnfgcojnahml/background.html
 3. 选择对比的页面
-4. 点击“开始比较按钮”
+4. 点击“开始比较”按钮
 5. 接下来，能看到按钮下面会出现对比数据。
+
+# 如何导出数据
+// todo
 
 # Tips
 ###  1 比较结果的几个取值的释义
