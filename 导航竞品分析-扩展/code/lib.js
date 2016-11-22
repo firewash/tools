@@ -1,4 +1,4 @@
-const $ = function(selector) {
+var $ = function(selector) {
     return document.querySelector(selector);
 }
 
@@ -18,9 +18,14 @@ var tableToExcel = (function() {
                     return c[p];
                 })
         }
-    return function(table, name) {
+    return function(table, filename, name) {
         if (!table.nodeType) table = document.getElementById(table)
         var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
-        window.location.href = uri + base64(format(template, ctx))
+            // window.location.href = uri + base64(format(template, ctx));
+        var a = document.createElement('a');
+        a.download = filename || '下载.xls';
+        a.href = uri + base64(format(template, ctx));
+        document.body.appendChild(a);
+        a.click();
     }
 })();

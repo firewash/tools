@@ -115,7 +115,14 @@ function renderResult(sitesArr) {
     console.log("renderResult");
     $("#export").style.display = "inline-block";
     $("#export").onclick = function() {
-        exportDataToFile('resultTable');
+        let d = new Date();
+        let hosts = sitesArr.map(function(item) {
+            var url = item.tab.url;
+            return (new URL(url)).host;
+        });
+
+        let filename = `diff_${hosts.join('_')}_${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}.csv`;
+        exportDataToFile('resultTable', filename);
     }
 
     let equalHTML = [];
@@ -314,10 +321,8 @@ var progress = {
 }
 
 //导出数据 
-function exportDataToFile(arr) {
-    let d = new Date();
-    let filename = `diff_${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}.csv`
-    tableToExcel('resultTable');
+function exportDataToFile(domid, filename) {
+    tableToExcel(domid, filename);
 }
 
 //初始化
