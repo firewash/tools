@@ -1,32 +1,33 @@
 ﻿{
-   "background": {
-      "page": "background.html"
-   },
-   "browser_action": {
-      "default_icon": {
-         "19":"images/pa.png"
-      },
-      "default_title": "导航竞品分析", 
-      "default_popup": "popup.html" 
-   },
-  //  "content_scripts": [
-	//    {
-	//       "matches": [ "https://*/*"],
-	//       "css": ["content.css"],
-  //       "js": [ "content.js" ],
-  //       "run_at": "document_end",  
-  //       "all_frames": true  
-	//    }
-	// ],
-  "icons": {
-    "128": "images/icon.png",
-    "16": "images/icon.png",
-    "48": "images/icon.png",
-    "72": "images/icon.png"
-  },
-   "manifest_version": 2,
-   "name": "竞品分析",
-   "permissions": [ "clipboardRead","tabs", "notifications", "contextMenus", "activeTab",
-    "unlimitedStorage", "webRequest", "webRequestBlocking", "http://*/*", "https://*/*", "privacy"],
-   "version": "0.0.1"
+    "background": {
+        "page": "background.html"
+    },
+    "browser_action": {
+        "default_icon": {
+            "19": "images/pa.png"
+        },
+        "default_title": "筛子-打开管理页面",
+        "default_popup": "popup.html"
+    },
+    //  "content_scripts": [
+    //    {
+    //       "matches": [ "https://*/*"],
+    //       "css": ["content.css"],
+    //       "js": [ "content.js" ],
+    //       "run_at": "document_end",  
+    //       "all_frames": true  
+    //    }
+    // ],
+    "icons": {
+        "128": "images/icon.png",
+        "16": "images/icon.png",
+        "48": "images/icon.png",
+        "72": "images/icon.png"
+    },
+    "manifest_version": 2,
+    "name": "筛子-导航竞品分析",
+    "permissions": ["clipboardRead", "tabs", "notifications", "contextMenus", "activeTab",
+        "unlimitedStorage", "webRequest", "webRequestBlocking", "http://*/*", "https://*/*", "privacy"
+    ],
+    "version": "0.0.1"
 }

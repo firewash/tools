@@ -1,71 +1,117 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <style>
-            table{
-                border-collapse: collapse;
-            }
-            table td, table th{
-                border:1px solid #ddd;
-            }
 
-            #result section{
-                float: left;
-                border:1px solid red;
-                width:40%;
-            }
-            #result section ul{
-                list-style: decimal;
-            } 
-            #result section button{
-                border: none;
-                cursor: pointer;
-                display: none;
-                height:16px;
-            } 
-            #result section li:hover button{
-                display: inline-block;
-            } 
-            
-            #result section .new{
-                background: green;
-            }
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+        table {
+            border-collapse: collapse;
+            /*table-layout: fixed;*/
+            width: 100%;
+        }
+        
+        table thead tr {
+            background: #eef;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        table tbody tr:hover {
+            background: #eee;
+        }
+        
+        table td,
+        table th {
+            border: 1px solid #ddd;
+            word-break: break-all;
+        }
+        
+        #result section {
+            float: left;
+            border: 1px solid red;
+            width: 40%;
+        }
+        
+        #result section ul {
+            list-style: decimal;
+        }
+        
+        #result button {
+            display: inline-block;
+            border: 1px solid #b8d0ba;
+            /* padding: 2px; */
+            line-height: 16px;
+            height: 16px;
+            font-size: 10px;
+            margin: 0;
+        }
+        
+        #result button::before {    
+            content: "View";
+            line-height: 16px;
+        }
+        
+        #result tr:hover button {
+            display: inline-block;
+        }
+        
+        #result .labels {
+            display: inline-block;
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            vertical-align: bottom;
+        }
+        
+        .counter {
+            text-align: center;
+        }
+        
+        .equal {
+            background: rgba(255, 255, 255, 0.5);
+        }
+        
+        .diff-label {
+            background: rgba(255, 255, 0, 0.25);
+        }
+        
+        .diff-count {
+            background: rgba(0, 128, 0, 0.3);
+        }
+        
+        .new {
+            background: rgba(128, 0, 0, 0.06);
+        }
 
-            #result section .labels{
-                display: inline-block;
-                max-width: 200px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                vertical-align: bottom;
-            }
-            #result section .equal{
-                background: white;
-            }
-            #result section .diff-label{
-                background: rgba(255,255,0,0.25);
-            }
-            #result section .diff-count{
-                background: yellow;
-            }
-        </style>
-        <script src="background.js"></script>
-        <link >
-    </head>
-    <body>
-          <p>打开你要比较的网页，并让页面渲染稳定。</p>
-          <h2>当前已经打开了：</h2>
-          <p id="tablist">
-            <form id="tabform">
-                
-            </form>
-          </p>
-          <button id="start">
+        #export{
+            display: none;
+        }
+    </style>
+    <script src="lib.js"></script>
+    <script src="background.js"></script>
+    <link>
+</head>
+
+<body>
+    <p>打开你要比较的网页，并让页面渲染稳定。</p>
+    <h2>当前已经打开了：</h2>
+    <p id="tablist">
+        <form id="tabform">
+
+        </form>
+    </p>
+    <div id="toolbar">
+        <button id="start">
               开始比较
-          </button>
-          <progress id="progress" style="display:none"></progress>
-        <p id="result">
-        </p>
-    </body>
+        </button>
+        <button id="export">
+              导出数据
+        </button>
+        <progress id="progress" style="display:none"></progress>
+    </div>
+    <p id="result">
+    </p>
+</body>
+
 </html>
