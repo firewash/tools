@@ -1,4 +1,6 @@
-﻿// diff: 变化了的
+﻿'use strict';
+
+// 数据对比
 // 比别人多出：+
 // 和别人相同：=
 // 比别人不同: ~
@@ -51,7 +53,6 @@ function getPageData(tab) {
             file: "getSiteData.js"
                 // code: "[123]"
         }, function(datas) {
-            progress.grow();
             resolve({
                 tab: tab,
                 data: datas[0] || []
@@ -60,59 +61,67 @@ function getPageData(tab) {
     })
 }
 
-//比较两个tab的数据
-function compareTabData(tabs) {
-    console.log("compareTabData");
-    if (tabs.length !== 2) {
-        alert("请只选择两个tab");
-        return false;
-    }
-    let promises = tabs.map(function(tab) {
-        return getPageData(tab);
-    });
+// 管理tab列表。根据当前tab打开的情况，更新管理视图
+const tabManager = (function() {
+    let checkedBase = -1;
+    let checkedTabArray = [];
 
-    return Promise.all(promises).then(function(dataArray) {
-        progress.grow();
-        return dataCompare(dataArray[0], dataArray[1]);
-    });
-}
-
-//根据当前tab打开的情况，更新管理视图
-let checkedBase = -1;
-let checkedTabArray = [];
-
-function refreshTabList() {
-    chrome.tabs.query({ url: ['http://*/*', 'https://*/*'] }, function(tabs) {
-        let html = `<table>
-                    <thead>                   
-                    <tr>
-                        <th width="50px">对比(选2个)</th>
-                        <th width="50px">tab.id</th> 
-                        <th width="250px">tab.title</th> 
-                        <th>tab.url</th>
-                    </tr>
-                    </thead>
-                    <tbody>`;
-        tabs.forEach(function(tab, index) {
-            html += `<tr>
-                    <td><input type="checkbox" name="checkgroup" value="${tab.id}" data-raw="${encodeURIComponent(JSON.stringify(tab))}" /></td>
-                    <td>${tab.id}</td> 
-                    <td>${charFilter(tab.title)}</td> 
-                    <td>${(tab.url)}</td>
-                </tr>`;
+    function refreshTabList() {
+        chrome.tabs.query({ url: ['http://*/*', 'https://*/*'] }, function(tabs) {
+            let html = `<table>
+                        <thead>                   
+                        <tr>
+                            <th width="50px">对比(选2个)</th>
+                            <th width="50px">tab.id</th> 
+                            <th width="250px">tab.title</th> 
+                            <th>tab.url</th>
+                        </tr>
+                        </thead>
+                        <tbody>`;
+            tabs.forEach(function(tab, index) {
+                html += `<tr>
+                        <td><input type="checkbox" name="checkgroup" value="${tab.id}" data-raw="${encodeURIComponent(JSON.stringify(tab))}" /></td>
+                        <td>${tab.id}</td> 
+                        <td>${charFilter(tab.title)}</td> 
+                        <td>${(tab.url)}</td>
+                    </tr>`;
+            });
+            html += '</tbody></table>';
+            $("#tabform").innerHTML = html;
+            var boxes = $("#tabform").checkgroup;
+            boxes[0] && (boxes[0].checked = true);
+            boxes[1] && (boxes[1].checked = true);
+            checkedTabArray = tabs;
         });
-        html += '</tbody></table>';
-        $("#tabform").innerHTML = html;
-        var boxes = $("#tabform").checkgroup;
-        boxes[0] && (boxes[0].checked = true);
-        boxes[1] && (boxes[1].checked = true);
-        checkedTabArray = tabs;
-    });
-}
+    }
+
+    function getCheckTabs() {
+        checkedTabArray = [];
+        let checkboxes = tabform.checkgroup.values();
+        let item = null;
+        while (item = checkboxes.next()) {
+            if (item.done) {
+                break;
+            } else if (item.value.checked) {
+                let value = item.value.value;
+                let checkbox = $(`input[value='${value}']`);
+                let data = JSON.parse(decodeURIComponent(checkbox.dataset.raw));
+                checkedTabArray.push(data);
+            }
+        }
+        return checkedTabArray;
+    }
+
+    return {
+        refreshTabList,
+        getCheckTabs
+    };
+})();
 
 //将比较结果显示出来
 function renderResult(sitesArr) {
     console.log("renderResult");
+    if (!sitesArr) return false;
     $("#export").style.display = "inline-block";
     $("#export").onclick = function() {
         let d = new Date();
@@ -121,7 +130,7 @@ function renderResult(sitesArr) {
             return (new URL(url)).host;
         });
 
-        let filename = `diff_${hosts.join('_')}_${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}.csv`;
+        let filename = `diff_${hosts.join('_')}_${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
         exportDataToFile('resultTable', filename);
     }
 
@@ -161,7 +170,7 @@ function renderResult(sitesArr) {
             let items = link.items;
             let labels = Object.keys(items).join(";");
             let count = labels.length;
-            str = ` <td class="${link.cflag}">${link.cflag}</td>
+            let str = ` <td class="${link.cflag}">${link.cflag}</td>
                     <td class="${link.cflag}" title='出现${count}次'>${count>1?count:''}</td>
                     <td class="${link.cflag}">${labels}</td>
                     <td class="${link.cflag}">${url}</td>
@@ -204,9 +213,10 @@ function renderResult(sitesArr) {
                 </table>`;
 
     $("#result").innerHTML = html;
+    return true;
 }
 
-//将数据标记到tab页面
+//将对比结果标记到tab页面
 function markTabDomTree(opt) {
     console.log("markTabDomTree");
     let tabid = opt.tab.id;
@@ -251,7 +261,7 @@ function markTabDomTree(opt) {
         });
     })
 }
-
+// 标记多个tab页中的数据
 function markTabsDomTree(opts) {
     console.log("markTabsDomTree");
     var items = opts.map(function(opt) {
@@ -260,7 +270,7 @@ function markTabsDomTree(opts) {
     return Promise.all(items);
 }
 
-//在tab页中高亮显示一些元素
+//激活tab页，并高亮显示一些元素
 function visitDOMInTab(selector, tabid) {
     console.log("visitDOMInTab");
     chrome.tabs.update(+tabid, {
@@ -295,30 +305,29 @@ function visitDOMInTab(selector, tabid) {
 }
 
 //进度条
-var progress = {
-    init: function() {
-        var p = $("#progress");
-        p.max = 10;
-        p.value = 0;
-        this.dom = p;
-    },
-    max: 10,
-    from: function(value) {
-        this.dom.value = +value;
-        this.dom.style.display = "inline-block";
-    },
-    to: function(value) {
-        this.dom.value = +value;
-    },
-    grow: function() {
-        this.dom.value += 1;
-    },
-    end: function(value) {
-        value = value || this.max;
-        this.to(value);
-        this.dom.style.display = "none";
+var progress = (function() {
+    let max = 10;
+    let min = 0;
+    let dom = $("#progress");
+    dom.max = max;
+    dom.value = min;
+    return {
+        from: function(value = 0) {
+            dom.value = +value;
+            dom.style.display = "inline-block";
+        },
+        to: function(value) {
+            dom.value = +value;
+        },
+        grow: function() {
+            dom.value++;
+        },
+        end: function(value = max) {
+            this.to(value);
+            dom.style.display = "none";
+        }
     }
-}
+})();
 
 //导出数据 
 function exportDataToFile(domid, filename) {
@@ -327,25 +336,25 @@ function exportDataToFile(domid, filename) {
 
 //初始化
 function init() {
-    progress.init();
     $("#start").onclick = function() {
         progress.from(0);
-        checkedTabArray = [];
-        let checkboxes = tabform.checkgroup.values();
-        let item = null;
-        while (item = checkboxes.next()) {
-            if (item.done) {
-                break;
-            } else if (item.value.checked) {
-                let value = item.value.value;
-                let checkbox = $(`input[value='${value}']`);
-                let data = JSON.parse(decodeURIComponent(checkbox.dataset.raw));
-                checkedTabArray.push(data);
-            }
-        }
-
         Promise.resolve().then(function() {
-            return compareTabData(checkedTabArray);
+            return tabManager.getCheckTabs()
+        }).then(function(tabs) {
+            console.log("compareTabData");
+            if (tabs.length !== 2) {
+                alert("请只选择两个tab");
+                progress.end();
+                return Promise.reject(new Error("请只选择两个tab"));
+            }
+            let promises = tabs.map(function(tab) {
+                return getPageData(tab);
+            });
+
+            return Promise.all(promises);
+        }).then(function(dataArray) {
+            progress.grow();
+            return dataCompare(dataArray[0], dataArray[1]);
         }).then(function(res) {
             progress.grow();
             renderResult(res);
@@ -355,6 +364,8 @@ function init() {
             return markTabsDomTree(res);
         }).then(function() {
             progress.end();
+        }).catch(function(e) {
+            console.log("Error", e);
         });
 
     }
@@ -371,19 +382,19 @@ function init() {
     }
 
     chrome.tabs.onCreated.addListener(function(e) {
-        refreshTabList();
+        tabManager.refreshTabList();
     });
     chrome.tabs.onUpdated.addListener(function(e) {
-        refreshTabList();
+        tabManager.refreshTabList();
     });
     chrome.tabs.onRemoved.addListener(function(e) {
-        refreshTabList();
+        tabManager.refreshTabList();
     });
     chrome.tabs.onMoved.addListener(function(e) {
-        refreshTabList();
+        tabManager.refreshTabList();
     });
 
-    refreshTabList();
+    tabManager.refreshTabList();
 }
 
 window.onload = function() {

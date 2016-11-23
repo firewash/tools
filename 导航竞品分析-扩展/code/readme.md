@@ -1,8 +1,8 @@
 # 如何安装
 将crx包安装到Chrome浏览器，即可。
 
-1. 下载crx安装包到本地
-2. 打开Chrome浏览器
+1. 下载crx安装包到本地。访问[地址](https://github.com/firewash/tools/tree/master/%E5%AF%BC%E8%88%AA%E7%AB%9E%E5%93%81%E5%88%86%E6%9E%90-%E6%89%A9%E5%B1%95) ，请选择最新版本，点击“View Raw”。
+2. 打开Chrome（推荐 54 以上版本）浏览器
 2. 打开chrome://extensions页面
 3. 将crx包拖动到此页面，即可完成安装。
 
@@ -44,7 +44,6 @@
 
 管理页面上，也会有一些鼠标tips哦。
 
-### 3 鼠标tips
 
 
 # 版本演进

@@ -1,4 +1,4 @@
-var $ = function(selector) {
+function $(selector) {
     return document.querySelector(selector);
 }
 
@@ -18,13 +18,14 @@ var tableToExcel = (function() {
                     return c[p];
                 })
         }
-    return function(table, filename, name) {
+    return function(table, filename = '下载', name) {
         if (!table.nodeType) table = document.getElementById(table)
-        var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
-            // window.location.href = uri + base64(format(template, ctx));
+        var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML };
+        var content = uri + base64(format(template, ctx));
+        //return window.location.href = content;
         var a = document.createElement('a');
-        a.download = filename || '下载.xls';
-        a.href = uri + base64(format(template, ctx));
+        a.download = `${filename}.xls`;
+        a.href = content;
         document.body.appendChild(a);
         a.click();
     }
