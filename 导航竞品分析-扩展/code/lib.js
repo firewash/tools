@@ -1,3 +1,5 @@
+'use strict';
+
 function $(selector) {
     return document.querySelector(selector);
 }
@@ -20,16 +22,33 @@ var tableToExcel = (function() {
     //     }
     var base64 = function(s) {
         return window.btoa(unescape(encodeURIComponent(s)))
-    }
-    return function(table, filename = '下载', name) {
+    };
+    return function(table, fileName = '下载', worksheetName = 'sheet1') {
         if (!table.nodeType) table = document.getElementById(table)
             //var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML };
             //var content = uri + base64(format(template, ctx));
             //return window.location.href = content;
-        var content = `<html><head><meta charset="UTF-8"></head><body><table>${table.innerHTML}</table></body></html>`;
+        var content = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+                            <head>
+                            <!--[if gte mso 9]>
+                            <xml>
+                                <x:ExcelWorkbook>
+                                    <x:ExcelWorksheets>
+                                        <x:ExcelWorksheet>
+                                            <x:Name>${worksheetName}</x:Name>
+                                            <x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions>
+                                        </x:ExcelWorksheet>
+                                    </x:ExcelWorksheets>
+                                </x:ExcelWorkbook>
+                            </xml>
+                            <![endif]-->
+                            </head>
+                            <body>
+                                <table>${table.innerHTML}</table>
+                            </body></html>`;
         content = `data:application/vnd.ms-excel;base64,${base64(content)}`;
         var a = document.createElement('a');
-        a.download = `${filename}.xls`;
+        a.download = `${fileName}.xls`;
         a.href = content;
         document.body.appendChild(a);
         a.click();

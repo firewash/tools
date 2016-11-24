@@ -70,12 +70,12 @@ const tabManager = (function() {
         chrome.tabs.query({ url: ['http://*/*', 'https://*/*'] }, function(tabs) {
             let html = `<table>
                         <thead>                   
-                        <tr>
-                            <th width="50px">对比(选2个)</th>
-                            <th width="50px">tab.id</th> 
-                            <th width="250px">tab.title</th> 
-                            <th>tab.url</th>
-                        </tr>
+                            <tr>
+                                <td style="width:50px">对比(选2个)</td>
+                                <td style="width:50px">tab.id</td> 
+                                <td style="width:150px">tab.title</td> 
+                                <td style="width:250px">tab.url</td>
+                            </tr>
                         </thead>
                         <tbody>`;
             tabs.forEach(function(tab, index) {
@@ -194,7 +194,7 @@ function renderResult(sitesArr) {
     for (var i = 0; i < maxLength; i++) {
         concatStr += "<tr>"
         for (var j = 0; j < siteCount; j++) {
-            concatStr += `<td class="counter">${i+1}</td>${htmlFragments[j][i]||""}`;
+            concatStr += `<td class="counter">${i+1}</td>${htmlFragments[j][i]||"<td></td><td></td><td></td><td></td><td></td>"}`;
         }
         concatStr += "</tr>"
     }
@@ -202,9 +202,9 @@ function renderResult(sitesArr) {
     let html = `<table id="resultTable">
                 <thead>
                     ${ headFragments.join('')}
-                    <tr>
-                        <td width="20">序号</td><td width="40">标识</td><td width="20">出现次数</td><td width="200">标题</td><td width="200">URL</td><td width="60">操作</td>
-                        <td width="20">序号</td><td width="40">标识</td><td width="20">出现次数</td><td width="200">标题</td><td width="200">URL</td><td width="60">操作</td>
+                    <tr style="background:#BDD7EE;text-align:center;font-weight:bold;">
+                        <td style='width:20px;'>序号</td><td style='width:40px;'>标识</td><td style='width:20px;'>出现次数</td><td style='width:200px;'>标题</td><td style='width:200px;'>URL</td><td style='width:60px;'>操作</td>
+                        <td style='width:20px;'>序号</td><td style='width:40px;'>标识</td><td style='width:20px;'>出现次数</td><td style='width:200px;'>标题</td><td style='width:200px;'>URL</td><td style='width:60px;'>操作</td>
                     </tr>
                 </thead>
                 <tbody>
