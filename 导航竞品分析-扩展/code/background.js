@@ -131,7 +131,7 @@ function renderResult(sitesArr) {
         });
 
         let filename = `diff_${hosts.join('_')}_${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
-        exportDataToFile('resultTable', filename);
+        tableToExcel('resultTable', filename);
     }
 
     let equalHTML = [];
@@ -222,44 +222,42 @@ function markTabDomTree(opt) {
     let tabid = opt.tab.id;
     let data = opt.data;
     return new Promise(function(resolve) {
+        chrome.tabs.insertCSS(+tabid, {
+            code: ` a[data-result = 'equal']{background-color:white} 
+                    a[data-result = 'diff-count']{background-color:yellow}
+                    a[data-result = 'diff-label']{background-color:yellow}
+                    a[data-result = 'new']{background-color:rgba(0,255,0,0.5)}`
+        });
         chrome.tabs.executeScript(+tabid, {
-            code: ` (function(){
-                        // debugger;   
-                        let data = ${JSON.stringify(data)}; 
+            code: ` (function() {
+                        console.log("将对比结果标记到tab页面");
+                        let data = $ { JSON.stringify(data) };
                         let a = null;
                         let cflag = null;
                         let items = null;
-                        for(let url in data){
+                        let url = "";
+                        let label = "";
+                        let i = 0;
+                        for (url in data) {
                             cflag = data[url].cflag;
                             items = data[url].items;
-                            for(let label in items){
-                                for(let i=0,len= items[label].length; i<len; i++){
-                                    a = document.querySelector("[data-sn='"+items[label][i].dataSN+"']");
-                                    if(a){
+                            for (label in items) {
+                                for (i = 0, len = items[label].length; i < len; i++) {
+                                    a = document.querySelector("[data-sn='" + items[label][i].dataSN + "']");
+                                    if (a) {
                                         a.dataset.result = cflag;
-                                        a.title = cflag+"; 出现"+len+"次";
-                                    }else{
+                                        a.title = cflag + "; 出现" + len + "次";
+                                    } else {
                                         debugger;
                                     }
                                 }
-                            }  
+                            }
                         }
-                        let style = document.getElementById("style_jingpinfenxi");
-                        if(!style){
-                            style = document.createElement("style");
-                            style.id = "style_jingpinfenxi";
-                            style.title="for竞品分析"
-                        }
-                        style.innerHTML = "a[data-result = 'equal']{background-color:white}" 
-                                        + "a[data-result = 'diff-count']{background-color:yellow}"
-                                        + "a[data-result = 'diff-label']{background-color:yellow}"
-                                        + "a[data-result = 'new']{background-color:rgba(0,255,0,0.5)}";
-                        document.head.appendChild(style);          
-                })()`
+                    })()`
         }, function(datas) {
             resolve(datas);
         });
-    })
+    });
 }
 // 标记多个tab页中的数据
 function markTabsDomTree(opts) {
@@ -278,28 +276,28 @@ function visitDOMInTab(selector, tabid) {
     });
     var animCSS = "@-webkit-keyframes jingpinfenxi_focus_anim {" + "0%{box-shadow: inset 0px 0px 15px 5px red, 0px 0px 15px 5px red;}" + "100%{box-shadow: 0px 0px 0px 0px red, 0px 0px 0px 0px red;}" + "}" + ".jingpinfenxi_focus{-webkit-animation: jingpinfenxi_focus_anim 1s infinite linear;}";
     chrome.tabs.executeScript(+tabid, {
-        code: `(function(){
-                    debugger;
-                    if(!document.getElementById('style_style_jingpinfenxi_focus')){
-                        var style = document.createElement("style");
-                        style.id = 'style_style_jingpinfenxi_focus';
-                        style.innerHTML = "${animCSS}";
-                        document.head.appendChild(style);
-                    }
+        code: ` (function() {
+                                debugger;
+                                if (!document.getElementById('style_style_jingpinfenxi_focus')) {
+                                    var style = document.createElement("style");
+                                    style.id = 'style_style_jingpinfenxi_focus';
+                                    style.innerHTML = "${animCSS}";
+                                    document.head.appendChild(style);
+                                }
 
-                    if(window.lastShowedLinks){
-                        for(let i=0, len = lastShowedLinks.length; i<len; i++){
-                            lastShowedLinks[i].classList.remove("jingpinfenxi_focus");
-                        }
-                    }
-                    let doms = window.lastShowedLinks = document.querySelectorAll("${selector}");
-                    for(let i=0, len = doms.length; i<len; i++){
-                        doms[i].classList.add("jingpinfenxi_focus");
-                    }
-                    doms[0] && doms[0].scrollIntoView();
-                    document.body.scrollTop -= 200;
-                })();
-              `
+                                if (window.lastShowedLinks) {
+                                    for (let i = 0, len = lastShowedLinks.length; i < len; i++) {
+                                        lastShowedLinks[i].classList.remove("jingpinfenxi_focus");
+                                    }
+                                }
+                                let doms = window.lastShowedLinks = document.querySelectorAll("${selector}");
+                                for (let i = 0, len = doms.length; i < len; i++) {
+                                    doms[i].classList.add("jingpinfenxi_focus");
+                                }
+                                doms[0] && doms[0].scrollIntoView();
+                                document.body.scrollTop -= 200;
+                            })();
+                            `
     }, function(data) {});
 
 }
@@ -328,11 +326,6 @@ var progress = (function() {
         }
     }
 })();
-
-//导出数据 
-function exportDataToFile(domid, filename) {
-    tableToExcel(domid, filename);
-}
 
 //初始化
 function init() {
@@ -376,7 +369,9 @@ function init() {
         let section = null;
         if (target.tagName === "BUTTON") {
             let tabid = target.dataset.tabid;
-            let selector = `a[data-url='${target.dataset.url}']`;
+            let selector = `
+                            a[data - url = '${target.dataset.url}']
+                            `;
             visitDOMInTab(selector, tabid);
         }
     }
