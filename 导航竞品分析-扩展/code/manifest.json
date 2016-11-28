@@ -9,15 +9,6 @@
         "default_title": "筛子-打开管理页面",
         "default_popup": "popup.html"
     },
-    //  "content_scripts": [
-    //    {
-    //       "matches": [ "https://*/*"],
-    //       "css": ["content.css"],
-    //       "js": [ "content.js" ],
-    //       "run_at": "document_end",  
-    //       "all_frames": true  
-    //    }
-    // ],
     "icons": {
         "128": "images/icon.png",
         "16": "images/icon.png",

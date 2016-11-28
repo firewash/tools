@@ -231,7 +231,7 @@ function markTabDomTree(opt) {
         chrome.tabs.executeScript(+tabid, {
             code: ` (function() {
                         console.log("将对比结果标记到tab页面");
-                        let data = $ { JSON.stringify(data) };
+                        let data = ${JSON.stringify(data)};
                         let a = null;
                         let cflag = null;
                         let items = null;
