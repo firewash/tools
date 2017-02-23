@@ -1,6 +1,6 @@
 
 // 结果列表的html
-function calResultTableHTMLForOneCat(sitesArr){
+function calResultTableHTMLForOneCat(sitesArr, catName){
     let equalHTML = [];
     let diffCountHTML = [];
     let diffLabelHTML = [];
@@ -67,7 +67,7 @@ function calResultTableHTMLForOneCat(sitesArr){
         concatStr += "</tr>"
     }
 
-    let html = `<table id="resultTable">
+    let html = `<table id="resultTable_${catName}" sheetname="${catName}">
                 <thead>
                     ${ headFragments.join('')}
                     <tr style="background:#BDD7EE;text-align:center;font-weight:bold;">
@@ -94,7 +94,7 @@ function calResultTableHTML(sitesArr) {
                 data: sitesArr[i].data[cat]
             });
         }
-        result[cat] = calResultTableHTMLForOneCat(newsitesArr);
+        result[cat] = calResultTableHTMLForOneCat(newsitesArr, cat);
     });
     return result;
 }

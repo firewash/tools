@@ -23,11 +23,24 @@ var tableToExcel = (function() {
     var base64 = function(s) {
         return window.btoa(unescape(encodeURIComponent(s)))
     };
-    return function(table, fileName = '下载', worksheetName = 'sheet1') {
-        if (!table.nodeType) table = document.getElementById(table)
-            //var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML };
-            //var content = uri + base64(format(template, ctx));
-            //return window.location.href = content;
+    return function(options) {
+        var tables = options.tables;
+        var fileName = options.filename ||'下载';
+        var defalutWorksheetName = 'sheet1';
+        if(typeof tables === "string") {
+            tables = document.querySelectorAll(tables);
+        }
+        var headContent = "";
+        var bodyContent = "";
+        for(var i=0;i<tables.length;i++) {
+            var table = tables[i];
+            //headContent += `<x:ExcelWorksheet>
+            //                    <x:Name>${table.getAttribute('sheetname') || defalutWorksheetName}</x:Name>
+            //                </x:ExcelWorksheet>`; // 搞不定多个sheet页的场景（多个sheet页只能多几个html来对应， 但是无法放到一个html上）
+            headContent += table.getAttribute('sheetname') + ",";
+            bodyContent += `<table>${table.innerHTML}</table>`;
+        }
+
         var content = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
                             <head>
                             <!--[if gte mso 9]>
@@ -35,8 +48,7 @@ var tableToExcel = (function() {
                                 <x:ExcelWorkbook>
                                     <x:ExcelWorksheets>
                                         <x:ExcelWorksheet>
-                                            <x:Name>${worksheetName}</x:Name>
-                                            <x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions>
+                                            <x:Name>${headContent}</x:Name>
                                         </x:ExcelWorksheet>
                                     </x:ExcelWorksheets>
                                 </x:ExcelWorkbook>
@@ -44,8 +56,9 @@ var tableToExcel = (function() {
                             <![endif]-->
                             </head>
                             <body>
-                                <table>${table.innerHTML}</table>
-                            </body></html>`;
+                                ${bodyContent}
+                            </body>
+                         </html>`;
         content = `data:application/vnd.ms-excel;base64,${base64(content)}`;
         var a = document.createElement('a');
         a.download = `${fileName}.xls`;

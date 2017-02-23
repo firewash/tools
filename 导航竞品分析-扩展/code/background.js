@@ -138,7 +138,10 @@ function renderResult(sitesArr) {
         });
 
         let filename = `diff_${hosts.join('_')}_${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
-        tableToExcel('resultTable', filename);
+        tableToExcel({
+            tables:"#result table",
+            filename:filename
+        });
     }
     
     worker.postAndListen('calResultTableHTML', sitesArr, function(data){
@@ -167,24 +170,29 @@ function markTabDomTree(opt) {
         chrome.tabs.executeScript(+tabid, {
             code: ` (function() {
                         console.log("将对比结果标记到tab页面");
-                        let data = ${JSON.stringify(data)};
+                        let datas = ${JSON.stringify(data)};
+                        let data = null;
                         let a = null;
                         let cflag = null;
                         let items = null;
                         let url = "";
+                        let cat = null;
                         let label = "";
                         let i = 0;
-                        for (url in data) {
-                            cflag = data[url].cflag;
-                            items = data[url].items;
-                            for (label in items) {
-                                for (i = 0, len = items[label].length; i < len; i++) {
-                                    a = document.querySelector("[data-sn='" + items[label][i].dataSN + "']");
-                                    if (a) {
-                                        a.dataset.result = cflag;
-                                        a.title = cflag + "; 出现" + len + "次";
-                                    } else {
-                                        debugger;
+                        for(cat in datas){
+                            data = datas[cat];
+                            for (url in data) {
+                                cflag = data[url].cflag;
+                                items = data[url].items;
+                                for (label in items) {
+                                    for (i = 0, len = items[label].length; i < len; i++) {
+                                        a = document.querySelector("[data-sn='" + items[label][i].dataSN + "']");
+                                        if (a) {
+                                            a.dataset.result = cflag;
+                                            a.title = cflag + "; 出现" + len + "次";
+                                        } else {
+                                            debugger;
+                                        }
                                     }
                                 }
                             }

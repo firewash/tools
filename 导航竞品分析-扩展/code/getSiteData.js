@@ -2,8 +2,7 @@
 
 /* 爬取 规则*/
 var rules = {
-
-    "1 酷站分类": {
+    "1_酷站分类": {
         "www.uc123.com":{
             //container:document.body,
             selector: ".cool-list dt a"
@@ -15,7 +14,7 @@ var rules = {
             selector: ".cool-site-bd .item .subtitle a",
         }
     },
-    "2 全部链接": {
+    "2_全部链接": {
         container:document.body,
             selector: "a" // 必须的字段
     }
