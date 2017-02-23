@@ -1,6 +1,6 @@
 
 // 结果列表的html
-function calResultTableHTML(sitesArr){
+function calResultTableHTMLForOneCat(sitesArr){
     let equalHTML = [];
     let diffCountHTML = [];
     let diffLabelHTML = [];
@@ -29,6 +29,7 @@ function calResultTableHTML(sitesArr){
             [],
             []
         ];
+
         let dataKeys = Object.keys(siteData);
         dataKeys.forEach(function(dataKey, dataIndex) {
             let url = dataKey;
@@ -81,7 +82,22 @@ function calResultTableHTML(sitesArr){
      return html;           
 }
 
-
+function calResultTableHTML(sitesArr) {
+    var result = {};
+    var cats = Object.keys(sitesArr[0].data);
+    var siteLength = sitesArr.length;
+    cats.forEach(function(cat, index){
+        var newsitesArr = [];
+        for(let i=0;i<siteLength;i++){
+            newsitesArr.push({
+                tab: sitesArr[i].tab,
+                data: sitesArr[i].data[cat]
+            });
+        }
+        result[cat] = calResultTableHTMLForOneCat(newsitesArr);
+    });
+    return result;
+}
 
 onmessage =function(event) {
     var data = event.data;
@@ -89,7 +105,7 @@ onmessage =function(event) {
         case 'calResultTableHTML':
             postMessage({
                 type: 'calResultTableHTML',
-                value: calResultTableHTML(data.value)
+                    value: calResultTableHTML(data.value)
             });
             break;
     }

@@ -1,5 +1,26 @@
 ﻿console.log('content js');
 
+/* 爬取 规则*/
+var rules = {
+
+    "1 酷站分类": {
+        "www.uc123.com":{
+            //container:document.body,
+            selector: ".cool-list dt a"
+        },
+        "www.hao123.com":{
+            //container:document.body,
+            selector: ".coolsite-itemname"
+        }
+    },
+    "2 全部链接": {
+        container:document.body,
+            selector: "a" // 必须的字段
+    }
+}
+
+
+
 
 /**
  * 提前页面所有的链接，并且对链接进行sn标记
@@ -19,16 +40,24 @@
  * 
  */
 
-function bleedAndMarkData(opt) {
-    opt = opt || {};
-    let rule = opt.rule;
-    let dom = opt.dom||document.body;
-    let data = {};
+function bleedAndMarkData(rules) {
+    rules = rules || {};
+    let result = {};
     let urlReg = /http|htts/;
-    if (rule) {
-        
-    } else {
-        let links = dom.getElementsByTagName("a");
+    debugger
+    for(let rulekey in rules) {
+        if(!rules.hasOwnProperty(rulekey))break;
+        let data = result[rulekey] =  {};
+        let rule = rules[rulekey];
+        if(!rule.selector){
+            rule = rule[location.host];
+        }
+        if(!rule)break;
+        let container = rule.dom;
+        let selector = rule.selector;
+        container =container?((typeof container==='string')?document.querySelector(container):container):document.body;
+
+        let links = container.querySelectorAll(selector);
         // debugger;
         for (let i = 0, len = links.length; i < len; i++) {
             let item = links[i];
@@ -58,9 +87,9 @@ function bleedAndMarkData(opt) {
             }
         }
     }
-    return data;
+    return result;
 }
 
-var data = bleedAndMarkData();
+var data = bleedAndMarkData(rules);
 console.log(data);
 data;

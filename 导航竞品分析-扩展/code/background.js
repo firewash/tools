@@ -6,40 +6,44 @@
 // 比别人不同: ~
 // 比别人少
 function dataCompare(curTab, toTab) {
-    let cur = curTab.data;
-    let to = toTab.data;
-    let url = null;
-    for (url in cur) {
-        if (!to[url]) {
-            cur[url].cflag = 'new';
-            cur[url].des = "本页面有，而对方没有";
-            continue;
-        }
-        let toItemsKeys = Object.keys(to[url].items);
-        let curItemsKeys = Object.keys(cur[url].items);
+    let curData = curTab.data;
+    let toData = toTab.data;
+    for(let cat in curData){
+        let curCat = curData[cat];
+        let toCat = toData[cat];
+        let url = null;
+        for (url in curCat) {
+            if (!toCat[url]) {
+                curCat[url].cflag = 'new';
+                curCat[url].des = "本页面有，而对方没有";
+                continue;
+            }
+            let toItemsKeys = Object.keys(toCat[url].items);
+            let curItemsKeys = Object.keys(curCat[url].items);
 
-        if (toItemsKeys.length !== curItemsKeys.length) {
-            cur[url].cflag = 'diff-count';
-            to[url].cflag = 'diff-count';
-            cur[url].des = `本页面有${curItemsKeys.length}相同链接，对方有${toItemsKeys.length}相同链接`;
-            to[url].des = `本页面有${toItemsKeys.length}相同链接，对方有${curItemsKeys.length}相同链接`;
-            continue;
-        }
+            if (toItemsKeys.length !== curItemsKeys.length) {
+                curCat[url].cflag = 'diff-count';
+                toCat[url].cflag = 'diff-count';
+                curCat[url].des = `本页面有${curItemsKeys.length}相同链接，对方有${toItemsKeys.length}相同链接`;
+                toCat[url].des = `本页面有${toItemsKeys.length}相同链接，对方有${curItemsKeys.length}相同链接`;
+                continue;
+            }
 
-        if (toItemsKeys.join(";") === curItemsKeys.join(";")) {
-            cur[url].cflag = 'equal';
-            to[url].cflag = 'equal';
-            continue;
-        }
+            if (toItemsKeys.join(";") === curItemsKeys.join(";")) {
+                curCat[url].cflag = 'equal';
+                toCat[url].cflag = 'equal';
+                continue;
+            }
 
-        cur[url].cflag = 'diff-label';
-        to[url].cflag = 'diff-label';
-        cur[url].des = cur[url].des = "两个页面的标签内容不同。"
-    }
-    for (url in to) {
-        if (!to[url].cflag) {
-            to[url].cflag = 'new';
-            to[url].des = "本页面有，而对方没有";
+            curCat[url].cflag = 'diff-label';
+            toCat[url].cflag = 'diff-label';
+            curCat[url].des = curCat[url].des = "两个页面的标签内容不同。"
+        }
+        for (url in toCat) {
+            if (!toCat[url].cflag) {
+                toCat[url].cflag = 'new';
+                toCat[url].des = "本页面有，而对方没有";
+            }
         }
     }
     window.forDebugAndWillRemoved = [curTab, toTab];
@@ -67,7 +71,10 @@ const tabManager = (function() {
     let checkedTabArray = [];
 
     function refreshTabList() {
-        chrome.tabs.query({ url: ['http://*/*', 'https://*/*'] }, function(tabs) {
+        chrome.tabs.query({
+            url: ['http://*/*', 'https://*/*'],
+            currentWindow: true
+        }, function(tabs) {
             let html = `<table>
                         <thead>                   
                             <tr>
@@ -135,7 +142,11 @@ function renderResult(sitesArr) {
     }
     
     worker.postAndListen('calResultTableHTML', sitesArr, function(data){
-        $("#result").innerHTML = data;
+        $("#result").innerHTML = "";
+        for(let cat in data){
+            $("#result").innerHTML += "<div><h2>"+cat+"</h2><div>"+data[cat]+"</div></div>"
+        }
+
     });
 
     return true;
