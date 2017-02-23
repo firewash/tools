@@ -9,8 +9,10 @@ var rules = {
             selector: ".cool-list dt a"
         },
         "www.hao123.com":{
-            //container:document.body,
-            selector: ".coolsite-itemname"
+            selector: ".coolsite-itemname",
+        },
+        "hao.360.cn":{
+            selector: ".cool-site-bd .item .subtitle a",
         }
     },
     "2 全部链接": {

@@ -20,5 +20,5 @@
     "permissions": ["clipboardRead", "tabs", "notifications", "contextMenus", "activeTab",
         "unlimitedStorage", "webRequest", "webRequestBlocking", "http://*/*", "https://*/*", "privacy"
     ],	
-    "version": "0.0.1"
+    "version": "0.0.3"
 }

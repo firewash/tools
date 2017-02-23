@@ -9,8 +9,8 @@ function dataCompare(curTab, toTab) {
     let curData = curTab.data;
     let toData = toTab.data;
     for(let cat in curData){
-        let curCat = curData[cat];
-        let toCat = toData[cat];
+        let curCat = curData[cat] || {};
+        let toCat = toData[cat] || {};
         let url = null;
         for (url in curCat) {
             if (!toCat[url]) {
